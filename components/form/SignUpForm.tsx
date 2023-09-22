@@ -121,7 +121,7 @@ const SignUpForm = () => {
                             <RadioGroup
                             onValueChange={field.onChange}
                             defaultValue={field.value}
-                            className="flex space-x-2"
+                            className="flex justify-between"
                             >
                             <FormItem className="flex items-center space-x-3 space-y-0">
                                 <FormControl>
@@ -139,12 +139,12 @@ const SignUpForm = () => {
                                 Tutor
                                 </FormLabel>
                             </FormItem>
-                            <FormItem className="flex items-center space-x-3 space-y-0">
-                                <FormControl>
-                                <RadioGroupItem value="admin" />
-                                </FormControl>
-                                <FormLabel className="font-normal">Admin</FormLabel>
-                            </FormItem>
+                            {/*<FormItem className="flex items-center space-x-3 space-y-0">*/}
+                            {/*    <FormControl>*/}
+                            {/*    <RadioGroupItem value="admin" />*/}
+                            {/*    </FormControl>*/}
+                            {/*    <FormLabel className="font-normal">Admin</FormLabel>*/}
+                            {/*</FormItem>*/}
                             </RadioGroup>
                         </FormControl>
                         <FormMessage />
