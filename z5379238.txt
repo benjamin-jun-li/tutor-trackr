@@ -1,0 +1,6 @@
+Week 1
+We set up a group, and discussed about the project preference. I start to learn the knowledge in front-end.
+
+Week 2
+We set up the github repository, also we had a class with the client. At the weekend we had a meeting discussed about
+the project and the proposal. I finished the user stories and the creation of sprints.
