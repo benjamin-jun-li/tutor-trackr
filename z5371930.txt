@@ -1,0 +1,6 @@
+Week 1
+Group formed, we discussed project preference and tech-stack selection. I learnt basic mongoDB handling operations
+Week 2
+Initialised project repository and had a meeting with client Basem. I started learning GraphQL and how to integrate backend into Next.js
+Week 3
+Work on user interface & system architecture part on project proposal, using Figma to draw interfaces and flow diagram.
