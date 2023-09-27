@@ -1,0 +1,9 @@
+Week 1
+We disscussed the tech-stack we may use in this project. I leraned how to use Apollo framework and mongoDB database to bulid a backend server.
+
+Week 2
+Initialised project repository and had a meeting with client Basem.
+I learned how to use prisma to build and query database. 
+
+Week 3
+I finished the backend server and the database. Working on project proposal system architecture part using Figma to draw interfaces.
