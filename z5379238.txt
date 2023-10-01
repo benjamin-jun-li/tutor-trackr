@@ -4,3 +4,7 @@ We set up a group, and discussed about the project preference. I start to learn 
 Week 2
 We set up the github repository, also we had a class with the client. At the weekend we had a meeting discussed about
 the project and the proposal. I finished the user stories and the creation of sprints.
+
+Week 3
+We had a meeting for the proposal, and we start the first sprint at Tuesday.
+All of our team members checked for the proposal before Friday and we submitted the proposal on Friday.
