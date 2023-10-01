@@ -1,0 +1,10 @@
+Week 1
+Group set up, log in with Jira and other project management groups like discord, discuss the project topic and content
+
+Week 2
+Learn mongoDB, Next js and familiar with our database system
+Write user stories of the project proposal
+
+Week 3
+Write General propose, backgroud and advantages of our project in the project proposal
+Learn mastering Next.js 13.x with GraphQL
