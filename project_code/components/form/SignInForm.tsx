@@ -56,6 +56,8 @@ const SignInForm = () => {
   if (data && data.user) {
     if (data.user.password === form.getValues("password")) {
       alert("Login success");
+      // redirect to the student dashboard
+      redirect("/student/dashboard");
     } else {
       alert("Wrong password");
     }
