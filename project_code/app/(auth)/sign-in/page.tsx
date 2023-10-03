@@ -2,9 +2,9 @@ import SignInForm from "@/components/form/SignInForm"
 
 const page = () => {
   return (
-    <div className="w-full ">
+    <section className="max-w-[18rem]">
         <SignInForm />
-    </div>
+    </section>
   )
 }
 

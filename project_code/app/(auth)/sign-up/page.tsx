@@ -2,9 +2,9 @@ import SignUpForm from "@/components/form/SignUpForm"
 
 const page = () => {
   return (
-    <div className="w-full">
+    <section className="max-w-[18rem]">
         <SignUpForm />
-    </div>
+    </section>
   )
 }
 

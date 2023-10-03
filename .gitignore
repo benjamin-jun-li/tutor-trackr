@@ -2,3 +2,5 @@
 node_modules
 .next
 .idea
+/project_code/package-lock.json
+/project_code/yarn.lock
