@@ -3,7 +3,7 @@ interface adminLayoutProps {
     children: ReactNode
 }
 const AdminLayout: FC<adminLayoutProps> = ({ children }) => {
-    return (<main className='bg-slate-200 p-10 pt-24 rounded-md flex justify-center items-center'>
+    return (<main className="overflow-hidden rounded-[0.5rem] border bg-background shadow">
         { children }
     </main>)
 }
