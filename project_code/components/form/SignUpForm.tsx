@@ -18,8 +18,9 @@ import Link from "next/link";
 import GoogleSignInBtn from "../GoogleSignInBtn";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
+import { GET_USER } from "@/graphql/queries";
 import { ADD_USER } from "@/graphql/mutations";
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 
 const FormSchema = z
   .object({
@@ -41,7 +42,7 @@ const FormSchema = z
   });
 
 const SignUpForm = () => {
-  const [addUser] = useMutation(ADD_USER);
+  const [addUser, { data, loading, error }] = useMutation(ADD_USER);
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -60,10 +61,13 @@ const SignUpForm = () => {
         name: values.username,
         email: values.email,
         password: values.password,
+        identity: values.identity,
       },
     });
   };
-
+  if (error) {
+    alert(error);
+  }
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
