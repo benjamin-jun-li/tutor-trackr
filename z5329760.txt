@@ -1,13 +1,12 @@
 Week 1
-
 Group setup.
 Logged into Jira and other project management tools such as Discord.
 Discussed the project topic and content.
-Week 2
 
+Week 2
 Learned Next.js.
 Studied TailwindCSS for styling and design purposes.
-Week 3
 
+Week 3
 Delved into mastering Next.js 13.x integrated with GraphQL.
 Modified the format of the proposal for better clarity and presentation.
