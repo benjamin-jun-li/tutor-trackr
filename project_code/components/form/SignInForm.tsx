@@ -16,6 +16,7 @@ import {
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import GoogleSignInBtn from "../GoogleSignInBtn";
+import { redirect } from "next/navigation";
 
 import { GET_USER } from "@/graphql/queries";
 import { useLazyQuery } from "@apollo/client";

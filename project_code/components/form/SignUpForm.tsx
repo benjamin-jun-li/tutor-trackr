@@ -18,9 +18,10 @@ import Link from "next/link";
 import GoogleSignInBtn from "../GoogleSignInBtn";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
-import { GET_USER } from "@/graphql/queries";
 import { ADD_USER } from "@/graphql/mutations";
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
+import { redirect } from "next/navigation"
+
 
 const FormSchema = z
   .object({
