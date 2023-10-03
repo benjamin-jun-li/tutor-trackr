@@ -16,6 +16,7 @@ import {
 import { Input } from "@/components/ui/input"
 import Link from "next/link"
 import GoogleSignInBtn from "../GoogleSignInBtn"
+import { redirect } from "next/navigation"
 
 const FormSchema = z.object({
     email: z.string().min(1, 'Email is required').email('Invalid email'),
