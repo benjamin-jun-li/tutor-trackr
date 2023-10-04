@@ -3,6 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+import { CSSProperties } from 'react';
 
 import { Button } from "@/components/ui/button";
 import {
@@ -22,6 +23,14 @@ import { ADD_USER } from "@/graphql/mutations";
 import { useMutation } from "@apollo/client";
 import { redirect } from "next/navigation"
 
+const fullscreenContainerStyle: CSSProperties = {
+  display: "flex",
+  flexDirection: "column",
+  minHeight: "100vh",
+  justifyContent: "center",
+  alignItems: "center",
+  padding: "20px"
+};
 
 const FormSchema = z
   .object({
@@ -70,116 +79,117 @@ const SignUpForm = () => {
     alert(error);
   }
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
-        <div className="space-y-2">
-          <FormField
-            control={form.control}
-            name="username"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Username</FormLabel>
-                <FormControl>
-                  <Input placeholder="haydensmith" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Email</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="mail@example.com"
-                    type="email"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="password"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Password</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="Enter your password"
-                    type="password"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="confirmPassword"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Re-Enter your Password</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="Re-Enter your Password"
-                    type="password"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+    <div style={fullscreenContainerStyle}>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
+          <div className="space-y-2">
+            <FormField
+              control={form.control}
+              name="username"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Username</FormLabel>
+                  <FormControl>
+                    <Input placeholder="haydensmith" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Email</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="mail@example.com"
+                      type="email"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Password</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="Enter your password"
+                      type="password"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="confirmPassword"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Re-Enter your Password</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="Re-Enter your Password"
+                      type="password"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-          <FormField
-            control={form.control}
-            name="identity"
-            render={({ field }) => (
-              <FormItem className="space-y-3">
-                <FormLabel>Your Identity</FormLabel>
-                <FormControl>
-                  <RadioGroup
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                    className="flex justify-between"
-                  >
-                    <FormItem className="flex items-center space-x-3 space-y-0">
-                      <FormControl>
-                        <RadioGroupItem value="student" />
-                      </FormControl>
-                      <FormLabel className="font-normal">Student</FormLabel>
-                    </FormItem>
-                    <FormItem className="flex items-center space-x-3 space-y-0">
-                      <FormControl>
-                        <RadioGroupItem value="tutor" />
-                      </FormControl>
-                      <FormLabel className="font-normal">Tutor</FormLabel>
-                    </FormItem>
-                    {/*<FormItem className="flex items-center space-x-3 space-y-0">*/}
-                    {/*    <FormControl>*/}
-                    {/*    <RadioGroupItem value="admin" />*/}
-                    {/*    </FormControl>*/}
-                    {/*    <FormLabel className="font-normal">Admin</FormLabel>*/}
-                    {/*</FormItem>*/}
-                  </RadioGroup>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
+            <FormField
+              control={form.control}
+              name="identity"
+              render={({ field }) => (
+                <FormItem className="space-y-3">
+                  <FormLabel>Your Identity</FormLabel>
+                  <FormControl>
+                    <RadioGroup
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      className="flex justify-between"
+                    >
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="student" />
+                        </FormControl>
+                        <FormLabel className="font-normal">Student</FormLabel>
+                      </FormItem>
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="tutor" />
+                        </FormControl>
+                        <FormLabel className="font-normal">Tutor</FormLabel>
+                      </FormItem>
+                      {/*<FormItem className="flex items-center space-x-3 space-y-0">*/}
+                      {/*    <FormControl>*/}
+                      {/*    <RadioGroupItem value="admin" />*/}
+                      {/*    </FormControl>*/}
+                      {/*    <FormLabel className="font-normal">Admin</FormLabel>*/}
+                      {/*</FormItem>*/}
+                    </RadioGroup>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
 
-        <Button className="w-full mt-6" type="submit">
-          Sign up
-        </Button>
-      </form>
+          <Button className="w-full mt-6" type="submit">
+            Sign up
+          </Button>
+        </form>
       <div
         className="mx-auto my-4 flex w-full items-center justify-evenly 
             before:mr-4 before:block before:h-px before:flex-grow before:bg-stone-400 
@@ -195,6 +205,7 @@ const SignUpForm = () => {
         </Link>
       </p>
     </Form>
+  </div>
   );
 };
 

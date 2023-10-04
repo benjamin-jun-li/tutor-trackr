@@ -3,6 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+import { CSSProperties } from 'react';
 
 import { Button } from "@/components/ui/button";
 import {
@@ -20,6 +21,15 @@ import { redirect } from "next/navigation";
 
 import { GET_USER } from "@/graphql/queries";
 import { useLazyQuery } from "@apollo/client";
+
+const fullscreenContainerStyle: CSSProperties = {
+  display: "flex",
+  flexDirection: "column",
+  minHeight: "100vh",
+  justifyContent: "center",
+  alignItems: "center",
+  padding: "20px"
+};
 
 const FormSchema = z.object({
   email: z.string().min(1, "Email is required").email("Invalid email"),
@@ -64,7 +74,7 @@ const SignInForm = () => {
   }
 
   return (
-    <div>
+    <div style={fullscreenContainerStyle}>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
           <div className="space-y-2">
