@@ -44,7 +44,7 @@ const FormSchema = z
       .min(1, "Password is required")
       .min(8, "Password must be at least 8 characters"),
     confirmPassword: z.string().min(1, "Password confirmation is required"),
-    identity: z.enum(["student", "tutor", "admin"]),
+    identity: z.enum(["student", "tutor"]),
   })
   .refine((data) => data.password === data.confirmPassword, {
     path: ["confirmPassword"],

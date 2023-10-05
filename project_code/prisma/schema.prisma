@@ -13,12 +13,17 @@ model User {
   name String
   email String @unique
   password String
+  identity UserRole
 }
 
-// enum UserRole {
-//   student
-//   tutor
-// }
+enum UserRole {
+  student
+  tutor
+  siteAdmin
+  tutorAdmin
+}
+
+
 
 
 

@@ -21,6 +21,7 @@ export const resolvers = {
             name: args.name,
             email: args.email,
             password: args.password,
+            identity: args.role,
           },
         });
       } catch (error: any) {
