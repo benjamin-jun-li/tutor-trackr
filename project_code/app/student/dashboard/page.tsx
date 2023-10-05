@@ -67,13 +67,16 @@ export default function DashboardPage() {
             </div>
 
             <div className="col-span-1 flex flex-col justify-center items-center space-y-2">
-              <h3 className="flex justify-center items-center text-2xl">Your Reservation</h3>
-              <Calendar
-                  mode="single"
-                  selected={date}
-                  onSelect={setDate}
-                  className="rounded-md border shadow"
-              />
+              <div className="fixed justify-center items-center">
+                <h3 className="flex justify-center items-center text-2xl">Your Reservation</h3>
+                <Calendar
+                    mode="single"
+                    selected={date}
+                    onSelect={setDate}
+                    className="rounded-md border shadow"
+                />
+              </div>
+
             </div>
           </div>
         </div>
