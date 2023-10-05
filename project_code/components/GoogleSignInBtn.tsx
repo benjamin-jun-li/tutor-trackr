@@ -1,4 +1,4 @@
-import { FC, ReactNode } from "react"
+import { FC, ReactNode, useState } from "react"
 import { Button } from "./ui/button"
 
 interface GoogleSignInBtnProps {
@@ -6,8 +6,25 @@ interface GoogleSignInBtnProps {
 }
 
 const GoogleSignInBtn: FC<GoogleSignInBtnProps> = ({ children }) => {
+    const [redirectUrl, setRedirectUrl] = useState<string | null>(null);
+
     const loginWithGoogle = () => {
-        console.log("login with google")
+        const clientId = "702499301347-78ac0vqh78ci69svej55aon0jjq50cle.apps.googleusercontent.com";
+        const authUrl = `https://accounts.google.com/o/oauth2/auth?client_id=${clientId}&redirect_uri=${window.location.origin}&response_type=code&scope=email%20profile`;
+
+        fetch("YOUR_BACKEND_ENDPOINT")
+            .then(response => response.json())
+            .then(data => {
+                setRedirectUrl(data.redirectUrl);
+            })
+            .catch(error => console.error("Error:", error));
+        
+        window.location.href = authUrl;
+    }
+
+    if (redirectUrl) {
+        window.location.href = redirectUrl; 
+        return null; 
     }
 
     return (
@@ -17,4 +34,4 @@ const GoogleSignInBtn: FC<GoogleSignInBtnProps> = ({ children }) => {
     )
 }
 
-export default GoogleSignInBtn
+export default GoogleSignInBtn;
