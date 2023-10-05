@@ -3,7 +3,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { CSSProperties } from 'react';
 
 import { Button } from "@/components/ui/button";
 import {
@@ -22,15 +21,6 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { ADD_USER } from "@/graphql/mutations";
 import { useMutation } from "@apollo/client";
 import { redirect } from "next/navigation"
-
-const fullscreenContainerStyle: CSSProperties = {
-  display: "flex",
-  flexDirection: "column",
-  minHeight: "100vh",
-  justifyContent: "center",
-  alignItems: "center",
-  padding: "20px"
-};
 
 const FormSchema = z
   .object({
@@ -81,7 +71,6 @@ const SignUpForm = () => {
     alert(error);
   }
   return (
-    <div style={fullscreenContainerStyle}>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
           <div className="space-y-2">
@@ -207,7 +196,6 @@ const SignUpForm = () => {
         </Link>
       </p>
     </Form>
-  </div>
   );
 };
 
