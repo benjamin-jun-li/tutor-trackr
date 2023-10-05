@@ -73,7 +73,9 @@ const SignUpForm = () => {
         password: values.password,
         identity: values.identity,
       },
-    });
+    }).then(
+        redirect(`/${values.identity}/dashboard/`)
+    );
   };
   if (error) {
     alert(error);
