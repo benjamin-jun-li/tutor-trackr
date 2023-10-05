@@ -10,6 +10,11 @@ export const resolvers = {
         },
       });
     },
+
+    //get course list
+    course: async (_parent: any, args: any, context: Context) => {
+      return await context.prisma.course.findMany();
+    },
   },
 
   Mutation: {
@@ -21,7 +26,7 @@ export const resolvers = {
             name: args.name,
             email: args.email,
             password: args.password,
-            identity: args.role,
+            identity: args.identity,
           },
         });
       } catch (error: any) {

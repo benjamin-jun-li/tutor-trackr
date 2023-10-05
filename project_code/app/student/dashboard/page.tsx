@@ -14,7 +14,7 @@ export default function DashboardPage() {
             <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
           </div>
           <div className="grid grid-cols-3 gap-4">
-            <div className="col-span-2 flex flex-col justify-center items-center">
+            <div className="col-span-2 flex flex-col justify-center items-center space-y-2">
               <div>
                 <h2 className="font-bold text-2xl">View Courses</h2>
               </div>
@@ -67,13 +67,16 @@ export default function DashboardPage() {
             </div>
 
             <div className="col-span-1 flex flex-col justify-center items-center space-y-2">
-              <h3 className="flex justify-center items-center text-2xl">Your Reservation</h3>
-              <Calendar
-                  mode="single"
-                  selected={date}
-                  onSelect={setDate}
-                  className="rounded-md border shadow"
-              />
+              <div className="fixed justify-center items-center">
+                <h3 className="flex justify-center items-center text-2xl">Your Reservation</h3>
+                <Calendar
+                    mode="single"
+                    selected={date}
+                    onSelect={setDate}
+                    className="rounded-md border shadow"
+                />
+              </div>
+
             </div>
           </div>
         </div>

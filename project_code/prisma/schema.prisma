@@ -16,6 +16,14 @@ model User {
   identity UserRole
 }
 
+model Course {
+  id    String  @id @default(auto()) @map("_id") @db.ObjectId
+  name String
+  description String
+  comments String[]
+  thumbnail String
+}
+
 enum UserRole {
   student
   tutor

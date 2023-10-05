@@ -20,8 +20,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 import { ADD_USER } from "@/graphql/mutations";
 import { useMutation } from "@apollo/client";
-import { redirect } from "next/navigation"
-
+import { useRouter } from "next/navigation"
 const FormSchema = z
   .object({
     username: z
@@ -43,7 +42,7 @@ const FormSchema = z
 
 const SignUpForm = () => {
   const [addUser, { data, loading, error }] = useMutation(ADD_USER);
-
+  const router = useRouter()
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -56,20 +55,21 @@ const SignUpForm = () => {
   });
 
   const onSubmit = (values: z.infer<typeof FormSchema>) => {
-    addUser({
-      variables: {
-        name: values.username,
-        email: values.email,
-        password: values.password,
-        identity: values.identity,
-      },
-    }).then(
-        redirect(`/${values.identity}/dashboard/`)
-    );
+    try {
+        addUser({
+            variables: {
+                name: values.username,
+                email: values.email,
+                password: values.password,
+                identity: values.identity,
+            },
+        })
+        router.push(`/${values.identity}/dashboard/`)
+    }
+    catch(error) {
+        console.log(error);
+    }
   };
-  if (error) {
-    alert(error);
-  }
   return (
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">

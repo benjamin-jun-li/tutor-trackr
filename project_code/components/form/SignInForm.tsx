@@ -47,8 +47,6 @@ const SignInForm = () => {
   if (loading) {
     return <p>Loading...</p>;
   }
-
-  console.log(error);
   if (data && !data.user) {
     alert("User not found");
   }
