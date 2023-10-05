@@ -22,6 +22,6 @@ export const typeDefs = `#graphql
   }
 
   type Mutation {
-    addUser (name:String, email:String,password:String) : User
+    addUser (name:String, email:String,password:String,identity:String) : User
   }
 `;
