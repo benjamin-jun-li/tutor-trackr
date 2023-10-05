@@ -53,9 +53,13 @@ const SignInForm = () => {
 
   if (data && data.user) {
     if (data.user.password === form.getValues("password")) {
-      alert("Login success");
+      // alert("Login success");
+      localStorage.setItem("userEmail", data.user.email);
+
+      const userIdentity = data.user.identity.toLowerCase();
+
       // redirect to the student dashboard
-      redirect("/student/dashboard");
+      redirect(`/${userIdentity}/dashboard`);
     } else {
       alert("Wrong password");
     }
