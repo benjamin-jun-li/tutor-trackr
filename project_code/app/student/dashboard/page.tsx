@@ -14,7 +14,7 @@ export default function DashboardPage() {
             <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
           </div>
           <div className="grid grid-cols-3 gap-4">
-            <div className="col-span-2 flex flex-col justify-center items-center">
+            <div className="col-span-2 flex flex-col justify-center items-center space-y-2">
               <div>
                 <h2 className="font-bold text-2xl">View Courses</h2>
               </div>
