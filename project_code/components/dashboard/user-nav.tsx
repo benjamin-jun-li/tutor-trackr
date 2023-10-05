@@ -15,7 +15,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
-export function UserNav() {
+interface NavbarProps {
+  userEmail: string;
+  userName: string;
+}
+
+export function UserNav(NavbarProps: NavbarProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -29,9 +34,9 @@ export function UserNav() {
       <DropdownMenuContent className="w-56" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">User Name</p>
+            <p className="text-sm font-medium leading-none">{NavbarProps.userName}</p>
             <p className="text-xs leading-none text-muted-foreground">
-              user@example.com
+              {NavbarProps.userEmail}
             </p>
           </div>
         </DropdownMenuLabel>

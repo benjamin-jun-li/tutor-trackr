@@ -6,8 +6,22 @@ import React from 'react'
 import { buttonVariants } from './ui/button'
 import { HandMetal } from 'lucide-react'
 import { UserNav } from "@/components/dashboard/user-nav"
+import { useQuery } from "@apollo/client"
+import { GET_USER } from "@/graphql/queries"
 
 const Navbar = () => {
+  const userEmail: string = localStorage.getItem('userEmail')!;
+
+  const { loading, error, data } = useQuery(GET_USER, {
+    variables: { email: userEmail },
+  });
+
+  let userName = '';
+
+  if (data) {
+    userName = data.user.name;
+  }
+
   const pathname = usePathname();
 
   let isAdminPage = false;
@@ -25,7 +39,7 @@ const Navbar = () => {
   const renderContent = () => {
     if (isAdminPage || isTutorPage || isStudentPage) {
       // 如果是管理员、导师或学生页面，则显示Avatar组件
-      return <UserNav />;
+      return <UserNav userName={userName} userEmail={userEmail} />;
     } else {
       // 否则显示默认的"Sign in"按钮
       return <Link className={buttonVariants()} href='/sign-in'>Sign in</Link>;
