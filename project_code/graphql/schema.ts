@@ -10,8 +10,8 @@ export const typeDefs = `#graphql
   type Course {
     id:   ID!
     name: String
-    description: String
-    comments: String
+    discription: String
+    comments: [String]
     thumbnail: String
   }
 

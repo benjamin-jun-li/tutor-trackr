@@ -12,12 +12,12 @@ export const GET_USER = gql`
   }
 `;
 
-export const GET_COURSE = gql`
+export const GET_COURSES = gql`
   query Course {
     course {
       id
       name
-      description
+      discription
       comments
       thumbnail
     }
