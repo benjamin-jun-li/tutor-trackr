@@ -27,6 +27,7 @@ export default function DashboardPage() {
                   <div
                     id={course.id}
                     className="card card-compact bg-base-100 shadow-xl"
+                    key={course.id}
                   >
                     <figure>
                       <Image

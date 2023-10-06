@@ -14,6 +14,7 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import {usePathname, useRouter} from "next/navigation";
 
 interface NavbarProps {
   userEmail: string;
@@ -21,6 +22,19 @@ interface NavbarProps {
 }
 
 export function UserNav(NavbarProps: NavbarProps) {
+  const router = useRouter();
+  let currentPath = usePathname();
+
+  currentPath =
+      currentPath?.startsWith('/student') ? '/student' :
+          currentPath?.startsWith('/tutor') ? '/tutor' :
+              currentPath;
+
+  const handleProfileClick = () => {
+    // add a 'profile' route at the end of the url
+    router.push(currentPath + '/profile');
+  };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -42,7 +56,7 @@ export function UserNav(NavbarProps: NavbarProps) {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem>
+          <DropdownMenuItem onClick={handleProfileClick}>
             Profile
             <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
           </DropdownMenuItem>

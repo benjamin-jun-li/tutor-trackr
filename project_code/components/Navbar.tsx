@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import { buttonVariants } from './ui/button'
 import { HandMetal } from 'lucide-react'
 import { UserNav } from "@/components/dashboard/user-nav"
@@ -10,16 +10,22 @@ import { useQuery } from "@apollo/client"
 import { GET_USER } from "@/graphql/queries"
 
 const Navbar = () => {
-  const userEmail: string = localStorage.getItem('userEmail')!;
+  let userName = '';
+
+  const [userEmail, setUserEmail] = useState('')
+
+  useEffect(() => {
+    let emailValue;
+    emailValue = localStorage.getItem('userEmail') || '';
+    setUserEmail(emailValue)
+  }, []);
 
   const { loading, error, data } = useQuery(GET_USER, {
     variables: { email: userEmail },
   });
 
-  let userName = '';
-
   if (data) {
-    userName = data.user.name;
+    userName = data.user?.name;
   }
 
   const pathname = usePathname();
