@@ -1,13 +1,13 @@
 "use client";
 
-import * as React from "react";
+import { useState } from "react";
 import Image from "next/image";
 import { Calendar } from "@/components/ui/calendar";
 import { GET_COURSES } from "@/graphql/queries";
 import { useQuery } from "@apollo/client";
 
 export default function DashboardPage() {
-  const [date, setDate] = React.useState<Date | undefined>(new Date());
+  const [date, setDate] = useState<Date | undefined>(new Date());
   const { data, loading, error } = useQuery(GET_COURSES);
 
   return (
