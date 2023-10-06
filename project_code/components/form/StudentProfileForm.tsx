@@ -24,6 +24,7 @@ import { toast } from "@/components/ui/use-toast"
 import {useEffect, useState} from "react";
 import {useQuery} from "@apollo/client";
 import {GET_USER} from "@/graphql/queries";
+import {usePathname, useRouter} from "next/navigation";
 
 const profileFormSchema = z.object({
     avatar: z
@@ -69,6 +70,19 @@ export function StudentProfileForm() {
         resolver: zodResolver(profileFormSchema),
         mode: "onChange",
     })
+
+    const router = useRouter();
+    let currentPath = usePathname();
+
+    currentPath =
+        currentPath?.startsWith('/student') ? '/student' :
+            currentPath?.startsWith('/tutor') ? '/tutor' :
+                currentPath;
+
+    const handleDashboardClick = () => {
+        // add a 'profile' route at the end of the url
+        router.push(currentPath + '/dashboard');
+    };
 
     function onSubmit(data: ProfileFormValues) {
         toast({
@@ -238,7 +252,11 @@ export function StudentProfileForm() {
                         </FormItem>
                     )}
                 />
-                <Button type="submit">Update profile</Button>
+                <div className="flex space-x-4">
+                    <Button type="submit">Update profile</Button>
+                    <Button onClick={handleDashboardClick}>Back</Button>
+                </div>
+
             </form>
         </Form>
     )
