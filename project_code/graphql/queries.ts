@@ -23,3 +23,19 @@ export const GET_COURSES = gql`
     }
   }
 `;
+
+export const GET_PROFILE = gql`
+  query GetProfile($email: String!) {
+    getStudentProfile(email: $email) {
+      id
+      thumbnail
+      email
+      username
+      phone
+      address
+      timeZone
+      biography
+      accountBalance
+    }
+  }
+`;

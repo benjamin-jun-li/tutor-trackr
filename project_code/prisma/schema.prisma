@@ -19,9 +19,21 @@ model User {
 model Course {
   id    String  @id @default(auto()) @map("_id") @db.ObjectId
   name String
-  discription String
+  description String
   comments String[]
   thumbnail String
+}
+
+model StudentProfile {
+  id             String  @id @default(auto()) @map("_id") @db.ObjectId
+  thumbnail      String? 
+  email          String  @unique
+  username       String  
+  phone          String? 
+  address        String? 
+  timeZone       String? 
+  biography      String? 
+  accountBalance String? 
 }
 
 enum UserRole {

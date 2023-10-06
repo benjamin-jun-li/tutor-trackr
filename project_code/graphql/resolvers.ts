@@ -15,6 +15,16 @@ export const resolvers = {
     course: async (_parent: any, args: any, context: Context) => {
       return await context.prisma.course.findMany();
     },
+
+    //get student profile
+    profile: async (_parent: any, args: any, context: Context) => {
+      return await context.prisma.studentProfile.findUnique({
+        where: {
+          email: args.email,
+        },
+      });
+    },
+
   },
 
   Mutation: {
@@ -39,6 +49,24 @@ export const resolvers = {
           throw error; // This line will throw any other errors that might occur
         }
       }
+    },
+
+    // update student profile
+    updateStudentProfile: async(_parent: any, args: any, context: Context) => {
+      return await context.prisma.studentProfile.update({
+        where: {
+          email: args.email,
+        },
+        data: {
+          thumbnail: args.thumbnail,
+          username: args.unsername,
+          phone: args.phone,
+          address: args.address,
+          timeZone: args.timeZone,
+          biography: args.biography,
+          accountBalance: args.accountBalance,
+        },
+      });
     },
   },
 };
