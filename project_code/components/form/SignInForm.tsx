@@ -20,6 +20,7 @@ import { redirect } from "next/navigation";
 
 import { GET_USER } from "@/graphql/queries";
 import { useLazyQuery } from "@apollo/client";
+import {RadioGroup, RadioGroupItem} from "@/components/ui/radio-group";
 
 const FormSchema = z.object({
   email: z.string().min(1, "Email is required").email("Invalid email"),
@@ -27,6 +28,7 @@ const FormSchema = z.object({
     .string()
     .min(1, "Password is required")
     .min(8, "Password must be at least 8 characters"),
+  identity: z.enum(["student", "tutor"]),
 });
 
 const SignInForm = () => {
@@ -41,11 +43,11 @@ const SignInForm = () => {
   const onSubmit = (values: z.infer<typeof FormSchema>) => {
     user({ variables: { email: values.email } });
   };
-
+  //TODO add cases for login roles
   const [user, { loading, error, data }] = useLazyQuery(GET_USER);
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <span className="loading loading-bars loading-lg"></span>;
   }
   if (data && !data.user) {
     alert("User not found");
@@ -55,7 +57,6 @@ const SignInForm = () => {
     if (data.user.password === form.getValues("password")) {
       // alert("Login success");
       localStorage.setItem("userEmail", data.user.email);
-
       const userIdentity = data.user.identity.toLowerCase();
 
       // redirect to the student dashboard
@@ -105,6 +106,37 @@ const SignInForm = () => {
             />
           </div>
 
+            <FormField
+                control={form.control}
+                name="identity"
+                render={({ field }) => (
+                    <FormItem className="space-y-3">
+                        <FormLabel>Your Identity</FormLabel>
+                        <FormControl>
+                            <RadioGroup
+                                onValueChange={field.onChange}
+                                defaultValue={field.value}
+                                className="flex justify-evenly border-solid border-2 border-sky-600 p-2 rounded-full"
+                            >
+                                <FormItem className="flex items-center space-x-3 space-y-0">
+                                    <FormControl>
+                                        <RadioGroupItem value="student" />
+                                    </FormControl>
+                                    <FormLabel className="font-normal">Student</FormLabel>
+                                </FormItem>
+                                <FormItem className="flex items-center space-x-3 space-y-0">
+                                    <FormControl>
+                                        <RadioGroupItem value="tutor" />
+                                    </FormControl>
+                                    <FormLabel className="font-normal">Tutor</FormLabel>
+                                </FormItem>
+                            </RadioGroup>
+                        </FormControl>
+                        <FormMessage />
+                    </FormItem>
+                )}
+            />
+
           <Button className="w-full mt-6" type="submit">
             Sign in
           </Button>
@@ -119,7 +151,7 @@ const SignInForm = () => {
         <GoogleSignInBtn>Sign in with Google</GoogleSignInBtn>
         <p className="text-center text-sm text-gray-600 mt-2">
           If you don&apos;t have an account, please&nbsp;
-          <Link className="text-blue-500 hover:underline" href="/sign-up">
+          <Link className="text-blue-500 hover:underline" href="/register">
             Sign up
           </Link>
         </p>

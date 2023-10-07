@@ -48,7 +48,7 @@ const Navbar = () => {
       return <UserNav userName={userName} userEmail={userEmail} />;
     } else {
       // 否则显示默认的"Sign in"按钮
-      return <Link className={buttonVariants()} href='/sign-in'>Sign in</Link>;
+      return <Link className={buttonVariants()} href='/login'>Sign in</Link>;
     }
   };
 

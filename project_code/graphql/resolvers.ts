@@ -4,7 +4,7 @@ export const resolvers = {
   Query: {
     //get user by email
     user: async (_parent: any, args: any, context: Context) => {
-      return await context.prisma.user.findUnique({
+      return context.prisma.user.findUnique({
         where: {
           email: args.email,
         },
@@ -13,7 +13,7 @@ export const resolvers = {
 
     //get course list
     course: async (_parent: any, args: any, context: Context) => {
-      return await context.prisma.course.findMany();
+      return context.prisma.course.findMany();
     },
   },
 

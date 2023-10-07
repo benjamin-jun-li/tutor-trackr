@@ -10,11 +10,15 @@ yarn install
 
 to install all dependencies.
 
-Then initinalize prisma and start the server:
-
-```
-npx prisma db push
-```
+Then initialise prisma and start the server:
+- Generate types for prisma client 
+    ```
+    npx prisma generate
+    ```
+- Config ORM with MongoDB
+    ```
+    npx prisma db push
+    ```
 
 After that, run the development server:
 
