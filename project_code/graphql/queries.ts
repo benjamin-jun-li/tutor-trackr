@@ -24,7 +24,7 @@ export const GET_COURSES = gql`
   }
 `;
 
-export const GET_PROFILE = gql`
+export const GET_STUDENT_PROFILE = gql`
   query StudentProfile($email: String!) {
     getStudentProfile(email: $email) {
       id
@@ -36,6 +36,23 @@ export const GET_PROFILE = gql`
       timeZone
       biography
       accountBalance
+    }
+  }
+`;
+
+export const GET_TUTOR_PROFILE = gql`
+  query TutorProfile($email: String!) {
+    getTutorProfile(email: $email) {
+      id
+      thumbnail
+      email
+      username
+      phone
+      address
+      timeZone
+      accountBalance
+      experienceSummary
+      courseCanTeach
     }
   }
 `;
