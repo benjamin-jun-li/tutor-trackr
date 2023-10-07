@@ -54,6 +54,10 @@ const SignUpForm = () => {
     },
   });
 
+  if (loading) {
+      return <span className="loading loading-bars loading-lg"></span>;
+  }
+
   const onSubmit = (values: z.infer<typeof FormSchema>) => {
     try {
         addUser({

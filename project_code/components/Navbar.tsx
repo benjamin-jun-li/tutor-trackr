@@ -36,7 +36,7 @@ const Navbar = () => {
 
   if (pathname !== null) {
     // 判断当前页面是否属于管理员、导师或学生页面
-    isAdminPage = pathname.startsWith('/admin/');
+    isAdminPage = pathname.includes('/siteadmin/') || pathname.includes('/tutoradmin/');
     isTutorPage = pathname.startsWith('/tutor/');
     isStudentPage = pathname.startsWith('/student/');
   }

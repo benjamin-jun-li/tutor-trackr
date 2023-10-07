@@ -1,6 +1,6 @@
 const TutorAdmin = () => {
     return (
-        <div></div>
+        <section></section>
     )
 }
 

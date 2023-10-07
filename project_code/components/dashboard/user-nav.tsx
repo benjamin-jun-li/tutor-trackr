@@ -14,7 +14,8 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import {usePathname, useRouter} from "next/navigation";
+import {usePathname } from "next/navigation";
+import Link from "next/link";
 
 interface NavbarProps {
   userEmail: string;
@@ -22,18 +23,12 @@ interface NavbarProps {
 }
 
 export function UserNav(NavbarProps: NavbarProps) {
-  const router = useRouter();
   let currentPath = usePathname();
 
   currentPath =
       currentPath?.startsWith('/student') ? '/student' :
           currentPath?.startsWith('/tutor') ? '/tutor' :
               currentPath;
-
-  const handleProfileClick = () => {
-    // add a 'profile' route at the end of the url
-    router.push(currentPath + '/profile');
-  };
 
   return (
     <DropdownMenu>
@@ -56,10 +51,12 @@ export function UserNav(NavbarProps: NavbarProps) {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem onClick={handleProfileClick}>
-            Profile
-            <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
-          </DropdownMenuItem>
+          <Link href={`${currentPath}/profile`}>
+            <DropdownMenuItem>
+              Profile
+              <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
+            </DropdownMenuItem>
+          </Link>
           <DropdownMenuItem>
             Notification
             <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
@@ -70,10 +67,12 @@ export function UserNav(NavbarProps: NavbarProps) {
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          Log out
-          <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
-        </DropdownMenuItem>
+        <Link href={"/"}>
+          <DropdownMenuItem>
+            Log out
+            <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+          </DropdownMenuItem>
+        </Link>
       </DropdownMenuContent>
     </DropdownMenu>
   )
