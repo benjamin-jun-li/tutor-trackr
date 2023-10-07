@@ -1,11 +1,36 @@
 export const typeDefs = `#graphql 
-  type User {
-    id: ID!
-    name: String
-    email: String
-    password: String
-    identity: String
+ 
+  type Student {
+    id    ID!
+    name String
+    email String 
+    password String
+    courses Course[]
   }
+
+  type Tutor {
+    id    ID!
+    name String
+    email String 
+    password String
+    courses Course[]
+  }
+
+  type SiteAdmin {
+    id    ID!
+    name String
+    email String 
+    password String
+  }
+
+
+  type TutorAdmin {
+    id    ID!
+    name String
+    email String 
+    password String
+  }
+  
 
   type Course {
     id:   ID!
@@ -13,6 +38,8 @@ export const typeDefs = `#graphql
     discription: String
     comments: [String]
     thumbnail: String
+    students: [Student]  
+    tutors: [Tutor]
   }
 
   type StudentProfile {

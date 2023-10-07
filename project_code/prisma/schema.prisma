@@ -8,12 +8,33 @@ datasource db {
 }
 
 // model table
-model User {
+model Student {
   id    String  @id @default(auto()) @map("_id") @db.ObjectId
   name String
   email String @unique
   password String
-  identity UserRole
+  courses Course[]
+}
+model Tutor {
+  id    String  @id @default(auto()) @map("_id") @db.ObjectId
+  name String
+  email String @unique
+  password String
+  courses Course[]
+}
+
+model SiteAdmin {
+  id    String  @id @default(auto()) @map("_id") @db.ObjectId
+  name String
+  email String @unique
+  password String
+}
+
+model TutorAdmin {
+  id    String  @id @default(auto()) @map("_id") @db.ObjectId
+  name String
+  email String @unique
+  password String
 }
 
 model Course {
@@ -22,6 +43,10 @@ model Course {
   description String?
   comments String[]
   thumbnail String
+  students Student @relation(fields: [studentId], references: [id])
+  studentId String @db.ObjectId
+  tutors Tutor @relation(fields: [tutorId], references: [id])
+  tutorId String @db.ObjectId
 }
 
 model StudentProfile {
@@ -36,12 +61,6 @@ model StudentProfile {
   accountBalance String? 
 }
 
-enum UserRole {
-  student
-  tutor
-  siteAdmin
-  tutorAdmin
-}
 
 
 

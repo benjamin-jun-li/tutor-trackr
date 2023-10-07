@@ -2,9 +2,36 @@ import { Context } from "@/pages/api/graphql";
 
 export const resolvers = {
   Query: {
-    //get user by email
-    user: async (_parent: any, args: any, context: Context) => {
-      return await context.prisma.user.findUnique({
+    //auth student by email
+    student: async (_parent: any, args: any, context: Context) => {
+      return await context.prisma.student.findUnique({
+        where: {
+          email: args.email,
+        },
+      });
+    },
+
+    //auth tutor by email
+    tutor: async (_parent: any, args: any, context: Context) => {
+      return await context.prisma.tutor.findUnique({
+        where: {
+          email: args.email,
+        },
+      });
+    },
+
+    //auth siteAdmin by email
+    siteAdmin: async (_parent: any, args: any, context: Context) => {
+      return await context.prisma.siteAdmin.findUnique({
+        where: {
+          email: args.email,
+        },
+      });
+    },
+
+    //auth siteAdmin by email
+    tutorAdmin: async (_parent: any, args: any, context: Context) => {
+      return await context.prisma.tutorAdmin.findUnique({
         where: {
           email: args.email,
         },
@@ -24,35 +51,33 @@ export const resolvers = {
         },
       });
     },
-
   },
 
   Mutation: {
     // add user
-    addUser: async (_parent: any, args: any, context: Context) => {
-      try {
-        return await context.prisma.user.create({
-          data: {
-            name: args.name,
-            email: args.email,
-            password: args.password,
-            identity: args.identity,
-          },
-        });
-      } catch (error: any) {
-        if (error.code === "P2002" && error.meta?.target?.includes("email")) {
-          // Handle the unique constraint error for email
-          console.error("Email already exists!");
-          throw new Error("Email already exists!"); // This line is added to throw the error
-        } else {
-          console.error("Some other error occurred:", error);
-          throw error; // This line will throw any other errors that might occur
-        }
-      }
+    addStudent: async (_parent: any, args: any, context: Context) => {
+      return context.prisma.student.create({
+        data: {
+          name: args.name,
+          email: args.email,
+          password: args.password,
+        },
+      });
+    },
+
+    // add user
+    addTutor: async (_parent: any, args: any, context: Context) => {
+      return context.prisma.tutor.create({
+        data: {
+          name: args.name,
+          email: args.email,
+          password: args.password,
+        },
+      });
     },
 
     // update student profile
-    updateStudentProfile: async(_parent: any, args: any, context: Context) => {
+    updateStudentProfile: async (_parent: any, args: any, context: Context) => {
       return await context.prisma.studentProfile.update({
         where: {
           email: args.email,
