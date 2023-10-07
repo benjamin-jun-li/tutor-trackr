@@ -39,7 +39,9 @@ export const typeDefs = `#graphql
     comments: [String]
     thumbnail: String
     students: [Student]  
+    studentId: [String]
     tutors: [Tutor]
+    tutorId: [String]
   }
 
   type StudentProfile {

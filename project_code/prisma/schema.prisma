@@ -12,14 +12,16 @@ model Student {
   name String
   email String @unique
   password String
-  courses Course[]
+  courses Course[] @relation(fields: [courseId], references: [id])
+  courseId String[] @db.ObjectId
 }
 model Tutor {
   id    String  @id @default(auto()) @map("_id") @db.ObjectId
   name String
   email String @unique
   password String
-  courses Course[]
+   courses Course[] @relation(fields: [courseId], references: [id])
+  courseId String[] @db.ObjectId
 }
 
 model SiteAdmin {
@@ -41,11 +43,11 @@ model Course {
   name String
   description String?
   comments String[]
-  thumbnail String
-  students Student @relation(fields: [studentId], references: [id])
-  studentId String @db.ObjectId
-  tutors Tutor @relation(fields: [tutorId], references: [id])
-  tutorId String @db.ObjectId
+  thumbnail String?
+  students Student[] @relation(fields: [studentId], references: [id])
+  studentId String[] @db.ObjectId
+  tutors Tutor[] @relation(fields: [tutorId], references: [id])
+  tutorId String[] @db.ObjectId
 }
 
 model StudentProfile {
