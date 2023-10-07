@@ -7,7 +7,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// model table
 model Student {
   id    String  @id @default(auto()) @map("_id") @db.ObjectId
   name String
