@@ -52,6 +52,32 @@ const Navbar = () => {
     }
   };
 
+  const HandleLogo = () => {
+    let isAdminPage = false;
+    let isTutorPage = false;
+    let isStudentPage = false;
+
+    if (pathname !== null) {
+      // 判断当前页面是否属于管理员、导师或学生页面
+      isAdminPage = pathname.includes('/siteadmin/') || pathname.includes('/tutoradmin/');
+      isTutorPage = pathname.startsWith('/tutor/');
+      isStudentPage = pathname.startsWith('/student/');
+    }
+    if (isAdminPage) {
+      // 如果是管理员页面，则显示管理员的 dashboard
+      return <Link href="/admin/dashboard"><HandMetal className='h-8 w-8 text-primary-500' /></Link>;
+    } else if (isTutorPage) {
+      // 如果是导师页面，则显示导师的 dashboard
+      return <Link href="/tutor/dashboard"><HandMetal className='h-8 w-8 text-primary-500' /></Link>;
+    } else if (isStudentPage) {
+      // 如果是学生页面，则显示学生的 dashboard
+      return <Link href="/student/dashboard"><HandMetal className='h-8 w-8 text-primary-500' /></Link>;
+    } else {
+      // 否则显示主界面
+      return <Link href="/"><HandMetal className='h-8 w-8 text-primary-500' /></Link>;
+    }
+  }
+
   return (
       <aside className="navbar bg-base-100 fixed w-full z-10 top-0">
         <div className="navbar-start">
@@ -75,9 +101,9 @@ const Navbar = () => {
               <li><a>Item 3</a></li>
             </ul>
           </div>
-          <Link href='/'>
-            <HandMetal className='h-8 w-8 text-primary-500'/>
-          </Link>
+          <div>
+            {HandleLogo()}
+          </div>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
