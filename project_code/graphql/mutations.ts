@@ -38,8 +38,8 @@ export const ADD_Tutor = gql`
   }
 `;
 
-export const UPDATE_PROFILE = gql`
-  mutation UpdateProfile(
+export const UPDATE_STUDENT_PROFILE = gql`
+  mutation UpdateStudentProfile(
     $email: String!
     $thumbnail: String
     $username: String
@@ -67,6 +67,42 @@ export const UPDATE_PROFILE = gql`
       timeZone
       biography
       accountBalance
+    }
+  }
+`;
+
+export const UPDATE_TUTOR_PROFILE = gql`
+  mutation UpdateTutorProfile(
+    $email: String!
+    $thumbnail: String
+    $username: String
+    $phone: String
+    $address: String
+    $timeZone: String
+    $accountBalance: String
+    $experienceSummary: String
+    $courseCanTeach: String
+  ) {
+    updateTutorProfile(
+      email: $email
+      thumbnail: $thumbnail
+      username: $username
+      phone: $phone
+      address: $address
+      timeZone: $timeZone
+      accountBalance: $accountBalance
+      experienceSummary: $String
+      courseCanTeach: $String
+    ) {
+      thumbnail
+      email
+      username
+      phone
+      address
+      timeZone
+      accountBalance
+      experienceSummary
+      courseCanTeach
     }
   }
 `;

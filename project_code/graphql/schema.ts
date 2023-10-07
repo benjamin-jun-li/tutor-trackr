@@ -53,11 +53,25 @@ export const typeDefs = `#graphql
     biography: String
     accountBalance: String
   }
+
+  type TutorProfile {
+    id: ID!
+    thumbnail: String
+    email: String
+    username: String
+    phone: String
+    address: String
+    timeZone: String
+    accountBalance: String
+    experienceSummary: String
+    courseCanTeach: String
+  }
  
   type Query {
 	  user(email: String): User 
     course: [Course]
     getStudentProfile(email: String!): StudentProfile
+    getTutorProfile(email: String!): TutorProfile
   }
 
   type Mutation {
@@ -66,5 +80,10 @@ export const typeDefs = `#graphql
       email: String!, thumbnail: String, username: String, phone: String,
       address: String, timeZone: String, biography: String, accountBalance: String
     ) : StudentProfile
+    updateTutorProfile(
+      email: String!, thumbnail: String, username: String, phone: String,
+      address: String, timeZone: String, accountBalance: String, experienceSummary: String, 
+      courseCanTeach: String
+    ) : TutorProfile
   }
 `;

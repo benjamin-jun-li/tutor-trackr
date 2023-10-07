@@ -51,6 +51,16 @@ export const resolvers = {
         },
       });
     },
+
+    //get tutor profile
+    getTutorProfile: async (_parent: any, args: any, context: Context) => {
+      return context.prisma.tutorProfile.findUnique({
+        where: {
+          email: args.email,
+        },
+      });
+    },
+
   },
 
   Mutation: {
@@ -90,6 +100,25 @@ export const resolvers = {
           timeZone: args.timeZone,
           biography: args.biography,
           accountBalance: args.accountBalance,
+        },
+      });
+    },
+
+    // update tutor profile
+    updateTutorProfile: async(_parent: any, args: any, context: Context) => {
+      return await context.prisma.tutorProfile.update({
+        where: {
+          email: args.email,
+        },
+        data: {
+          thumbnail: args.thumbnail,
+          username: args.unsername,
+          phone: args.phone,
+          address: args.address,
+          timeZone: args.timeZone,
+          accountBalance: args.accountBalance,
+          experienceSummary: args.experienceSummary,
+          courseCanTeach: args.courseCanTeach,
         },
       });
     },

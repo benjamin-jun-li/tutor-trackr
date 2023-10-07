@@ -61,6 +61,18 @@ model StudentProfile {
   accountBalance String? 
 }
 
+model TutorProfile {
+  id             String  @id @default(auto()) @map("_id") @db.ObjectId
+  thumbnail      String? 
+  email          String  @unique
+  username       String  
+  phone          String? 
+  address        String? 
+  timeZone       String?  
+  accountBalance String? 
+  experienceSummary String?
+  courseCanTeach String?
+}
 
 
 
