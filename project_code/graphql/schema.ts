@@ -35,7 +35,7 @@ export const typeDefs = `#graphql
   type Course {
     id:   ID!
     name: String
-    discription: String
+    description: String
     comments: [String]
     thumbnail: String
     students: [Student]  

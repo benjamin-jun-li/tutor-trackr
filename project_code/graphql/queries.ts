@@ -49,7 +49,7 @@ export const GET_COURSES = gql`
     course {
       id
       name
-      discription
+      description
       comments
       thumbnail
     }
