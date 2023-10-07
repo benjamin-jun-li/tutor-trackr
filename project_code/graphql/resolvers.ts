@@ -13,12 +13,12 @@ export const resolvers = {
 
     //get course list
     course: async (_parent: any, args: any, context: Context) => {
-      return await context.prisma.course.findMany();
+      return context.prisma.course.findMany();
     },
 
     //get student profile
-    profile: async (_parent: any, args: any, context: Context) => {
-      return await context.prisma.studentProfile.findUnique({
+    getStudentProfile: async (_parent: any, args: any, context: Context) => {
+      return context.prisma.studentProfile.findUnique({
         where: {
           email: args.email,
         },

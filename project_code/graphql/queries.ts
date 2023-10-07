@@ -25,7 +25,7 @@ export const GET_COURSES = gql`
 `;
 
 export const GET_PROFILE = gql`
-  query GetProfile($email: String!) {
+  query StudentProfile($email: String!) {
     getStudentProfile(email: $email) {
       id
       thumbnail
