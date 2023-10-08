@@ -8,3 +8,7 @@ Write user stories of the project proposal
 Week 3
 Write General propose, backgroud and advantages of our project in the project proposal
 Learn mastering Next.js 13.x with GraphQL
+
+Week 4
+Retrospective-A slides design
+Back-end function design: get course, get student profile(UOOI-21), get tutor profile(UOOI-22), course add/delete
