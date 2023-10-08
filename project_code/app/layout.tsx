@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Footer from "@/components/Footer";
 import { ApolloProviders } from "@/components/ApolloProviders";
-
+import ContextProvider from "@/components/context";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -22,9 +22,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ApolloProviders>
-          <Navbar />
-          {children}
-          <Footer />
+          <ContextProvider>
+            <Navbar />
+            {children}
+            <Footer />
+          </ContextProvider>
         </ApolloProviders>
       </body>
     </html>
