@@ -1,4 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { ScrollArea } from "@/components/ui/scroll-area"
+import { Separator } from "@/components/ui/separator"
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select"
 
 const timezones = [
     'UTC+14:00 Line Islands',
@@ -38,23 +47,33 @@ const timezones = [
 
 const TimezonePicker: React.FC = () => {
     const defaultTimezone = 'UTC+10:00 Australian Eastern Standard Time';
-    const [selectedTimezone, setSelectedTimezone] = useState<string>(defaultTimezone);
 
     return (
         <div>
             <label htmlFor="timezone">Select a timezone:</label>
-            <select
-                id="timezone"
-                value={selectedTimezone}
-                onChange={(e) => setSelectedTimezone(e.target.value)}
-                className="select select-bordered w-full max-w-xs"
+            <Select
+                defaultValue={defaultTimezone}
             >
-                {timezones.map((tz) => (
-                    <option key={tz} value={tz}>
-                        {tz}
-                    </option>
-                ))}
-            </select>
+                <SelectTrigger className="w-[360px]">
+                    <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                    <ScrollArea className="h-72  rounded-md border">
+                        <div className="p-4">
+                            <h4 className="mb-4 text-sm font-medium leading-none">Time Zones</h4>
+                            {timezones.map((tz) => (
+                                <>
+                                    <SelectItem key={tz} value={tz}>
+                                        {tz}
+                                    </SelectItem>
+                                    <Separator className="my-2" />
+                                </>
+
+                            ))}
+                        </div>
+                    </ScrollArea>
+                </SelectContent>
+            </Select>
         </div>
     );
 };

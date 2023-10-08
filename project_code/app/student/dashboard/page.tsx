@@ -52,7 +52,7 @@ export default function DashboardPage() {
           </div>
 
           <div className="col-span-1 flex flex-col justify-center items-center space-y-2">
-              <h3 className="flex justify-center items-center text-2xl">
+              <h3 className="text-2xl">
                 Your Reservation
               </h3>
               <Calendar
