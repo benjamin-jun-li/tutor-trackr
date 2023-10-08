@@ -49,10 +49,10 @@ const Navbar = () => {
 
   return (
       <aside className="navbar bg-base-100 fixed w-full z-10 top-0">
-        <div className="navbar-start">
+        <section className="navbar-start">
           <div>{handleLogo()}</div>
-        </div>
-        <div className="navbar-end">{renderContent()}</div>
+        </section>
+        <section className="navbar-end">{renderContent()}</section>
       </aside>
   );
 };
