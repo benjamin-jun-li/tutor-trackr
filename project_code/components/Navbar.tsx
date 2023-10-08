@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import {redirect, usePathname} from 'next/navigation'
 import React, {useEffect, useState} from 'react'
 import { buttonVariants } from './ui/button'
 import { HandMetal } from 'lucide-react'
@@ -35,19 +35,15 @@ const Navbar = () => {
   let isStudentPage = false;
 
   if (pathname !== null) {
-    // 判断当前页面是否属于管理员、导师或学生页面
     isAdminPage = pathname.includes('/siteadmin/') || pathname.includes('/tutoradmin/');
     isTutorPage = pathname.startsWith('/tutor/');
     isStudentPage = pathname.startsWith('/student/');
   }
 
-  // 根据页面类型决定显示的内容
   const renderContent = () => {
     if (isAdminPage || isTutorPage || isStudentPage) {
-      // 如果是管理员、导师或学生页面，则显示Avatar组件
       return <UserNav userName={userName} userEmail={userEmail} />;
     } else {
-      // 否则显示默认的"Sign in"按钮
       return <Link className={buttonVariants()} href='/login'>Sign in</Link>;
     }
   };
@@ -58,24 +54,23 @@ const Navbar = () => {
     let isStudentPage = false;
 
     if (pathname !== null) {
-      // 判断当前页面是否属于管理员、导师或学生页面
       isAdminPage = pathname.includes('/siteadmin/') || pathname.includes('/tutoradmin/');
       isTutorPage = pathname.startsWith('/tutor/');
       isStudentPage = pathname.startsWith('/student/');
     }
     if (isAdminPage) {
-      // 如果是管理员页面，则显示管理员的 dashboard
       return <Link href="/admin/dashboard"><HandMetal className='h-8 w-8 text-primary-500' /></Link>;
     } else if (isTutorPage) {
-      // 如果是导师页面，则显示导师的 dashboard
       return <Link href="/tutor/dashboard"><HandMetal className='h-8 w-8 text-primary-500' /></Link>;
     } else if (isStudentPage) {
-      // 如果是学生页面，则显示学生的 dashboard
       return <Link href="/student/dashboard"><HandMetal className='h-8 w-8 text-primary-500' /></Link>;
     } else {
-      // 否则显示主界面
       return <Link href="/"><HandMetal className='h-8 w-8 text-primary-500' /></Link>;
     }
+  }
+
+  const GoHome = () => {
+    redirect('/')
   }
 
   return (

@@ -1,7 +1,7 @@
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useFieldArray, useForm } from "react-hook-form"
+import { useForm } from "react-hook-form"
 import * as z from "zod"
 import { Button } from "@/components/ui/button"
 import {
@@ -25,6 +25,7 @@ import {useEffect, useState} from "react";
 import {useQuery} from "@apollo/client";
 import {GET_USER} from "@/graphql/queries";
 import {usePathname, useRouter} from "next/navigation";
+import TimezonePicker from "@/components/TimezonePicker";
 
 const profileFormSchema = z.object({
     avatar: z
@@ -57,7 +58,6 @@ const profileFormSchema = z.object({
         .refine(value => /^[a-zA-Z0-9\s\-,]+$/u.test(value), {
             message: "Invalid address format.",
         }),
-    // TODO
     timezone: z.string().min(1).max(255),
     bio: z.string().max(160).min(1),
     balance: z.number().min(0),
@@ -80,7 +80,6 @@ export function StudentProfileForm() {
                 currentPath;
 
     const handleDashboardClick = () => {
-        // add a 'profile' route at the end of the url
         router.push(currentPath + '/dashboard');
     };
 
@@ -204,8 +203,7 @@ export function StudentProfileForm() {
                             <FormLabel>Time Zone</FormLabel>
                             <FormControl>
                                 <div className="select-wrapper">
-                                    {/*TODO: TimezoneSelect*/}
-                                    <Input type="text" />
+                                    <TimezonePicker />
                                 </div>
                             </FormControl>
                             <FormDescription>

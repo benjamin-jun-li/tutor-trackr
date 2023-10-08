@@ -30,6 +30,11 @@ export function UserNav(NavbarProps: NavbarProps) {
           currentPath?.startsWith('/tutor') ? '/tutor' :
               currentPath;
 
+  const handleLogout = () => {
+    localStorage.clear();
+    window.location.href = "/";
+  };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -67,7 +72,7 @@ export function UserNav(NavbarProps: NavbarProps) {
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <Link href={"/"}>
+        <Link href={"/"} onClick={handleLogout}>
           <DropdownMenuItem>
             Log out
             <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
