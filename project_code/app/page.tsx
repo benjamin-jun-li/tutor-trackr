@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export default function Home() {
   return (
       <main className="hero min-h-screen flex flex-col justify-center items-center bg-[url('/banner.jpg')] bg-cover">
@@ -8,7 +10,11 @@ export default function Home() {
                   <p className="mb-5 text-xl">
                       Here at out platform, we focus on online learning where technology, innovation could launch your career.
                   </p>
-                  <button className="btn btn-primary">Get Started</button>
+                  <Link href="/login">
+                      <button className="btn btn-primary">
+                          Get Started
+                      </button>
+                  </Link>
               </div>
           </div>
       </main>
