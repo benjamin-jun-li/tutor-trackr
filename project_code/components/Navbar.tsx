@@ -52,6 +52,9 @@ const Navbar = () => {
         <section className="navbar-start">
           <div>{handleLogo()}</div>
         </section>
+        <section className="navbar-center">
+          <h2 className="mb-4 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-white">TutorTrackr</h2>
+        </section>
         <section className="navbar-end">{renderContent()}</section>
       </aside>
   );
