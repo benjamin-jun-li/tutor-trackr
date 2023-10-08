@@ -32,7 +32,7 @@ const Navbar = () => {
     if (isAdminPage || isTutorPage || isStudentPage) {
       return <UserNav userName={userName} userEmail={userEmail} />;
     } else {
-      return <Link className={buttonVariants()} href="/login">Sign in</Link>;
+      return
     }
   };
 
