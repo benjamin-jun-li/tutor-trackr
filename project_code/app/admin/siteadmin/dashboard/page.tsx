@@ -2,7 +2,6 @@
 
 import { GET_COURSES } from "@/graphql/queries";
 import { useQuery } from "@apollo/client";
-import { da } from "date-fns/locale";
 
 export default function DashboardPage() {
   const { data, loading, error } = useQuery(GET_COURSES);
