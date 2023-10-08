@@ -75,7 +75,7 @@ export const resolvers = {
       });
     },
 
-    // add user
+    // add tutor
     addTutor: async (_parent: any, args: any, context: Context) => {
       return context.prisma.tutor.create({
         data: {
@@ -121,6 +121,28 @@ export const resolvers = {
           courseCanTeach: args.courseCanTeach,
         },
       });
+    },
+
+    // add course
+    addCourse: async (_parent: any, args: any, context: Context) => {
+      return context.prisma.course.create({
+        data: {
+          name: args.name,
+        },
+      });
+    },
+
+    // delete course
+    deleteCourse: async (_parent: any, args: any, context: Context) => {
+      try {
+        return context.prisma.course.delete({
+          where: {
+            id: args.id,
+          }
+        });
+      } catch (error: any) {
+        throw new Error(`Failed to delete course: ${error.message}`);
+      }
     },
   },
 };

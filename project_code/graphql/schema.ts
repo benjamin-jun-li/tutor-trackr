@@ -92,5 +92,9 @@ export const typeDefs = `#graphql
       address: String, timeZone: String, accountBalance: String, experienceSummary: String, 
       courseCanTeach: String
     ) : TutorProfile
+    addCourse(name: String!, description: String, comments: [String], 
+      thumbnail: String, studentId: [String], tutorId: [String]
+    ) : Course
+    deleteCourse(id: String!): Course
   }
 `;

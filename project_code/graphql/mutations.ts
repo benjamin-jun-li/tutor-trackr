@@ -107,3 +107,48 @@ export const UPDATE_TUTOR_PROFILE = gql`
   }
 `;
 
+
+export const ADD_COURSE = gql`
+  mutation AddCourse(
+    $name: String!
+    $description: String
+    $comments: [String!]
+    $thumbnail: String
+    $studentIds: [String!]
+    $tutorIds: [String!]
+  ) {
+    addCourse(
+      name: $name
+      description: $description
+      comments: $comments
+      thumbnail: $thumbnail
+      studentIds: $studentIds
+      tutorIds: $tutorIds
+    ) {
+      id
+      name
+      description
+      comments
+      thumbnail
+      students {
+        id
+        name
+      }
+      studentId
+      tutors {
+        id
+        name
+      }
+      tutorId
+    }
+  }
+`;
+
+export const DELETE_COURSE = gql`
+  mutation DeleteCourse($name: String!) {
+    deleteCourse(id: $id) {
+      id
+      name
+    }
+  }
+`;
