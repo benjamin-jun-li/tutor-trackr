@@ -9,3 +9,4 @@ Week 3
 I finished the backend server and the database. Working on project proposal system architecture part using Figma to draw interfaces.
 
 Week 4
+I finished the backend function associated the frontend page.
