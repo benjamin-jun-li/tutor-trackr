@@ -23,7 +23,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <ApolloProviders>
           <ContextProvider>
-            <Navbar />
+            {/*<Navbar />*/}
             {children}
             <Footer />
           </ContextProvider>

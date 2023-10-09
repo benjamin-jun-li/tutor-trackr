@@ -7,7 +7,7 @@ import { buttonVariants } from './ui/button';
 import { HandMetal } from 'lucide-react';
 import { UserNav } from '@/components/dashboard/user-nav';
 import { useQuery } from '@apollo/client';
-import { GET_USER } from '@/graphql/queries';
+// import { GET_USER } from '@/graphql/queries';
 
 const Navbar = () => {
   const [userEmail, setUserEmail] = useState('');
