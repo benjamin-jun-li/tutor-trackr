@@ -7,26 +7,75 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// model table
-model User {
-  id       String   @id @default(auto()) @map("_id") @db.ObjectId
-  name     String
-  email    String   @unique
+model Student {
+  id    String  @id @default(auto()) @map("_id") @db.ObjectId
+  name String
+  email String @unique
   password String
-  identity UserRole
+  courses Course[] @relation(fields: [courseId], references: [id])
+  courseId String[] @db.ObjectId
+}
+model Tutor {
+  id    String  @id @default(auto()) @map("_id") @db.ObjectId
+  name String
+  email String @unique
+  password String
+   courses Course[] @relation(fields: [courseId], references: [id])
+  courseId String[] @db.ObjectId
+}
+
+model SiteAdmin {
+  id    String  @id @default(auto()) @map("_id") @db.ObjectId
+  name String
+  email String @unique
+  password String
+}
+
+model TutorAdmin {
+  id    String  @id @default(auto()) @map("_id") @db.ObjectId
+  name String
+  email String @unique
+  password String
 }
 
 model Course {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  name        String
-  description String
-  comments    String[]
-  thumbnail   String
+  id    String  @id @default(auto()) @map("_id") @db.ObjectId
+  name String
+  description String?
+  comments String[]
+  thumbnail String?
+  students Student[] @relation(fields: [studentId], references: [id])
+  studentId String[] @db.ObjectId
+  tutors Tutor[] @relation(fields: [tutorId], references: [id])
+  tutorId String[] @db.ObjectId
 }
 
-enum UserRole {
-  student
-  tutor
-  siteAdmin
-  tutorAdmin
+model StudentProfile {
+  id             String  @id @default(auto()) @map("_id") @db.ObjectId
+  thumbnail      String? 
+  email          String  @unique
+  username       String  
+  phone          String? 
+  address        String? 
+  timeZone       String? 
+  biography      String? 
+  accountBalance String? 
 }
+
+model TutorProfile {
+  id             String  @id @default(auto()) @map("_id") @db.ObjectId
+  thumbnail      String? 
+  email          String  @unique
+  username       String  
+  phone          String? 
+  address        String? 
+  timeZone       String?  
+  accountBalance String? 
+  experienceSummary String?
+  courseCanTeach String?
+}
+
+
+
+
+
