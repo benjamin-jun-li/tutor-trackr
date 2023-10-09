@@ -59,36 +59,39 @@ const SignUpForm = () => {
   });
 
 
-  const onSubmit = (values: z.infer<typeof FormSchema>) => {
-      if (values.identity === "student"){ try {
-          addStudent({
+  const onSubmit = async (values: z.infer<typeof FormSchema>) => {
+      if (values.identity === "student") {
+          const res = await addStudent({
               variables: {
                   name: values.username,
                   email: values.email,
                   password: values.password,
               },
           });
-          setters.setIdentity(values.identity);
-          router.push(`/${values.identity}/dashboard/`)
-      }
-      catch(error) {
-          console.log(error);
-      }}
-      else if (values.identity === "tutor"){ try {
-          addTutor({
+          if (res.data?.email) {
+              setters.setIdentity(values.identity);
+              router.replace(`/${values.identity}/dashboard/`)
+          } else {
+              console.log(res);
+          }
+      } else {
+          const res = await addTutor({
               variables: {
                   name: values.username,
                   email: values.email,
                   password: values.password,
               },
           });
-          setters.setIdentity(values.identity);
-          router.push(`/${values.identity}/dashboard/`)
+          if (res.data?.email) {
+              setters.setIdentity(values.identity);
+              router.replace(`/${values.identity}/dashboard/`)
+          } else {
+              console.log(res);
+          }
       }
-      catch(error) {
-          console.log(error);
-      }}
-
+    if (studentLoading || tutorLoading) {
+        return <span className="loading loading-bars loading-lg"></span>
+    }
   };
   return (
       <Form {...form}>

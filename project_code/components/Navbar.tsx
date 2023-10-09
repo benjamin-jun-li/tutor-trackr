@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
-import { buttonVariants } from './ui/button';
 import { HandMetal } from 'lucide-react';
 import { UserNav } from '@/components/dashboard/user-nav';
 import { useQuery } from '@apollo/client';
@@ -13,11 +12,7 @@ import { useContextValue } from  "@/components/context"
 const Navbar = () => {
 
   const { getters } = useContextValue();
-console.log(getters.userIdentity)
   const [userEmail, setUserEmail] = useState('');
-  // const { loading, error, data } = useQuery(GET_USER, {
-  //   variables: { email: userEmail },
-  // });
 
 
   useEffect(() => {
@@ -36,9 +31,8 @@ console.log(getters.userIdentity)
   const renderContent = () => {
     if (isAdminPage || isTutorPage || isStudentPage) {
       return <UserNav userName={userName} userEmail={userEmail} />;
-    } else {
-      return
     }
+    return <></>
   };
 
   const handleLogoLink = (url: string) => {
@@ -58,7 +52,7 @@ console.log(getters.userIdentity)
           <div>{handleLogo()}</div>
         </section>
         <section className="navbar-center">
-          <h2 className="mb-4 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-white">TutorTrackr</h2>
+          <h2 className="text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-white">TutorTrackr</h2>
         </section>
         <section className="navbar-end">{renderContent()}</section>
       </aside>

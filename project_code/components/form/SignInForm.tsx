@@ -16,13 +16,12 @@ import {
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import GoogleSignInBtn from "../GoogleSignInBtn";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 import {Auth_Student, Auth_Tutor} from "@/graphql/queries";
 import { useLazyQuery } from "@apollo/client";
 import {RadioGroup, RadioGroupItem} from "@/components/ui/radio-group";
 import { useContextValue } from  "@/components/context"
-import { useEffect } from 'react';
 
 
 const FormSchema = z.object({
@@ -35,61 +34,48 @@ const FormSchema = z.object({
 });
 
 const SignInForm = () => {
+    const router = useRouter();
+    const { getters, setters } = useContextValue();
 
-    const { getters,setters } = useContextValue();
-
-    const [authStudent, { loading: loadingStudent, data: dataStudent }] = useLazyQuery(Auth_Student);
-    const [authTutor, { loading: loadingTutor, data: dataTutor }] = useLazyQuery(Auth_Tutor);
-
+    const [authStudent, { loading: loadingStudent, error: stuError, data: dataStudent }] = useLazyQuery(Auth_Student);
+    const [authTutor, { loading: loadingTutor, error: tutError,  data: dataTutor }] = useLazyQuery(Auth_Tutor);
 
     const form = useForm<z.infer<typeof FormSchema>>({
-    resolver: zodResolver(FormSchema),
-    defaultValues: {
-      email: "",
-      password: "",
-        identity: ""
-    },
-  });
+        resolver: zodResolver(FormSchema),
+        defaultValues: {
+            email: "",
+            password: "",
+            identity: ""
+        },
+    });
 
-  const onSubmit = (values: z.infer<typeof FormSchema>) => {
-      setters.setIdentity(values.identity);
-      if(values.identity==="student")authStudent({variables: { email: values.email }});
-      if(values.identity==="tutor")authTutor({variables: { email: values.email }});
-  };
-
-  // Todo password should be encrypted and compared on the backend
     const { getValues } = form;
     const values = getValues();
     const enteredPassword = values.password;
-    useEffect(() => {
 
-        if (dataStudent && !dataStudent.student) {
-            alert("Student not found");
-        } else if (dataTutor && !dataTutor.tutor) {
-            alert("Tutor not found");
-        } else if ((dataStudent && dataStudent.student && dataStudent.student.password === enteredPassword) ||
-            (dataTutor && dataTutor.tutor && dataTutor.tutor.password === enteredPassword)) {
-            redirect(`/${getters.userIdentity}/dashboard`);
-        }
-    }, [dataStudent, dataTutor,enteredPassword]);
-
-
-
-  //TODO add cases for login roles
-
-
-  // if (data && data.user) {
-  //   if (data.user.password === form.getValues("password")) {
-  //     // alert("Login success");
-  //     localStorage.setItem("userEmail", data.user.email);
-  //     const userIdentity = data.user.identity.toLowerCase();
-  //
-  //     // redirect to the student dashboard
-  //     redirect(`/${userIdentity}/dashboard`);
-  //   } else {
-  //     alert("Wrong password");
-  //   }
-  // }
+  const onSubmit = async (values: z.infer<typeof FormSchema>) => {
+      setters.setIdentity(values.identity);
+      if (values.identity === "student") {
+          const res = await authStudent({variables: {email: values.email}})
+          if (res.data?.student?.password === enteredPassword) {
+              setters.setUserStatus(true)
+              router.replace('/student/dashboard')
+          } else {
+              alert("invalid student info")
+          }
+      } else if (values.identity === "tutor") {
+          const res = await authTutor({variables: {email: values.email}});
+          if (res.data?.tutor?.password === enteredPassword) {
+              setters.setUserStatus(true)
+              router.replace('/student/dashboard')
+          } else {
+              alert("Invalid tutor info")
+          }
+      }
+      if (loadingStudent || loadingTutor || getters.userStatus) {
+          return <span className="loading loading-bars loading-lg"></span>
+      }
+  };
 
   return (
       <Form {...form}>
