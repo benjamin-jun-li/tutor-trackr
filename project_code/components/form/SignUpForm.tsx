@@ -54,6 +54,10 @@ const SignUpForm = () => {
     },
   });
 
+  if (loading) {
+      return <span className="loading loading-bars loading-lg"></span>;
+  }
+
   const onSubmit = (values: z.infer<typeof FormSchema>) => {
     try {
         addUser({
@@ -63,7 +67,7 @@ const SignUpForm = () => {
                 password: values.password,
                 identity: values.identity,
             },
-        })
+        });
         router.push(`/${values.identity}/dashboard/`)
     }
     catch(error) {
@@ -176,7 +180,6 @@ const SignUpForm = () => {
               )}
             />
           </div>
-
           <Button className="w-full mt-6" type="submit">
             Sign up
           </Button>
@@ -191,7 +194,7 @@ const SignUpForm = () => {
       <GoogleSignInBtn>Sign up with Google</GoogleSignInBtn>
       <p className="text-center text-sm text-gray-600 mt-2">
         If you have an account, please&nbsp;
-        <Link className="text-blue-500 hover:underline" href="/sign-in">
+        <Link className="text-blue-500 hover:underline" href="/login">
           Sign in
         </Link>
       </p>

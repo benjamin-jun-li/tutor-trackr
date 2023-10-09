@@ -1,6 +1,6 @@
 "use client"
 
-import * as React from "react"
+import { useState, HTMLAttributes } from "react"
 import { CalendarIcon } from "@radix-ui/react-icons"
 import { addDays, format } from "date-fns"
 import { DateRange } from "react-day-picker"
@@ -16,8 +16,8 @@ import {
 
 export function CalendarDateRangePicker({
   className,
-}: React.HTMLAttributes<HTMLDivElement>) {
-  const [date, setDate] = React.useState<DateRange | undefined>({
+}: HTMLAttributes<HTMLDivElement>) {
+  const [date, setDate] = useState<DateRange | undefined>({
     from: new Date(2023, 0, 20),
     to: addDays(new Date(2023, 0, 20), 20),
   })
