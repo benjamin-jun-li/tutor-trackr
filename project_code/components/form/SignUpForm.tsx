@@ -18,9 +18,11 @@ import Link from "next/link";
 import GoogleSignInBtn from "../GoogleSignInBtn";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
-import { ADD_USER } from "@/graphql/mutations";
+import { ADD_Student,ADD_Tutor } from "@/graphql/mutations";
 import { useMutation } from "@apollo/client";
 import { useRouter } from "next/navigation"
+import { useContextValue } from  "@/components/context"
+
 const FormSchema = z
   .object({
     username: z
@@ -33,7 +35,7 @@ const FormSchema = z
       .min(1, "Password is required")
       .min(8, "Password must be at least 8 characters"),
     confirmPassword: z.string().min(1, "Password confirmation is required"),
-    identity: z.enum(["student", "tutor"]),
+    identity: z.enum(["student", "tutor",""]),
   })
   .refine((data) => data.password === data.confirmPassword, {
     path: ["confirmPassword"],
@@ -41,7 +43,9 @@ const FormSchema = z
   });
 
 const SignUpForm = () => {
-  const [addUser, { data, loading, error }] = useMutation(ADD_USER);
+    const { getters,setters } = useContextValue();
+  const [addStudent,{data:studentData,loading:studentLoading,error:studentError}] = useMutation(ADD_Student);
+    const [addTutor,{data:tutorData,loading:tutorLoading,error:tutorError}] = useMutation(ADD_Tutor);
   const router = useRouter()
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -50,29 +54,41 @@ const SignUpForm = () => {
       email: "",
       password: "",
       confirmPassword: "",
-      identity: "student",
+      identity: "",
     },
   });
 
-  if (loading) {
-      return <span className="loading loading-bars loading-lg"></span>;
-  }
 
   const onSubmit = (values: z.infer<typeof FormSchema>) => {
-    try {
-        addUser({
-            variables: {
-                name: values.username,
-                email: values.email,
-                password: values.password,
-                identity: values.identity,
-            },
-        });
-        router.push(`/${values.identity}/dashboard/`)
-    }
-    catch(error) {
-        console.log(error);
-    }
+      if (values.identity === "student"){ try {
+          addStudent({
+              variables: {
+                  name: values.username,
+                  email: values.email,
+                  password: values.password,
+              },
+          });
+          setters.setIdentity(values.identity);
+          router.push(`/${values.identity}/dashboard/`)
+      }
+      catch(error) {
+          console.log(error);
+      }}
+      else if (values.identity === "tutor"){ try {
+          addTutor({
+              variables: {
+                  name: values.username,
+                  email: values.email,
+                  password: values.password,
+              },
+          });
+          setters.setIdentity(values.identity);
+          router.push(`/${values.identity}/dashboard/`)
+      }
+      catch(error) {
+          console.log(error);
+      }}
+
   };
   return (
       <Form {...form}>
