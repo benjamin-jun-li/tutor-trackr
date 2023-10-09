@@ -18,7 +18,7 @@ import Link from "next/link";
 import GoogleSignInBtn from "../GoogleSignInBtn";
 import { useRouter } from "next/navigation";
 
-import {Auth_Student, Auth_Tutor} from "@/graphql/queries";
+import { Auth_Student, Auth_Tutor } from "@/graphql/queries";
 import { useLazyQuery } from "@apollo/client";
 import {RadioGroup, RadioGroupItem} from "@/components/ui/radio-group";
 import { useContextValue } from  "@/components/context"
