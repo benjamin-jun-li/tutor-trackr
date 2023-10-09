@@ -7,19 +7,24 @@ import { buttonVariants } from './ui/button';
 import { HandMetal } from 'lucide-react';
 import { UserNav } from '@/components/dashboard/user-nav';
 import { useQuery } from '@apollo/client';
+import { useContextValue } from  "@/components/context"
 // import { GET_USER } from '@/graphql/queries';
 
 const Navbar = () => {
+
+  const { getters } = useContextValue();
+console.log(getters.userIdentity)
   const [userEmail, setUserEmail] = useState('');
-  const { loading, error, data } = useQuery(GET_USER, {
-    variables: { email: userEmail },
-  });
+  // const { loading, error, data } = useQuery(GET_USER, {
+  //   variables: { email: userEmail },
+  // });
+
 
   useEffect(() => {
     setUserEmail(localStorage.getItem('userEmail') ?? '');
   }, []);
 
-  const userName = data?.user?.name || '';
+  const userName = '';
 
   const pathname = usePathname();
 
