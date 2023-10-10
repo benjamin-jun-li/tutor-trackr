@@ -23,7 +23,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { toast } from "@/components/ui/use-toast"
 import {useEffect, useState} from "react";
 import {useQuery} from "@apollo/client";
-import {Auth_Student} from "@/graphql/queries";
+import {GET_STUDENT_PROFILE} from "@/graphql/queries";
 import {usePathname, useRouter} from "next/navigation";
 import {useContextValue} from "@/components/context";
 import TimezonePicker from "@/components/TimezonePicker";
@@ -102,7 +102,7 @@ export function StudentProfileForm() {
         setUserEmail(getters.userEmail);
     }, []);
 
-    const { loading, error, data } = useQuery(Auth_Student, {
+    const { loading, error, data } = useQuery(GET_STUDENT_PROFILE, {
         variables: { email: userEmail },
     });
 
@@ -136,7 +136,7 @@ export function StudentProfileForm() {
                         <FormItem>
                             <FormLabel>Username</FormLabel>
                             <FormControl>
-                                <Input placeholder={data && data.user?.name} {...field} />
+                                <Input placeholder={data && data.user?.username} {...field} />
                             </FormControl>
                             <FormDescription>
                                 This is your public display name. It can be your real name or a

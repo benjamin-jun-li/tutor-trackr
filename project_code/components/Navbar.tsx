@@ -1,4 +1,4 @@
-'use client';
+'use client'
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -18,7 +18,7 @@ const Navbar = () => {
   useEffect(() => {
     setUserEmail(getters.userEmail);
     setUserName(getters.userName);
-  }, []);
+  }, [getters.userEmail, getters.userName]);
 
   const pathname = usePathname();
 
