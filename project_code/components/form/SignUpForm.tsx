@@ -68,9 +68,9 @@ const SignUpForm = () => {
                   password: values.password,
               },
           });
-          if (res.data?.email) {
+          if (res.data?.student?.email) {
               setters.setIdentity(values.identity);
-              router.replace(`/${values.identity}/dashboard/`)
+              router.replace(`/student/dashboard/`)
           } else {
               console.log(res);
           }
@@ -82,9 +82,9 @@ const SignUpForm = () => {
                   password: values.password,
               },
           });
-          if (res.data?.email) {
+          if (res.data?.tutor?.email) {
               setters.setIdentity(values.identity);
-              router.replace(`/${values.identity}/dashboard/`)
+              router.replace(`/tutor/dashboard/`)
           } else {
               console.log(res);
           }
