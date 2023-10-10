@@ -1,13 +1,7 @@
-"use client";
-
-import { useState } from "react";
-import Image from "next/image";
-import { Calendar } from "@/components/ui/calendar";
-import { GET_COURSES } from "@/graphql/queries";
-import { useQuery } from "@apollo/client";
 import Search from "@/components/dashboard/search";
 import CourseFilter from "@/components/dashboard/course-filter";
-import Link from "next/link";
+import CourseList from "@/components/dashboard/courseList";
+import AppointmentCalendar from "@/components/dashboard/AppmtCalendar";
 
 export interface Course_type {
   id:   string,
@@ -18,12 +12,6 @@ export interface Course_type {
 }
 
 export default function DashboardPage() {
-  const [date, setDate] = useState<Date | undefined>(new Date());
-  const { data, loading, error } = useQuery(GET_COURSES);
-
-  if (loading) {
-      return <span className="loading loading-infinity loading-lg"></span>
-  }
 
   return (
     <section>
@@ -33,41 +21,10 @@ export default function DashboardPage() {
         <CourseFilter />
         <div className="flex flex-row justify-between mx-10">
           <div className="col-span-2 flex flex-col justify-center items-center space-y-2">
-            <div className="grid grid-cols-3 gap-4">
-              {data &&
-                data.course.map((course: Course_type) => (
-                  <div
-                    id={course.id}
-                    className="card card-compact bg-base-100 hover:shadow-xl delay-100 duration-100"
-                    key={course.id}
-                  >
-                    <figure>
-                      <Image src="/front-end.jpg" alt="FrontEnd" width={300} height={300} />
-                    </figure>
-                    <article className="card-body">
-                      <h2 className="card-title">{course.name}</h2>
-                      <p>{course.description}</p>
-                      <div className="card-actions justify-end">
-                        <Link href={`/student/course/${course.id}`}>
-                            <button className="btn btn-primary">More</button>
-                        </Link>
-                      </div>
-                    </article>
-                  </div>
-                ))}
-            </div>
+            <CourseList />
           </div>
-
-          <div className="col-span-1 flex flex-col justify-center items-center space-y-2">
-              <h3 className="text-2xl">
-                Your Reservation
-              </h3>
-              <Calendar
-                mode="single"
-                selected={date}
-                onSelect={setDate}
-                className="rounded-md border shadow"
-              />
+          <div className="col-span-1 flex flex-col items-center space-y-2">
+              <AppointmentCalendar />
           </div>
         </div>
       </div>
