@@ -6,6 +6,7 @@ export const typeDefs = `#graphql
     email: String 
     password: String
     courses: [Course]
+    profile: StudentProfile
   }
 
   type Tutor {
@@ -14,6 +15,7 @@ export const typeDefs = `#graphql
     email: String 
     password: String
     courses: [Course]
+    profile: TutorProfile
   }
 
   type SiteAdmin {
@@ -53,7 +55,7 @@ export const typeDefs = `#graphql
     address: String
     timeZone: String
     biography: String
-    accountBalance: String
+    accountBalance: Int
   }
 
   type TutorProfile {
@@ -64,7 +66,7 @@ export const typeDefs = `#graphql
     phone: String
     address: String
     timeZone: String
-    accountBalance: String
+    accountBalance: Int
     professionalBio:String
     experienceSummary: String
     courseCanTeach: String

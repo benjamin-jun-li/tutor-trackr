@@ -76,6 +76,12 @@ export const resolvers = {
           name: args.name,
           email: args.email,
           password: args.password,
+          profile: {
+            create: {
+              username: args.name,
+              email: args.email
+            }
+          },
         },
       });
     },
@@ -87,6 +93,12 @@ export const resolvers = {
           name: args.name,
           email: args.email,
           password: args.password,
+          profile: {
+            create: {
+              username: args.name,
+              email: args.email
+            }
+          },
         },
       });
     },
@@ -111,7 +123,6 @@ export const resolvers = {
 
     // update tutor profile
     updateTutorProfile: async(_parent: any, args: any, context: Context) => {
-      // @ts-ignore
       return await context.prisma.tutorProfile.update({
         where: {
           email: args.email,

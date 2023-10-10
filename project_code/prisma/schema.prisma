@@ -14,6 +14,7 @@ model Student {
   password String
   courses Course[] @relation(fields: [courseId], references: [id])
   courseId String[] @db.ObjectId
+  profile StudentProfile?
 }
 model Tutor {
   id    String  @id @default(auto()) @map("_id") @db.ObjectId
@@ -22,6 +23,7 @@ model Tutor {
   password String
    courses Course[] @relation(fields: [courseId], references: [id])
   courseId String[] @db.ObjectId
+  profile TutorProfile?
 }
 
 model SiteAdmin {
@@ -59,8 +61,11 @@ model StudentProfile {
   address        String? 
   timeZone       String? 
   biography      String? 
-  accountBalance String? 
+  accountBalance Int @default(0)
+  student   Student   @relation(fields: [studentId], references: [id])
+  studentId String @unique @db.ObjectId
 }
+
 
 model TutorProfile {
   id             String  @id @default(auto()) @map("_id") @db.ObjectId
@@ -71,9 +76,11 @@ model TutorProfile {
   address        String? 
   timeZone       String?
   professionalBio String?
-  accountBalance String? 
+  accountBalance Int @default(0)
   experienceSummary String?
   courseCanTeach String?
+  tutor   Tutor   @relation(fields: [tutorId], references: [id])
+  tutorId String @unique @db.ObjectId
 }
 
 

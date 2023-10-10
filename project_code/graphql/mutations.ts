@@ -1,5 +1,8 @@
 import { gql } from "@apollo/client";
 
+// The logic should be that the profile is an attribute of the user,
+// so we should be able to update the profile by updating the user.
+
 export const ADD_Student = gql`
   mutation AddStudent(
     $name: String
@@ -15,6 +18,10 @@ export const ADD_Student = gql`
       name
       email
       password
+         profile{
+          username
+          email
+      }
     }
   }
 `;
@@ -34,6 +41,10 @@ export const ADD_Tutor = gql`
       name
       email
       password
+         profile{
+          username
+          email
+      }
     }
   }
 `;
@@ -47,7 +58,7 @@ export const UPDATE_STUDENT_PROFILE = gql`
     $address: String
     $timeZone: String
     $biography: String
-    $accountBalance: String
+    $accountBalance: Int
   ) {
     updateStudentProfile(
       email: $email
@@ -79,7 +90,7 @@ export const UPDATE_TUTOR_PROFILE = gql`
     $phone: String
     $address: String
     $timeZone: String
-    $accountBalance: String
+    $accountBalance: Int
     $biography:String
     $experienceSummary: String
     $courseCanTeach: String
