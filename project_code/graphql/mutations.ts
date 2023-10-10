@@ -92,7 +92,7 @@ export const UPDATE_TUTOR_PROFILE = gql`
       address: $address
       timeZone: $timeZone
       accountBalance: $accountBalance
-      professionalBio:&biography
+      professionalBio: $biography
       experienceSummary: $String
       courseCanTeach: $String
     ) {
