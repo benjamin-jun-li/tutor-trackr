@@ -7,6 +7,10 @@ import { GET_COURSES } from "@/graphql/queries";
 const CourseList = () => {
     const { data, loading, error } = useQuery(GET_COURSES);
 
+    if (loading) {
+        return <span className="loading loading-infinity loading-lg"></span>
+    }
+
     return (
         <section className="">
             <h2 className="mb-4 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-white">

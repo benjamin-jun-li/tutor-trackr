@@ -1,23 +1,46 @@
 "use client"
-import { ChangeEvent, ChangeEventHandler, FormEvent, useState } from "react"
+import { ChangeEvent, FormEvent, useState } from "react";
 import { Auth_SiteAdmin, Auth_TutorAdmin } from "@/graphql/queries";
 import { useLazyQuery } from "@apollo/client";
-
+import { useContextValue } from  "@/components/context"
+import { useRouter } from "next/navigation";
 const AdminForm = () => {
+    const { getters, setters } = useContextValue();
     const [role, setRole] = useState("Select Your Role")
+    const router = useRouter()
     const handleRole = (e: ChangeEvent<HTMLSelectElement>) => {
         setRole(e.target.value);
     }
-
+    const [authSiteAdmin, { loading: loadingAdminSite, error: adminSiteError, data: dataAdminSite }] = useLazyQuery(Auth_SiteAdmin);
+    const [authTutorAdmin, { loading: loadingAdminTut, error: adminTutError,  data: dataAdminTut}] = useLazyQuery(Auth_TutorAdmin);
     const [formData, setFormData] = useState(
         {
             email: "",
             password: ""
         }
     )
-    const formSubmit = (e:FormEvent) => {
+    const formSubmit = async (e: FormEvent) => {
         e.preventDefault();
-        //TODO add admin login
+        if (role === "Site Administrator") {
+            const res = await authSiteAdmin({variables: {email: formData.email}});
+            if (res.data?.siteAdmin?.password === formData.password) {
+                setters.setUserStatus(true)
+                router.replace('/admin/siteadmin/dashboard')
+            } else {
+                alert("invalid site admin info")
+            }
+        } else {
+            const res = await authTutorAdmin({variables: {email: formData.email}});
+            if (res.data?.tutorAdmin?.password === formData.password) {
+                setters.setUserStatus(true)
+                router.replace('/admin/tutoradmin/dashboard')
+            } else {
+                alert("invalid tutor admin info")
+            }
+        }
+        if (loadingAdminTut || loadingAdminSite || getters.userStatus) {
+            return <span className="loading loading-bars loading-lg"></span>
+        }
     }
 
     const handleInput = (e: ChangeEvent<HTMLInputElement>) => {

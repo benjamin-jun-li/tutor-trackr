@@ -1,7 +1,7 @@
 import { Metadata } from "next"
-import CourseList from "@/app/tutor/dashboard/course-list";
-import MessageBox from "@/app/tutor/dashboard/message-box";
-import TutorAppointment from "@/app/tutor/dashboard/tutor-appmt";
+import CourseList from "@/components/dashboard/courseList";
+import MessageBox from "@/app/tutor/dashboard/messageBox";
+import AppointmentCalendar from "@/components/dashboard/AppmtCalendar";
 
 export const metadata: Metadata = {
     title: "Dashboard",
@@ -16,7 +16,7 @@ const DashboardPage = () => {
             </div>
             <div className="flex flex-col justify-center items-center gap-8">
                 <MessageBox />
-                <TutorAppointment />
+                <AppointmentCalendar />
             </div>
         </section>
     )

@@ -1,4 +1,11 @@
 "use client"
+/**
+ * Example Usage:
+ *   import { useContextValue } from  "@/components/context"
+ *   const { getters, setters } = useContextValue();
+ * @Guide This is a context hook for accessing global states,
+ *        getters is used to retrieve values, setters is used to set values
+ */
 import React, { createContext, useContext, useState } from "react";
 interface ContextValue {
     isDarkTheme: boolean;

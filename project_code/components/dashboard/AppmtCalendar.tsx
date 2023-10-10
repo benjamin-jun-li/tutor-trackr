@@ -2,7 +2,7 @@
 import {Calendar} from "@/components/ui/calendar";
 import { useState } from "react";
 
-const TutorAppointment = () => {
+const AppointmentCalendar = () => {
     const [date, setDate] = useState<Date | undefined>(new Date());
     return (
         <section className="flex flex-col justify-center items-center">
@@ -19,4 +19,4 @@ const TutorAppointment = () => {
     )
 }
 
-export default TutorAppointment
+export default AppointmentCalendar
