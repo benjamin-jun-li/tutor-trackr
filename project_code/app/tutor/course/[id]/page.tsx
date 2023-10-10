@@ -1,6 +1,10 @@
 "use client"
 const CourseDetailTut = () => {
-    return <></>
+    return (
+        <article>
+
+        </article>
+    )
 }
 
 export default CourseDetailTut

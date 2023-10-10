@@ -22,7 +22,6 @@ import { Auth_Student, Auth_Tutor } from "@/graphql/queries";
 import { useLazyQuery } from "@apollo/client";
 import {RadioGroup, RadioGroupItem} from "@/components/ui/radio-group";
 import { useContextValue } from  "@/components/context"
-import {useEffect, useState} from "react";
 
 
 const FormSchema = z.object({

@@ -20,12 +20,10 @@ export interface Course_type {
 export default function DashboardPage() {
 
   return (
-    <section>
-      <div className="flex-1 space-y-4 p-8 pt-6">
-        <Search />
-        <h2 className="font-bold text-2xl">View Courses</h2>
-        <CourseFilter />
-        <div className="flex flex-row justify-between mx-10">
+    <section className="space-y-4 p-8 mt-[5rem]">
+        <div className="grid grid-cols-3 mx-10 place-items-center">
+          <Search />
+          <CourseFilter />
           <div className="col-span-2 flex flex-col justify-center items-center space-y-2">
             <CourseList role={"student"}/>
           </div>
@@ -33,7 +31,6 @@ export default function DashboardPage() {
               <AppointmentCalendar />
           </div>
         </div>
-      </div>
     </section>
   );
 }
