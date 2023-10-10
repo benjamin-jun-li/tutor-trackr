@@ -1,11 +1,8 @@
 "use client"
 
-import Link from "next/link"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useFieldArray, useForm } from "react-hook-form"
+import { useForm } from "react-hook-form"
 import * as z from "zod"
-
-import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import {
     Form,
@@ -16,18 +13,24 @@ import {
     FormLabel,
     FormMessage,
 } from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
 import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select"
+    Avatar,
+    AvatarFallback,
+    AvatarImage,
+} from "@/components/ui/avatar"
+import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { toast } from "@/components/ui/use-toast"
+import {useEffect, useState} from "react";
+import {useMutation, useQuery} from "@apollo/client";
+import {GET_TUTOR_PROFILE} from "@/graphql/queries";
+import {UPDATE_TUTOR_PROFILE} from "@/graphql/mutations";
+import {usePathname, useRouter} from "next/navigation";
+import {useContextValue} from "@/components/context";
+import TimezonePicker from "@/components/TimezonePicker";
 
 const profileFormSchema = z.object({
+    avatar: z.string().optional(),
     username: z
         .string()
         .min(2, {
@@ -41,40 +44,78 @@ const profileFormSchema = z.object({
             required_error: "Please select an email to display.",
         })
         .email(),
-    bio: z.string().max(160).min(4),
-    urls: z
-        .array(
-            z.object({
-                value: z.string().url({ message: "Please enter a valid URL." }),
-            })
-        )
-        .optional(),
+    phone: z.string()
+        .min(8)
+        .max(15)
+        .refine(value => /^\+?\d+(\s\d+)?$/.test(value), {
+            message: "Invalid phone number format. (e.g. +1 1234567890)",
+        }),
+    address: z.string()
+        .min(5)
+        .max(255)
+        .refine(value => /^[a-zA-Z0-9\s\-,]+$/u.test(value), {
+            message: "Invalid address format.",
+        }),
+    timezone: z.string().min(1).max(255).default("UTC+10:00 Australian Eastern Standard Time"),
+    bio: z.string().max(160).min(1),
+    experiencesummary: z.string().max(160).min(1),
+    coursecanteach: z.string().max(160).min(1),
+    // balance: z.number().min(0),
 })
 
 type ProfileFormValues = z.infer<typeof profileFormSchema>
 
-// This can come from your database or API.
-const defaultValues: Partial<ProfileFormValues> = {
-    bio: "I own a computer.",
-    urls: [
-        { value: "https://shadcn.com" },
-        { value: "http://twitter.com/shadcn" },
-    ],
-}
-
 export function TutorProfileForm() {
     const form = useForm<ProfileFormValues>({
         resolver: zodResolver(profileFormSchema),
-        defaultValues,
         mode: "onChange",
     })
 
-    const { fields, append } = useFieldArray({
-        name: "urls",
-        control: form.control,
-    })
+    const { getters,setters } = useContextValue();
+    const router = useRouter();
+    let currentPath = usePathname();
+    const [updateTutorProfile,{data:studentData,loading:studentLoading,error:studentError}] = useMutation(UPDATE_TUTOR_PROFILE);
 
-    function onSubmit(data: ProfileFormValues) {
+    currentPath =
+        currentPath?.startsWith('/student') ? '/student' :
+            currentPath?.startsWith('/tutor') ? '/tutor' :
+                currentPath;
+
+
+    const [userEmail, setUserEmail] = useState('')
+
+    useEffect(() => {
+        setUserEmail(getters.userEmail);
+    }, [getters.userEmail]);
+
+    const { loading, error, data } = useQuery(GET_TUTOR_PROFILE, {
+        variables: { email: userEmail },
+    });
+
+    const onSubmit = async (data: ProfileFormValues) => {
+        // // TODO: Update tutor profile
+        // const res = await updateTutorProfile({
+        //     variables: {
+        //         email: data.email,
+        //         thumbnail: data.avatar,
+        //         username: data.username,
+        //         phone: data.phone,
+        //         address: data.address,
+        //         timeZone: data.timezone,
+        //         biography: data.bio,
+        //         accountBalance: "0",
+        //     }
+        // })
+        // if (res.data?.updateTutorProfile?.email) {
+        //     setters.setEmail(data.email);
+        //     setters.setName(data.username);
+        //     alert("Profile updated successfully!")
+        //     router.replace(`/student/dashboard/`)
+        // } else {
+        //     console.log(res);
+        // }
+
+        console.log("Form data submitted:", data);
         toast({
             title: "You submitted the following values:",
             description: (
@@ -85,9 +126,35 @@ export function TutorProfileForm() {
         })
     }
 
+    const handleDashboardClick = () => {
+        router.push(currentPath + '/dashboard');
+    };
+
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+                <FormField
+                    control={form.control}
+                    name="avatar"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Avatar</FormLabel>
+                            <FormControl>
+                                <div>
+                                    <Avatar>
+                                        <AvatarImage src="/default-user.png" alt="avatar" />
+                                        <AvatarFallback>Avatar</AvatarFallback>
+                                    </Avatar>
+                                    <Input id="avatar" type="file" accept="image/*" {...field} />
+                                </div>
+                            </FormControl>
+                            <FormDescription>
+                                This is your avatar. It can be uploaded as a type of image.
+                            </FormDescription>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
                 <FormField
                     control={form.control}
                     name="username"
@@ -95,11 +162,11 @@ export function TutorProfileForm() {
                         <FormItem>
                             <FormLabel>Username</FormLabel>
                             <FormControl>
-                                <Input placeholder="shadcn" {...field} />
+                                <Input placeholder={data && data.user?.username} {...field} />
                             </FormControl>
                             <FormDescription>
                                 This is your public display name. It can be your real name or a
-                                pseudonym. You can only change this once every 30 days.
+                                pseudonym.
                             </FormDescription>
                             <FormMessage />
                         </FormItem>
@@ -111,21 +178,61 @@ export function TutorProfileForm() {
                     render={({ field }) => (
                         <FormItem>
                             <FormLabel>Email</FormLabel>
-                            <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                <FormControl>
-                                    <SelectTrigger>
-                                        <SelectValue placeholder="Select a verified email to display" />
-                                    </SelectTrigger>
-                                </FormControl>
-                                <SelectContent>
-                                    <SelectItem value="m@example.com">m@example.com</SelectItem>
-                                    <SelectItem value="m@google.com">m@google.com</SelectItem>
-                                    <SelectItem value="m@support.com">m@support.com</SelectItem>
-                                </SelectContent>
-                            </Select>
+                            <FormControl>
+                                <Input placeholder={data && data.user?.email} {...field} />
+                            </FormControl>
                             <FormDescription>
-                                You can manage verified email addresses in your{" "}
-                                <Link href="/examples/forms">email settings</Link>.
+                                You can change your email.
+                            </FormDescription>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+                <FormField
+                    control={form.control}
+                    name="phone"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Phone</FormLabel>
+                            <FormControl>
+                                <Input placeholder={data && data.user?.phone} {...field} />
+                            </FormControl>
+                            <FormDescription>
+                                This is your phone number. It should all be numbers.
+                            </FormDescription>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+                <FormField
+                    control={form.control}
+                    name="address"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Address</FormLabel>
+                            <FormControl>
+                                <Input {...field} />
+                            </FormControl>
+                            <FormDescription>
+                                This is your address.
+                            </FormDescription>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+                <FormField
+                    control={form.control}
+                    name="timezone"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Time Zone</FormLabel>
+                            <FormControl>
+                                <div className="select-wrapper" {...field}>
+                                    <TimezonePicker />
+                                </div>
+                            </FormControl>
+                            <FormDescription>
+                                You can pick your timezone in your area.
                             </FormDescription>
                             <FormMessage />
                         </FormItem>
@@ -136,10 +243,10 @@ export function TutorProfileForm() {
                     name="bio"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>Bio</FormLabel>
+                            <FormLabel>Professional Bio</FormLabel>
                             <FormControl>
                                 <Textarea
-                                    placeholder="Tell us a little bit about yourself"
+                                    placeholder={data && data.user?.bio}
                                     className="resize-none"
                                     {...field}
                                 />
@@ -152,39 +259,55 @@ export function TutorProfileForm() {
                         </FormItem>
                     )}
                 />
-                <div>
-                    {fields.map((field, index) => (
-                        <FormField
-                            control={form.control}
-                            key={field.id}
-                            name={`urls.${index}.value`}
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel className={cn(index !== 0 && "sr-only")}>
-                                        URLs
-                                    </FormLabel>
-                                    <FormDescription className={cn(index !== 0 && "sr-only")}>
-                                        Add links to your website, blog, or social media profiles.
-                                    </FormDescription>
-                                    <FormControl>
-                                        <Input {...field} />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                    ))}
-                    <Button
-                        type="button"
-                        variant="outline"
-                        size="sm"
-                        className="mt-2"
-                        onClick={() => append({ value: "" })}
-                    >
-                        Add URL
-                    </Button>
+                <FormField
+                    control={form.control}
+                    name="experiencesummary"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Experience Summary</FormLabel>
+                            <FormControl>
+                                <Textarea
+                                    placeholder={data && data.user?.experienceSummary}
+                                    className="resize-none"
+                                    {...field}
+                                />
+                            </FormControl>
+                            <FormDescription>
+                                You can add your experience summary here.
+                            </FormDescription>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+                <FormField
+                    control={form.control}
+                    name="coursecanteach"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Course Can Teach</FormLabel>
+                            <FormControl>
+                                <Textarea
+                                    placeholder={data && data.user?.courseCanTeach}
+                                    className="resize-none"
+                                    {...field}
+                                />
+                            </FormControl>
+                            <FormDescription>
+                                You can add your course can teach here.
+                            </FormDescription>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+                {/*<div>*/}
+                {/*    Balance: {data && data.user?.accountBalance ? data.user?.accountBalance : 0}*/}
+                {/*</div>*/}
+
+                <div className="flex space-x-4">
+                    <Button type="submit">Update profile</Button>
+                    <Button onClick={handleDashboardClick}>Back</Button>
                 </div>
-                <Button type="submit">Update profile</Button>
+
             </form>
         </Form>
     )
