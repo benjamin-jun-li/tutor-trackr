@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Separator } from "@/components/ui/separator"
 import {
@@ -47,12 +47,18 @@ const timezones = [
 
 const TimezonePicker: React.FC = () => {
     const defaultTimezone = 'UTC+10:00 Australian Eastern Standard Time';
+    const [selectedTimezone, setSelectedTimezone] = useState<string>(defaultTimezone);
+
+    const handleTimezoneChange = (timezone: string) => {
+        setSelectedTimezone(timezone);
+    };
 
     return (
         <div>
             <label htmlFor="timezone">Select a timezone:</label>
             <Select
                 defaultValue={defaultTimezone}
+                onValueChange={handleTimezoneChange}
             >
                 <SelectTrigger className="w-[360px]">
                     <SelectValue />

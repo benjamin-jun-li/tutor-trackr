@@ -29,11 +29,7 @@ import {useContextValue} from "@/components/context";
 import TimezonePicker from "@/components/TimezonePicker";
 
 const profileFormSchema = z.object({
-    avatar: z
-        .string().
-        url({
-            message: "Please enter a valid avatar."
-        }),
+    avatar: z.string().optional(),
     username: z
         .string()
         .min(2, {
@@ -59,9 +55,9 @@ const profileFormSchema = z.object({
         .refine(value => /^[a-zA-Z0-9\s\-,]+$/u.test(value), {
             message: "Invalid address format.",
         }),
-    timezone: z.string().min(1).max(255),
+    timezone: z.string().min(1).max(255).default("UTC+10:00 Australian Eastern Standard Time"),
     bio: z.string().max(160).min(1),
-    balance: z.number().min(0),
+    // balance: z.number().min(0),
 })
 
 type ProfileFormValues = z.infer<typeof profileFormSchema>
@@ -81,11 +77,20 @@ export function StudentProfileForm() {
             currentPath?.startsWith('/tutor') ? '/tutor' :
                 currentPath;
 
-    const handleDashboardClick = () => {
-        router.push(currentPath + '/dashboard');
-    };
 
-    function onSubmit(data: ProfileFormValues) {
+    const [userEmail, setUserEmail] = useState('')
+
+    useEffect(() => {
+        setUserEmail(getters.userEmail);
+    }, [getters.userEmail]);
+
+    const { loading, error, data } = useQuery(GET_STUDENT_PROFILE, {
+        variables: { email: userEmail },
+    });
+
+    const onSubmit = async (data: ProfileFormValues) => {
+
+        console.log("Form data submitted:", data);
         toast({
             title: "You submitted the following values:",
             description: (
@@ -96,15 +101,9 @@ export function StudentProfileForm() {
         })
     }
 
-    const [userEmail, setUserEmail] = useState('')
-
-    useEffect(() => {
-        setUserEmail(getters.userEmail);
-    }, []);
-
-    const { loading, error, data } = useQuery(GET_STUDENT_PROFILE, {
-        variables: { email: userEmail },
-    });
+    const handleDashboardClick = () => {
+        router.push(currentPath + '/dashboard');
+    };
 
     return (
         <Form {...form}>
@@ -116,12 +115,14 @@ export function StudentProfileForm() {
                         <FormItem>
                             <FormLabel>Avatar</FormLabel>
                             <FormControl>
-                                <Avatar>
-                                    <AvatarImage src="/default-user.png" alt="avatar" />
-                                    <AvatarFallback>Avatar</AvatarFallback>
-                                </Avatar>
+                                <div>
+                                    <Avatar>
+                                        <AvatarImage src="/default-user.png" alt="avatar" />
+                                        <AvatarFallback>Avatar</AvatarFallback>
+                                    </Avatar>
+                                    <Input id="avatar" type="file" accept="image/*" {...field} />
+                                </div>
                             </FormControl>
-                            <input type="file" accept="image/*" className="file-input w-full max-w-xs" />
                             <FormDescription>
                                 This is your avatar. It can be uploaded as a type of image.
                             </FormDescription>
@@ -201,7 +202,7 @@ export function StudentProfileForm() {
                         <FormItem>
                             <FormLabel>Time Zone</FormLabel>
                             <FormControl>
-                                <div className="select-wrapper">
+                                <div className="select-wrapper" {...field}>
                                     <TimezonePicker />
                                 </div>
                             </FormControl>
@@ -233,22 +234,10 @@ export function StudentProfileForm() {
                         </FormItem>
                     )}
                 />
-                <FormField
-                    control={form.control}
-                    name="balance"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>Balance</FormLabel>
-                            <FormControl>
-                                {data && data.user?.balance}
-                            </FormControl>
-                            <FormDescription>
-                                This is your account balance.
-                            </FormDescription>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
+                <div>
+                    Balance: {data && data.user?.balance}
+                </div>
+
                 <div className="flex space-x-4">
                     <Button type="submit">Update profile</Button>
                     <Button onClick={handleDashboardClick}>Back</Button>
