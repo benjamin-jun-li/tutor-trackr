@@ -67,7 +67,7 @@ const SignInForm = () => {
           const res = await authTutor({variables: {email: values.email}});
           if (res.data?.tutor?.password === enteredPassword) {
               setters.setUserStatus(true)
-              router.replace('/student/dashboard')
+              router.replace('/tutor/dashboard')
           } else {
               alert("Invalid tutor info")
           }
