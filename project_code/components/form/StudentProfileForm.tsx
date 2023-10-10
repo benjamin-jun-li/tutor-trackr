@@ -22,8 +22,9 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { toast } from "@/components/ui/use-toast"
 import {useEffect, useState} from "react";
-import {useQuery} from "@apollo/client";
+import {useMutation, useQuery} from "@apollo/client";
 import {GET_STUDENT_PROFILE} from "@/graphql/queries";
+import {UPDATE_STUDENT_PROFILE} from "@/graphql/mutations";
 import {usePathname, useRouter} from "next/navigation";
 import {useContextValue} from "@/components/context";
 import TimezonePicker from "@/components/TimezonePicker";
@@ -71,6 +72,7 @@ export function StudentProfileForm() {
     const { getters,setters } = useContextValue();
     const router = useRouter();
     let currentPath = usePathname();
+    const [updateStudentProfile,{data:studentData,loading:studentLoading,error:studentError}] = useMutation(UPDATE_STUDENT_PROFILE);
 
     currentPath =
         currentPath?.startsWith('/student') ? '/student' :
@@ -89,6 +91,27 @@ export function StudentProfileForm() {
     });
 
     const onSubmit = async (data: ProfileFormValues) => {
+        // TODO: Update student profile
+        const res = await updateStudentProfile({
+            variables: {
+                email: data.email,
+                thumbnail: data.avatar,
+                username: data.username,
+                phone: data.phone,
+                address: data.address,
+                timeZone: data.timezone,
+                biography: data.bio,
+                accountBalance: "0",
+            }
+        })
+        if (res.data?.updateStudentProfile?.email) {
+            setters.setEmail(data.email);
+            setters.setName(data.username);
+            alert("Profile updated successfully!")
+            router.replace(`/student/dashboard/`)
+        } else {
+            console.log(res);
+        }
 
         console.log("Form data submitted:", data);
         toast({
@@ -234,9 +257,9 @@ export function StudentProfileForm() {
                         </FormItem>
                     )}
                 />
-                <div>
-                    Balance: {data && data.user?.balance}
-                </div>
+                {/*<div>*/}
+                {/*    Balance: {data && data.user?.accountBalance ? data.user?.accountBalance : 0}*/}
+                {/*</div>*/}
 
                 <div className="flex space-x-4">
                     <Button type="submit">Update profile</Button>
