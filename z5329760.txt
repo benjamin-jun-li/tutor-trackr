@@ -10,3 +10,6 @@ Studied TailwindCSS for styling and design purposes.
 Week 3
 Delved into mastering Next.js 13.x integrated with GraphQL.
 Modified the format of the proposal for better clarity and presentation.
+
+week 4
+Adjusted the runtime logic of the login screen and dashboard screen.
