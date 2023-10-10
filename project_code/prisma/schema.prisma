@@ -69,7 +69,8 @@ model TutorProfile {
   username       String  
   phone          String? 
   address        String? 
-  timeZone       String?  
+  timeZone       String?
+  professionalBio String?
   accountBalance String? 
   experienceSummary String?
   courseCanTeach String?
