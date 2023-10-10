@@ -12,14 +12,13 @@ import { useContextValue } from  "@/components/context"
 const Navbar = () => {
 
   const { getters } = useContextValue();
-  const [userEmail, setUserEmail] = useState('');
-
+  const [userEmail, setUserEmail] = useState(getters.userEmail);
+  const [userName, setUserName] = useState(getters.userName);
 
   useEffect(() => {
-    setUserEmail(localStorage.getItem('userEmail') ?? '');
+    setUserEmail(getters.userEmail);
+    setUserName(getters.userName);
   }, []);
-
-  const userName = '';
 
   const pathname = usePathname();
 

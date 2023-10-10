@@ -68,7 +68,9 @@ const SignUpForm = () => {
                   password: values.password,
               },
           });
-          if (res.data?.student?.email) {
+          if (res.data?.addStudent?.email) {
+              setters.setEmail(values.email);
+              setters.setName(values.username);
               setters.setIdentity(values.identity);
               router.replace(`/student/dashboard/`)
           } else {
@@ -82,7 +84,9 @@ const SignUpForm = () => {
                   password: values.password,
               },
           });
-          if (res.data?.tutor?.email) {
+          if (res.data?.addTutor?.email) {
+              setters.setEmail(values.email);
+              setters.setName(values.username);
               setters.setIdentity(values.identity);
               router.replace(`/tutor/dashboard/`)
           } else {

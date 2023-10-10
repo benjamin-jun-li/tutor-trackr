@@ -23,8 +23,9 @@ import { Textarea } from "@/components/ui/textarea"
 import { toast } from "@/components/ui/use-toast"
 import {useEffect, useState} from "react";
 import {useQuery} from "@apollo/client";
-import {GET_USER} from "@/graphql/queries";
+import {Auth_Student} from "@/graphql/queries";
 import {usePathname, useRouter} from "next/navigation";
+import {useContextValue} from "@/components/context";
 import TimezonePicker from "@/components/TimezonePicker";
 
 const profileFormSchema = z.object({
@@ -71,6 +72,7 @@ export function StudentProfileForm() {
         mode: "onChange",
     })
 
+    const { getters,setters } = useContextValue();
     const router = useRouter();
     let currentPath = usePathname();
 
@@ -94,16 +96,13 @@ export function StudentProfileForm() {
         })
     }
 
-
     const [userEmail, setUserEmail] = useState('')
 
     useEffect(() => {
-        let emailValue;
-        emailValue = localStorage.getItem('userEmail') || '';
-        setUserEmail(emailValue)
+        setUserEmail(getters.userEmail);
     }, []);
 
-    const { loading, error, data } = useQuery(GET_USER, {
+    const { loading, error, data } = useQuery(Auth_Student, {
         variables: { email: userEmail },
     });
 

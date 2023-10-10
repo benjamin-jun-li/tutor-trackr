@@ -15,6 +15,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import {usePathname } from "next/navigation";
+import { useContextValue } from "@/components/context";
 import Link from "next/link";
 
 interface NavbarProps {
@@ -23,6 +24,7 @@ interface NavbarProps {
 }
 
 export function UserNav(NavbarProps: NavbarProps) {
+  const { getters,setters } = useContextValue();
   let currentPath = usePathname();
 
   currentPath =
@@ -31,7 +33,8 @@ export function UserNav(NavbarProps: NavbarProps) {
               currentPath;
 
   const handleLogout = () => {
-    localStorage.clear();
+    setters.setEmail("");
+    setters.setName("");
     window.location.href = "/";
   };
 
