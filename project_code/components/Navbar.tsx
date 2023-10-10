@@ -1,4 +1,4 @@
-'use client';
+'use client'
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -12,14 +12,13 @@ import { useContextValue } from  "@/components/context"
 const Navbar = () => {
 
   const { getters } = useContextValue();
-  const [userEmail, setUserEmail] = useState('');
-
+  const [userEmail, setUserEmail] = useState(getters.userEmail);
+  const [userName, setUserName] = useState(getters.userName);
 
   useEffect(() => {
-    setUserEmail(localStorage.getItem('userEmail') ?? '');
-  }, []);
-
-  const userName = '';
+    setUserEmail(getters.userEmail);
+    setUserName(getters.userName);
+  }, [getters.userEmail, getters.userName]);
 
   const pathname = usePathname();
 

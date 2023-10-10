@@ -22,6 +22,7 @@ import { Auth_Student, Auth_Tutor } from "@/graphql/queries";
 import { useLazyQuery } from "@apollo/client";
 import {RadioGroup, RadioGroupItem} from "@/components/ui/radio-group";
 import { useContextValue } from  "@/components/context"
+import {useEffect, useState} from "react";
 
 
 const FormSchema = z.object({
@@ -58,6 +59,8 @@ const SignInForm = () => {
       if (values.identity === "student") {
           const res = await authStudent({variables: {email: values.email}})
           if (res.data?.student?.password === enteredPassword) {
+              setters.setEmail(values.email)
+              setters.setName(res.data.student.name)
               setters.setUserStatus(true)
               router.replace('/student/dashboard')
           } else {
@@ -66,8 +69,10 @@ const SignInForm = () => {
       } else if (values.identity === "tutor") {
           const res = await authTutor({variables: {email: values.email}});
           if (res.data?.tutor?.password === enteredPassword) {
+              setters.setEmail(values.email)
+              setters.setName(res.data.student.name)
               setters.setUserStatus(true)
-              router.replace('/student/dashboard')
+              router.replace('/tutor/dashboard')
           } else {
               alert("Invalid tutor info")
           }

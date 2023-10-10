@@ -1,7 +1,13 @@
+import { Metadata } from "next"
 import Search from "@/components/dashboard/search";
 import CourseFilter from "@/components/dashboard/course-filter";
 import CourseList from "@/components/dashboard/courseList";
 import AppointmentCalendar from "@/components/dashboard/AppmtCalendar";
+
+export const metadata: Metadata = {
+  title: "Student Dashboard",
+    description: "Student interface",
+}
 
 export interface Course_type {
   id:   string,
@@ -21,7 +27,7 @@ export default function DashboardPage() {
         <CourseFilter />
         <div className="flex flex-row justify-between mx-10">
           <div className="col-span-2 flex flex-col justify-center items-center space-y-2">
-            <CourseList />
+            <CourseList role={"student"}/>
           </div>
           <div className="col-span-1 flex flex-col items-center space-y-2">
               <AppointmentCalendar />

@@ -68,9 +68,12 @@ const SignUpForm = () => {
                   password: values.password,
               },
           });
-          if (res.data?.email) {
+          if (res.data?.addStudent?.email) {
+              setters.setEmail(values.email);
+              setters.setName(values.username);
               setters.setIdentity(values.identity);
-              router.replace(`/${values.identity}/dashboard/`)
+              setters.setUserStatus(true);
+              router.replace(`/student/dashboard/`)
           } else {
               console.log(res);
           }
@@ -82,9 +85,12 @@ const SignUpForm = () => {
                   password: values.password,
               },
           });
-          if (res.data?.email) {
+          if (res.data?.addTutor?.email) {
+              setters.setEmail(values.email);
+              setters.setName(values.username);
               setters.setIdentity(values.identity);
-              router.replace(`/${values.identity}/dashboard/`)
+              setters.setUserStatus(true);
+              router.replace(`/tutor/dashboard/`)
           } else {
               console.log(res);
           }
@@ -186,12 +192,6 @@ const SignUpForm = () => {
                         </FormControl>
                         <FormLabel className="font-normal">Tutor</FormLabel>
                       </FormItem>
-                      {/*<FormItem className="flex items-center space-x-3 space-y-0">*/}
-                      {/*    <FormControl>*/}
-                      {/*    <RadioGroupItem value="admin" />*/}
-                      {/*    </FormControl>*/}
-                      {/*    <FormLabel className="font-normal">Admin</FormLabel>*/}
-                      {/*</FormItem>*/}
                     </RadioGroup>
                   </FormControl>
                   <FormMessage />

@@ -4,7 +4,7 @@ export const resolvers = {
   Query: {
     //auth student by email
     student: async (_parent: any, args: any, context: Context) => {
-      return await context.prisma.student.findUnique({
+      return context.prisma.student.findUnique({
         where: {
           email: args.email,
         },
@@ -13,7 +13,7 @@ export const resolvers = {
 
     //auth tutor by email
     tutor: async (_parent: any, args: any, context: Context) => {
-      return await context.prisma.tutor.findUnique({
+      return context.prisma.tutor.findUnique({
         where: {
           email: args.email,
         },
@@ -22,7 +22,7 @@ export const resolvers = {
 
     //auth siteAdmin by email
     siteAdmin: async (_parent: any, args: any, context: Context) => {
-      return await context.prisma.siteAdmin.findUnique({
+      return context.prisma.siteAdmin.findUnique({
         where: {
           email: args.email,
         },
@@ -31,7 +31,7 @@ export const resolvers = {
 
     //auth siteAdmin by email
     tutorAdmin: async (_parent: any, args: any, context: Context) => {
-      return await context.prisma.tutorAdmin.findUnique({
+      return context.prisma.tutorAdmin.findUnique({
         where: {
           email: args.email,
         },
