@@ -78,9 +78,7 @@ export const typeDefs = `#graphql
     siteAdmin(email: String): SiteAdmin
     tutorAdmin(email: String): TutorAdmin
     course: [Course]
-    
-    getStudentList:Student
-    
+    getStudentList:[Student]
     getStudentProfile(email: String!): StudentProfile
     getTutorProfile(email: String!): TutorProfile
   }

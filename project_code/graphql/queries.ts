@@ -57,7 +57,7 @@ export const GET_COURSES = gql`
 `;
 
 export const GET_StudentList = gql`
-  query GetStudentList {
+  query Student {
     getStudentList {
         id
         email
