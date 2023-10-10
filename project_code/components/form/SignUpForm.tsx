@@ -72,6 +72,7 @@ const SignUpForm = () => {
               setters.setEmail(values.email);
               setters.setName(values.username);
               setters.setIdentity(values.identity);
+              setters.setUserStatus(true);
               router.replace(`/student/dashboard/`)
           } else {
               console.log(res);
@@ -88,6 +89,7 @@ const SignUpForm = () => {
               setters.setEmail(values.email);
               setters.setName(values.username);
               setters.setIdentity(values.identity);
+              setters.setUserStatus(true);
               router.replace(`/tutor/dashboard/`)
           } else {
               console.log(res);

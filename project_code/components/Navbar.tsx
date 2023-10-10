@@ -1,13 +1,11 @@
-'use client';
+'use client'
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { HandMetal } from 'lucide-react';
 import { UserNav } from '@/components/dashboard/user-nav';
-import { useQuery } from '@apollo/client';
 import { useContextValue } from  "@/components/context"
-// import { GET_USER } from '@/graphql/queries';
 
 const Navbar = () => {
 
@@ -18,7 +16,7 @@ const Navbar = () => {
   useEffect(() => {
     setUserEmail(getters.userEmail);
     setUserName(getters.userName);
-  }, []);
+  }, [getters.userEmail, getters.userName]);
 
   const pathname = usePathname();
 

@@ -65,6 +65,7 @@ export const typeDefs = `#graphql
     address: String
     timeZone: String
     accountBalance: String
+    professionalBio:String
     experienceSummary: String
     courseCanTeach: String
   }

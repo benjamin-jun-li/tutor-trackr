@@ -58,6 +58,8 @@ const SignInForm = () => {
       if (values.identity === "student") {
           const res = await authStudent({variables: {email: values.email}})
           if (res.data?.student?.password === enteredPassword) {
+              setters.setEmail(values.email)
+              setters.setName(res.data.student.name)
               setters.setUserStatus(true)
               router.replace('/student/dashboard')
           } else {
@@ -66,6 +68,8 @@ const SignInForm = () => {
       } else if (values.identity === "tutor") {
           const res = await authTutor({variables: {email: values.email}});
           if (res.data?.tutor?.password === enteredPassword) {
+              setters.setEmail(values.email)
+              setters.setName(res.data.student.name)
               setters.setUserStatus(true)
               router.replace('/tutor/dashboard')
           } else {

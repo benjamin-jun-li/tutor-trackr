@@ -111,6 +111,7 @@ export const resolvers = {
 
     // update tutor profile
     updateTutorProfile: async(_parent: any, args: any, context: Context) => {
+      // @ts-ignore
       return await context.prisma.tutorProfile.update({
         where: {
           email: args.email,
@@ -122,6 +123,7 @@ export const resolvers = {
           address: args.address,
           timeZone: args.timeZone,
           accountBalance: args.accountBalance,
+          professionalBio:args.biography,
           experienceSummary: args.experienceSummary,
           courseCanTeach: args.courseCanTeach,
         },
