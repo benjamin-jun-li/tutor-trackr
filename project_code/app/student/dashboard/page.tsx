@@ -7,6 +7,7 @@ import { GET_COURSES } from "@/graphql/queries";
 import { useQuery } from "@apollo/client";
 import Search from "@/components/dashboard/search";
 import CourseFilter from "@/components/dashboard/course-filter";
+import Link from "next/link";
 
 export interface Course_type {
   id:   string,
@@ -19,6 +20,10 @@ export interface Course_type {
 export default function DashboardPage() {
   const [date, setDate] = useState<Date | undefined>(new Date());
   const { data, loading, error } = useQuery(GET_COURSES);
+
+  if (loading) {
+      return <span className="loading loading-infinity loading-lg"></span>
+  }
 
   return (
     <section>
@@ -33,7 +38,7 @@ export default function DashboardPage() {
                 data.course.map((course: Course_type) => (
                   <div
                     id={course.id}
-                    className="card card-compact bg-base-100 shadow-xl"
+                    className="card card-compact bg-base-100 hover:shadow-xl delay-100 duration-100"
                     key={course.id}
                   >
                     <figure>
@@ -41,9 +46,11 @@ export default function DashboardPage() {
                     </figure>
                     <article className="card-body">
                       <h2 className="card-title">{course.name}</h2>
-                      <p>Front-end test</p>
+                      <p>{course.description}</p>
                       <div className="card-actions justify-end">
-                        <button className="btn btn-primary">More</button>
+                        <Link href={`/student/course/${course.id}`}>
+                            <button className="btn btn-primary">More</button>
+                        </Link>
                       </div>
                     </article>
                   </div>
