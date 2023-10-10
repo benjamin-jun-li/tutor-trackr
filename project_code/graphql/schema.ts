@@ -70,12 +70,14 @@ export const typeDefs = `#graphql
   }
  
   type Query {
-	  student(email: String): Student
+	student(email: String): Student
     tutor(email: String): Tutor
     siteAdmin(email: String): SiteAdmin
     tutorAdmin(email: String): TutorAdmin
-
     course: [Course]
+    
+    getStudentList:Student
+    
     getStudentProfile(email: String!): StudentProfile
     getTutorProfile(email: String!): TutorProfile
   }

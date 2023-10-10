@@ -56,6 +56,20 @@ export const GET_COURSES = gql`
   }
 `;
 
+export const GET_StudentList = gql`
+  query GetStudentList {
+    getStudentList {
+        id
+        email
+        name
+        courses {
+          id
+          name
+        }
+    }
+  }
+`;
+
 export const GET_STUDENT_PROFILE = gql`
   query StudentProfile($email: String!) {
     getStudentProfile(email: $email) {

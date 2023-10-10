@@ -43,6 +43,11 @@ export const resolvers = {
       return context.prisma.course.findMany();
     },
 
+    //get student list
+    getStudentList:async (_parent: any, args: any, context: Context) =>{
+      return context.prisma.student.findMany();
+    },
+
     //get student profile
     getStudentProfile: async (_parent: any, args: any, context: Context) => {
       return context.prisma.studentProfile.findUnique({
