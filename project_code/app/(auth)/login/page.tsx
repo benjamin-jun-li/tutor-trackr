@@ -5,7 +5,7 @@ const page = () => {
     <section className="max-w-[18rem] mt-4">
         <SignInForm />
         <p className="mt-4 text-center">
-            <a href="/reset-password" className="text-blue-500 hover:underline">Forget your password?</a>
+            <a href="/forget" className="text-blue-500 hover:underline">Forget your password?</a>
         </p>
     </section>
   )
