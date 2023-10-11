@@ -88,11 +88,11 @@ export const typeDefs = `#graphql
     addTutor (name:String, email:String,password:String) : Tutor
     updateStudentProfile(
       email: String!, thumbnail: String, username: String, phone: String,
-      address: String, timeZone: String, biography: String, accountBalance: String
+      address: String, timeZone: String, biography: String
     ) : StudentProfile
     updateTutorProfile(
       email: String!, thumbnail: String, username: String, phone: String,
-      address: String, timeZone: String, accountBalance: String, experienceSummary: String, 
+      address: String, timeZone: String,  experienceSummary: String, 
       courseCanTeach: String
     ) : TutorProfile
     addCourse(name: String!, description: String, comments: [String], 

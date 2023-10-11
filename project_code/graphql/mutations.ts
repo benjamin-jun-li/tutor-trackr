@@ -58,7 +58,6 @@ export const UPDATE_STUDENT_PROFILE = gql`
     $address: String
     $timeZone: String
     $biography: String
-    $accountBalance: Int
   ) {
     updateStudentProfile(
       email: $email
@@ -68,7 +67,6 @@ export const UPDATE_STUDENT_PROFILE = gql`
       address: $address
       timeZone: $timeZone
       biography: $biography
-      accountBalance: $accountBalance
     ) {
       thumbnail
       email
@@ -77,7 +75,6 @@ export const UPDATE_STUDENT_PROFILE = gql`
       address
       timeZone
       biography
-      accountBalance
     }
   }
 `;
@@ -90,7 +87,6 @@ export const UPDATE_TUTOR_PROFILE = gql`
     $phone: String
     $address: String
     $timeZone: String
-    $accountBalance: Int
     $biography:String
     $experienceSummary: String
     $courseCanTeach: String
@@ -102,7 +98,6 @@ export const UPDATE_TUTOR_PROFILE = gql`
       phone: $phone
       address: $address
       timeZone: $timeZone
-      accountBalance: $accountBalance
       professionalBio: $biography
       experienceSummary: $String
       courseCanTeach: $String
@@ -113,7 +108,6 @@ export const UPDATE_TUTOR_PROFILE = gql`
       phone
       address
       timeZone
-      accountBalance
       experienceSummary
       courseCanTeach
     }

@@ -101,7 +101,6 @@ export function StudentProfileForm() {
                 address: data.address,
                 timeZone: data.timezone,
                 biography: data.bio,
-                accountBalance: "0",
             }
         })
         if (res.data?.updateStudentProfile?.email) {

@@ -116,7 +116,6 @@ export const resolvers = {
           address: args.address,
           timeZone: args.timeZone,
           biography: args.biography,
-          accountBalance: args.accountBalance,
         },
       });
     },
@@ -133,7 +132,6 @@ export const resolvers = {
           phone: args.phone,
           address: args.address,
           timeZone: args.timeZone,
-          accountBalance: args.accountBalance,
           professionalBio: args.biography,
           experienceSummary: args.experienceSummary,
           courseCanTeach: args.courseCanTeach,
