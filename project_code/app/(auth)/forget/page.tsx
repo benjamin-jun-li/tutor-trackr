@@ -1,13 +1,25 @@
 "use client"
-import { useState } from "react"
-
-const ResetPasswordPage = () => {
+import { useState, FormEvent } from "react";
+const ForgetPasswordPage = () => {
   const [email, setEmail] = useState("");
-  
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // TODO: Add logic to send reset password request
     alert('Password reset link has been sent to your email.');
+    const res = await fetch("api/send", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            email: email,
+        })
+    })
+    if (res.status === 200) {
+        setEmail("");
+    } else {
+        alert(res);
+    }
   }
 
   return (
@@ -31,4 +43,4 @@ const ResetPasswordPage = () => {
   )
 }
 
-export default ResetPasswordPage
+export default ForgetPasswordPage
