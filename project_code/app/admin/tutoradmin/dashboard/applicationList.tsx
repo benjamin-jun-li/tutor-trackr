@@ -1,4 +1,11 @@
+"use client"
+import { useQuery } from "@apollo/client"
+import {GET_APPLICATION} from"@/graphql/queries"
+
 const ApplicationList = () => {
+    const applications = useQuery(GET_APPLICATION)
+    if (applications.data) console.log(applications.data)
+    
     return (
         <div className="w-full">
             <h2>Tutor Application Table</h2>

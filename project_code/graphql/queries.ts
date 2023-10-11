@@ -102,3 +102,27 @@ export const GET_TUTOR_PROFILE = gql`
     }
   }
 `;
+
+export const GET_APPLICATION = gql`
+  query TutorApplication {
+    getApplication {
+        id
+        name
+        email
+        courseName
+        date
+    }
+  }
+`;
+
+export const GET_INTERVIEW = gql`
+  query Interview {
+    getInterview {
+        id
+        name
+        email
+        courseName
+        date
+    }
+  }
+`;

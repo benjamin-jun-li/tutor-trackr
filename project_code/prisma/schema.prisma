@@ -83,7 +83,19 @@ model TutorProfile {
   tutorId String @unique @db.ObjectId
 }
 
+model TutorApplication {
+  id    String  @id @default(auto()) @map("_id") @db.ObjectId
+  name String
+  email String @unique
+  courseName String
+  date String
+}
 
-
-
+model Interview {
+  id    String  @id @default(auto()) @map("_id") @db.ObjectId
+  name String
+  email String @unique
+  courseName String
+  date String
+}
 

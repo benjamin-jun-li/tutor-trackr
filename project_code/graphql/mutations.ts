@@ -168,3 +168,47 @@ export const DELETE_Student = gql`
   }
 `;
 
+export const ADD_Application = gql`
+  mutation AddApplication(
+    $name: String
+    $email: String
+    $courseName: String
+    $date: String
+  ) {
+    addApplication(
+      name: $name
+      email: $email
+      courseName: $courseName
+      date: $date
+    ) {
+      id
+      name
+      email
+      courseName
+      date
+    }
+  }
+`;
+
+
+export const ADD_Interview = gql`
+  mutation AddInterview(
+    $name: String
+    $email: String
+    $courseName: String
+    $date: String
+  ) {
+    addInterview(
+      name: $name
+      email: $email
+      courseName: $courseName
+      date: $date
+    ) {
+      id
+      name
+      email
+      courseName
+      date
+    }
+  }
+`;

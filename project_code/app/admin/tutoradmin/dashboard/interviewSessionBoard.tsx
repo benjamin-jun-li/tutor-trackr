@@ -1,4 +1,11 @@
+"use client"
+import { useQuery } from "@apollo/client"
+import {GET_INTERVIEW} from"@/graphql/queries"
+
 const InterviewBoard = () => {
+    const applications = useQuery(GET_INTERVIEW)
+    if (applications.data) console.log(applications.data)
+
     return (
         <div className="w-full">
             <h2>Tutor Interview Board</h2>
