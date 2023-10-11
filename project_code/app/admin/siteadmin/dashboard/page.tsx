@@ -2,7 +2,7 @@ import { Metadata } from "next"
 
 import { Button } from "@/components/ui/button"
 import { CalendarDateRangePicker } from "@/components/dashboard/date-range-picker"
-import StudentList from "@/components/dashboard/student-list"
+import StudentList from "@/app/admin/siteadmin/dashboard/student-list"
 
 
 export const metadata: Metadata = {
