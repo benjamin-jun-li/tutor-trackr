@@ -2,10 +2,22 @@
 
 import {useQuery} from "@apollo/client";
 import {GET_StudentList} from "@/graphql/queries"
+import {useState} from "react";
+import {DELETE_Student} from "@/graphql/mutations";
+import {useMutation} from "@apollo/client";
 
 export default function StudentList() {
     const studentList = useQuery(GET_StudentList)
+    const [deleteStudentMutation,{data,loading,error}] = useMutation(DELETE_Student)
 
+    const [studentName, setStudentName] = useState("");
+    const [studentEmail, setStudentEmail] = useState("");
+    console.log(studentList.data?.getStudentList[13])
+
+    // Todo refetch query after delete
+    const deleteStudent = (email: String) => {
+        deleteStudentMutation({variables: {email: email}})
+    }
 
     return (
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -27,25 +39,47 @@ export default function StudentList() {
                 </tr>
                 </thead>
                 <tbody>
-                {studentList.data?.getStudentList.map((student:any) => (
-                    <tr id={student.id} key={student.id} className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                    <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        {student.name}
-                    </th>
-                    <td className="px-6 py-4">
-                        {student.email}
-                    </td>
-                    <td className="px-6 py-4">
-                        {student.courses?.map((courses:any) => (courses.name))}
-                    </td>
-                    <td className="px-6 py-4">
-                        <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                    </td>
-                </tr>))}
+                {studentList.data?.getStudentList.map((student: any) => (
+                    <tr id={student.id} key={student.id}
+                        className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                        <th scope="row"
+                            className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            {student.name}
+                        </th>
+                        <td className="px-6 py-4">
+                            {student.email}
+                        </td>
+                        <td className="px-6 py-4">
+                            {student.courses?.map((course: any) => (course.name))}
+                        </td>
+                        <td className="px-6 py-4">
+                            <button
+                                className="font-medium text-blue-600 dark:text-blue-500 hover:underline focus:z-10"
+                                onClick={() => {
+                                    document.getElementById('my_modal_5').showModal();
+                                    setStudentName(student.name);
+                                    setStudentEmail(student.email);
+                                }}
+                            >
+                                Delete
+                            </button>
 
+                        </td>
+                    </tr>))}
                 </tbody>
             </table>
+            <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
+                <div className="modal-box">
+                    <h3 className="font-bold text-lg">Alert!</h3>
+                    <p className="py-4">Do you want to delete {studentName}: {studentEmail}</p>
+                    <div className="modal-action flex justify-between">
+                        <form method="dialog" className="flex justify-between w-full">
+                            <button className="btn" onClick={() => deleteStudent(studentEmail)}>Confirm</button>
+                            <button className="btn">Close</button>
+                        </form>
+                    </div>
+                </div>
+            </dialog>
         </div>
-
     )
 }

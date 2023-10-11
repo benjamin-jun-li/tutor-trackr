@@ -99,5 +99,6 @@ export const typeDefs = `#graphql
       thumbnail: String, studentId: [String], tutorId: [String]
     ) : Course
     deleteCourse(id: String!): Course
+    deleteStudent(email: String!): Student
   }
 `;

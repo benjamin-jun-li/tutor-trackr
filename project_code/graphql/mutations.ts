@@ -1,4 +1,4 @@
-import { gql } from "@apollo/client";
+import {gql} from "@apollo/client";
 
 // The logic should be that the profile is an attribute of the user,
 // so we should be able to update the profile by updating the user.
@@ -159,3 +159,12 @@ export const DELETE_COURSE = gql`
     }
   }
 `;
+
+export const DELETE_Student = gql`
+  mutation DeleteStudent($email: String!) {
+    deleteStudent(email: $email) {
+     email
+   }
+  }
+`;
+
