@@ -102,3 +102,15 @@ export const GET_TUTOR_PROFILE = gql`
     }
   }
 `;
+
+export const GET_APPLICATION = gql`
+  query TutorApplication {
+    getApplication {
+        id
+        name
+        email
+        courseName
+        date
+    }
+  }
+`;

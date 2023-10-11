@@ -66,6 +66,11 @@ export const resolvers = {
       });
     },
 
+    //get tutor application
+    getApplication: async (_parent: any, args: any, context: Context) => {
+      return context.prisma.tutorApplication.findMany();
+    },
+
   },
 
   Mutation: {
@@ -159,6 +164,18 @@ export const resolvers = {
       } catch (error: any) {
         throw new Error(`Failed to delete course: ${error.message}`);
       }
+    },
+
+    // add application
+    addApplication: async (_parent: any, args: any, context: Context) => {
+      return context.prisma.tutorApplication.create({
+        data: {
+          name: args.name,
+          email: args.email,
+          courseName: args.courseName,
+          date: args.date,
+        },
+      });
     },
   },
 };

@@ -71,6 +71,14 @@ export const typeDefs = `#graphql
     experienceSummary: String
     courseCanTeach: String
   }
+
+  type TutorApplication {
+    id: ID!
+    name: String
+    email: String
+    courseName: String
+    date: String
+  }
  
   type Query {
 	student(email: String): Student
@@ -81,6 +89,7 @@ export const typeDefs = `#graphql
     getStudentList:[Student]
     getStudentProfile(email: String!): StudentProfile
     getTutorProfile(email: String!): TutorProfile
+    getApplication: [TutorApplication]
   }
 
   type Mutation {
@@ -99,5 +108,8 @@ export const typeDefs = `#graphql
       thumbnail: String, studentId: [String], tutorId: [String]
     ) : Course
     deleteCourse(id: String!): Course
+    addApplication(name: String, email: String, courseName: String, date: String
+    ) : TutorApplication
+    
   }
 `;
