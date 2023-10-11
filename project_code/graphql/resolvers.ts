@@ -71,6 +71,11 @@ export const resolvers = {
       return context.prisma.tutorApplication.findMany();
     },
 
+    //get interview
+    getInterview: async (_parent: any, args: any, context: Context) => {
+      return context.prisma.interview.findMany();
+    },
+
   },
 
   Mutation: {
@@ -169,6 +174,18 @@ export const resolvers = {
     // add application
     addApplication: async (_parent: any, args: any, context: Context) => {
       return context.prisma.tutorApplication.create({
+        data: {
+          name: args.name,
+          email: args.email,
+          courseName: args.courseName,
+          date: args.date,
+        },
+      });
+    },
+
+    // add interview
+    addInterview: async (_parent: any, args: any, context: Context) => {
+      return context.prisma.interview.create({
         data: {
           name: args.name,
           email: args.email,

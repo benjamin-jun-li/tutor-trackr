@@ -114,3 +114,15 @@ export const GET_APPLICATION = gql`
     }
   }
 `;
+
+export const GET_INTERVIEW = gql`
+  query Interview {
+    getInterview {
+        id
+        name
+        email
+        courseName
+        date
+    }
+  }
+`;

@@ -181,3 +181,25 @@ export const ADD_Application = gql`
     }
   }
 `;
+
+export const ADD_Interview = gql`
+  mutation AddInterview(
+    $name: String
+    $email: String
+    $courseName: String
+    $date: String
+  ) {
+    addInterview(
+      name: $name
+      email: $email
+      courseName: $courseName
+      date: $date
+    ) {
+      id
+      name
+      email
+      courseName
+      date
+    }
+  }
+`;
