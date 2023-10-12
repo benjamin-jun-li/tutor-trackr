@@ -1,11 +1,11 @@
 "use client"
-import { useState, FormEvent } from "react";
+import { useState, MouseEvent } from "react";
 const ForgetPasswordPage = () => {
   const [email, setEmail] = useState("");
   const [role, setRole] = useState("Choose your role")
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSubmit = async (e:MouseEvent<HTMLButtonElement>) => {
+      e.preventDefault();
       switch (role) {
           case "tutor":
               console.log("Performing actions for a tutor.");
@@ -39,6 +39,7 @@ const ForgetPasswordPage = () => {
     })
     if (res.status === 200) {
         setEmail("");
+        console.log(res)
     } else {
         alert(res);
     }
@@ -55,7 +56,7 @@ const ForgetPasswordPage = () => {
     <main className="max-w-[18rem] mt-4">
         <h1 className="text-2xl font-bold mb-4">Reset Password</h1>
         <p className="mb-4">Please enter your email address to receive a link to reset your password:</p>
-        <form onSubmit={handleSubmit}>
+        <form>
             <label htmlFor="account-email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Account Email</label>
             <input required type="email" value={email} onChange={(e) => setEmail(e.target.value)}
                    placeholder="Enter your email" id="account-email"
@@ -78,6 +79,7 @@ const ForgetPasswordPage = () => {
             <div className="modal-box">
                 <h3 className="font-bold text-lg">Enter your verification code</h3>
                 <p className="py-4">Press ESC key or click the button below to close</p>
+                <button onClick={handleSubmit}>send verification code</button>
                 <div className="modal-action">
                     <form method="dialog">
                         {/* if there is a button in form, it will close the modal */}

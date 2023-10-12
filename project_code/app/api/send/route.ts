@@ -10,7 +10,7 @@ export async function POST(request:NextRequest) {
         const body = await request.json();
         const { email } = body;
         const data = await resend.emails.send({
-            from: "tutortrackr.official@gmail.com",
+            from: "TutorTrackr <onboarding@resend.dev>",
             to: email,
             subject: 'TutorTrackr: Reset your password',
             react: EmailTemplate() as ReactElement
