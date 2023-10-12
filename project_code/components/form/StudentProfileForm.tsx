@@ -81,7 +81,6 @@ export function StudentProfileForm() {
 
 
     const [userEmail, setUserEmail] = useState('')
-
     useEffect(() => {
         setUserEmail(getters.userEmail);
     }, [getters.userEmail]);
