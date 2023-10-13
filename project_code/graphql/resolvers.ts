@@ -5,29 +5,37 @@ export const resolvers = {
 
         // Find user by email
         findUserByEmail: async (_parent: any, args: any, context: Context) => {
-            const student = context.prisma.student.findUnique({
+            const student = await context.prisma.student.findUnique({
                 where: {
                     email: args.email,
                 },
             });
-            const tutor = context.prisma.tutor.findUnique({
+            const tutor = await context.prisma.tutor.findUnique({
                 where: {
                     email: args.email,
                 },
             });
-            const siteAdmin = context.prisma.siteAdmin.findUnique({
+            const siteAdmin = await context.prisma.siteAdmin.findUnique({
                 where: {
                     email: args.email,
                 },
             });
-            const tutorAdmin = context.prisma.tutorAdmin.findUnique({
+            const tutorAdmin = await context.prisma.tutorAdmin.findUnique({
                 where: {
                     email: args.email,
                 },
             });
+            if (student || tutor || siteAdmin || tutorAdmin) {
+                return {
+                    status: 1
+                }
+            }else
+                return {
+                    status: 0
+                }
+            },
 
-            return student || tutor || siteAdmin || tutorAdmin;
-        },
+
 
         //auth student by email
         student: async (_parent: any, args: any, context: Context) => {
