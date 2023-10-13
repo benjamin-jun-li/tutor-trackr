@@ -29,7 +29,7 @@ const Navbar = () => {
     if (isAdminPage || isTutorPage || isStudentPage) {
       return <UserNav userName={userName} userEmail={userEmail} />;
     }
-    return <></>
+    return <Link href="/admin/login" className="underline text-blue-500 hover:text-black">Admin</Link>
   };
 
   const handleLogoLink = (url: string) => {
