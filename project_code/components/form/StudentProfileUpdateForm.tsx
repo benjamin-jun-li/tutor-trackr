@@ -63,7 +63,7 @@ const profileFormSchema = z.object({
 
 type ProfileFormValues = z.infer<typeof profileFormSchema>
 
-export function StudentProfileForm() {
+export function StudentProfileUpdateForm() {
     const form = useForm<ProfileFormValues>({
         resolver: zodResolver(profileFormSchema),
         mode: "onChange",
@@ -85,45 +85,44 @@ export function StudentProfileForm() {
         setUserEmail(getters.userEmail);
     }, [getters.userEmail]);
 
-    const { loading, error, data } = useQuery(GET_STUDENT_PROFILE, {
-        variables: { email: userEmail },
-    });
+    // const { loading, error, data } = useQuery(GET_STUDENT_PROFILE, {
+    //     variables: { email: userEmail },
+    // });
 
-    const onSubmit = async (data: ProfileFormValues) => {
-        // TODO: Update student profile
+    const onSubmit = async (value: ProfileFormValues) => {
         const res = await updateStudentProfile({
             variables: {
-                email: data.email,
-                thumbnail: data.avatar,
-                username: data.username,
-                phone: data.phone,
-                address: data.address,
-                timeZone: data.timezone,
-                biography: data.bio,
+                email: value.email,
+                thumbnail: value.avatar,
+                username: value.username,
+                phone: value.phone,
+                address: value.address,
+                timeZone: value.timezone,
+                biography: value.bio,
             }
         })
         if (res.data?.updateStudentProfile?.email) {
-            setters.setEmail(data.email);
-            setters.setName(data.username);
+            setters.setEmail(value.email);
+            setters.setName(value.username);
             alert("Profile updated successfully!")
-            router.replace(`/student/dashboard/`)
+            router.replace(`/student/profile/demo`)
         } else {
             console.log(res);
         }
 
-        console.log("Form data submitted:", data);
+        console.log("Form data submitted:", value);
         toast({
             title: "You submitted the following values:",
             description: (
                 <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
+          <code className="text-white">{JSON.stringify(value, null, 2)}</code>
         </pre>
             ),
         })
     }
 
     const handleDashboardClick = () => {
-        router.push(currentPath + '/dashboard');
+        router.push(currentPath + '/profile/demo');
     };
 
     return (
@@ -158,7 +157,7 @@ export function StudentProfileForm() {
                         <FormItem>
                             <FormLabel>Username</FormLabel>
                             <FormControl>
-                                <Input placeholder={data && data.user?.username} {...field} />
+                                <Input {...field} />
                             </FormControl>
                             <FormDescription>
                                 This is your public display name. It can be your real name or a
@@ -175,10 +174,14 @@ export function StudentProfileForm() {
                         <FormItem>
                             <FormLabel>Email</FormLabel>
                             <FormControl>
-                                <Input placeholder={data && data.user?.email} {...field} />
+                                <Input
+                                    disabled
+                                    placeholder={getters.userEmail}
+                                    {...field}
+                                />
                             </FormControl>
                             <FormDescription>
-                                You can change your email.
+                                You cannot have the access change your email.
                             </FormDescription>
                             <FormMessage />
                         </FormItem>
@@ -191,7 +194,7 @@ export function StudentProfileForm() {
                         <FormItem>
                             <FormLabel>Phone</FormLabel>
                             <FormControl>
-                                <Input placeholder={data && data.user?.phone} {...field} />
+                                <Input {...field} />
                             </FormControl>
                             <FormDescription>
                                 This is your phone number. It should all be numbers.
@@ -242,7 +245,6 @@ export function StudentProfileForm() {
                             <FormLabel>Bio</FormLabel>
                             <FormControl>
                                 <Textarea
-                                    placeholder={data && data.user?.bio}
                                     className="resize-none"
                                     {...field}
                                 />

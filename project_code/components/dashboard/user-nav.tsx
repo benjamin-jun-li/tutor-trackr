@@ -59,7 +59,7 @@ export function UserNav(NavbarProps: NavbarProps) {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <Link href={`${currentPath}/profile`}>
+          <Link href={`${currentPath}/profile/demo`}>
             <DropdownMenuItem>
               Profile
               <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>

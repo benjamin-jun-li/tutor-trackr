@@ -1,4 +1,4 @@
-import { StudentProfileForm } from "@/components/form/StudentProfileForm";
+import { StudentProfileUpdateForm } from "@/components/form/StudentProfileUpdateForm";
 import { Separator } from "@/components/ui/separator";
 
 const StuProfile = () => {
@@ -11,7 +11,7 @@ const StuProfile = () => {
                 </p>
             </div>
             <Separator />
-            <StudentProfileForm />
+            <StudentProfileUpdateForm />
         </section>
     )
 }

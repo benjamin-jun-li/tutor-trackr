@@ -65,7 +65,7 @@ const profileFormSchema = z.object({
 
 type ProfileFormValues = z.infer<typeof profileFormSchema>
 
-export function TutorProfileForm() {
+export function TutorProfileUpdateForm() {
     const form = useForm<ProfileFormValues>({
         resolver: zodResolver(profileFormSchema),
         mode: "onChange",
@@ -93,27 +93,26 @@ export function TutorProfileForm() {
     });
 
     const onSubmit = async (data: ProfileFormValues) => {
-        // // TODO: Update tutor profile
-        // const res = await updateTutorProfile({
-        //     variables: {
-        //         email: data.email,
-        //         thumbnail: data.avatar,
-        //         username: data.username,
-        //         phone: data.phone,
-        //         address: data.address,
-        //         timeZone: data.timezone,
-        //         biography: data.bio,
-        //         accountBalance: "0",
-        //     }
-        // })
-        // if (res.data?.updateTutorProfile?.email) {
-        //     setters.setEmail(data.email);
-        //     setters.setName(data.username);
-        //     alert("Profile updated successfully!")
-        //     router.replace(`/student/dashboard/`)
-        // } else {
-        //     console.log(res);
-        // }
+        const res = await updateTutorProfile({
+            variables: {
+                email: data.email,
+                thumbnail: data.avatar,
+                username: data.username,
+                phone: data.phone,
+                address: data.address,
+                timeZone: data.timezone,
+                biography: data.bio,
+                accountBalance: "0",
+            }
+        })
+        if (res.data?.updateTutorProfile?.email) {
+            setters.setEmail(data.email);
+            setters.setName(data.username);
+            alert("Profile updated successfully!")
+            router.replace(`/tutor/profile/demo`)
+        } else {
+            console.log(res);
+        }
 
         console.log("Form data submitted:", data);
         toast({
@@ -127,7 +126,7 @@ export function TutorProfileForm() {
     }
 
     const handleDashboardClick = () => {
-        router.push(currentPath + '/dashboard');
+        router.push(currentPath + '/profile/demo');
     };
 
     return (
@@ -179,10 +178,14 @@ export function TutorProfileForm() {
                         <FormItem>
                             <FormLabel>Email</FormLabel>
                             <FormControl>
-                                <Input placeholder={data && data.user?.email} {...field} />
+                                <Input
+                                    disabled
+                                    placeholder={getters.userEmail}
+                                    {...field}
+                                />
                             </FormControl>
                             <FormDescription>
-                                You can change your email.
+                                You cannot have the access change your email.
                             </FormDescription>
                             <FormMessage />
                         </FormItem>
