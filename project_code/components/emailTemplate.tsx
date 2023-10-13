@@ -1,7 +1,9 @@
-const EmailTemplate= () => (
+import { FC } from "react";
+
+const EmailTemplate:FC<{ verifyCode:string }>= ({ verifyCode }) => (
     <div>
-        <h1>Please Click the link below to reset your password</h1>
-        <a href="http://localhost:3000/reset">Reset Password</a>
+        <h1>Enter the code below to verify your identity</h1>
+        <code>{verifyCode}</code>
     </div>
 );
 

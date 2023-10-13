@@ -1,56 +1,53 @@
 "use client"
 import { useState, MouseEvent } from "react";
+import { Find_User } from "@/graphql/queries";
+import { useLazyQuery } from "@apollo/client";
+import { useRouter } from "next/navigation";
 const ForgetPasswordPage = () => {
-  const [email, setEmail] = useState("");
-  const [role, setRole] = useState("Choose your role")
+    const router = useRouter();
+    const code = "951XF";
+    const [email, setEmail] = useState("sancho@mu.com");
+    const [role, setRole] = useState("Choose your role")
+    const [verifyCode, setVerifyCode ] = useState("")
+    const [getUserAccount, { loading: loading, error: error, data: data }] = useLazyQuery(Find_User);
 
-  const handleSubmit = async (e:MouseEvent<HTMLButtonElement>) => {
-      e.preventDefault();
-      switch (role) {
-          case "tutor":
-              console.log("Performing actions for a tutor.");
-              // Add tutor-specific logic here
-              break;
-          case "student":
-              console.log("Performing actions for a student.");
-              // Add student-specific logic here
-              break;
-          case "site-admin":
-              console.log("Performing actions for a site admin.");
-              // Add site-admin-specific logic here
-              break;
-          case "tutor-admin":
-              console.log("Performing actions for a tutor admin.");
-              // Add tutor-admin-specific logic here
-              break;
-          default:
-              alert("Unknown role. No specific actions defined.");
-              break;
-      }
-    alert('Password reset link has been sent to your email.');
-
-    const res = await fetch("api/send", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            email: email,
+    const handleSubmit = async (e:MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        const res_user = await getUserAccount({variables: {email: email}})
+        //TODO
+        alert('Password reset link has been sent to your email.');
+        const res = await fetch("api/send", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                email: email,
+                verifyCode: code,
+            })
         })
-    })
-    if (res.status === 200) {
-        setEmail("");
-        console.log(res)
-    } else {
-        alert(res);
+        if (res.status === 200) {
+            setEmail("");
+            console.log(res)
+        } else {
+            alert(res);
+        }
     }
-  }
     const openModal = () => {
         const myModal = document.getElementById('my_modal_1') as HTMLDialogElement | null;
-        if (myModal) {
+        if (myModal && email !== "" && role !== "Choose your role") {
             myModal.showModal();
         } else {
-            console.log("Element with ID 'my_modal_1' not found.");
+            alert("Info needed!")
+        }
+    }
+    const verifyUser = (e:MouseEvent) => {
+        e.preventDefault();
+        // check user code correctness
+        if (code === verifyCode) {
+            router.push("/reset/");
+        } else {
+            alert("verification code doesn't match");
         }
     }
   return (
@@ -77,20 +74,19 @@ const ForgetPasswordPage = () => {
             </button>
         </form>
         <dialog id="my_modal_1" className="modal">
-            <div className="modal-box">
-                <h3 className="font-bold text-lg">Enter your verification code</h3>
-                <p className="py-4">Press ESC key or click the button below to close</p>
-                <button onClick={handleSubmit}>send verification code</button>
-                <div className="modal-action">
-                    <form method="dialog">
-                        {/* if there is a button in form, it will close the modal */}
-                        <button className="btn">Close</button>
-                    </form>
-                </div>
+            <div className="modal-box bg-neutral-200">
+                <form method="dialog" className="flex flex-row justify-between mt-2">
+                    <h3 className="font-bold text-lg">Enter your verification code</h3>
+                    {/* if there is a button in form, it will close the modal */}
+                    <button className="border-2 border-solid border-sky-400">❌</button>
+                </form>
+
+                <label htmlFor="verification-code" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"></label>
+                <input onChange={(e) => {setVerifyCode(e.target.value)}} type="text" id="verification-code" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+                <button onClick={verifyUser} className="btn hover:bg-gray-500 w-full mt-2">Verify</button>
             </div>
         </dialog>
     </main>
   )
 }
-
 export default ForgetPasswordPage
