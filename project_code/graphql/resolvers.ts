@@ -227,6 +227,18 @@ export const resolvers = {
                     date: args.date,
                 },
             });
-        }}
+        },
+        // add application
+        addApplication: async (_parent: any, args: any, context: Context) => {
+            return context.prisma.tutorApplication.create({
+                data: {
+                    name: args.name,
+                    email: args.email,
+                    courseName: args.courseName,
+                    date: args.date,
+                },
+            });
+        },
+    }
 }
 
