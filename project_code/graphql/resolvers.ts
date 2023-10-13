@@ -101,6 +101,16 @@ export const resolvers = {
             });
         },
 
+        //get interview
+        getInterview: async (_parent: any, args: any, context: Context) => {
+            return context.prisma.interview.findMany();
+        },
+
+        //get interview
+        getApplication: async (_parent: any, args: any, context: Context) => {
+            return context.prisma.tutorApplication.findMany();
+        }
+
     },
 
     // Todo Before we change the data in database we must check the data before
@@ -207,8 +217,16 @@ export const resolvers = {
             } catch (error: any) {
                 throw new Error(`Failed to delete student: ${error.message}`);
             }
-        }
-    }
-
+        },
+        addInterview: async (_parent: any, args: any, context: Context) => {
+            return context.prisma.interview.create({
+                data: {
+                    name: args.name,
+                    email: args.email,
+                    courseName: args.courseName,
+                    date: args.date,
+                },
+            });
+        }}
 }
 
