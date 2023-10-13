@@ -28,6 +28,7 @@ const ForgetPasswordPage = () => {
               break;
       }
     alert('Password reset link has been sent to your email.');
+
     const res = await fetch("api/send", {
         method: "POST",
         headers: {

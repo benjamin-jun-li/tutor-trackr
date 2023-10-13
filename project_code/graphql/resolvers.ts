@@ -2,6 +2,33 @@ import {Context} from "@/pages/api/graphql";
 
 export const resolvers = {
     Query: {
+
+        // Find user by email
+        findUserByEmail: async (_parent: any, args: any, context: Context) => {
+            const student = context.prisma.student.findUnique({
+                where: {
+                    email: args.email,
+                },
+            });
+            const tutor = context.prisma.tutor.findUnique({
+                where: {
+                    email: args.email,
+                },
+            });
+            const siteAdmin = context.prisma.siteAdmin.findUnique({
+                where: {
+                    email: args.email,
+                },
+            });
+            const tutorAdmin = context.prisma.tutorAdmin.findUnique({
+                where: {
+                    email: args.email,
+                },
+            });
+
+            return student || tutor || siteAdmin || tutorAdmin;
+        },
+
         //auth student by email
         student: async (_parent: any, args: any, context: Context) => {
             return context.prisma.student.findUnique({
@@ -67,6 +94,8 @@ export const resolvers = {
         },
 
     },
+
+    // Todo Before we change the data in database we must check the data before
 
     Mutation: {
         // add user

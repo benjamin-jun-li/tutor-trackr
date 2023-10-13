@@ -1,4 +1,7 @@
 export const typeDefs = `#graphql 
+
+union UserByEmail = Student | Tutor | SiteAdmin | TutorAdmin
+
  
   type Student {
     id:    ID!
@@ -89,6 +92,7 @@ export const typeDefs = `#graphql
   }
  
   type Query {
+    findUserByEmail(email: String): UserByEmail
 	student(email: String): Student
     tutor(email: String): Tutor
     siteAdmin(email: String): SiteAdmin
