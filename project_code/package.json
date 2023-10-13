@@ -60,8 +60,10 @@
     "zod": "^3.22.2"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^5.0.0",
     "cypress": "^13.3.1",
     "daisyui": "^3.7.4",
-    "prisma": "5.3.1"
+    "prisma": "5.3.1",
+    "ts-node": "^10.9.1"
   }
 }
