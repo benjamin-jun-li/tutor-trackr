@@ -226,6 +226,19 @@ export const REGISTER_COURSE_FOR_STUDENT = gql`
   }
 `;
 
+export const REGISTER_COURSE_FOR_TUTOR = gql`
+  mutation RegisterCourseForTutor($tutorId: ID!, $courseId: ID!) {
+    registerCourseForTutor(tutorId: $tutorId, courseId: $courseId) {
+      id
+      name
+      courses {
+        id
+        name
+      }
+    }
+  }
+`;
+
 export const UPDATE_PASSWORD = gql`
   mutation UpdatePassword(
     $email: String!
