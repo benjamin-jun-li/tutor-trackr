@@ -239,6 +239,36 @@ export const resolvers = {
                 },
             });
         },
+
+        registerCourseForStudent: async (_parent: any, args: any, context: Context) => {
+            // Ensure the student and course exist
+            const student = await context.prisma.student.findUnique({
+              where: { id: args.studentId },
+            });
+            const course = await context.prisma.course.findUnique({
+              where: { id: args.courseId },
+            });
+          
+            if (!student || !course) {
+              throw new Error("Student or Course not found");
+            }
+          
+            // Register the course for the student by updating the relation
+            return context.prisma.student.update({
+              where: { id: args.studentId },
+              data: {
+                courses: {
+                  connect: { id: args.courseId },
+                },
+              },
+            });
+        },
+          
+        // // update password
+        // updatePassword: async (_parent: any, args: any, context: Context) => {
+
+        // },
     }
 }
+
 

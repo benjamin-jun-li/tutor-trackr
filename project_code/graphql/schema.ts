@@ -125,6 +125,7 @@ union UserByEmail = Student | Tutor | SiteAdmin | TutorAdmin
      addApplication(name: String, email: String, courseName: String, date: String
     ) : TutorApplication
     addInterview(name: String, email: String, courseName: String, date: String
-      ) : Interview
+    ) : Interview
+    registerCourseForStudent(studentId: ID!, courseId: ID!): Student
   }
 `;
