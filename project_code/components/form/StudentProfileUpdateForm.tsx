@@ -64,14 +64,18 @@ const profileFormSchema = z.object({
 type ProfileFormValues = z.infer<typeof profileFormSchema>
 
 export function StudentProfileUpdateForm() {
-    const form = useForm<ProfileFormValues>({
-        resolver: zodResolver(profileFormSchema),
-        mode: "onChange",
-    })
-
     const { getters,setters } = useContextValue();
     const router = useRouter();
     let currentPath = usePathname();
+
+    const form = useForm<ProfileFormValues>({
+        resolver: zodResolver(profileFormSchema),
+        mode: "onChange",
+        defaultValues: {
+            email: getters.userEmail
+        }
+    })
+
     const [updateStudentProfile,{data:studentData,loading:studentLoading,error:studentError}] = useMutation(UPDATE_STUDENT_PROFILE);
 
     currentPath =
