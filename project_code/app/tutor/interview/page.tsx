@@ -78,9 +78,10 @@ const TutorInterviewPage: React.FC = () => {
                                     </PopoverTrigger>
                                     <PopoverContent className="w-[240px] p-4">
                                         {data && data.courses.map((course: Course_type) => (
-                                            <div key={course.id} className="flex items-center space-x-2">
+                                            <label key={course.id} className="flex items-center space-x-2 cursor-pointer">
                                                 <Checkbox
-                                                    checked={Array.isArray(field.value) && field.value?.includes(course.name)}
+                                                    id={course.name}  // Add an id attribute to the Checkbox
+                                                    checked={Array.isArray(field.value) && field.value.includes(course.name)}
                                                     onCheckedChange={(checked) => {
                                                         if (checked) {
                                                             field.onChange([...(Array.isArray(field.value) ? field.value : []), course.name]);
@@ -89,10 +90,10 @@ const TutorInterviewPage: React.FC = () => {
                                                         }
                                                     }}
                                                 />
-
                                                 <span>{course.name}</span>
-                                            </div>
+                                            </label>
                                         ))}
+
                                     </PopoverContent>
                                 </Popover>
                                 <FormDescription className="mt-2 text-sm text-gray-500">
