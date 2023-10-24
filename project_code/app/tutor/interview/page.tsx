@@ -77,7 +77,7 @@ const TutorInterviewPage: React.FC = () => {
                                         </Button>
                                     </PopoverTrigger>
                                     <PopoverContent className="w-[240px] p-4">
-                                        {data && data.course.map((course: Course_type) => (
+                                        {data && data.courses.map((course: Course_type) => (
                                             <div key={course.id} className="flex items-center space-x-2">
                                                 <Checkbox
                                                     checked={Array.isArray(field.value) && field.value?.includes(course.name)}
