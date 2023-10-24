@@ -1,22 +1,21 @@
 "use client"
 
 import {useQuery} from "@apollo/client";
-import {GET_StudentList} from "@/graphql/queries"
+import {GET_COURSES} from "@/graphql/queries"
 import {useState} from "react";
-import {DELETE_Student} from "@/graphql/mutations";
+import {DELETE_COURSE} from "@/graphql/mutations";
 import {useMutation} from "@apollo/client";
 
-export default function StudentList() {
-    const studentList = useQuery(GET_StudentList)
-    const [deleteStudentMutation,{data,loading,error}] = useMutation(DELETE_Student)
-    const [studentName, setStudentName] = useState("");
-    const [studentEmail, setStudentEmail] = useState("");
+export default function CourseList() {
+    const courseList = useQuery(GET_COURSES)
 
+    const [deleteCourseMutation,{data,loading,error}] = useMutation(DELETE_COURSE)
+    const [courseName, setCourseName] = useState("");
 
-    // Todo refetch query after delete
-    const deleteStudent = (email: String) => {
-        deleteStudentMutation({variables: {email: email}})
+    const deleteCourse = (email: String) => {
+        deleteCourseMutation({variables: {email: email}})
     }
+
 
     return (
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -24,13 +23,13 @@ export default function StudentList() {
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                     <th scope="col" className="px-6 py-3">
-                        Student name
+                        Course name
                     </th>
                     <th scope="col" className="px-6 py-3">
-                        Email
+                        Tutor
                     </th>
                     <th scope="col" className="px-6 py-3">
-                        Course
+                        Attendence
                     </th>
                     <th scope="col" className="px-6 py-3">
                         Action
@@ -38,28 +37,27 @@ export default function StudentList() {
                 </tr>
                 </thead>
                 <tbody>
-                {studentList.data?.getStudentList.map((student: any) => (
-                    <tr id={student.id} key={student.id}
+                {courseList.data?.courses.map((course: any) => (
+                    <tr id={course.id} key={course.id}
                         className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
                         <th scope="row"
                             className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {student.name}
+                            {course.name}
                         </th>
                         <td className="px-6 py-4">
-                            {student.email}
+                            <p>Tutor name</p>
                         </td>
                         <td className="px-6 py-4">
-                            {/*Todo*/}
-                            {student.courses?.map((course: any) => (course.name))}
+                            <p>10</p>
                         </td>
                         <td className="px-6 py-4">
                             <button
                                 className="font-medium text-blue-600 dark:text-blue-500 hover:underline focus:z-10"
-                                onClick={() => {
-                                    document.getElementById('my_modal_5').showModal();
-                                    setStudentName(student.name);
-                                    setStudentEmail(student.email);
-                                }}
+                                // onClick={() => {
+                                //     document.getElementById('my_modal_1').showModal();
+                                //     setStudentName(student.name);
+                                //     setStudentEmail(student.email);
+                                // }}
                             >
                                 Delete
                             </button>
@@ -68,13 +66,13 @@ export default function StudentList() {
                     </tr>))}
                 </tbody>
             </table>
-            <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
+            <dialog id="my_modal_1" className="modal modal-bottom sm:modal-middle">
                 <div className="modal-box">
                     <h3 className="font-bold text-lg">Alert!</h3>
-                    <p className="py-4">Do you want to delete {studentName}: {studentEmail}</p>
+                    <p className="py-4">Do you want to delete {courseName}</p>
                     <div className="modal-action flex justify-between">
                         <form method="dialog" className="flex justify-between w-full">
-                            <button className="btn" onClick={() => deleteStudent(studentEmail)}>Confirm</button>
+                            <button className="btn" onClick={() => deleteCourseMutation(studentEmail)}>Confirm</button>
                             <button className="btn">Close</button>
                         </form>
                     </div>

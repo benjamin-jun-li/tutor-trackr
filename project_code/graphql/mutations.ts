@@ -239,18 +239,16 @@ export const REGISTER_COURSE_FOR_TUTOR = gql`
   }
 `;
 
-export const UPDATE_PASSWORD = gql`
-  mutation UpdatePassword(
-    $email: String!
-    $newPassword: String!
-    $userType: String!
-  ) {
-    updatePassword(
-      email: $email
-      newPassword: $newPassword
-      userType: $userType
-    ) {
-      email
-    }
-  }
-`;
+// export const UPDATE_PASSWORD = gql`
+//   mutation UpdatePassword(
+//     $email: String!
+//     $newPassword: String!
+//   ) {
+//     updatePassword(
+//       email: $email
+//       password: $newPassword
+//     ) {
+//       password
+//     }
+//   }
+// `;

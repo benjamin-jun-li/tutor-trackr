@@ -3,6 +3,8 @@ import { Metadata } from "next"
 import { Button } from "@/components/ui/button"
 import { CalendarDateRangePicker } from "@/components/dashboard/date-range-picker"
 import StudentList from "@/app/admin/siteadmin/dashboard/student-list"
+import CourseList from "@/app/admin/siteadmin/dashboard/course-list";
+
 
 
 export const metadata: Metadata = {
@@ -22,6 +24,7 @@ export default function DashboardPage() {
                     </div>
                 </div>
                 <StudentList />
+                <CourseList />
             </div>
         </section>
     )

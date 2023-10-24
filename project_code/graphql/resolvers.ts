@@ -218,7 +218,7 @@ export const resolvers = {
             });
         },
 
-        // delete course
+        // Todo delete course
         deleteCourse: async (_parent: any, args: any, context: Context) => {
             try {
                 return context.prisma.course.delete({
@@ -232,14 +232,34 @@ export const resolvers = {
         },    // delete student
         deleteStudent: async (_parent: any, args: any, context: Context) => {
             try {
-                return context.prisma.student.delete({
+                // 首先找到学生
+                const student = await context.prisma.student.findUnique({
                     where: {
                         email: args.email,
                     }
                 });
+
+                if (student) {
+                    // 如果找到学生，根据学生ID删除其关联的Profile
+                    await context.prisma.studentProfile.delete({
+                        where: {
+                            studentId: student.id
+                        }
+                    });
+
+                    // 然后删除学生
+                    return await context.prisma.student.delete({
+                        where: {
+                            email: args.email,
+                        }
+                    });
+                } else {
+                    throw new Error("Student not found");
+                }
             } catch (error: any) {
                 throw new Error(`Failed to delete student: ${error.message}`);
             }
+
         },
         addInterview: async (_parent: any, args: any, context: Context) => {
             return context.prisma.interview.create({
