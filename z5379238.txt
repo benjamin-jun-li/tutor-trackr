@@ -12,3 +12,6 @@ All of our team members checked for the proposal before Friday and we submitted 
 Week 4
 I focus on the profile page development, and completed the front-end part of the profile page.
 Also the dashboard demo for three role.
+
+Week 5
+I'm also focus on the profile page development, also fixed some bugs in the profile update functions.

@@ -61,14 +61,35 @@ export const Auth_TutorAdmin = gql`
   }
 `;
 
+export const GET_COURSE = gql`
+    query Course($id: ID!) {
+        course(id: $id) {
+          name
+          description
+          comments
+          thumbnail
+        }
+    }
+`
+
 export const GET_COURSES = gql`
   query Course {
-    course {
+    courses {
       id
       name
       description
       comments
       thumbnail
+      students {
+          id,
+          name,
+          email
+        }
+      tutors {
+        id,
+        name,
+        email
+      }
     }
   }
 `;

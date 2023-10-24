@@ -97,7 +97,8 @@ union UserByEmail = Student | Tutor | SiteAdmin | TutorAdmin
     tutor(email: String): Tutor
     siteAdmin(email: String): SiteAdmin
     tutorAdmin(email: String): TutorAdmin
-    course: [Course]
+    course(id: String!): Course
+    courses: [Course]
     getStudentList:[Student]
     getStudentProfile(email: String!): StudentProfile
     getTutorProfile(email: String!): TutorProfile
