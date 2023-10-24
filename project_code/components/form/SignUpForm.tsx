@@ -90,7 +90,7 @@ const SignUpForm = () => {
               setters.setName(values.username);
               setters.setIdentity(values.identity);
               setters.setUserStatus(true);
-              router.replace(`/tutor/dashboard/`)
+              router.replace(`/tutor/interview/`)
           } else {
               console.log(res);
           }

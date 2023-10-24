@@ -15,11 +15,11 @@ export default function DashboardPage() {
             text-gray-900 md:text-3xl lg:text-4xl dark:text-white">
                 Welcome to Tutor Administrator Dashboard
             </h1>
-            <section className="grid grid-cols-8 gap-4">
-                <div className="col-span-5 mx-3">
+            <section className="grid grid-cols-2 gap-4">
+                <div className="col-span-1 mx-3">
                     <ApplicationList />
                 </div>
-                <div className="col-span-3 mx-3">
+                <div className="col-span-1 mx-3">
                     <InterviewBoard />
                 </div>
             </section>
