@@ -23,7 +23,7 @@ const CourseList:FC<{ role: string }> = ({ role }) => {
             col-span-2 flex flex-col justify-center items-center space-y-2">
                 <div className="grid grid-cols-3 gap-4">
                     {data &&
-                        data.course.map((course: Course_type) => (
+                        data.courses.map((course: Course_type) => (
                             <div
                                 id={course.id}
                                 className="card card-compact bg-base-100 shadow-xl"

@@ -2,7 +2,6 @@ import {Context} from "@/pages/api/graphql";
 
 export const resolvers = {
     Query: {
-
         // Find user by email
         findUserByEmail: async (_parent: any, args: any, context: Context) => {
             const student = await context.prisma.student.findUnique({
@@ -73,8 +72,32 @@ export const resolvers = {
             });
         },
 
-        //get course list
+        // get course by id
         course: async (_parent: any, args: any, context: Context) => {
+            return context.prisma.course.findUnique({
+                where: {
+                    id: args.id,
+                },
+                include: {
+                    students: {
+                        select: {
+                            id: true,
+                            name: true,
+                            email: true
+                        }
+                    },
+                    tutors: {
+                        select: {
+                            id: true,
+                            name: true,
+                            email: true
+                        }
+                    }
+                }
+            });
+        },
+        //get course list
+        courses: async (_parent: any, args: any, context: Context) => {
             return context.prisma.course.findMany();
         },
 
