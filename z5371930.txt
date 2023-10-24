@@ -8,3 +8,6 @@ Helped with setting up backend for our project.
 Week 4
 Worked on dashboard pages and UI adjustment in front-end, helping back-end with defining schema. Optimise code written by teammates.
 Followed up sprint 1 progress.
+Week 5
+Worked on reset password functionality and decoupling components on frontend side.
+Followed up sprint 2 progress.

@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
-import { HandMetal } from 'lucide-react';
+import { Atom } from 'lucide-react';
 import { UserNav } from '@/components/dashboard/user-nav';
 import { useContextValue } from  "@/components/context"
 
@@ -33,7 +33,7 @@ const Navbar = () => {
   };
 
   const handleLogoLink = (url: string) => {
-    return <Link href={url}><HandMetal className="h-8 w-8 text-primary-500" /></Link>;
+    return <Link href={url}><Atom className="h-8 w-8 text-primary-500" /></Link>;
   };
 
   const handleLogo = () => {

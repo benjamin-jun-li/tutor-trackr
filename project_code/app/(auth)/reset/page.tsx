@@ -6,9 +6,9 @@ const ResetPage = () => {
     const [rePassword, setRePassword] = useState<string | undefined>();
 
     if (password === rePassword) {
-
+    //TODO USEmUTATION
     } else {
-
+    //TODO Alert diff
     }
 
     return (

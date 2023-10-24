@@ -4,6 +4,7 @@ import { Course_type } from "@/app/student/dashboard/page";
 import { useQuery } from "@apollo/client";
 import { GET_COURSES } from "@/graphql/queries";
 import { FC } from "react"
+import Link from "next/link";
 
 
 const CourseList:FC<{ role: string }> = ({ role }) => {
@@ -35,7 +36,9 @@ const CourseList:FC<{ role: string }> = ({ role }) => {
                                     <h2 className="card-title">{course.name}</h2>
                                     <p>Front-end test</p>
                                     <div className="card-actions justify-end">
-                                        <button className="btn btn-primary">More</button>
+                                        <Link href={`/${role}/course/${course.id}`}>
+                                            <button className="btn btn-primary">More</button>
+                                        </Link>
                                     </div>
                                 </article>
                             </div>

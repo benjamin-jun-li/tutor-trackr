@@ -1,5 +1,5 @@
-"use client"
-const CourseDetailTut = () => {
+
+const CoursePageTut = () => {
     return (
         <article>
 
@@ -7,4 +7,4 @@ const CourseDetailTut = () => {
     )
 }
 
-export default CourseDetailTut
+export default CoursePageTut

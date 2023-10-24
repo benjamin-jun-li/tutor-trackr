@@ -1,19 +1,12 @@
-"use client"
-import { FC } from "react";
-
-interface CourseDetailProps {
-    detail:{
-        name: string,
-        description: string,
-    }
-}
-
-const CourseDetailStu:FC<CourseDetailProps> = ({ detail }) =>{
+import CourseDetail from "@/app/student/course/[id]/course-detail";
+import InteractBox from "@/app/student/course/[id]/interactBox";
+const CoursePageStu = () =>{
     return (
         <article>
-            <h2>course name</h2>
+            <CourseDetail role={"student"}/>
+            <InteractBox />
         </article>
     )
 }
 
-export default CourseDetailStu
+export default CoursePageStu
