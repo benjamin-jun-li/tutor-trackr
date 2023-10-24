@@ -3,9 +3,8 @@ import { useQuery } from "@apollo/client"
 import {GET_INTERVIEW} from"@/graphql/queries"
 
 const InterviewBoard = () => {
-    const applications = useQuery(GET_INTERVIEW)
-    if (applications.data) console.log(applications.data)
-
+    const interviews = useQuery(GET_INTERVIEW)
+    console.log(interviews)
     return (
         <div className="w-full">
             <h2>Tutor Interview Board</h2>
@@ -14,16 +13,16 @@ const InterviewBoard = () => {
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
                         <th scope="col" className="px-6 py-3">
-                            Product name
+                            Course Name
                         </th>
                         <th scope="col" className="px-6 py-3">
-                            Color
+                            Applicant Name
                         </th>
                         <th scope="col" className="px-6 py-3">
-                            Category
+                            Applicant email
                         </th>
                         <th scope="col" className="px-6 py-3">
-                            Price
+                            Date
                         </th>
                         <th scope="col" className="px-6 py-3">
                             <span className="sr-only">Edit</span>
@@ -31,57 +30,25 @@ const InterviewBoard = () => {
                     </tr>
                     </thead>
                     <tbody>
-                    <tr className="cursor-pointer bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                        <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            Apple MacBook Pro 17
-                        </th>
-                        <td className="px-6 py-4">
-                            Silver
-                        </td>
-                        <td className="px-6 py-4">
-                            Laptop
-                        </td>
-                        <td className="px-6 py-4">
-                            $2999
-                        </td>
-                        <td className="px-6 py-4 text-right">
-                            <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                        </td>
-                    </tr>
-                    <tr className="cursor-pointer bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                        <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            Microsoft Surface Pro
-                        </th>
-                        <td className="px-6 py-4">
-                            White
-                        </td>
-                        <td className="px-6 py-4">
-                            Laptop PC
-                        </td>
-                        <td className="px-6 py-4">
-                            $1999
-                        </td>
-                        <td className="px-6 py-4 text-right">
-                            <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                        </td>
-                    </tr>
-                    <tr className="cursor-pointer bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
-                        <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            Magic Mouse 2
-                        </th>
-                        <td className="px-6 py-4">
-                            Black
-                        </td>
-                        <td className="px-6 py-4">
-                            Accessories
-                        </td>
-                        <td className="px-6 py-4">
-                            $99
-                        </td>
-                        <td className="px-6 py-4 text-right">
-                            <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                        </td>
-                    </tr>
+                    {interviews?.data?.getInterview?.map((interview : any) => (
+                        <tr className="cursor-pointer bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {interview.courseName}
+                            </th>
+                            <td className="px-6 py-4">
+                                {interview.name}
+                            </td>
+                            <td className="px-6 py-4">
+                                {interview.email}
+                            </td>
+                            <td className="px-6 py-4">
+                                {interview.date}
+                            </td>
+                            <td className="px-6 py-4 text-right">
+                                <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                            </td>
+                        </tr>
+                    ))}
                     </tbody>
                 </table>
             </div>

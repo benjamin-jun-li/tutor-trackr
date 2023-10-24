@@ -6,35 +6,35 @@ import { useRouter } from "next/navigation";
 const ForgetPasswordPage = () => {
     const router = useRouter();
     const code = "951XF";
-    const [email, setEmail] = useState("sancho@mu.com");
+    const [email, setEmail] = useState("");
     const [role, setRole] = useState("Choose your role")
     const [verifyCode, setVerifyCode ] = useState("")
     const [getUserAccount, { loading: loading, error: error, data: data }] = useLazyQuery(Find_User);
 
-    const handleSubmit = async (e:MouseEvent<HTMLButtonElement>) => {
-        e.preventDefault();
+    const handleSubmit = async () => {
         const res_user = await getUserAccount({variables: {email: email}})
-        //TODO
-        alert('Password reset link has been sent to your email.');
-        const res = await fetch("api/send", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                email: email,
-                verifyCode: code,
+        if (res_user?.data?.status === 1) {
+            const res = await fetch("api/send", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    email: email,
+                    verifyCode: code,
+                })
             })
-        })
-        if (res.status === 200) {
-            setEmail("");
-            console.log(res)
-        } else {
-            alert(res);
+            if (res.status === 200) {
+                setEmail("");
+                console.log(res)
+            } else {
+                alert(res);
+            }
         }
     }
     const openModal = () => {
         const myModal = document.getElementById('my_modal_1') as HTMLDialogElement | null;
+        handleSubmit().then();
         if (myModal && email !== "" && role !== "Choose your role") {
             myModal.showModal();
         } else {
@@ -76,9 +76,12 @@ const ForgetPasswordPage = () => {
         <dialog id="my_modal_1" className="modal">
             <div className="modal-box bg-neutral-200">
                 <form method="dialog" className="flex flex-row justify-between mt-2">
-                    <h3 className="font-bold text-lg">Enter your verification code</h3>
+                    <div className="flex flex-col justify-between">
+                        <h3 className="font-bold text-lg">Enter your verification code</h3>
+                        <h3 className="text-sm">Password reset link has been sent to {email}</h3>
+                    </div>
                     {/* if there is a button in form, it will close the modal */}
-                    <button className="border-2 border-solid border-sky-400">❌</button>
+                    <button>❌</button>
                 </form>
 
                 <label htmlFor="verification-code" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"></label>
