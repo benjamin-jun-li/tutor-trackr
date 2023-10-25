@@ -2,11 +2,13 @@
 import { FC } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
+import { useQuery } from "@apollo/client";
+import { GET_COURSE } from "@/graphql/queries";
 
 const CourseDetail:FC<{ role:string }> = ({ role }) => {
     const params = useParams();
-    const id = params?.id
-
+    const getCourseDetail = useQuery(GET_COURSE, {variables:{ id:params?.id },});
+    console.log(getCourseDetail)
     return (
         <section className="col-span-2">
             <nav className="flex" aria-label="Breadcrumb">
