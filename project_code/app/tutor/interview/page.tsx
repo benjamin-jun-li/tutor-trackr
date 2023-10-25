@@ -3,7 +3,7 @@
 import React from 'react';
 import { useContextValue } from  "@/components/context"
 import { GET_COURSES } from "@/graphql/queries";
-import {useQuery} from "@apollo/client";
+import {useMutation, useQuery} from "@apollo/client";
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
@@ -25,35 +25,63 @@ import {
     PopoverTrigger,
 } from "@/components/ui/popover"
 import {Course_type} from "@/app/student/dashboard/page";
+import {ADD_Interview} from "@/graphql/mutations";
+import {useRouter} from "next/navigation";
 
 type FormData = {
     courses: string[];
-    reason: string;
+    coverLetter: string;
 };
 
 const formSchema = z.object({
     courses: z.array(z.string()),
-    reason: z.string(),
+    coverLetter: z.string(),
 });
 
 const TutorInterviewPage: React.FC = () => {
     const { getters,setters } = useContextValue();
     console.log(getters.userEmail, getters.userName);
-    const userEmail = 'hayden@tutor.com'
-    const userName = 'Hayden'
+    const userEmail = getters.userEmail;
+    const router = useRouter();
+    const userName = getters.userName;
+    // const userEmail = 'hayden@tutor.com'
+    // const userName = 'Hayden'
 
     const { data, loading, error } = useQuery(GET_COURSES);
+    const [addInterview,{data:tutorData,loading:tutorLoading,error:tutorError}] = useMutation(ADD_Interview);
 
     const form = useForm<FormData>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            courses: [],  // Set default value to an empty array
-            reason: ''
+            courses: [],
+            coverLetter: ''
         },
     });
 
-    const onSubmit = (data: FormData) => {
-        console.log(data);
+    const onSubmit = async (data: FormData) => {
+        const currentTimestamp = new Date().getTime().toString();
+        console.log("Name:", userName);
+        console.log("Email:", userEmail);
+        console.log("Timestamp:", currentTimestamp);
+        console.log("Courses:", data.courses);
+        console.log("Cover Letter:", data.coverLetter);
+
+        const res = await addInterview({
+            variables: {
+                name: userName,
+                email: userEmail,
+                date: currentTimestamp,
+                courseName: data.courses,
+                coverLetter: data.coverLetter
+            },
+        });
+        if (res.data?.addInterview?.email) {
+            alert("Interview added successfully");
+            router.replace(`/tutor/dashboard/`)
+        }
+        else {
+            console.log(res);
+        }
     }
 
     if (loading) {
@@ -77,7 +105,7 @@ const TutorInterviewPage: React.FC = () => {
                                         </Button>
                                     </PopoverTrigger>
                                     <PopoverContent className="w-[240px] p-4">
-                                        {data && data.courses.map((course: Course_type) => (
+                                        {data?.courses?.map((course: Course_type) => (
                                             <label key={course.id} className="flex items-center space-x-2 cursor-pointer">
                                                 <Checkbox
                                                     id={course.name}  // Add an id attribute to the Checkbox
@@ -105,10 +133,10 @@ const TutorInterviewPage: React.FC = () => {
                     />
                     <FormField
                         control={form.control}
-                        name="reason"
+                        name="coverLetter"
                         render={({ field }) => (
                             <FormItem className="flex flex-col">
-                                <FormLabel className="mb-2">Reason</FormLabel>
+                                <FormLabel className="mb-2">Cover Letter</FormLabel>
                                 <FormControl>
                                     <Input placeholder="Describe your reason" {...field} className="border p-2 rounded h-32"/>
                                 </FormControl>
