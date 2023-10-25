@@ -2,7 +2,6 @@ export const typeDefs = `#graphql
 
 union UserByEmail = Student | Tutor | SiteAdmin | TutorAdmin
 
- 
   type Student {
     id:    ID!
     name: String

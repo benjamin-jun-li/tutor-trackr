@@ -7,8 +7,8 @@ import { GET_COURSE } from "@/graphql/queries";
 
 const CourseDetail:FC<{ role:string }> = ({ role }) => {
     const params = useParams();
-    const getCourseDetail = useQuery(GET_COURSE, {variables:{ id:params?.id },});
-    console.log(getCourseDetail)
+    const getCourseDetail = useQuery(GET_COURSE, {variables:{ id:"65210872e811c40f7630285e" }});
+    if (getCourseDetail.data)console.log(getCourseDetail.data);
     return (
         <section className="col-span-2">
             <nav className="flex" aria-label="Breadcrumb">
