@@ -46,6 +46,7 @@ union UserByEmail = Student | Tutor | SiteAdmin | TutorAdmin
     studentId: [String]
     tutors: [Tutor]
     tutorId: [String]
+    price: Int
   }
 
   type StudentProfile {
@@ -118,7 +119,7 @@ union UserByEmail = Student | Tutor | SiteAdmin | TutorAdmin
       courseCanTeach: String
     ) : TutorProfile
     addCourse(name: String!, description: String, comments: [String], 
-      thumbnail: String, studentId: [String], tutorId: [String]
+      thumbnail: String, studentId: [String], tutorId: [String], price: Int
     ) : Course
     deleteCourse(id: String!): Course
     deleteStudent(email: String!): Student
@@ -128,5 +129,6 @@ union UserByEmail = Student | Tutor | SiteAdmin | TutorAdmin
     ) : Interview
     registerCourseForStudent(studentId: ID!, courseId: ID!): Student
     registerCourseForTutor(tutorId: ID!, courseId: ID!): Tutor
+    payTheCourse(studentId: ID!, courseId: ID!): Course
   }
 `;

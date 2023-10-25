@@ -119,9 +119,7 @@ const SignInForm = () => {
               )}
             />
           </div>
-            <p className="my-2 text-right text-[0.7rem]">
-                <Link href="/forget" className="text-blue-500 hover:underline">Forget your password?</Link>
-            </p>
+
             <FormField
                 control={form.control}
                 name="identity"
