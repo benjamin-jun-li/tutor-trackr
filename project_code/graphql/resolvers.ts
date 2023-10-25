@@ -383,7 +383,7 @@ export const resolvers = {
 
         // // update password
         // updatePassword: async (_parent: any, args: any, context: Context) => {
-
+        //
         // },
     }
 }
