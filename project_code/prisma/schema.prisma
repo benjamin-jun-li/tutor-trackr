@@ -8,94 +8,104 @@ datasource db {
 }
 
 model Student {
-  id    String  @id @default(auto()) @map("_id") @db.ObjectId
-  name String
-  email String @unique
+  id       String          @id @default(auto()) @map("_id") @db.ObjectId
+  name     String
+  email    String          @unique
   password String
-  courses Course[] @relation(fields: [courseId], references: [id])
-  courseId String[] @db.ObjectId
-  profile StudentProfile?
+  courses  Course[]        @relation(fields: [courseId], references: [id])
+  courseId String[]        @db.ObjectId
+  profile  StudentProfile?
 }
+
 model Tutor {
-  id    String  @id @default(auto()) @map("_id") @db.ObjectId
-  name String
-  email String @unique
+  id       String        @id @default(auto()) @map("_id") @db.ObjectId
+  name     String
+  email    String        @unique
   password String
-   courses Course[] @relation(fields: [courseId], references: [id])
-  courseId String[] @db.ObjectId
-  profile TutorProfile?
+  courses  Course[]      @relation(fields: [courseId], references: [id])
+  courseId String[]      @db.ObjectId
+  profile  TutorProfile?
 }
 
 model SiteAdmin {
-  id    String  @id @default(auto()) @map("_id") @db.ObjectId
-  name String
-  email String @unique
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  name     String
+  email    String @unique
   password String
 }
 
 model TutorAdmin {
-  id    String  @id @default(auto()) @map("_id") @db.ObjectId
-  name String
-  email String @unique
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  name     String
+  email    String @unique
   password String
 }
 
 model Course {
-  id    String  @id @default(auto()) @map("_id") @db.ObjectId
-  name String
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
   description String?
-  comments String[]
-  thumbnail String?
-  students Student[] @relation(fields: [studentId], references: [id])
-  studentId String[] @db.ObjectId
-  tutors Tutor[] @relation(fields: [tutorId], references: [id])
-  tutorId String[] @db.ObjectId
+  comments    String[]
+  thumbnail   String?
+  students    Student[] @relation(fields: [studentId], references: [id])
+  studentId   String[]  @db.ObjectId
+  tutors      Tutor[]   @relation(fields: [tutorId], references: [id])
+  tutorId     String[]  @db.ObjectId
 }
 
 model StudentProfile {
   id             String  @id @default(auto()) @map("_id") @db.ObjectId
-  thumbnail      String? 
+  thumbnail      String?
   email          String  @unique
-  username       String  
-  phone          String? 
-  address        String? 
-  timeZone       String? 
-  biography      String? 
-  accountBalance Int @default(0)
-  student   Student   @relation(fields: [studentId], references: [id])
-  studentId String @unique @db.ObjectId
+  username       String
+  phone          String?
+  address        String?
+  timeZone       String?
+  biography      String?
+  accountBalance Int     @default(0)
+  student        Student @relation(fields: [studentId], references: [id])
+  studentId      String  @unique @db.ObjectId
 }
 
-
 model TutorProfile {
-  id             String  @id @default(auto()) @map("_id") @db.ObjectId
-  thumbnail      String? 
-  email          String  @unique
-  username       String  
-  phone          String? 
-  address        String? 
-  timeZone       String?
-  professionalBio String?
-  accountBalance Int @default(0)
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  thumbnail         String?
+  email             String  @unique
+  username          String
+  phone             String?
+  address           String?
+  timeZone          String?
+  professionalBio   String?
+  accountBalance    Int     @default(0)
   experienceSummary String?
-  courseCanTeach String?
-  tutor   Tutor   @relation(fields: [tutorId], references: [id])
-  tutorId String @unique @db.ObjectId
+  courseCanTeach    String?
+  tutor             Tutor   @relation(fields: [tutorId], references: [id])
+  tutorId           String  @unique @db.ObjectId
 }
 
 model TutorApplication {
-  id    String  @id @default(auto()) @map("_id") @db.ObjectId
-  name String
-  email String @unique
+  id         String @id @default(auto()) @map("_id") @db.ObjectId
+  name       String
+  email      String @unique
   courseName String
-  date String
+  date       String
 }
 
 model Interview {
-  id    String  @id @default(auto()) @map("_id") @db.ObjectId
-  name String
-  email String @unique
+  id         String @id @default(auto()) @map("_id") @db.ObjectId
+  name       String
+  email      String @unique
   courseName String
-  date String
+  date       String
 }
 
+model Consultation {
+  id           String @id @default(auto()) @map("_id") @db.ObjectId
+  tutorName    String
+  tutorEmail   String
+  studentName  String
+  studentEmail String
+  startTime    String
+  endTime      String
+  courseName   String
+}

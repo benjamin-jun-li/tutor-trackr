@@ -23,7 +23,7 @@ export default function DashboardPage() {
                     <InterviewBoard />
                 </div>
             </section>
-            <section className="mx-3">
+            <section className="mx-3 mt-3">
                 <ConsultationList />
             </section>
         </main>
