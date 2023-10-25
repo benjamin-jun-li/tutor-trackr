@@ -214,6 +214,7 @@ export const resolvers = {
             return context.prisma.course.create({
                 data: {
                     name: args.name,
+                    price: args.price,
                 },
             });
         },
@@ -332,6 +333,54 @@ export const resolvers = {
               },
             });
         },
+
+        // Student pays for the course
+        payTheCourse: async (_parent: any, args: any, context: Context) => {
+            // Ensure the student and course exist
+            const student = await context.prisma.studentProfile.findUnique({
+                where: { studentId: args.studentId },
+            });
+            const course = await context.prisma.course.findUnique({
+                where: { id: args.courseId },
+            });
+
+            if (!student) {
+                throw new Error("Student not found with ID: " + args.studentId);
+            }
+            if (!course) {
+                throw new Error("Course not found with ID: " + args.courseId);
+            }
+            if (!course.price) {
+                throw new Error("Course price unavailable: " + args.course.price);
+            }  
+
+            // Ensure student's account balance is enough
+            if (student.accountBalance < course.price) {
+                throw new Error("Insufficient balance");
+            }
+
+            // Deduct the student's account balance
+            const balance = student.accountBalance;
+            const price = course.price;
+            const newBalance = balance - price;
+            await context.prisma.studentProfile.update({
+                where: { studentId: args.studentId },
+                data: {
+                    accountBalance: newBalance
+                }
+            });  
+
+            // Register the course for the student by updating the relation
+            return context.prisma.course.update({
+                where: { id: args.courseId },
+                data: {
+                    students: {
+                        connect: { id: args.studentId },
+                    },
+                },
+            });
+        }
+
         // // update password
         // updatePassword: async (_parent: any, args: any, context: Context) => {
 

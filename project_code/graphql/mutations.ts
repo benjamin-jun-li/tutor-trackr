@@ -123,6 +123,7 @@ export const ADD_COURSE = gql`
     $thumbnail: String
     $studentIds: [String!]
     $tutorIds: [String!]
+    $price: Int
   ) {
     addCourse(
       name: $name
@@ -131,6 +132,7 @@ export const ADD_COURSE = gql`
       thumbnail: $thumbnail
       studentIds: $studentIds
       tutorIds: $tutorIds
+      price: $price
     ) {
       id
       name
@@ -147,6 +149,7 @@ export const ADD_COURSE = gql`
         name
       }
       tutorId
+      price
     }
   }
 `;
@@ -235,6 +238,20 @@ export const REGISTER_COURSE_FOR_TUTOR = gql`
         id
         name
       }
+    }
+  }
+`;
+
+export const PAY_THE_COURSE = gql`
+  mutation PayTheCourse($studentId: ID!, $courseId: ID!) {
+    payTheCourse(studentId: $studentId, courseId: $courseId) {
+      id
+      name
+      students {
+        id
+        username
+      }
+      price
     }
   }
 `;
