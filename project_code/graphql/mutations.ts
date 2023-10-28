@@ -1,18 +1,16 @@
 import {gql} from "@apollo/client";
 
 
-// export const Reset_Password = gql`
-//     mutation resetPassword(
-//         $email: String!
-//         $newPassword: String!
-//     ) {
-//         resetPassword(email: $email
-//             password: $newPassword)
-//         {
-//             password
-//         }
-//     }
-// `
+export const Update_Password = gql`
+mutation UpdatePassword(
+  $email: String!
+    $password: String!
+){
+  resetPassword(
+    email: $email
+    password: $password)
+}
+`
 
 export const ADD_Student = gql`
   mutation AddStudent(

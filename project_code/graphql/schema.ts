@@ -76,7 +76,6 @@ union UserByEmail = Student | Tutor | SiteAdmin | TutorAdmin
     courseCanTeach: String
   }
 
-  # Todo description  Interview one to one relationship
   type TutorApplication {
     id: ID!
     name: String
@@ -124,7 +123,7 @@ union UserByEmail = Student | Tutor | SiteAdmin | TutorAdmin
       courseCanTeach: String
     ) : TutorProfile
     addCourse(name: String!, description: String, comments: [String], 
-      thumbnail: String, studentId: [String], tutorId: [String], price: Int
+      thumbnail: String, studentId: [String], tutorId: [String], price: Int, tags: [String]
     ) : Course
     deleteCourse(id: String!): Course
     deleteStudent(email: String!): Student
@@ -134,6 +133,6 @@ union UserByEmail = Student | Tutor | SiteAdmin | TutorAdmin
     registerCourseForStudent(studentId: ID!, courseId: ID!): Student
     registerCourseForTutor(tutorId: ID!, courseId: ID!): Tutor
     payTheCourse(studentId: ID!, courseId: ID!): Course
-#      resetPassword(email: String!, password: String!): UserByEmail
+    resetPassword(email: String!, password: String!): UserByEmail
   }
 `;

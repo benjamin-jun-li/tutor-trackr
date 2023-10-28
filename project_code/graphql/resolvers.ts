@@ -141,7 +141,40 @@ export const resolvers = {
 
     Mutation: {
         // reset password
-
+        resetPassword: async (_parent: any, args: any, context: Context) => {
+            context.prisma.student.update({
+                where: {
+                    email: args.email,
+                },
+                data: {
+                    password: args.password,
+                },
+            });
+            context.prisma.tutor.update({
+                where: {
+                    email: args.email,
+                },
+                data: {
+                    password: args.password,
+                },
+            });
+            context.prisma.siteAdmin.update({
+                where: {
+                    email: args.email,
+                },
+                data: {
+                    password: args.password,
+                },
+            });
+            context.prisma.tutorAdmin.update({
+                where: {
+                    email: args.email,
+                },
+                data: {
+                    password: args.password,
+                },
+            });
+        },
 
         // add user
         addStudent: async (_parent: any, args: any, context: Context) => {
