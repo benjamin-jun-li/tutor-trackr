@@ -6,7 +6,7 @@ import Link from "next/link";
 const ApplicationList = () => {
     const applications = useQuery(GET_APPLICATION)
     return (
-        <div className="w-full">
+        <section className="w-full">
             <h2>Tutor Application Table</h2>
             { applications?.data ?
                 (
@@ -54,9 +54,13 @@ const ApplicationList = () => {
                         </tbody>
                     </table>
                 </div>
-                ) : (<span className="loading loading-dots loading-md"></span>)
+                ) : (
+                    <div className="flex justify-center items-center">
+                        <span className="loading loading-dots loading-md"></span>
+                    </div>
+                )
             }
-        </div>
+        </section>
     )
 }
 

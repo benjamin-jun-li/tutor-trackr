@@ -45,7 +45,7 @@ const CourseDetail:FC<{ role:string }> = ({ role }) => {
                             <img className="rounded-t-lg" src={getCourseDetail.data.course?.thumbnail} alt="null" />
                         </div>
                         <div className="p-5">
-                            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{getCourseDetail.data.course?.description}</h5>
+                            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{getCourseDetail.data.course?.description || "sample description"}</h5>
                             <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
                                 ratings: <br/>
                                 students:
@@ -53,7 +53,7 @@ const CourseDetail:FC<{ role:string }> = ({ role }) => {
                         </div>
                     </div>
 
-                    <div className="w-3/4 p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+                    <div className="w-3/4 p-4 mt-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
                         <div className="flex items-center justify-between mb-4">
                             <h5 className="text-xl font-bold leading-none text-gray-900 dark:text-white">Available Tutors</h5>
                         </div>
@@ -82,7 +82,9 @@ const CourseDetail:FC<{ role:string }> = ({ role }) => {
                     </div>
                 </section>
             ) : (
-                <div>loading</div>
+                <section className="col-span-2 flex justify-center items-center">
+                    <span className="loading loading-spinner loading-lg"></span>
+                </section>
             )
     )
 }

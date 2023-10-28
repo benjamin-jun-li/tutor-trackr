@@ -1,5 +1,4 @@
-import Link from "next/link";
-
+import PayModal from "@/app/student/course/[id]/payModal";
 const InteractBoxStudent = () => {
     return (
         <section className="col-span-1">
@@ -16,7 +15,7 @@ const InteractBoxStudent = () => {
                         Pay as you go
                     </li>
                 </ul>
-                <button type="button" className="w-full text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-lg px-5 py-2.5 text-center mr-2 mb-2">Reserve an appointment</button>
+                <PayModal />
             </div>
         </section>
     )
