@@ -1,9 +1,7 @@
 import type { Config } from 'tailwindcss'
-import {undefined} from "zod";
 import daisyui from "daisyui";
 
 const config: Config = {
-  corePlugins: undefined,
   darkMode: ["class"],
   content: ["app/**/*.{ts,tsx}", "components/**/*.{ts,tsx}"],
   theme: {
@@ -61,12 +59,12 @@ const config: Config = {
       },
       keyframes: {
         "accordion-down": {
-          from: { height: 0 },
+          from: { height: "0" },
           to: { height: "var(--radix-accordion-content-height)" },
         },
         "accordion-up": {
           from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: 0 },
+          to: { height: "0" },
         },
       },
       animation: {

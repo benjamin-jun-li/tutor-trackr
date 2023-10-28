@@ -1,10 +1,10 @@
 import CourseDetail from "@/app/student/course/[id]/course-detail";
-import InteractBox from "@/app/student/course/[id]/interactBox";
+import InteractBoxStudent from "@/app/student/course/[id]/interactBoxStudent";
 const CoursePageStu = () =>{
     return (
-        <main className="mt-[5rem] grid grid-cols-3 px-24">
+        <main className="mt-[5rem] grid grid-cols-1 sm:grid-cols-3 px-6 sm:px-12 md:px-24 lg:px-[14rem] xl:px-[24rem]">
             <CourseDetail role={"student"}/>
-            <InteractBox />
+            <InteractBoxStudent />
         </main>
     )
 }

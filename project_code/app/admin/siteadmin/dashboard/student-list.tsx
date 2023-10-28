@@ -8,14 +8,12 @@ import {useMutation} from "@apollo/client";
 
 export default function StudentList() {
     const studentList = useQuery(GET_StudentList)
-    const [deleteStudentMutation,{data,loading,error}] = useMutation(DELETE_Student)
+    const [deleteStudentMutation,{data, loading, error}] = useMutation(DELETE_Student)
     const [studentName, setStudentName] = useState("");
     const [studentEmail, setStudentEmail] = useState("");
 
-
-    // Todo refetch query after delete
-    const deleteStudent = (email: String) => {
-        deleteStudentMutation({variables: {email: email}})
+    const deleteStudent = (email: string) => {
+        deleteStudentMutation({variables: {email: email}}).then()
     }
 
     return (
@@ -38,7 +36,7 @@ export default function StudentList() {
                 </tr>
                 </thead>
                 <tbody>
-                {studentList.data?.getStudentList.map((student: any) => (
+                {studentList.data?.getStudentList?.map((student: any) => (
                     <tr id={student.id} key={student.id}
                         className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
                         <th scope="row"
@@ -56,7 +54,8 @@ export default function StudentList() {
                             <button
                                 className="font-medium text-blue-600 dark:text-blue-500 hover:underline focus:z-10"
                                 onClick={() => {
-                                    document.getElementById('my_modal_5').showModal();
+                                    const modal = document.getElementById('my_modal_5');
+                                    if (modal) { modal.showModal() }
                                     setStudentName(student.name);
                                     setStudentEmail(student.email);
                                 }}

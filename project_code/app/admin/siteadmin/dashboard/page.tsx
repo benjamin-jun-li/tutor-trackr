@@ -5,8 +5,6 @@ import { CalendarDateRangePicker } from "@/components/dashboard/date-range-picke
 import StudentList from "@/app/admin/siteadmin/dashboard/student-list"
 import CourseList from "@/app/admin/siteadmin/dashboard/course-list";
 
-
-
 export const metadata: Metadata = {
     title: "Dashboard",
     description: "Example dashboard app built using the components.",

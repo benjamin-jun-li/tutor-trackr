@@ -1,5 +1,3 @@
-import React from 'react';
-import SearchContainer from "@/components/dashboard/searchcontainer";
 import CourseFilter from "@/components/dashboard/course-filter";
 import CourseList from "@/components/dashboard/courseList";
 import AppointmentCalendar from "@/components/dashboard/AppmtCalendar";
@@ -24,9 +22,6 @@ export default function DashboardPage() {
         <div className="mx-10">
           <div className="mb-4">
             <CourseFilter />
-          </div>
-          <div className="mb-4">
-            <SearchContainer />
           </div>
           <div className="grid grid-cols-3 place-items-center">
             <div className="col-span-2 flex flex-col justify-center items-center space-y-2">
