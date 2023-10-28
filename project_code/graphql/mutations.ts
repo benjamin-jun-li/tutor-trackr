@@ -108,8 +108,8 @@ export const UPDATE_TUTOR_PROFILE = gql`
       address: $address
       timeZone: $timeZone
       professionalBio: $biography
-      experienceSummary: $String
-      courseCanTeach: $String
+      experienceSummary: $experienceSummary
+      courseCanTeach: $courseCanTeach
     ) {
       thumbnail
       email
@@ -119,6 +119,7 @@ export const UPDATE_TUTOR_PROFILE = gql`
       timeZone
       experienceSummary
       courseCanTeach
+      professionalBio
     }
   }
 `;
@@ -167,10 +168,9 @@ export const ADD_COURSE = gql`
 `;
 
 export const DELETE_COURSE = gql`
-  mutation DeleteCourse($name: String!) {
+  mutation DeleteCourse($id: String!) {
     deleteCourse(id: $id) {
       id
-      name
     }
   }
 `;
@@ -261,23 +261,9 @@ export const PAY_THE_COURSE = gql`
       name
       students {
         id
-        username
       }
       price
     }
   }
 `;
 
-// export const UPDATE_PASSWORD = gql`
-//   mutation UpdatePassword(
-//     $email: String!
-//     $newPassword: String!
-//   ) {
-//     updatePassword(
-//       email: $email
-//       password: $newPassword
-//     ) {
-//       password
-//     }
-//   }
-// `;

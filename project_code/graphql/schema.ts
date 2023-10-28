@@ -120,7 +120,7 @@ union UserByEmail = Student | Tutor | SiteAdmin | TutorAdmin
     updateTutorProfile(
       email: String!, thumbnail: String, username: String, phone: String,
       address: String, timeZone: String,  experienceSummary: String, 
-      courseCanTeach: String
+      courseCanTeach: String,professionalBio: String
     ) : TutorProfile
     addCourse(name: String!, description: String, comments: [String], 
       thumbnail: String, studentId: [String], tutorId: [String], price: Int, tags: [String]
