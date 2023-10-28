@@ -52,7 +52,7 @@ model Course {
   studentId   String[]  @db.ObjectId
   tutors      Tutor[]   @relation(fields: [tutorId], references: [id])
   tutorId     String[]  @db.ObjectId
-  price       Int
+  price       Int @default(0)
 }
 
 model StudentProfile {

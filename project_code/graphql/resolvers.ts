@@ -140,6 +140,9 @@ export const resolvers = {
     // Todo Before we change the data in database we must check the data before
 
     Mutation: {
+        // reset password
+
+
         // add user
         addStudent: async (_parent: any, args: any, context: Context) => {
             return context.prisma.student.create({

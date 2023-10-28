@@ -1,7 +1,18 @@
 import {gql} from "@apollo/client";
 
-// The logic should be that the profile is an attribute of the user,
-// so we should be able to update the profile by updating the user.
+
+// export const Reset_Password = gql`
+//     mutation resetPassword(
+//         $email: String!
+//         $newPassword: String!
+//     ) {
+//         resetPassword(email: $email
+//             password: $newPassword)
+//         {
+//             password
+//         }
+//     }
+// `
 
 export const ADD_Student = gql`
   mutation AddStudent(

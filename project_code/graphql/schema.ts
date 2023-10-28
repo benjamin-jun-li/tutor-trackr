@@ -134,5 +134,6 @@ union UserByEmail = Student | Tutor | SiteAdmin | TutorAdmin
     registerCourseForStudent(studentId: ID!, courseId: ID!): Student
     registerCourseForTutor(tutorId: ID!, courseId: ID!): Tutor
     payTheCourse(studentId: ID!, courseId: ID!): Course
+#      resetPassword(email: String!, password: String!): UserByEmail
   }
 `;
