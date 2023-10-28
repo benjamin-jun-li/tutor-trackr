@@ -78,6 +78,7 @@ export const GET_COURSE = gql`
             name
             email
           }
+            tags
         }
     }
 `
@@ -100,6 +101,7 @@ export const GET_COURSES = gql`
         name,
         email
       }
+        tags
     }
   }
 `;
@@ -158,7 +160,8 @@ export const GET_APPLICATION = gql`
         name
         email
         courseName
-        date
+        interview
+        description
     }
   }
 `;
@@ -171,6 +174,8 @@ export const GET_INTERVIEW = gql`
         email
         courseName
         date
+        application
+        applicationId
     }
   }
 `;

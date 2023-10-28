@@ -45,12 +45,14 @@ model Course {
   id          String    @id @default(auto()) @map("_id") @db.ObjectId
   name        String
   description String?
+  tags        String[]
   comments    String[]
   thumbnail   String?
   students    Student[] @relation(fields: [studentId], references: [id])
   studentId   String[]  @db.ObjectId
   tutors      Tutor[]   @relation(fields: [tutorId], references: [id])
   tutorId     String[]  @db.ObjectId
+  price       Int
 }
 
 model StudentProfile {
@@ -88,7 +90,9 @@ model TutorApplication {
   name       String
   email      String @unique
   courseName String
-  date       String
+  date       DateTime @default(now())
+  description String
+  interview  Interview?
 }
 
 model Interview {
@@ -97,6 +101,8 @@ model Interview {
   email      String @unique
   courseName String
   date       String
+  application TutorApplication @relation(fields: [applicationId], references: [id])
+  applicationId String @unique @db.ObjectId
 }
 
 model Consultation {

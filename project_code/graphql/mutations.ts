@@ -124,15 +124,17 @@ export const ADD_COURSE = gql`
     $studentIds: [String!]
     $tutorIds: [String!]
     $price: Int
+      $tags: [String!]
   ) {
     addCourse(
       name: $name
       description: $description
       comments: $comments
       thumbnail: $thumbnail
-      studentIds: $studentIds
-      tutorIds: $tutorIds
+      studentId: $studentIds
+      tutorId: $tutorIds
       price: $price
+        tags: $tags
     ) {
       id
       name
@@ -150,6 +152,7 @@ export const ADD_COURSE = gql`
       }
       tutorId
       price
+        tags
     }
   }
 `;
@@ -176,19 +179,19 @@ export const ADD_Application = gql`
     $name: String
     $email: String
     $courseName: String
-    $date: String
+    $description: String
   ) {
     addApplication(
       name: $name
       email: $email
       courseName: $courseName
-      date: $date
+      description: $description
     ) {
       id
       name
       email
       courseName
-      date
+      description
     }
   }
 `;

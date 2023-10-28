@@ -47,6 +47,7 @@ union UserByEmail = Student | Tutor | SiteAdmin | TutorAdmin
     tutors: [Tutor]
     tutorId: [String]
     price: Int
+      tags: [String]
   }
 
   type StudentProfile {
@@ -75,12 +76,14 @@ union UserByEmail = Student | Tutor | SiteAdmin | TutorAdmin
     courseCanTeach: String
   }
 
+  # Todo description  Interview one to one relationship
   type TutorApplication {
     id: ID!
     name: String
     email: String
     courseName: String
-    date: String
+    interview: Interview
+    description: String
   }
 
   type Interview {
@@ -89,6 +92,8 @@ union UserByEmail = Student | Tutor | SiteAdmin | TutorAdmin
     email: String
     courseName: String
     date: String
+      application: TutorApplication
+      applicationId: String
   }
  
   type Query {
@@ -123,8 +128,7 @@ union UserByEmail = Student | Tutor | SiteAdmin | TutorAdmin
     ) : Course
     deleteCourse(id: String!): Course
     deleteStudent(email: String!): Student
-     addApplication(name: String, email: String, courseName: String, date: String
-    ) : TutorApplication
+     addApplication(name: String, email: String, courseName: String,description:String) : TutorApplication
     addInterview(name: String, email: String, courseName: String, date: String
     ) : Interview
     registerCourseForStudent(studentId: ID!, courseId: ID!): Student

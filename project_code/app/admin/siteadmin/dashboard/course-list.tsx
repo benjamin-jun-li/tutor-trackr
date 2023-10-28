@@ -12,8 +12,8 @@ export default function CourseList() {
     const [deleteCourseMutation,{data,loading,error}] = useMutation(DELETE_COURSE)
     const [courseName, setCourseName] = useState("");
 
-    const deleteCourse = (email: String) => {
-        deleteCourseMutation({variables: {email: email}})
+    const deleteCourse = (name: String) => {
+        deleteCourseMutation({variables: {name: name}})
     }
 
 
@@ -53,11 +53,10 @@ export default function CourseList() {
                         <td className="px-6 py-4">
                             <button
                                 className="font-medium text-blue-600 dark:text-blue-500 hover:underline focus:z-10"
-                                // onClick={() => {
-                                //     document.getElementById('my_modal_1').showModal();
-                                //     setStudentName(student.name);
-                                //     setStudentEmail(student.email);
-                                // }}
+                                onClick={() => {
+                                    document.getElementById('my_modal_1').showModal();
+                                    setCourseName(course.name);
+                                }}
                             >
                                 Delete
                             </button>
@@ -72,7 +71,7 @@ export default function CourseList() {
                     <p className="py-4">Do you want to delete {courseName}</p>
                     <div className="modal-action flex justify-between">
                         <form method="dialog" className="flex justify-between w-full">
-                            <button className="btn" onClick={() => deleteCourseMutation(studentEmail)}>Confirm</button>
+                            <button className="btn" onClick={() => deleteCourse(courseName)}>Confirm</button>
                             <button className="btn">Close</button>
                         </form>
                     </div>

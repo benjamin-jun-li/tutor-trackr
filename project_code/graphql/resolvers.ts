@@ -96,6 +96,7 @@ export const resolvers = {
                 }
             });
         },
+
         //get course list
         courses: async (_parent: any, args: any, context: Context) => {
             return context.prisma.course.findMany();
@@ -129,7 +130,7 @@ export const resolvers = {
             return context.prisma.interview.findMany();
         },
 
-        //get interview
+        //get Application
         getApplication: async (_parent: any, args: any, context: Context) => {
             return context.prisma.tutorApplication.findMany();
         }
@@ -181,7 +182,7 @@ export const resolvers = {
                 },
                 data: {
                     thumbnail: args.thumbnail,
-                    username: args.unsername,
+                    username: args.username,
                     phone: args.phone,
                     address: args.address,
                     timeZone: args.timeZone,
@@ -198,7 +199,7 @@ export const resolvers = {
                 },
                 data: {
                     thumbnail: args.thumbnail,
-                    username: args.unsername,
+                    username: args.username,
                     phone: args.phone,
                     address: args.address,
                     timeZone: args.timeZone,
@@ -209,17 +210,20 @@ export const resolvers = {
             });
         },
 
-        // add course
+
         addCourse: async (_parent: any, args: any, context: Context) => {
             return context.prisma.course.create({
                 data: {
                     name: args.name,
+                    description: args.description,
+                    tags: args.tags,
+                    thumbnail: args.thumbnail,
                     price: args.price,
+
                 },
             });
         },
 
-        // Todo delete course
         deleteCourse: async (_parent: any, args: any, context: Context) => {
             try {
                 return context.prisma.course.delete({
@@ -233,7 +237,6 @@ export const resolvers = {
         },    // delete student
         deleteStudent: async (_parent: any, args: any, context: Context) => {
             try {
-                // 首先找到学生
                 const student = await context.prisma.student.findUnique({
                     where: {
                         email: args.email,
@@ -241,7 +244,6 @@ export const resolvers = {
                 });
 
                 if (student) {
-                    // 如果找到学生，根据学生ID删除其关联的Profile
                     await context.prisma.studentProfile.delete({
                         where: {
                             studentId: student.id
@@ -262,6 +264,8 @@ export const resolvers = {
             }
 
         },
+
+        // Todo Need to use update
         addInterview: async (_parent: any, args: any, context: Context) => {
             return context.prisma.interview.create({
                 data: {
@@ -279,7 +283,7 @@ export const resolvers = {
                     name: args.name,
                     email: args.email,
                     courseName: args.courseName,
-                    date: args.date,
+                    description: args.description,
                 },
             });
         },
