@@ -16,9 +16,15 @@ const CourseList:FC<{ role: string }> = ({ role }) => {
 
     return (
         <section className="">
-            <h2 className="mb-4 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-white">
-                Courses
-            </h2>
+            <div className="flex">
+                <h2 className="mb-4 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-white">
+                    Courses
+                </h2>
+                <Link href="/tutor/application">
+                    <button className="px-4 py-2 ml-4 text-white bg-blue-600 rounded-md hover:bg-blue-700">Add Course</button>
+                </Link>
+            </div>
+
             <div className="border-solid border-2 border-sky-400 rounded-md
             col-span-2 flex flex-col justify-center items-center space-y-2">
                 <div className="grid grid-cols-3 gap-4">
