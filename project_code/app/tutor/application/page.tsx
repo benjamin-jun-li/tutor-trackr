@@ -18,25 +18,22 @@ import {
     FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { Checkbox } from "@/components/ui/checkbox"
-import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
-} from "@/components/ui/popover"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import {Course_type} from "@/app/student/dashboard/page";
-import {ADD_Interview} from "@/graphql/mutations";
+import {ADD_Application} from "@/graphql/mutations";
 import {useRouter} from "next/navigation";
+import Link from "next/link";
 
 type FormData = {
-    courses: string[];
+    courses: string;
     coverLetter: string;
 };
 
 const formSchema = z.object({
-    courses: z.array(z.string()),
+    courses: z.string(),
     coverLetter: z.string(),
 });
+
 
 const TutorInterviewPage: React.FC = () => {
     const { getters,setters } = useContextValue();
@@ -44,35 +41,26 @@ const TutorInterviewPage: React.FC = () => {
     const userEmail = getters.userEmail;
     const router = useRouter();
     const userName = getters.userName;
-    // const userEmail = 'hayden@tutor.com'
-    // const userName = 'Hayden'
 
     const { data, loading, error } = useQuery(GET_COURSES);
-    const [addInterview,{data:tutorData,loading:tutorLoading,error:tutorError}] = useMutation(ADD_Interview);
+    const [addApplication,{data:tutorData,loading:tutorLoading,error:tutorError}] = useMutation(ADD_Application);
 
     const form = useForm<FormData>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            courses: [],
+            courses: "",
             coverLetter: ''
         },
     });
 
     const onSubmit = async (data: FormData) => {
-        const currentTimestamp = new Date().getTime().toString();
-        console.log("Name:", userName);
-        console.log("Email:", userEmail);
-        console.log("Timestamp:", currentTimestamp);
-        console.log("Courses:", data.courses);
-        console.log("Cover Letter:", data.coverLetter);
 
-        const res = await addInterview({
+        const res = await addApplication({
             variables: {
                 name: userName,
                 email: userEmail,
-                date: currentTimestamp,
                 courseName: data.courses,
-                coverLetter: data.coverLetter
+                description: data.coverLetter
             },
         });
         if (res.data?.addInterview?.email) {
@@ -98,34 +86,22 @@ const TutorInterviewPage: React.FC = () => {
                         render={({ field }) => (
                             <FormItem className="flex flex-col">
                                 <FormLabel>Courses</FormLabel>
-                                <Popover>
-                                    <PopoverTrigger asChild>
-                                        <Button variant="outline">
-                                            {field.value?.length > 0 ? `${field.value?.length} courses selected` : "Select courses"}
-                                        </Button>
-                                    </PopoverTrigger>
-                                    <PopoverContent className="w-[240px] p-4">
-                                        {data?.courses?.map((course: Course_type) => (
-                                            <label key={course.id} className="flex items-center space-x-2 cursor-pointer">
-                                                <Checkbox
-                                                    id={course.name}  // Add an id attribute to the Checkbox
-                                                    checked={Array.isArray(field.value) && field.value.includes(course.name)}
-                                                    onCheckedChange={(checked) => {
-                                                        if (checked) {
-                                                            field.onChange([...(Array.isArray(field.value) ? field.value : []), course.name]);
-                                                        } else {
-                                                            field.onChange((Array.isArray(field.value) ? field.value : []).filter(item => item !== course.name));
-                                                        }
-                                                    }}
-                                                />
-                                                <span>{course.name}</span>
-                                            </label>
-                                        ))}
-
-                                    </PopoverContent>
-                                </Popover>
+                                <RadioGroup
+                                    onValueChange={field.onChange}
+                                    defaultValue={field.value}
+                                    className="flex flex-col space-y-2"
+                                >
+                                    {data?.courses?.map((course: Course_type) => (
+                                        <FormItem key={course.id} className="flex items-center space-x-3">
+                                            <FormControl>
+                                                <RadioGroupItem value={course.name} />
+                                            </FormControl>
+                                            <FormLabel className="font-normal">{course.name}</FormLabel>
+                                        </FormItem>
+                                    ))}
+                                </RadioGroup>
                                 <FormDescription className="mt-2 text-sm text-gray-500">
-                                    Select the courses you are interested in.
+                                    Select the course you are interested in.
                                 </FormDescription>
                                 <FormMessage />
                             </FormItem>
@@ -147,7 +123,13 @@ const TutorInterviewPage: React.FC = () => {
                             </FormItem>
                         )}
                     />
-                    <Button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white p-2 rounded">Submit</Button>
+                    <div className="flex gap-2">
+                        <Button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white p-2 rounded">Submit</Button>
+                        <Link href="/tutor/dashboard">
+                            <Button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white p-2 rounded">Return</Button>
+                        </Link>
+                    </div>
+
                 </form>
             </Form>
         </div>
