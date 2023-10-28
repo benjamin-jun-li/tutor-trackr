@@ -3,12 +3,12 @@ import {gql} from "@apollo/client";
 
 export const Update_Password = gql`
 mutation UpdatePassword(
-  $email: String!
+    $email: String!
     $password: String!
 ){
-  resetPassword(
-    email: $email
-    password: $password)
+    resetPassword(
+        email: $email
+        password: $password)
 }
 `
 
@@ -267,17 +267,3 @@ export const PAY_THE_COURSE = gql`
     }
   }
 `;
-
-// export const UPDATE_PASSWORD = gql`
-//   mutation UpdatePassword(
-//     $email: String!
-//     $newPassword: String!
-//   ) {
-//     updatePassword(
-//       email: $email
-//       password: $newPassword
-//     ) {
-//       password
-//     }
-//   }
-// `;

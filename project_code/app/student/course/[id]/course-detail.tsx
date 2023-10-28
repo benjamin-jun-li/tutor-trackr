@@ -59,23 +59,25 @@ const CourseDetail:FC<{ role:string }> = ({ role }) => {
                         </div>
                         <div className="flow-root">
                             <ul role="list" className="divide-y divide-gray-200 dark:divide-gray-700">
-                                <li className="py-3 sm:py-4">
-                                    <Accordion type="single" collapsible className="w-full">
-                                        <AccordionItem value="item-1">
-                                            <AccordionTrigger className="flex flex-row justify-between">
-                                                <div>
-                                                    <img className="w-8 h-8 rounded-full" src="" alt="Neil image" />
-                                                </div>
-                                                <div className="hover:!no-underline">
-                                                    Neil Sims&nbsp;&nbsp;&nbsp;email@windster.com
-                                                </div>
-                                            </AccordionTrigger>
-                                            <AccordionContent>
-                                                Yes. It adheres to the WAI-ARIA design pattern.
-                                            </AccordionContent>
-                                        </AccordionItem>
-                                    </Accordion>
-                                </li>
+                                {getCourseDetail.data.course?.tutors.map((tutor:any) => (
+                                    <li key={tutor.id} className="py-3 sm:py-4">
+                                        <Accordion type="single" collapsible className="w-full">
+                                            <AccordionItem value="item-1">
+                                                <AccordionTrigger className="flex flex-row justify-between">
+                                                    <div>
+                                                        <img className="w-8 h-8 rounded-full" src="" alt="Neil image" />
+                                                    </div>
+                                                    <div className="hover:!no-underline">
+                                                        Neil Sims&nbsp;&nbsp;&nbsp;email@windster.com
+                                                    </div>
+                                                </AccordionTrigger>
+                                                <AccordionContent>
+                                                    Yes. It adheres to the WAI-ARIA design pattern.
+                                                </AccordionContent>
+                                            </AccordionItem>
+                                        </Accordion>
+                                    </li>
+                                ))}
                             </ul>
                         </div>
 
