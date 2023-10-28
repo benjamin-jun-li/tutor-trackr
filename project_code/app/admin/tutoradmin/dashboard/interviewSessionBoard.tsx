@@ -6,7 +6,7 @@ import Link from "next/link";
 const InterviewBoard = () => {
     const interviews = useQuery(GET_INTERVIEW)
     return (
-        <div className="w-full">
+        <section className="w-full">
             <h2>Tutor Interview Board</h2>
             { interviews?.data ? (
                 <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -53,9 +53,12 @@ const InterviewBoard = () => {
                         </tbody>
                     </table>
                 </div>
-            ) : (<span className="loading loading-dots loading-md"></span>) }
-
-        </div>
+            ) : (
+                <div className="flex justify-center items-center">
+                    <span className="loading loading-dots loading-md"></span>
+                </div>
+            ) }
+        </section>
     )
 }
 

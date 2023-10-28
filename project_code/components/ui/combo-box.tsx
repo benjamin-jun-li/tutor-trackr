@@ -17,15 +17,17 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover"
+import { placeholderCSS } from "react-select/dist/declarations/src/components/Placeholder"
 
 interface ComboboxProps {
     items:{
        value: string,
        label: string
     }[]
+    placeholder: string;
 }
 
-const Combobox:FC<ComboboxProps> = ({ items }) => {
+const Combobox:FC<ComboboxProps> = ({ items, placeholder  }) => {
     const [open, setOpen] = useState(false)
     const [value, setValue] = useState("")
 
@@ -40,21 +42,21 @@ const Combobox:FC<ComboboxProps> = ({ items }) => {
                 >
                     {value
                         ? items.find((item) => item.value === value)?.label
-                        : "Select categories"}
+                        : placeholder}
                     <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                 </Button>
             </PopoverTrigger>
             <PopoverContent className="w-[200px] p-0">
                 <Command>
-                    <CommandInput placeholder="Search framework..." />
+                <CommandInput placeholder={`Search ${placeholder}...`} />
                     <CommandEmpty>No framework found.</CommandEmpty>
                     <CommandGroup>
                         {items.map((item) => (
                             <CommandItem
                                 key={item.value}
-                                onSelect={(currentValue) => {
-                                    setValue(currentValue === value ? "" : currentValue)
-                                    setOpen(false)
+                                onSelect={() => {
+                                    setValue(prevValue => item.value === prevValue ? "" : item.value);  // 使用 item.value
+                                    setOpen(false);
                                 }}
                             >
                                 <Check

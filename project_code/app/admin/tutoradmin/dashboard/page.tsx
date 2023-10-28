@@ -1,7 +1,7 @@
 import { Metadata } from "next"
 import ApplicationList from "@/app/admin/tutoradmin/dashboard/applicationList";
 import InterviewBoard from "@/app/admin/tutoradmin/dashboard/interviewSessionBoard";
-import ConsultationList from "@/app/admin/tutoradmin/dashboard/consultationList";
+import AppointmentList from "@/app/admin/tutoradmin/dashboard/appointmentList";
 
 export const metadata: Metadata = {
     title: "Dashboard",
@@ -24,7 +24,7 @@ export default function DashboardPage() {
                 </div>
             </section>
             <section className="mx-3 mt-3">
-                <ConsultationList />
+                <AppointmentList />
             </section>
         </main>
     )

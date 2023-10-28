@@ -1,25 +1,28 @@
 import Link from "next/link";
 
-const ConsultationList = () => {
+const AppointmentList = () => {
     return (
         <div>
-            <h2>Consultations</h2>
+            <h2>Appointments</h2>
 
             <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
                 <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
                         <th scope="col" className="px-6 py-3">
-                            Product name
+                            Course
                         </th>
                         <th scope="col" className="px-6 py-3">
-                            Color
+                            Tutor
                         </th>
                         <th scope="col" className="px-6 py-3">
-                            Category
+                            Student
                         </th>
                         <th scope="col" className="px-6 py-3">
-                            Price
+                            Duration
+                        </th>
+                        <th scope="col" className="px-6 py-3">
+                            Date
                         </th>
                         <th scope="col" className="px-6 py-3">
                             Action
@@ -29,16 +32,19 @@ const ConsultationList = () => {
                     <tbody>
                     <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
                         <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            Apple MacBook Pro 17
+                            COMP6080
                         </th>
                         <td className="px-6 py-4">
-                            Silver
+                            Darian
                         </td>
                         <td className="px-6 py-4">
-                            Laptop
+                            Oliver
                         </td>
                         <td className="px-6 py-4">
-                            $2999
+                            30min
+                        </td>
+                        <td className="px-6 py-4">
+                            12.04.2023
                         </td>
                         <td className="px-6 py-4">
                             <Link href={`/consultation/`} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">More</Link>
@@ -52,4 +58,4 @@ const ConsultationList = () => {
     )
 }
 
-export default ConsultationList
+export default AppointmentList
