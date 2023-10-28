@@ -1,9 +1,20 @@
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { Separator } from "@/components/ui/separator"
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Separator } from "@/components/ui/separator";
+import Link from "next/link";
 
-const tags = Array.from({ length: 50 }).map(
-    (_, i, a) => `v1.2.0-beta.${a.length - i}`
-)
+const messages = [
+    {
+        id: 1,
+        title: "Message Title 1",
+        content: "Message Content 1",
+    },
+    {
+        id: 2,
+        title: "Message Title 2",
+        content: "Message Content 2",
+    },
+].reverse();
+
 const MessageBox = () => {
     return (
         <section>
@@ -12,18 +23,21 @@ const MessageBox = () => {
             </h3>
             <ScrollArea className="h-72 min-w-[14rem] rounded-md border">
                 <div className="p-4">
-                    {tags.map((tag) => (
-                        <>
-                            <div key={tag} className="text-sm cursor-pointer">
-                                {tag}
+                    {messages.map((message, index) => (
+                        <Link href={`/tutor/message/${message.id}`} key={index}>
+                            <div>
+                                <div className="text-sm cursor-pointer">
+                                    <div className="font-semibold">{message.title}</div>
+                                    <div>{message.content}</div>
+                                </div>
+                                {index !== messages.length - 1 && <Separator className="my-2" />}
                             </div>
-                            <Separator className="my-2" />
-                        </>
+                        </Link>
                     ))}
                 </div>
             </ScrollArea>
         </section>
-    )
-}
+    );
+};
 
-export default MessageBox
+export default MessageBox;
