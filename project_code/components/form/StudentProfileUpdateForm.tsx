@@ -22,15 +22,15 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { toast } from "@/components/ui/use-toast"
 import {useEffect, useState} from "react";
-import {useMutation, useQuery} from "@apollo/client";
-import {GET_STUDENT_PROFILE} from "@/graphql/queries";
+import {useMutation} from "@apollo/client";
 import {UPDATE_STUDENT_PROFILE} from "@/graphql/mutations";
 import {usePathname, useRouter} from "next/navigation";
 import {useContextValue} from "@/components/context";
 import TimezonePicker from "@/components/TimezonePicker";
+import fileToBase64 from "@/lib/file2base64";
 
 const profileFormSchema = z.object({
-    avatar: z.string().optional(),
+    avatar: z.any(),
     username: z
         .string()
         .min(2, {
@@ -89,30 +89,29 @@ export function StudentProfileUpdateForm() {
         setUserEmail(getters.userEmail);
     }, [getters.userEmail]);
 
-    // const { loading, error, data } = useQuery(GET_STUDENT_PROFILE, {
-    //     variables: { email: userEmail },
-    // });
-
     const onSubmit = async (value: ProfileFormValues) => {
-        const res = await updateStudentProfile({
-            variables: {
-                email: value.email,
-                thumbnail: value.avatar,
-                username: value.username,
-                phone: value.phone,
-                address: value.address,
-                timeZone: value.timezone,
-                biography: value.bio,
+        fileToBase64(value.avatar).then(async data => {
+            const res = await updateStudentProfile({
+                variables: {
+                    email: value.email,
+                    thumbnail: data,
+                    username: value.username,
+                    phone: value.phone,
+                    address: value.address,
+                    timeZone: value.timezone,
+                    biography: value.bio,
+                }
+            })
+            if (res.data?.updateStudentProfile?.email) {
+                setters.setEmail(value.email);
+                setters.setName(value.username);
+                alert("Profile updated successfully!")
+                router.replace(`/student/profile/demo`)
+            } else {
+                console.log(res);
             }
         })
-        if (res.data?.updateStudentProfile?.email) {
-            setters.setEmail(value.email);
-            setters.setName(value.username);
-            alert("Profile updated successfully!")
-            router.replace(`/student/profile/demo`)
-        } else {
-            console.log(res);
-        }
+
 
         console.log("Form data submitted:", value);
         toast({
