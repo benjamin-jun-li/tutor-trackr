@@ -132,6 +132,14 @@ export const Approval_Application = gql`
       }
     }
 `
+export const Reject_Application = gql`
+  mutation RejectApplication($id: ID!) {
+    rejectApplication(id: $id) {
+      status
+    }
+  }
+`
+
 
 export const ADD_COURSE = gql`
   mutation AddCourse(
