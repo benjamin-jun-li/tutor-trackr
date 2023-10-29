@@ -4,14 +4,21 @@ import {useMutation, useQuery} from "@apollo/client";
 import { useParams } from "next/navigation";
 import {Button} from "@/components/ui/button";
 import Link from "next/link";
-import { Approval_Application } from "@/graphql/mutations";
+import {Approval_Application, Reject_Application} from "@/graphql/mutations";
+import {useEffect, useState} from "react";
 
 const ApplicationPage = () => {
     const param = useParams();
     const application = useQuery(GET_APPLICATION_BY_ID, { variables: { id: param?.id } });
-    const [acceptApplication, {data:studentData,loading:studentLoading,error:studentError}] = useMutation(Approval_Application);
+    const [acceptApplication, {data:acceptData,loading:acceptLoading,error:acceptError}] = useMutation(Approval_Application);
+    const [rejectApplication, {data:rejectData,loading:rejectLoading,error:rejectError}] = useMutation(Reject_Application);
 
     const appDetails = application.data?.getSingleApplication;
+    const [status, setStatus] = useState(appDetails?.status);
+
+    useEffect(() => {
+        setStatus(appDetails?.status);
+    }, [appDetails?.status]);
 
     if (!appDetails) {
         return <div>Loading...</div>;
@@ -22,8 +29,21 @@ const ApplicationPage = () => {
             variables: {
                 id: application.data?.getSingleApplication?.id,
             },
+        }).then(() => {
+            alert("Application accepted successfully!")
+            setStatus("Approved")
         });
-        console.log(acceptApplication)
+    }
+
+    const handleRejectClick = async () => {
+        await rejectApplication({
+            variables: {
+                id: application.data?.getSingleApplication?.id,
+            },
+        }).then(() => {
+            alert("Application rejected successfully!")
+            setStatus("Rejected")
+        });
     }
 
     return (
@@ -41,6 +61,9 @@ const ApplicationPage = () => {
                 <div className="mb-4">
                     <span className="font-semibold">Description:</span> {appDetails.description}
                 </div>
+                <div className="mb-4">
+                    <span className="font-semibold">Status:</span> {status}
+                </div>
                 {appDetails.interview && (
                     <div className="mb-4">
                         <span className="font-semibold">Interview:</span> {appDetails.interview}
@@ -53,7 +76,12 @@ const ApplicationPage = () => {
                     >
                         Accept
                     </Button>
-                    <Button className="bg-red-500 hover:bg-red-600 text-white rounded">Reject</Button>
+                    <Button
+                        className="bg-red-500 hover:bg-red-600 text-white rounded"
+                        onClick={handleRejectClick}
+                    >
+                        Reject
+                    </Button>
                     <Link href="/admin/tutoradmin/dashboard">
                         <Button className="bg-gray-500 hover:bg-blue-600 text-white rounded">Back</Button>
                     </Link>
