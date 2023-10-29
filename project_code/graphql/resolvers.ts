@@ -105,6 +105,12 @@ export const resolvers = {
             return context.prisma.student.findMany();
         },
 
+        //get tutor list
+        getTutorList: async (_parent: any, args: any, context: Context) => {
+            return context.prisma.tutor.findMany();
+        },
+
+
         //get student profile
         getStudentProfile: async (_parent: any, args: any, context: Context) => {
             return context.prisma.studentProfile.findUnique({
@@ -310,6 +316,35 @@ export const resolvers = {
                     });
 
                     return await context.prisma.student.delete({
+                        where: {
+                            email: args.email,
+                        }
+                    });
+                } else {
+                    throw new Error("Student not found");
+                }
+            } catch (error: any) {
+                throw new Error(`Failed to delete student: ${error.message}`);
+            }
+
+        },
+
+        deleteTutor: async (_parent: any, args: any, context: Context) => {
+            try {
+                const tutor = await context.prisma.tutor.findUnique({
+                    where: {
+                        email: args.email,
+                    }
+                });
+
+                if (tutor) {
+                    await context.prisma.tutorProfile.delete({
+                        where: {
+                            tutorId: tutor.id
+                        }
+                    });
+
+                    return await context.prisma.tutor.delete({
                         where: {
                             email: args.email,
                         }

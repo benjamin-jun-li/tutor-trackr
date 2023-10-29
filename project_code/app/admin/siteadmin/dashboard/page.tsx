@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { CalendarDateRangePicker } from "@/components/dashboard/date-range-picker"
 import StudentList from "@/app/admin/siteadmin/dashboard/student-list"
 import CourseList from "@/app/admin/siteadmin/dashboard/course-list";
+import TutorList from "@/app/admin/siteadmin/dashboard/tutor-list";
 
 export const metadata: Metadata = {
     title: "Dashboard",
@@ -22,6 +23,7 @@ export default function DashboardPage() {
                     </div>
                 </div>
                 <StudentList />
+                <TutorList />
                 <CourseList />
             </div>
         </section>

@@ -182,6 +182,14 @@ export const DELETE_Student = gql`
   }
 `;
 
+export const DELETE_Tutor = gql`
+    mutation DeleteTutor($email: String!) {
+        deleteTutor(email: $email) {
+            email
+        }
+    }
+`;
+
 export const ADD_Application = gql`
   mutation AddApplication(
     $name: String

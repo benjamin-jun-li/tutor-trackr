@@ -109,6 +109,7 @@ type PasswordResetResponse {
     course(id: String!): Course
     courses: [Course]
     getStudentList:[Student]
+      getTutorList:[Tutor]
     getStudentProfile(email: String!): StudentProfile
     getTutorProfile(email: String!): TutorProfile
     getApplication: [TutorApplication]
@@ -132,6 +133,7 @@ type PasswordResetResponse {
     ) : Course
     deleteCourse(id: ID!): Course
     deleteStudent(email: String!): Student
+      deleteTutor(email: String!): Tutor
      addApplication(name: String, email: String, courseName: String,description:String) : TutorApplication
     addInterview(name: String, email: String, courseName: String, date: String
     ) : Interview
