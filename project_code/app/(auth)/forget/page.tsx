@@ -3,7 +3,10 @@ import { useState, MouseEvent } from "react";
 import { Find_User } from "@/graphql/queries";
 import { useLazyQuery } from "@apollo/client";
 import { useRouter } from "next/navigation";
+import { useContextValue } from "@/components/context";
+
 const ForgetPasswordPage = () => {
+    const {getters, setters} = useContextValue();
     const router = useRouter();
     const code = "951XF";
     const [email, setEmail] = useState("");
@@ -25,6 +28,9 @@ const ForgetPasswordPage = () => {
                 })
             })
             if (res.status === 200) {
+                console.log(email);
+                setters.setEmail(email);
+                console.log(getters.userEmail);
                 setEmail("");
                 console.log(res)
             } else {
