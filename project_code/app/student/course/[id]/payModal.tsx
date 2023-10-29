@@ -50,11 +50,13 @@ const PayModal:FC<PayModalProps> = ({}) => {
         })
         const appointmentResponse = await bookAppointment({
             variables:{
-                courseName,
-                tutorName,
-                tutorEmail,
-                studentName,
+                courseName
+                tutorName
+                tutorEmail
+                studentName
                 studentEmail
+                startTime
+                endTime
             }
         })
         const payResponse = await payCourse({

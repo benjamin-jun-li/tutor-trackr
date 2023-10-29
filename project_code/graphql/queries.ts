@@ -179,6 +179,8 @@ export const GET_APPLICATION = gql`
         name
         email
         courseName
+        description
+        status
         interview{
             id
             name
@@ -186,7 +188,6 @@ export const GET_APPLICATION = gql`
             courseName
             date
         }
-        description
     }
   }
 `;
@@ -241,6 +242,7 @@ export const GET_APPOINTMENT = gql`
         startTime
         endTime
         courseName
+        status
     }
   }
 `;

@@ -288,7 +288,13 @@ export const ADD_APPOINTMENT = gql`
       studentName: $studentName,
       studentEmail: $studentEmail,
     ) {
-      id
+      courseName
+      tutorName
+      tutorEmail
+      studentName
+      studentEmail
+      startTime
+      endTime
     }
   }
 `;
