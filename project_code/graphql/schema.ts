@@ -141,6 +141,7 @@ type PasswordResetResponse {
 
   type Mutation {
     approveApplication(id: ID!): TutorApplication
+      rejectApplication(id: ID!): TutorApplication
     addStudent (name:String, email:String,password:String) : Student
     addTutor (name:String, email:String,password:String) : Tutor
     updateStudentProfile(id: ID!,
