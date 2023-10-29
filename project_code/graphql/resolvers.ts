@@ -551,7 +551,7 @@ export const resolvers = {
                     date: new Date().toISOString(),
                     startTime: args.startTime,
                     endTime: args.endTime,
-                    status: "Create a new appointment"
+                    status: "Waiting for accepts",
                 },
             });
         },
