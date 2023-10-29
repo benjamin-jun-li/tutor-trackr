@@ -58,6 +58,7 @@ export const ADD_Tutor = gql`
 
 export const UPDATE_STUDENT_PROFILE = gql`
   mutation UpdateStudentProfile(
+    $id: ID!
     $email: String!
     $thumbnail: String
     $username: String
@@ -67,6 +68,7 @@ export const UPDATE_STUDENT_PROFILE = gql`
     $biography: String
   ) {
     updateStudentProfile(
+      id: $id
       email: $email
       thumbnail: $thumbnail
       username: $username
@@ -75,6 +77,7 @@ export const UPDATE_STUDENT_PROFILE = gql`
       timeZone: $timeZone
       biography: $biography
     ) {
+      id
       thumbnail
       email
       username

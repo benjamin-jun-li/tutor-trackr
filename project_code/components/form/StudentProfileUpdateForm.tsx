@@ -89,12 +89,10 @@ export function StudentProfileUpdateForm() {
         setUserEmail(getters.userEmail);
     }, [getters.userEmail]);
 
-    // const { loading, error, data } = useQuery(GET_STUDENT_PROFILE, {
-    //     variables: { email: userEmail },
-    // });
 
     const onSubmit = async (value: ProfileFormValues) => {
         const res = await updateStudentProfile({
+            // Todo need to add the id of the user
             variables: {
                 email: value.email,
                 thumbnail: value.avatar,

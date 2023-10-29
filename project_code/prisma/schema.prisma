@@ -58,7 +58,7 @@ model Course {
 model StudentProfile {
   id             String  @id @default(auto()) @map("_id") @db.ObjectId
   thumbnail      String?
-  email          String  @unique
+  email          String
   username       String
   phone          String?
   address        String?

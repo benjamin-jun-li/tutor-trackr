@@ -282,11 +282,6 @@ export const resolvers = {
                 where: { id: args.id, },
             });
 
-            // const studentProfile = await context.prisma.studentProfile.findUnique({
-            //     where: {
-            //         email: args.email,
-            //     },
-            // });
 
             if (!existingProfile) {
                 throw new Error('Student profile not found');
@@ -307,7 +302,6 @@ export const resolvers = {
                     address: args.address,
                     timeZone: args.timeZone,
                     biography: args.biography,
-                    studentId: existingProfile?.studentId,
                 },
             });
         },
