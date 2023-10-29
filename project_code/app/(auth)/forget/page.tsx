@@ -15,7 +15,7 @@ const ForgetPasswordPage = () => {
 
     useEffect(() => {
         setters.setEmail(email);
-    }, [email])
+    }, [email, setters])
     const openModal = async () => {
         const res_user = await findUser({variables: {email: email}});
         if (res_user?.data?.finduser.status === true) {

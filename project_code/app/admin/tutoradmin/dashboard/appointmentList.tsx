@@ -36,26 +36,28 @@ const AppointmentList = () => {
                     </tr>
                     </thead>
                     <tbody>
-                    <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                        <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            COMP6080
-                        </th>
-                        <td className="px-6 py-4">
-                            Darian
-                        </td>
-                        <td className="px-6 py-4">
-                            Oliver
-                        </td>
-                        <td className="px-6 py-4">
-                            30min
-                        </td>
-                        <td className="px-6 py-4">
-                            12.04.2023
-                        </td>
-                        <td className="px-6 py-4">
-                            <Link href={`/consultation/`} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">More</Link>
-                        </td>
-                    </tr>
+                    {appointments.data?.getAppointments.map((appointment) => (
+                        <tr key={appointment.id} className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {appointment.courseName}
+                            </th>
+                            <td className="px-6 py-4">
+                                {appointment.tutorName}
+                            </td>
+                            <td className="px-6 py-4">
+                                {appointment.studentName}
+                            </td>
+                            <td className="px-6 py-4">
+                                {appointment.startTime || "1 hour"}
+                            </td>
+                            <td className="px-6 py-4">
+                                12.04.2023
+                            </td>
+                            <td className="px-6 py-4">
+                                <Link href={`/appointment/`} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">More</Link>
+                            </td>
+                        </tr>
+                    ))}
                     </tbody>
                 </table>
             </div>

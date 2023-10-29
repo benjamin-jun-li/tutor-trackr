@@ -44,10 +44,10 @@ const FormSchema = z
 
 const SignUpForm = () => {
     const { getters,setters } = useContextValue();
-  const [addStudent,{data:studentData,loading:studentLoading,error:studentError}] = useMutation(ADD_Student);
+    const [addStudent,{data:studentData,loading:studentLoading,error:studentError}] = useMutation(ADD_Student);
     const [addTutor,{data:tutorData,loading:tutorLoading,error:tutorError}] = useMutation(ADD_Tutor);
-  const router = useRouter()
-  const form = useForm<z.infer<typeof FormSchema>>({
+    const router = useRouter()
+    const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
       username: "",
@@ -60,6 +60,9 @@ const SignUpForm = () => {
 
 
   const onSubmit = async (values: z.infer<typeof FormSchema>) => {
+      if (studentLoading || tutorLoading) {
+          return <span className="loading loading-bars loading-lg"></span>
+      }
       if (values.identity === "student") {
           const res = await addStudent({
               variables: {
@@ -95,9 +98,6 @@ const SignUpForm = () => {
               console.log(res);
           }
       }
-    if (studentLoading || tutorLoading) {
-        return <span className="loading loading-bars loading-lg"></span>
-    }
   };
   return (
       <Form {...form}>

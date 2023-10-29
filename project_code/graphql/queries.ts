@@ -212,7 +212,7 @@ export const GET_INTERVIEW = gql`
 
 export const GET_APPOINTMENT = gql`
   query Appointment {
-    getConsultation {
+    getAppointments {
         id
         tutorName
         tutorEmail

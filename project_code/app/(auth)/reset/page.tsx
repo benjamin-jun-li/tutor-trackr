@@ -3,7 +3,10 @@ import { FormEvent, useState } from "react";
 import { useContextValue } from "@/components/context";
 import { UPDATE_PASSWORD } from "@/graphql/mutations";
 import { useMutation } from "@apollo/client";
+import { useRouter } from "next/navigation";
+
 const ResetPage = () => {
+    const router = useRouter();
     const { getters } = useContextValue();
     const [password, setPassword] = useState<string | undefined>();
     const [rePassword, setRePassword] = useState<string | undefined>();
@@ -20,6 +23,11 @@ const ResetPage = () => {
                     password: password
                 }
             })
+            if (res?.data?.resetPassword?.status) {
+                router.push("login");
+            } else {
+                console.log(res);
+            }
         } else {
             setMismatch(true);
         }

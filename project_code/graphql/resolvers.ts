@@ -151,7 +151,7 @@ export const resolvers = {
         },
 
         // //get consultation
-        getConsultation: async (_parent: any, args: any, context: Context) => {
+        getAppointments: async (_parent: any, args: any, context: Context) => {
             return context.prisma.appointment.findMany();
         }
 
