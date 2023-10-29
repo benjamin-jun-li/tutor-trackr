@@ -15,3 +15,7 @@ Also the dashboard demo for three role.
 
 Week 5
 I'm also focus on the profile page development, also fixed some bugs in the profile update functions.
+
+Week 7
+I'm focusing on the message box and the application functions,
+including the application pages and the status toggle.
