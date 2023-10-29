@@ -30,7 +30,7 @@ import TimezonePicker from "@/components/TimezonePicker";
 import fileToBase64 from "@/lib/file2base64";
 
 const profileFormSchema = z.object({
-    avatar: z.any(),
+    avatar: z.string().optional(),
     username: z
         .string()
         .min(2, {
@@ -90,11 +90,10 @@ export function StudentProfileUpdateForm() {
     }, [getters.userEmail]);
 
     const onSubmit = async (value: ProfileFormValues) => {
-        fileToBase64(value.avatar).then(async data => {
             const res = await updateStudentProfile({
                 variables: {
                     email: value.email,
-                    thumbnail: data,
+                    thumbnail: value.avatar,
                     username: value.username,
                     phone: value.phone,
                     address: value.address,
@@ -110,7 +109,6 @@ export function StudentProfileUpdateForm() {
             } else {
                 console.log(res);
             }
-        })
 
 
         console.log("Form data submitted:", value);
