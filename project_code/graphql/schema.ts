@@ -2,6 +2,11 @@ export const typeDefs = `#graphql
 
 union UserByEmail = Student | Tutor | SiteAdmin | TutorAdmin
 
+type PasswordResetResponse {
+    status: Boolean!
+    message: String
+}
+
   type Student {
     id:    ID!
     name: String
@@ -107,7 +112,7 @@ union UserByEmail = Student | Tutor | SiteAdmin | TutorAdmin
   }
  
   type Query {
-    findUserByEmail(email: String): UserByEmail
+      finduser(email: String):PasswordResetResponse
 	student(email: String): Student
     tutor(email: String): Tutor
     siteAdmin(email: String): SiteAdmin
@@ -145,8 +150,5 @@ union UserByEmail = Student | Tutor | SiteAdmin | TutorAdmin
     registerCourseForTutor(tutorId: ID!, courseId: ID!): Tutor
     payTheCourse(studentId: ID!, courseId: ID!): Course
     resetPassword(email: String!, password: String!): UserByEmail
-    addAppointment(courseName: String!, tutorName: String!, tutorEmail: String!, 
-      studentName: String!, studentEmail: String!, duration: Int, date: String
-    ): Appointment
   }
 `;
