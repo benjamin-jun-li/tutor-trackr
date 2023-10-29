@@ -270,7 +270,8 @@ export const resolvers = {
             } catch (error: any) {
                 throw new Error(`Failed to delete course: ${error.message}`);
             }
-        },    // delete student
+        },
+
         deleteStudent: async (_parent: any, args: any, context: Context) => {
             try {
                 const student = await context.prisma.student.findUnique({

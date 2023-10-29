@@ -8,7 +8,9 @@ import {useMutation} from "@apollo/client";
 
 export default function StudentList() {
     const studentList = useQuery(GET_StudentList)
-    const [deleteStudentMutation,{data, loading, error}] = useMutation(DELETE_Student)
+    const [deleteStudentMutation,{data, loading, error}] = useMutation(DELETE_Student,{
+        refetchQueries: [{query: GET_StudentList}]
+    })
     const [studentName, setStudentName] = useState("");
     const [studentEmail, setStudentEmail] = useState("");
 

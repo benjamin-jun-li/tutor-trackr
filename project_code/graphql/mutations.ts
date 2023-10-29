@@ -168,7 +168,7 @@ export const ADD_COURSE = gql`
 `;
 
 export const DELETE_COURSE = gql`
-  mutation DeleteCourse($id: String!) {
+  mutation DeleteCourse($id: ID!) {
     deleteCourse(id: $id) {
       id
     }

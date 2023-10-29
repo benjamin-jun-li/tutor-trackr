@@ -5,15 +5,19 @@ import {GET_COURSES} from "@/graphql/queries"
 import {useState} from "react";
 import {DELETE_COURSE} from "@/graphql/mutations";
 import {useMutation} from "@apollo/client";
+import {ID} from "graphql-ws";
 
 export default function CourseList() {
     const courseList = useQuery(GET_COURSES)
 
-    const [deleteCourseMutation,{data,loading,error}] = useMutation(DELETE_COURSE)
+    const [deleteCourseMutation,{data,loading,error}] = useMutation(DELETE_COURSE,{
+        refetchQueries: [{query: GET_COURSES}]
+    })
     const [courseName, setCourseName] = useState("");
+    const [courseID, setCourseID] = useState("");
 
-    const deleteCourse = (name: String) => {
-        deleteCourseMutation({variables: {name: name}})
+    const deleteCourse = (id: ID) => {
+        deleteCourseMutation({variables: {id: id}})
     }
 
 
@@ -56,6 +60,7 @@ export default function CourseList() {
                                 onClick={() => {
                                     document.getElementById('my_modal_1').showModal();
                                     setCourseName(course.name);
+                                    setCourseID(course.id);
                                 }}
                             >
                                 Delete
@@ -71,7 +76,7 @@ export default function CourseList() {
                     <p className="py-4">Do you want to delete {courseName}</p>
                     <div className="modal-action flex justify-between">
                         <form method="dialog" className="flex justify-between w-full">
-                            <button className="btn" onClick={() => deleteCourse(courseName)}>Confirm</button>
+                            <button className="btn" onClick={() => deleteCourse(courseID)}>Confirm</button>
                             <button className="btn">Close</button>
                         </form>
                     </div>

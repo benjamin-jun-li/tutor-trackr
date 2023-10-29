@@ -125,7 +125,7 @@ union UserByEmail = Student | Tutor | SiteAdmin | TutorAdmin
     addCourse(name: String!, description: String, comments: [String], 
       thumbnail: String, studentId: [String], tutorId: [String], price: Int, tags: [String]
     ) : Course
-    deleteCourse(id: String!): Course
+    deleteCourse(id: ID!): Course
     deleteStudent(email: String!): Student
      addApplication(name: String, email: String, courseName: String,description:String) : TutorApplication
     addInterview(name: String, email: String, courseName: String, date: String
