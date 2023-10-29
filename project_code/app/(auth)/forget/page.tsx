@@ -56,6 +56,8 @@ const ForgetPasswordPage = () => {
             alert("verification code doesn't match");
         }
     }
+
+
   return (
     <main className="max-w-[18rem] mt-4">
         <h1 className="text-2xl font-bold mb-4">Reset Password</h1>

@@ -2,40 +2,6 @@ import {Context} from "@/pages/api/graphql";
 
 export const resolvers = {
     Query: {
-        // Find user by email
-        findUserByEmail: async (_parent: any, args: any, context: Context) => {
-            const student = await context.prisma.student.findUnique({
-                where: {
-                    email: args.email,
-                },
-            });
-            const tutor = await context.prisma.tutor.findUnique({
-                where: {
-                    email: args.email,
-                },
-            });
-            const siteAdmin = await context.prisma.siteAdmin.findUnique({
-                where: {
-                    email: args.email,
-                },
-            });
-            const tutorAdmin = await context.prisma.tutorAdmin.findUnique({
-                where: {
-                    email: args.email,
-                },
-            });
-            // if (student || tutor || siteAdmin || tutorAdmin) {
-            //     return {
-            //         status: 1
-            //     }
-            // }else
-            //     return {
-            //         status: 0
-            //     }
-            return "hello world"
-            },
-
-
 
         //auth student by email
         student: async (_parent: any, args: any, context: Context) => {
@@ -141,40 +107,64 @@ export const resolvers = {
     // Todo Before we change the data in database we must check the data before
 
     Mutation: {
-        // reset password
         resetPassword: async (_parent: any, args: any, context: Context) => {
-            context.prisma.student.update({
-                where: {
-                    email: args.email,
-                },
-                data: {
-                    password: args.password,
-                },
+            let userFound = false;
+
+            const student = await context.prisma.student.findUnique({
+                where: { email: args.email },
             });
-            context.prisma.tutor.update({
-                where: {
-                    email: args.email,
-                },
-                data: {
-                    password: args.password,
-                },
+            if (student) {
+                await context.prisma.student.update({
+                    where: { email: args.email },
+                    data: { password: args.password },
+                });
+                userFound = true;
+            }
+
+            const tutor = await context.prisma.tutor.findUnique({
+                where: { email: args.email },
             });
-            context.prisma.siteAdmin.update({
-                where: {
-                    email: args.email,
-                },
-                data: {
-                    password: args.password,
-                },
+            if (tutor) {
+                await context.prisma.tutor.update({
+                    where: { email: args.email },
+                    data: { password: args.password },
+                });
+                userFound = true;
+            }
+
+            const siteAdmin = await context.prisma.siteAdmin.findUnique({
+                where: { email: args.email },
             });
-            context.prisma.tutorAdmin.update({
-                where: {
-                    email: args.email,
-                },
-                data: {
-                    password: args.password,
-                },
+            if (siteAdmin) {
+                await context.prisma.siteAdmin.update({
+                    where: { email: args.email },
+                    data: { password: args.password },
+                });
+                userFound = true;
+            }
+
+            const tutorAdmin = await context.prisma.tutorAdmin.findUnique({
+                where: { email: args.email },
             });
+            if (tutorAdmin) {
+                await context.prisma.tutorAdmin.update({
+                    where: { email: args.email },
+                    data: { password: args.password },
+                });
+                userFound = true;
+            }
+
+            if (userFound) {
+                return {
+                    status: 1,
+                    message: "Reset password successfully",
+                };
+            } else {
+                return {
+                    status: 0,
+                    message: "Reset password failed",
+                };
+            }
         },
 
         // add user
@@ -288,7 +278,6 @@ export const resolvers = {
                         }
                     });
 
-                    // 然后删除学生
                     return await context.prisma.student.delete({
                         where: {
                             email: args.email,
@@ -422,11 +411,6 @@ export const resolvers = {
                 },
             });
         }
-
-        // // update password
-        // updatePassword: async (_parent: any, args: any, context: Context) => {
-        //
-        // },
     }
 }
 
