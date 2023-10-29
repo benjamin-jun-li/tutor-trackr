@@ -126,6 +126,7 @@ type PasswordResetResponse {
     getStudentProfile(email: String!): StudentProfile
     getTutorProfile(email: String!): TutorProfile
     getApplication: [TutorApplication]
+    getSingleApplication(id: String!): TutorApplication
     getInterview: [Interview]
     getAppointments: [Appointment]
   }

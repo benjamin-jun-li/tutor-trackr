@@ -190,6 +190,25 @@ export const GET_APPLICATION = gql`
   }
 `;
 
+export const GET_APPLICATION_BY_ID = gql`
+query TutorApplication($id: String!) {
+    getSingleApplication(id: $id) {
+        id
+        name
+        email
+        courseName
+        interview {
+            id
+            name
+            email
+            courseName
+            date
+        }
+        description
+    }
+  }
+`
+
 export const GET_INTERVIEW = gql`
   query Interview {
     getInterview {

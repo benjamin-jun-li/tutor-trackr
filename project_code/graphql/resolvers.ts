@@ -150,6 +150,13 @@ export const resolvers = {
             }})
         },
 
+        getSingleApplication: async (_parent: any, args: any, context: Context) => {
+            return context.prisma.tutorApplication.findUnique({
+                where: {
+                    id: args.id,
+                }})
+        },
+
         // //get consultation
         getAppointments: async (_parent: any, args: any, context: Context) => {
             return context.prisma.appointment.findMany();

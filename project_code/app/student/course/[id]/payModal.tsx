@@ -18,8 +18,9 @@ import {
     SelectValue
 } from "@/components/ui/select";
 import { GET_TUTORS_BY_COURSE } from "@/graphql/queries";
-import { useQuery } from "@apollo/client";
+import {useMutation, useQuery} from "@apollo/client";
 import { useParams } from "next/navigation";
+import {REGISTER_COURSE_FOR_STUDENT, PAY_THE_COURSE, ADD_APPOINTMENT } from "@/graphql/mutations";
 
 interface PayModalProps {
 
@@ -31,6 +32,7 @@ const PayModal:FC<PayModalProps> = ({}) => {
     const [msg, setMsg] = useState("");
     const tutorsByCourse = useQuery(GET_TUTORS_BY_COURSE, { variables: { id : params?.id }});
     //TODO useMutation to send appointment to backend
+    const [bookAppointment, {loading, error, data}] = useMutation(ADD_APPOINTMENT);
     const submitAppointment = () => {
         console.log("hihi")
     }

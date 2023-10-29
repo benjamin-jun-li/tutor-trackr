@@ -10,7 +10,6 @@ export const UPDATE_PASSWORD = gql`
   }
 `
 
-
 export const ADD_Student = gql`
   mutation AddStudent(
     $name: String

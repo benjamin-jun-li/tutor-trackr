@@ -68,11 +68,11 @@ const CourseDetail:FC<{ role:string }> = ({ role }) => {
                                                         <img className="w-8 h-8 rounded-full" src="" alt="Neil image" />
                                                     </div>
                                                     <div className="hover:!no-underline">
-                                                        Neil Sims&nbsp;&nbsp;&nbsp;email@windster.com
+                                                        {tutor.name}&nbsp;&nbsp;&nbsp;{tutor.email}
                                                     </div>
                                                 </AccordionTrigger>
                                                 <AccordionContent>
-                                                    Yes. It adheres to the WAI-ARIA design pattern.
+                                                    I am proficient in Scala and Hadoop
                                                 </AccordionContent>
                                             </AccordionItem>
                                         </Accordion>
