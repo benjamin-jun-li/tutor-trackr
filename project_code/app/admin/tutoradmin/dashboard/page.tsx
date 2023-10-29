@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function DashboardPage() {
     return (
-        <main className="mt-[5rem]">
+        <main className="mt-[5rem] p-4">
             <section className="grid grid-cols-2 gap-4">
                 <div className="col-span-1 mx-3">
                     <ApplicationList />

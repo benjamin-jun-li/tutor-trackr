@@ -210,8 +210,8 @@ export const GET_INTERVIEW = gql`
   }
 `;
 
-export const GET_CONSULTATION = gql`
-  query Consultation {
+export const GET_APPOINTMENT = gql`
+  query Appointment {
     getConsultation {
         id
         tutorName
