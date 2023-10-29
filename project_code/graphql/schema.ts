@@ -88,6 +88,7 @@ type PasswordResetResponse {
     courseName: String
     interview: Interview
     description: String
+    status:String
   }
 
   type Interview {
@@ -96,8 +97,9 @@ type PasswordResetResponse {
     email: String
     courseName: String
     date: String
-      application: TutorApplication
-      applicationId: String
+    application: TutorApplication
+    applicationId: String
+    status:String
   }
 
   type Appointment {
@@ -111,6 +113,7 @@ type PasswordResetResponse {
     date: String
     startTime: String
     endTime: String
+    status:String
   }
  
   type Query {
@@ -164,8 +167,8 @@ type PasswordResetResponse {
       studentEmail: String,
       duration: Int 
       date: String
-        startTime: String
-    endTime: String
+      startTime: String
+      endTime: String
     ): Appointment
   }
 `;

@@ -93,6 +93,7 @@ model TutorApplication {
   date       DateTime @default(now())
   description String
   interview  Interview?
+  status     String?
 }
 
 model Interview {
@@ -103,18 +104,9 @@ model Interview {
   date       String
   application TutorApplication @relation(fields: [applicationId], references: [id])
   applicationId String @unique @db.ObjectId
+  status     String?
 }
 
-// model Consultation {
-//   id           String @id @default(auto()) @map("_id") @db.ObjectId
-//   tutorName    String
-//   tutorEmail   String
-//   studentName  String
-//   studentEmail String
-//   startTime    String
-//   endTime      String
-//   courseName   String
-// }
 
 model Appointment {
   id           String @id @default(auto()) @map("_id") @db.ObjectId
@@ -123,8 +115,9 @@ model Appointment {
   tutorEmail   String?
   studentName  String?
   studentEmail String?
-  duration    Int @default(1)
-  date      String?
+  duration     Int @default(1)
+  date         String?
   startTime    String?
   endTime      String?
+  status       String?
 }

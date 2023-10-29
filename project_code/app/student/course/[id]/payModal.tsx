@@ -21,20 +21,50 @@ import { GET_TUTORS_BY_COURSE } from "@/graphql/queries";
 import {useMutation, useQuery} from "@apollo/client";
 import { useParams } from "next/navigation";
 import {REGISTER_COURSE_FOR_STUDENT, PAY_THE_COURSE, ADD_APPOINTMENT } from "@/graphql/mutations";
+import { useContextValue } from "@/components/context";
 
 interface PayModalProps {
 
 }
 
 const PayModal:FC<PayModalProps> = ({}) => {
+    const {getters, setters} = useContextValue();
     const params = useParams();
-    const [tutor, setTutor] = useState("Select a tutor");
+    const [selectedTutor, setTutor] = useState("Select a tutor");
     const [msg, setMsg] = useState("");
     const tutorsByCourse = useQuery(GET_TUTORS_BY_COURSE, { variables: { id : params?.id }});
-    //TODO useMutation to send appointment to backend
-    const [bookAppointment, {loading, error, data}] = useMutation(ADD_APPOINTMENT);
-    const submitAppointment = () => {
-        console.log("hihi")
+    console.log(tutorsByCourse);
+    const [bookAppointment, {loading:loadingAppo, error: errorAppo, dataAppo}] = useMutation(ADD_APPOINTMENT);
+    const [payCourse, {loading: loadingPay, error: errorPay, data: dataPay}] = useMutation(PAY_THE_COURSE);
+
+    const submitAppointment = async () => {
+        const courseName = tutorsByCourse?.data?.course?.name;
+        const tutorName = selectedTutor;
+        const studentName = getters.userName;
+        const studentEmail = getters.userEmail;
+        let tutorEmail = "";
+        tutorsByCourse.data?.course?.tutors.forEach((tutor) => {
+            if (tutor.name === tutorName) {
+                tutorEmail = tutor.email;
+            }
+        })
+        const appointmentResponse = await bookAppointment({
+            variables:{
+                courseName
+                tutorName
+                tutorEmail
+                studentName
+                studentEmail
+                startTime
+                endTime
+            }
+        })
+        const payResponse = await payCourse({
+            variables: {
+                studentId: "",
+                courseId: ""
+            }
+        })
     }
     return (
         <AlertDialog>

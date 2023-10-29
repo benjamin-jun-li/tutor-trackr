@@ -15,6 +15,12 @@ const DashboardPage = () => {
             </div>
             <div className="flex flex-col justify-center items-center gap-8">
                 <AppointmentCalendar />
+                <button 
+                    className="bg-blue-500 text-white px-4 py-2 rounded" 
+                    // onClick={() => window.location.href='/path-to-new-page'}
+                >
+                    View Student Information
+                </button>
             </div>
         </section>
     )

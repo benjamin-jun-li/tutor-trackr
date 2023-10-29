@@ -510,18 +510,13 @@ export const resolvers = {
                     tutorEmail: args.tutorEmail,
                     studentName: args.studentName,
                     studentEmail: args.studentEmail,
-                    duration: args.duration,
                     date: new Date().toISOString(),
                     startTime: args.startTime,
                     endTime: args.endTime,
+                    status: "Create a new appointment"
                 },
             });
         },
-
-        // // update password
-        // updatePassword: async (_parent: any, args: any, context: Context) => {
-        //
-        // },
     }
 }
 

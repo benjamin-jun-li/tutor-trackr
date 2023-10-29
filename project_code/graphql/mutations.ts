@@ -280,8 +280,6 @@ export const ADD_APPOINTMENT = gql`
     $tutorEmail: String,
     $studentName: String,
     $studentEmail: String,
-    $duration: Int,
-    $date: String
   ) {
     addAppointment(
       courseName: $courseName,
@@ -289,10 +287,14 @@ export const ADD_APPOINTMENT = gql`
       tutorEmail: $tutorEmail,
       studentName: $studentName,
       studentEmail: $studentEmail,
-      duration: $duration,
-      date: $date
     ) {
-      id
+      courseName
+      tutorName
+      tutorEmail
+      studentName
+      studentEmail
+      startTime
+      endTime
     }
   }
 `;
