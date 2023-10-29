@@ -1,15 +1,14 @@
 "use client"
 import { FormEvent, useState } from "react";
 import { useContextValue } from "@/components/context";
-import { Update_Password } from "@/graphql/mutations";
+import { UPDATE_PASSWORD } from "@/graphql/mutations";
 import { useMutation } from "@apollo/client";
 const ResetPage = () => {
     const { getters } = useContextValue();
     const [password, setPassword] = useState<string | undefined>();
     const [rePassword, setRePassword] = useState<string | undefined>();
     const [mismatch, setMismatch] = useState(false);
-    const [updatePwd, {data, loading, error}] = useMutation(Update_Password);
-    console.log(getters);
+    const [updatePwd, {data, loading, error}] = useMutation(UPDATE_PASSWORD);
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (password === rePassword) {
@@ -21,7 +20,6 @@ const ResetPage = () => {
                     password: password
                 }
             })
-            console.log(res.data)
         } else {
             setMismatch(true);
         }

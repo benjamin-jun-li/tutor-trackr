@@ -4,11 +4,20 @@ import { GET_APPLICATION } from"@/graphql/queries"
 import Link from "next/link";
 
 const ApplicationList = () => {
-    const applications = useQuery(GET_APPLICATION)
-    console.log(applications)
+    const applications = useQuery(GET_APPLICATION);
+    console.log(applications);
+    if (applications?.loading === false && applications?.data === undefined) {
+        return (
+            <section>
+                <h2>Tutor Application Table</h2>
+                <p>No data available.</p>
+            </section>
+        )
+    }
     return (
         <section className="w-full">
-            <h2>Tutor Application Table</h2>
+            <h2 className="text-xl font-extrabold leading-none tracking-tight
+            text-gray-900 md:text-2xl lg:text-3xl dark:text-white">Tutor Application Table</h2>
             { applications?.data ?
                 (
                     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -48,7 +57,7 @@ const ApplicationList = () => {
                                     {application.date}
                                 </td>
                                 <td className="px-6 py-4 text-right">
-                                    <Link href={`/application/${application.id}/`} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">More</Link>
+                                    <Link href={`/admin/tutoradmin/application/${application.id}/`} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">More</Link>
                                 </td>
                             </tr>
                         ))}

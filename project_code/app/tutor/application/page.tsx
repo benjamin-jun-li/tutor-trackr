@@ -3,6 +3,7 @@
 import React from 'react';
 import { useContextValue } from  "@/components/context"
 import { GET_COURSES } from "@/graphql/queries";
+import {ADD_Application} from "@/graphql/mutations";
 import {useMutation, useQuery} from "@apollo/client";
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
@@ -20,7 +21,6 @@ import {
 import { Input } from "@/components/ui/input"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import {Course_type} from "@/app/student/dashboard/page";
-import {ADD_Application} from "@/graphql/mutations";
 import {useRouter} from "next/navigation";
 import Link from "next/link";
 
@@ -112,9 +112,16 @@ const TutorInterviewPage: React.FC = () => {
                         name="coverLetter"
                         render={({ field }) => (
                             <FormItem className="flex flex-col">
-                                <FormLabel className="mb-2">Cover Letter</FormLabel>
+                                <FormLabel className="mb-2">
+                                    <h2 className="text-lg">
+                                        Cover Letter
+                                    </h2>
+                                    <p className="text-gray-500 text-sm">
+                                        Describe why you are interested in teaching this course
+                                    </p>
+                                </FormLabel>
                                 <FormControl>
-                                    <Input placeholder="Describe your reason" {...field} className="border p-2 rounded h-32"/>
+                                    <Input {...field} className="border p-2 rounded h-32"/>
                                 </FormControl>
                                 <FormDescription className="mt-2 text-sm text-gray-500">
                                     Describe why you are interested in these courses.

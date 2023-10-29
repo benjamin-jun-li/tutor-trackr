@@ -4,10 +4,20 @@ import {GET_INTERVIEW} from"@/graphql/queries"
 import Link from "next/link";
 
 const InterviewBoard = () => {
-    const interviews = useQuery(GET_INTERVIEW)
+    const interviews = useQuery(GET_INTERVIEW);
+    if (interviews?.data?.getInterview?.length === 0 && interviews?.loading === false) {
+        return (
+            <section>
+                <h2 className="text-xl font-extrabold leading-none tracking-tight
+            text-gray-900 md:text-2xl lg:text-3xl dark:text-white">Tutor Interview Board</h2>
+                <p className="flex justify-center">No data available</p>
+            </section>
+        )
+    }
     return (
         <section className="w-full">
-            <h2>Tutor Interview Board</h2>
+            <h2 className="text-xl font-extrabold leading-none tracking-tight
+            text-gray-900 md:text-2xl lg:text-3xl dark:text-white">Tutor Interview Board</h2>
             { interviews?.data ? (
                 <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
                     <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">

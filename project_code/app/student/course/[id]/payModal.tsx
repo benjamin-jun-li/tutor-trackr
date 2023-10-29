@@ -17,16 +17,20 @@ import {
     SelectTrigger,
     SelectValue
 } from "@/components/ui/select";
+import { GET_TUTORS_BY_COURSE } from "@/graphql/queries";
+import { useQuery } from "@apollo/client";
+import { useParams } from "next/navigation";
 
 interface PayModalProps {
 
 }
 
 const PayModal:FC<PayModalProps> = ({}) => {
+    const params = useParams();
     const [tutor, setTutor] = useState("Select a tutor");
-    const [msg, setMsg] = useState("")
+    const [msg, setMsg] = useState("");
+    const tutorsByCourse = useQuery(GET_TUTORS_BY_COURSE, { variables: { id : params?.id }});
     //TODO useMutation to send appointment to backend
-
     const submitAppointment = () => {
         console.log("hihi")
     }
@@ -46,7 +50,9 @@ const PayModal:FC<PayModalProps> = ({}) => {
                             <SelectContent>
                                 <SelectGroup>
                                     <SelectLabel>Tutors</SelectLabel>
-                                    <SelectItem value="apple">Apple</SelectItem>
+                                    {tutorsByCourse?.data?.course?.tutors?.map((tutor : any) => (
+                                        <SelectItem key={tutor.id} value={tutor.name}>{tutor.name}</SelectItem>
+                                    ))}
                                 </SelectGroup>
                             </SelectContent>
                         </Select>

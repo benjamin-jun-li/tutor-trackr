@@ -1,3 +1,4 @@
+
 const ApplicationPage = () => {
     return (
         <></>

@@ -3,7 +3,8 @@ import Link from "next/link";
 const AppointmentList = () => {
     return (
         <div>
-            <h2>Appointments</h2>
+            <h2 className="text-xl font-extrabold leading-none tracking-tight
+            text-gray-900 md:text-2xl lg:text-3xl dark:text-white">Appointments</h2>
 
             <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
                 <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
