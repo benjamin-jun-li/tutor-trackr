@@ -105,13 +105,24 @@ model Interview {
   applicationId String @unique @db.ObjectId
 }
 
-model Consultation {
+// model Consultation {
+//   id           String @id @default(auto()) @map("_id") @db.ObjectId
+//   tutorName    String
+//   tutorEmail   String
+//   studentName  String
+//   studentEmail String
+//   startTime    String
+//   endTime      String
+//   courseName   String
+// }
+
+model Appointment {
   id           String @id @default(auto()) @map("_id") @db.ObjectId
+  courseName   String
   tutorName    String
   tutorEmail   String
   studentName  String
   studentEmail String
-  startTime    String
-  endTime      String
-  courseName   String
+  duration    Int @default(1)
+  date      String
 }

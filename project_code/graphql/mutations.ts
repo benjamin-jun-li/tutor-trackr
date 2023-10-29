@@ -267,3 +267,26 @@ export const PAY_THE_COURSE = gql`
   }
 `;
 
+export const ADD_APPOINTMENT = gql`
+  mutation AddAppointment(
+    $courseName: String,
+    $tutorName: String,
+    $tutorEmail: String,
+    $studentName: String,
+    $studentEmail: String,
+    $duration: Int,
+    $date: String
+  ) {
+    addAppointment(
+      courseName: $courseName,
+      tutorName: $tutorName,
+      tutorEmail: $tutorEmail,
+      studentName: $studentName,
+      studentEmail: $studentEmail,
+      duration: $duration,
+      date: $date
+    ) {
+      id
+    }
+  }
+`;

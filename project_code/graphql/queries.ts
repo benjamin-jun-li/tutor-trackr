@@ -191,3 +191,18 @@ export const GET_INTERVIEW = gql`
     }
   }
 `;
+
+export const GET_CONSULTATION = gql`
+  query Consultation {
+    getConsultation {
+        id
+        tutorName
+        tutorEmail
+        studentName
+        studentEmail
+        startTime
+        endTime
+        courseName
+    }
+  }
+`;

@@ -131,10 +131,16 @@ export const resolvers = {
             return context.prisma.interview.findMany();
         },
 
+        //get application
         //get Application
         getApplication: async (_parent: any, args: any, context: Context) => {
             return context.prisma.tutorApplication.findMany();
-        }
+        },
+
+        // //get consultation
+        // getConsultation: async (_parent: any, args: any, context: Context) => {
+        //     return context.prisma.consultation.findMany();
+        // }
 
     },
 
@@ -421,7 +427,22 @@ export const resolvers = {
                     },
                 },
             });
-        }
+        },
+
+        // add appointment
+        addAppointment: async (_parent: any, args: any, context: Context) => {
+            return context.prisma.appointment.create({
+                data: {
+                    courseName: args.courseName,
+                    tutorName: args.tutorName,
+                    tutorEmail: args.tutorEmail,
+                    studentName: args.studentName,
+                    studentEmail: args.studentEmail,
+                    duration: args.duration,
+                    date: new Date().toISOString(),
+                },
+            });
+        },
 
         // // update password
         // updatePassword: async (_parent: any, args: any, context: Context) => {
