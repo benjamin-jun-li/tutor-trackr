@@ -14,7 +14,7 @@ const MessagePage = () => {
             </h1>
             <p>Message: {params?.id}</p>
             <Link href="/tutor/message">
-                <button className="px-4 py-2 mt-4 text-white bg-blue-600 rounded-md hover:bg-blue-700">Return</button>
+                <button className="px-4 py-2 mt-4 text-white bg-blue-600 rounded-md hover:bg-blue-700">Back</button>
             </Link>
         </main>
 
