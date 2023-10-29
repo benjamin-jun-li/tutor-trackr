@@ -50,8 +50,9 @@ export default function TutorList() {
                             {tutor.email}
                         </td>
                         <td className="px-6 py-4">
-                            {/*Todo*/}
-                            {tutor.courses?.map((course: any) => (course.name))}
+                            {tutor.courses?.map((course: any, index: number) => (
+                                <p key={course.id}> {course.name}</p>
+                            ))}
                         </td>
                         <td className="px-6 py-4">
                             <button

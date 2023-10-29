@@ -18,6 +18,8 @@ export default function StudentList() {
         deleteStudentMutation({variables: {email: email}}).then()
     }
 
+    console.log(studentList.data?.getStudentList)
+
     return (
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
             <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -49,8 +51,9 @@ export default function StudentList() {
                             {student.email}
                         </td>
                         <td className="px-6 py-4">
-                            {/*Todo*/}
-                            {student.courses?.map((course: any) => (course.name))}
+                            {student.courses?.map((course: any, index: number) => (
+                               <p key={course.id}> {course.name}</p>
+                            ))}
                         </td>
                         <td className="px-6 py-4">
                             <button
