@@ -157,10 +157,10 @@ export const resolvers = {
                 }})
         },
 
-        // //get consultation
-        // getConsultation: async (_parent: any, args: any, context: Context) => {
-        //     return context.prisma.consultation.findMany();
-        // }
+        //get consultation
+        getAppointments: async (_parent: any, args: any, context: Context) => {
+            return context.prisma.appointment.findMany();
+        },
 
         //filter
         filterCourses: async (_parent: any, args: any, context: Context) => {
