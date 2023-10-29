@@ -97,7 +97,7 @@ export const UPDATE_TUTOR_PROFILE = gql`
     $phone: String
     $address: String
     $timeZone: String
-    $biography:String
+    $professionalBio:String
     $experienceSummary: String
     $courseCanTeach: String
   ) {
@@ -108,7 +108,7 @@ export const UPDATE_TUTOR_PROFILE = gql`
       phone: $phone
       address: $address
       timeZone: $timeZone
-      professionalBio: $biography
+      professionalBio: $professionalBio
       experienceSummary: $experienceSummary
       courseCanTeach: $courseCanTeach
     ) {
