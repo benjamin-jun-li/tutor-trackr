@@ -22,12 +22,12 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { toast } from "@/components/ui/use-toast"
 import {useEffect, useState} from "react";
-import {useMutation, useQuery} from "@apollo/client";
-import {GET_STUDENT_PROFILE} from "@/graphql/queries";
+import {useMutation} from "@apollo/client";
 import {UPDATE_STUDENT_PROFILE} from "@/graphql/mutations";
 import {usePathname, useRouter} from "next/navigation";
 import {useContextValue} from "@/components/context";
 import TimezonePicker from "@/components/TimezonePicker";
+import fileToBase64 from "@/lib/file2base64";
 
 const profileFormSchema = z.object({
     avatar: z.string().optional(),
@@ -88,7 +88,6 @@ export function StudentProfileUpdateForm() {
     useEffect(() => {
         setUserEmail(getters.userEmail);
     }, [getters.userEmail]);
-
 
     const onSubmit = async (value: ProfileFormValues) => {
         const res = await updateStudentProfile({
