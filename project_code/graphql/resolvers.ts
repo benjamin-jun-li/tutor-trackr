@@ -324,7 +324,7 @@ export const resolvers = {
                     phone: args.phone,
                     address: args.address,
                     timeZone: args.timeZone,
-                    professionalBio: args.biography,
+                    professionalBio: args.professionalBio,
                     experienceSummary: args.experienceSummary,
                     courseCanTeach: args.courseCanTeach,
                 },
