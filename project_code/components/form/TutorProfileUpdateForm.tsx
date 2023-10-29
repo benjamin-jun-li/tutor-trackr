@@ -110,7 +110,9 @@ export function TutorProfileUpdateForm() {
                 phone: data.phone,
                 address: data.address,
                 timeZone: data.timezone,
-                biography: data.bio,
+                professionalBio: data.bio,
+                experienceSummary: data.experiencesummary,
+                courseCanTeach: data.coursecanteach,
                 accountBalance: "0",
             }
         })
