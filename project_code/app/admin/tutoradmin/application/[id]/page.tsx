@@ -2,6 +2,8 @@
 import { GET_APPLICATION_BY_ID } from "@/graphql/queries";
 import { useQuery } from "@apollo/client";
 import { useParams } from "next/navigation";
+import {Button} from "@/components/ui/button";
+import Link from "next/link";
 
 const ApplicationPage = () => {
     const param = useParams();
@@ -14,8 +16,7 @@ const ApplicationPage = () => {
     }
 
     return (
-        <div className="flex flex-col items-center mt-[6rem]">
-            <h1 className="text-3xl font-bold mb-6">{appDetails.name}'s Detail</h1>
+        <div className="flex flex-col items-center">
             <main className="p-5 bg-white shadow-lg rounded-lg w-full max-w-2xl">
                 <div className="mb-4">
                     <span className="font-semibold">Name:</span> {appDetails.name}
@@ -34,6 +35,9 @@ const ApplicationPage = () => {
                         <span className="font-semibold">Interview:</span> {appDetails.interview}
                     </div>
                 )}
+                <Link href="/admin/tutoradmin/dashboard">
+                    <Button className="bg-blue-500 hover:bg-blue-600 text-white rounded">Back</Button>
+                </Link>
             </main>
         </div>
     );
