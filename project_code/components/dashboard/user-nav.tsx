@@ -35,6 +35,7 @@ export function UserNav(NavbarProps: NavbarProps) {
   const handleLogout = () => {
     setters.setEmail("");
     setters.setName("");
+    setters.setIdentity("");
     window.location.href = "/";
   };
 
