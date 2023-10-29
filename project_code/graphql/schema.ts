@@ -152,5 +152,14 @@ type PasswordResetResponse {
     registerCourseForTutor(tutorId: ID!, courseId: ID!): Tutor
     payTheCourse(studentId: ID!, courseId: ID!): Course
     resetPassword(email: String!, password: String!): UserByEmail
+    addAppointment(
+      courseName: String,
+      tutorName: String,
+      tutorEmail: String,
+      studentName: String,
+      studentEmail: String,
+      duration: Int 
+      date: String
+    ): Appointment
   }
 `;
