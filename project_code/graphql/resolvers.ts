@@ -24,14 +24,15 @@ export const resolvers = {
                     email: args.email,
                 },
             });
-            if (student || tutor || siteAdmin || tutorAdmin) {
-                return {
-                    status: 1
-                }
-            }else
-                return {
-                    status: 0
-                }
+            // if (student || tutor || siteAdmin || tutorAdmin) {
+            //     return {
+            //         status: 1
+            //     }
+            // }else
+            //     return {
+            //         status: 0
+            //     }
+            return "hello world"
             },
 
 

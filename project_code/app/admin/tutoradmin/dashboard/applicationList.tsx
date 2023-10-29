@@ -5,6 +5,7 @@ import Link from "next/link";
 
 const ApplicationList = () => {
     const applications = useQuery(GET_APPLICATION)
+    console.log(applications)
     return (
         <section className="w-full">
             <h2>Tutor Application Table</h2>

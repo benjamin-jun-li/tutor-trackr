@@ -160,7 +160,13 @@ export const GET_APPLICATION = gql`
         name
         email
         courseName
-        interview
+        interview{
+            id
+            name
+            email
+            courseName
+            date
+        }
         description
     }
   }
@@ -174,7 +180,13 @@ export const GET_INTERVIEW = gql`
         email
         courseName
         date
-        application
+        application{
+            id
+            name
+            email
+            courseName
+            description
+        }
         applicationId
     }
   }
