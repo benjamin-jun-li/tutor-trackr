@@ -200,6 +200,7 @@ query TutorApplication($id: String!) {
         name
         email
         courseName
+        status
         interview {
             id
             name
