@@ -102,12 +102,20 @@ export const resolvers = {
 
         //get student list
         getStudentList: async (_parent: any, args: any, context: Context) => {
-            return context.prisma.student.findMany();
+            return context.prisma.student.findMany({
+                include: {
+                    courses: true
+                }
+            });
         },
 
         //get tutor list
         getTutorList: async (_parent: any, args: any, context: Context) => {
-            return context.prisma.tutor.findMany();
+            return context.prisma.tutor.findMany({
+                include: {
+                    courses: true
+                }
+            });
         },
 
 
