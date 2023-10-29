@@ -430,6 +430,17 @@ export const resolvers = {
                 },
             });
         },
+
+        approveApplication: async (_parent: any, args: any, context: Context) => {
+            return context.prisma.tutorApplication.update({
+                where: {
+                    id: args.id,
+                },
+                data: {
+                    status: "Approved",
+                },
+            });
+        },
         
         // Student enrol course
         registerCourseForStudent: async (_parent: any, args: any, context: Context) => {
