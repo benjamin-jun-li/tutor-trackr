@@ -142,8 +142,8 @@ type PasswordResetResponse {
   type Mutation {
     addStudent (name:String, email:String,password:String) : Student
     addTutor (name:String, email:String,password:String) : Tutor
-    updateStudentProfile(
-      email: String!, thumbnail: String, username: String, phone: String,
+    updateStudentProfile(id: ID!,
+      email: String, thumbnail: String, username: String, phone: String,
       address: String, timeZone: String, biography: String
     ) : StudentProfile
     updateTutorProfile(
