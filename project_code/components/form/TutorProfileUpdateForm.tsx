@@ -23,7 +23,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { toast } from "@/components/ui/use-toast"
 import {useEffect, useState} from "react";
 import {useMutation, useQuery} from "@apollo/client";
-import {GET_TUTOR_PROFILE} from "@/graphql/queries";
+import {GET_STUDENT_PROFILE, GET_TUTOR_PROFILE} from "@/graphql/queries";
 import {UPDATE_TUTOR_PROFILE} from "@/graphql/mutations";
 import {usePathname, useRouter} from "next/navigation";
 import {useContextValue} from "@/components/context";
@@ -66,14 +66,24 @@ const profileFormSchema = z.object({
 type ProfileFormValues = z.infer<typeof profileFormSchema>
 
 export function TutorProfileUpdateForm() {
-    const form = useForm<ProfileFormValues>({
-        resolver: zodResolver(profileFormSchema),
-        mode: "onChange",
-    })
-
     const { getters,setters } = useContextValue();
     const router = useRouter();
     let currentPath = usePathname();
+
+    const form = useForm<ProfileFormValues>({
+        resolver: zodResolver(profileFormSchema),
+        mode: "onChange",
+        defaultValues: {
+            email: getters.userEmail
+        }
+    })
+
+    const { loading, error, data } = useQuery(GET_TUTOR_PROFILE, {
+        variables: { email: getters.userEmail },
+    });
+
+    const profileId = data?.getStudentProfile?.id;
+
     const [updateTutorProfile,{data:studentData,loading:studentLoading,error:studentError}] = useMutation(UPDATE_TUTOR_PROFILE);
 
     currentPath =
@@ -88,13 +98,12 @@ export function TutorProfileUpdateForm() {
         setUserEmail(getters.userEmail);
     }, [getters.userEmail]);
 
-    const { loading, error, data } = useQuery(GET_TUTOR_PROFILE, {
-        variables: { email: userEmail },
-    });
+
 
     const onSubmit = async (data: ProfileFormValues) => {
         const res = await updateTutorProfile({
             variables: {
+                id: profileId,
                 email: data.email,
                 thumbnail: data.avatar,
                 username: data.username,
