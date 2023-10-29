@@ -48,7 +48,7 @@ export function TutorProfileDisplay() {
             <div className="text-gray-700">Phone: {data?.getTutorProfile?.phone}</div>
             <div className="text-gray-700">Address: {data?.getTutorProfile?.address}</div>
             <div className="text-gray-700">Time Zone: {data?.getTutorProfile?.timeZone}</div>
-            <div className="text-gray-700">Professional Bio: {data?.getTutorProfile?.biography}</div>
+            <div className="text-gray-700">Professional Bio: {data?.getTutorProfile?.professionalBio}</div>
             <div className="text-gray-700">Experience Summary: {data?.getTutorProfile?.experienceSummary}</div>
             <div className="text-gray-700">Course Can Teach: {data?.getTutorProfile?.courseCanTeach}</div>
             <div className="text-gray-700">Balance: {data?.getTutorProfile?.accountBalance}</div>
