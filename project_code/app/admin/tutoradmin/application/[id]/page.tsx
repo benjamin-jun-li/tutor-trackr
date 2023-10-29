@@ -1,18 +1,29 @@
 "use client";
 import { GET_APPLICATION_BY_ID } from "@/graphql/queries";
-import { useQuery } from "@apollo/client";
+import {useMutation, useQuery} from "@apollo/client";
 import { useParams } from "next/navigation";
 import {Button} from "@/components/ui/button";
 import Link from "next/link";
+import { Approval_Application } from "@/graphql/mutations";
 
 const ApplicationPage = () => {
     const param = useParams();
     const application = useQuery(GET_APPLICATION_BY_ID, { variables: { id: param?.id } });
+    const [acceptApplication, {data:studentData,loading:studentLoading,error:studentError}] = useMutation(Approval_Application);
 
     const appDetails = application.data?.getSingleApplication;
 
     if (!appDetails) {
         return <div>Loading...</div>;
+    }
+
+    const handleAcceptClick = async () => {
+        await acceptApplication({
+            variables: {
+                id: application.data?.getSingleApplication?.id,
+            },
+        });
+        console.log(acceptApplication)
     }
 
     return (
@@ -35,9 +46,18 @@ const ApplicationPage = () => {
                         <span className="font-semibold">Interview:</span> {appDetails.interview}
                     </div>
                 )}
-                <Link href="/admin/tutoradmin/dashboard">
-                    <Button className="bg-blue-500 hover:bg-blue-600 text-white rounded">Back</Button>
-                </Link>
+                <div className="flex gap-2">
+                    <Button
+                        className="bg-blue-500 hover:bg-blue-600 text-white rounded"
+                        onClick={handleAcceptClick}
+                    >
+                        Accept
+                    </Button>
+                    <Button className="bg-red-500 hover:bg-red-600 text-white rounded">Reject</Button>
+                    <Link href="/admin/tutoradmin/dashboard">
+                        <Button className="bg-gray-500 hover:bg-blue-600 text-white rounded">Back</Button>
+                    </Link>
+                </div>
             </main>
         </div>
     );
