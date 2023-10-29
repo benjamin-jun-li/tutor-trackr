@@ -1,6 +1,5 @@
 import { Metadata } from "next"
 
-
 export const metadata: Metadata = {
     title: "Course Approval",
     description: "Example form for admin to display for course.",

@@ -1,6 +1,6 @@
 "use client"
 import { useQuery } from "@apollo/client"
-import {GET_INTERVIEW} from"@/graphql/queries"
+import { GET_INTERVIEW } from"@/graphql/queries"
 import Link from "next/link";
 
 const InterviewBoard = () => {
@@ -15,7 +15,7 @@ const InterviewBoard = () => {
         )
     }
     return (
-        <section className="w-full">
+        <section className="w-full p-2">
             <h2 className="text-xl font-extrabold leading-none tracking-tight
             text-gray-900 md:text-2xl lg:text-3xl dark:text-white">Tutor Interview Board</h2>
             { interviews?.data ? (

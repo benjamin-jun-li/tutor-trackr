@@ -16,10 +16,10 @@ const ApplicationList: React.FC = () => {
     }
 
     return (
-        <section className="w-full p-6 bg-gray-100 dark:bg-gray-900">
+        <section className="w-full p-2">
             <h2 className="text-xl font-extrabold leading-none tracking-tight mb-5 text-gray-900 md:text-2xl lg:text-3xl dark:text-white">Tutor Application Table</h2>
             {data?.getApplication ? (
-                <div className="relative overflow-x-auto shadow-md sm:rounded-lg bg-white dark:bg-gray-800 p-5">
+                <div className="relative overflow-x-auto shadow-md sm:rounded-lg bg-white dark:bg-gray-800">
                     <table className="min-w-full text-sm text-left">
                         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
@@ -38,13 +38,9 @@ const ApplicationList: React.FC = () => {
                                     <td className="px-6 py-4">{application.name}</td>
                                     <td className="px-6 py-4">{application.date}</td>
                                     <td className="px-6 py-4 text-center">
-                                    <Link href={`/admin/tutoradmin/application/${application.id}/`}>
-    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-        More
-    </button>
-</Link>
-
-
+                                    <Link className="font-medium text-blue-600 dark:text-blue-500 hover:underline" href={`/admin/tutoradmin/application/${application.id}/`}>
+                                        More
+                                    </Link>
                                     </td>
                                 </tr>
                             ))}

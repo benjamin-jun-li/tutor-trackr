@@ -8,7 +8,9 @@ const ApplicationPage = () => {
     const application = useQuery(GET_APPLICATION_BY_ID, {variables:{ id: param?.id}})
     console.log(application);
     return (
-        <></>
+        <main className="mt-[6rem]">
+            <h1>title</h1>
+        </main>
     )
 }
 
