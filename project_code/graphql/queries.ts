@@ -168,6 +168,7 @@ export const GET_TUTOR_PROFILE = gql`
       accountBalance
       experienceSummary
       courseCanTeach
+        professionalBio
     }
   }
 `;

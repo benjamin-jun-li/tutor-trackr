@@ -112,15 +112,15 @@ export const UPDATE_TUTOR_PROFILE = gql`
       experienceSummary: $experienceSummary
       courseCanTeach: $courseCanTeach
     ) {
-      thumbnail
-      email
-      username
-      phone
-      address
-      timeZone
-      experienceSummary
-      courseCanTeach
-      professionalBio
+        email
+        thumbnail
+        username
+        phone
+        address
+        timeZone
+        professionalBio
+        experienceSummary
+        courseCanTeach
     }
   }
 `;
