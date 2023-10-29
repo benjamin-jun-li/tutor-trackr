@@ -7,8 +7,8 @@ const AppointmentList = () => {
     const appointments = useQuery(GET_APPOINTMENT)
     if (appointments.data) console.log(appointments.data)
     return (
-        <div>
-            <h2 className="text-xl font-extrabold leading-none tracking-tight
+        <section className="p-2">
+            <h2 className="text-xl mb-2 font-extrabold leading-none tracking-tight
             text-gray-900 md:text-2xl lg:text-3xl dark:text-white">Appointments</h2>
 
             <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -62,7 +62,7 @@ const AppointmentList = () => {
                 </table>
             </div>
 
-        </div>
+        </section>
     )
 }
 

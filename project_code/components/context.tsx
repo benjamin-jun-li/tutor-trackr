@@ -13,6 +13,7 @@ interface ContextValue {
     userIdentity:string;
     userEmail:string;
     userName:string;
+    userID: string;
 }
 
 const initialValue: ContextValue = {
@@ -21,6 +22,7 @@ const initialValue: ContextValue = {
     userIdentity:'',
     userEmail:'',
     userName:'',
+    userID:""
 }
 
 export const context = createContext<{
@@ -31,15 +33,17 @@ export const context = createContext<{
         setIdentity: React.Dispatch<React.SetStateAction<string>>;
         setEmail: React.Dispatch<React.SetStateAction<string>>;
         setName: React.Dispatch<React.SetStateAction<string>>;
+        setUserID: React.Dispatch<React.SetStateAction<string>>;
     };
 }>({
     getters: initialValue,
     setters: {
         setUserStatus: () => {},
         setDarkTheme: () => {},
-        setIdentity:() => {},
-        setEmail:() => {},
-        setName:() => {},
+        setIdentity: () => {},
+        setEmail: () => {},
+        setName: () => {},
+        setUserID: () => {}
     },
 });
 
@@ -49,12 +53,14 @@ const ContextProvider = ({ children }: { children: React.ReactNode; }) => {
     const [userIdentity, setIdentity] = useState(initialValue.userIdentity)
     const [userEmail, setEmail] = useState(initialValue.userEmail)
     const [userName, setName] = useState(initialValue.userName)
+    const [userID, setUserID] = useState(initialValue.userID)
     const getters = {
         userStatus,
         isDarkTheme,
         userIdentity,
         userEmail,
         userName,
+        userID
     };
     const setters = {
         setUserStatus,
@@ -62,6 +68,7 @@ const ContextProvider = ({ children }: { children: React.ReactNode; }) => {
         setIdentity,
         setEmail,
         setName,
+        setUserID
     };
     return (
         <context.Provider value={{ getters, setters }}>

@@ -85,7 +85,7 @@ const TutorInterviewPage: React.FC = () => {
                         name="courses"
                         render={({ field }) => (
                             <FormItem className="flex flex-col">
-                                <FormLabel>Courses</FormLabel>
+                                <FormLabel className="mb-2 text-lg">Courses</FormLabel>
                                 <RadioGroup
                                     onValueChange={field.onChange}
                                     defaultValue={field.value}
@@ -133,7 +133,7 @@ const TutorInterviewPage: React.FC = () => {
                     <div className="flex gap-2">
                         <Button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white p-2 rounded">Submit</Button>
                         <Link href="/tutor/dashboard">
-                            <Button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white p-2 rounded">Return</Button>
+                            <Button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white p-2 rounded">Back</Button>
                         </Link>
                     </div>
 
