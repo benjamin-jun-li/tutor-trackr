@@ -101,6 +101,7 @@ type PasswordResetResponse {
   }
  
   type Query {
+      finduser(email: String):PasswordResetResponse
 	student(email: String): Student
     tutor(email: String): Tutor
     siteAdmin(email: String): SiteAdmin

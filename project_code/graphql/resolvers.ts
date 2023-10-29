@@ -2,6 +2,37 @@ import {Context} from "@/pages/api/graphql";
 
 export const resolvers = {
     Query: {
+        finduser: async (_parent: any, args: any, context: Context) => {
+
+            const student = await context.prisma.student.findUnique({
+                where: { email: args.email },
+            });
+
+            const tutor = await context.prisma.tutor.findUnique({
+                where: { email: args.email },
+            });
+
+            const siteAdmin = await context.prisma.siteAdmin.findUnique({
+                where: { email: args.email },
+            });
+
+
+            const tutorAdmin = await context.prisma.tutorAdmin.findUnique({
+                where: { email: args.email },
+            });
+
+            if (student||tutor||siteAdmin||tutorAdmin) {
+                return {
+                    status: 1,
+                    message: "find user successfully",
+                };
+            } else {
+                return {
+                    status: 0,
+                    message: "Do not find user",
+                };
+            }
+        },
 
         //auth student by email
         student: async (_parent: any, args: any, context: Context) => {
