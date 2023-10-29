@@ -5,7 +5,6 @@ import Link from "next/link";
 
 const ApplicationList = () => {
     const applications = useQuery(GET_APPLICATION);
-    console.log(applications);
     if (applications?.loading === false && applications?.data === undefined) {
         return (
             <section>

@@ -107,8 +107,10 @@ type PasswordResetResponse {
     tutorEmail: String
     studentName: String
     studentEmail: String
-    duration: String
+    duration: Int
     date: String
+    startTime: String
+    endTime: String
   }
  
   type Query {
@@ -125,6 +127,7 @@ type PasswordResetResponse {
     getTutorProfile(email: String!): TutorProfile
     getApplication: [TutorApplication]
     getInterview: [Interview]
+    getConsultation: [Appointment]
   }
 
   type Mutation {
@@ -160,6 +163,8 @@ type PasswordResetResponse {
       studentEmail: String,
       duration: Int 
       date: String
+        startTime: String
+    endTime: String
     ): Appointment
   }
 `;

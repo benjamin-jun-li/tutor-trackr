@@ -5,7 +5,7 @@ import { useQuery } from "@apollo/client";
 
 const AppointmentList = () => {
     const appointments = useQuery(GET_APPOINTMENT)
-    console.log(appointments);
+    if (appointments.data) console.log(appointments.data)
     return (
         <div>
             <h2 className="text-xl font-extrabold leading-none tracking-tight

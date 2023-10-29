@@ -142,16 +142,18 @@ export const resolvers = {
             return context.prisma.interview.findMany();
         },
 
-        //get application
         //get Application
         getApplication: async (_parent: any, args: any, context: Context) => {
-            return context.prisma.tutorApplication.findMany();
+            return context.prisma.tutorApplication.findMany({
+                include: {
+                    interview: true
+            }})
         },
 
         // //get consultation
-        // getConsultation: async (_parent: any, args: any, context: Context) => {
-        //     return context.prisma.consultation.findMany();
-        // }
+        getConsultation: async (_parent: any, args: any, context: Context) => {
+            return context.prisma.appointment.findMany();
+        }
 
     },
 
@@ -503,6 +505,8 @@ export const resolvers = {
                     studentEmail: args.studentEmail,
                     duration: args.duration,
                     date: new Date().toISOString(),
+                    startTime: args.startTime,
+                    endTime: args.endTime,
                 },
             });
         },

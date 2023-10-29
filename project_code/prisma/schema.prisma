@@ -118,11 +118,13 @@ model Interview {
 
 model Appointment {
   id           String @id @default(auto()) @map("_id") @db.ObjectId
-  courseName   String
-  tutorName    String
-  tutorEmail   String
-  studentName  String
-  studentEmail String
+  courseName   String?
+  tutorName    String?
+  tutorEmail   String?
+  studentName  String?
+  studentEmail String?
   duration    Int @default(1)
-  date      String
+  date      String?
+  startTime    String?
+  endTime      String?
 }
