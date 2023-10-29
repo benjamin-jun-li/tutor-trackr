@@ -77,14 +77,15 @@ export const GET_COURSE = gql`
 
 export const GET_TUTORS_BY_COURSE = gql`
 query Course($id: String!) {
-        course(id: $id) {
-          tutors {
+    course(id: $id) {
+        name
+        tutors {
             id
             name
             email
-          }
         }
     }
+}
 `
 
 export const GET_COURSES = gql`
