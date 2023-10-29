@@ -158,10 +158,23 @@ export const resolvers = {
         },
 
         // //get consultation
-        getAppointments: async (_parent: any, args: any, context: Context) => {
-            return context.prisma.appointment.findMany();
-        }
+        // getConsultation: async (_parent: any, args: any, context: Context) => {
+        //     return context.prisma.consultation.findMany();
+        // }
 
+        //filter
+        filterCourses: async (_parent: any, args: any, context: Context) => {
+
+            const filteredCourses = await context.prisma.course.findMany({
+                where: {
+                  tags: {
+                    hasSome: args.tags,
+                  },
+                },
+              });
+          
+            return filteredCourses;
+        },
     },
 
     // Todo Before we change the data in database we must check the data before
@@ -263,9 +276,29 @@ export const resolvers = {
 
         // update student profile
         updateStudentProfile: async (_parent: any, args: any, context: Context) => {
+            const { email, thumbnail, username, phone, address, timeZone, biography, id } = args;
+    
+            const existingProfile = await context.prisma.studentProfile.findUnique({
+                where: { id: args.id, },
+            });
+
+            // const studentProfile = await context.prisma.studentProfile.findUnique({
+            //     where: {
+            //         email: args.email,
+            //     },
+            // });
+
+            if (!existingProfile) {
+                throw new Error('Student profile not found');
+            }
+            
+            if (email && existingProfile.email !== email) {
+                throw new Error('Email address does not match the existing profile');
+            }
+            
             return context.prisma.studentProfile.update({
                 where: {
-                    email: args.email,
+                    id: args.id,
                 },
                 data: {
                     thumbnail: args.thumbnail,
@@ -274,6 +307,7 @@ export const resolvers = {
                     address: args.address,
                     timeZone: args.timeZone,
                     biography: args.biography,
+                    studentId: existingProfile?.studentId,
                 },
             });
         },
@@ -306,7 +340,6 @@ export const resolvers = {
                     tags: args.tags,
                     thumbnail: args.thumbnail,
                     price: args.price,
-
                 },
             });
         },

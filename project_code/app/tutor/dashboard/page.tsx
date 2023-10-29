@@ -1,6 +1,5 @@
 import { Metadata } from "next"
 import CourseList from "@/components/dashboard/courseList";
-import MessageBox from "@/app/tutor/dashboard/messageBox";
 import AppointmentCalendar from "@/components/dashboard/AppmtCalendar";
 
 export const metadata: Metadata = {
@@ -15,7 +14,6 @@ const DashboardPage = () => {
                 <CourseList role={"tutor"}/>
             </div>
             <div className="flex flex-col justify-center items-center gap-8">
-                <MessageBox />
                 <AppointmentCalendar />
                 <button 
                     className="bg-blue-500 text-white px-4 py-2 rounded" 

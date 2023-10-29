@@ -35,6 +35,7 @@ export function UserNav(NavbarProps: NavbarProps) {
   const handleLogout = () => {
     setters.setEmail("");
     setters.setName("");
+    setters.setIdentity("");
     window.location.href = "/";
   };
 
@@ -65,10 +66,12 @@ export function UserNav(NavbarProps: NavbarProps) {
               <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
             </DropdownMenuItem>
           </Link>
-          <DropdownMenuItem>
-            Notification
-            <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
-          </DropdownMenuItem>
+          <Link href={`${currentPath}/message`}>
+            <DropdownMenuItem>
+              Notification
+              <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
+            </DropdownMenuItem>
+          </Link>
           <DropdownMenuItem>
             Settings
             <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>

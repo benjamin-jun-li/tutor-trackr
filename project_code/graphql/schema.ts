@@ -52,7 +52,7 @@ type PasswordResetResponse {
     tutors: [Tutor]
     tutorId: [String]
     price: Int
-      tags: [String]
+    tags: [String]
   }
 
   type StudentProfile {
@@ -115,6 +115,8 @@ type PasswordResetResponse {
     endTime: String
     status:String
   }
+
+
  
   type Query {
     finduser(email: String):PasswordResetResponse
@@ -132,6 +134,9 @@ type PasswordResetResponse {
     getSingleApplication(id: String!): TutorApplication
     getInterview: [Interview]
     getAppointments: [Appointment]
+    filterCourses(
+      tags: [String!],
+    ): [Course]
   }
 
   type Mutation {

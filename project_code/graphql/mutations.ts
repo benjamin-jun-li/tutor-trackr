@@ -132,7 +132,8 @@ export const ADD_COURSE = gql`
     $studentIds: [String!]
     $tutorIds: [String!]
     $price: Int
-      $tags: [String!]
+    $tags: [String!]
+
   ) {
     addCourse(
       name: $name
@@ -142,7 +143,7 @@ export const ADD_COURSE = gql`
       studentId: $studentIds
       tutorId: $tutorIds
       price: $price
-        tags: $tags
+      tags: $tags
     ) {
       id
       name
@@ -160,7 +161,7 @@ export const ADD_COURSE = gql`
       }
       tutorId
       price
-        tags
+      tags
     }
   }
 `;

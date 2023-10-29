@@ -246,3 +246,15 @@ export const GET_APPOINTMENT = gql`
     }
   }
 `;
+
+export const FILTER_COURSES = gql`
+  query FilterCourses($tags: [String!]) {
+    filterCourses(tags: $tags) {
+      id
+      name
+      description
+      tags
+      thumbnail
+    }
+  }
+`;
