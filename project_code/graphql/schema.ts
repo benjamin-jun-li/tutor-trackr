@@ -99,6 +99,17 @@ type PasswordResetResponse {
       application: TutorApplication
       applicationId: String
   }
+
+  type Appointment {
+    id: ID!
+    courseName: String
+    tutorName: String
+    tutorEmail: String
+    studentName: String
+    studentEmail: String
+    duration: String
+    date: String
+  }
  
   type Query {
       finduser(email: String):PasswordResetResponse
@@ -140,6 +151,6 @@ type PasswordResetResponse {
     registerCourseForStudent(studentId: ID!, courseId: ID!): Student
     registerCourseForTutor(tutorId: ID!, courseId: ID!): Tutor
     payTheCourse(studentId: ID!, courseId: ID!): Course
-      resetPassword(email: String, password: String):PasswordResetResponse
+    resetPassword(email: String!, password: String!): UserByEmail
   }
 `;
