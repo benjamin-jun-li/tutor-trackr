@@ -10,3 +10,10 @@ I finished the backend server and the database. Working on project proposal syst
 
 Week 4
 I finished the backend function associated the frontend page.
+
+Week 5
+I finished the site-admin page and fixed some bugs.Worked on reset password functionality and decoupling components on frontend side.
+Followed up sprint 2 progress.
+
+Week 7
+Worked on student payment page and fixed some bugs.

@@ -287,7 +287,6 @@ export const PAY_THE_COURSE = gql`
       students {
         id
       }
-      price
     }
   }
 `;
