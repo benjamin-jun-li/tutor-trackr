@@ -12,3 +12,12 @@ Learn mastering Next.js 13.x with GraphQL
 Week 4
 Retrospective-A slides design
 Back-end function design: get course, get student profile(UOOI-21), get tutor profile(UOOI-22), course add/delete
+
+Week5
+Backend development
+
+Week6
+Backend development: student profile, tutor profile update
+
+Week7
+Backend development: Filter, appointment, interview

@@ -13,3 +13,9 @@ Modified the format of the proposal for better clarity and presentation.
 
 week 4
 Adjusted the runtime logic of the login screen and dashboard screen.
+
+week 5
+Update student page. 
+
+week 7
+Update filter and appointment page.
