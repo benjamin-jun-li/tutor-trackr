@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const Find_User = gql`
-    query finduser($email: String!) {
-        finduser(email: $email) {
+    query finduser($id: String!) {
+        finduser(id: $id) {
             status
             message
         }
@@ -140,8 +140,8 @@ export const GET_TutorList = gql`
 `;
 
 export const GET_STUDENT_PROFILE = gql`
-  query StudentProfile($email: String!) {
-    getStudentProfile(email: $email) {
+  query StudentProfile($studentId: String!) {
+    getStudentProfile(studentId: $studentId) {
       id
       thumbnail
       email
@@ -156,8 +156,8 @@ export const GET_STUDENT_PROFILE = gql`
 `;
 
 export const GET_TUTOR_PROFILE = gql`
-  query TutorProfile($email: String!) {
-    getTutorProfile(email: $email) {
+  query TutorProfile($tutorId: String!) {
+    getTutorProfile(tutorId: $tutorId) {
       id
       thumbnail
       email
@@ -168,7 +168,7 @@ export const GET_TUTOR_PROFILE = gql`
       accountBalance
       experienceSummary
       courseCanTeach
-        professionalBio
+      professionalBio
     }
   }
 `;

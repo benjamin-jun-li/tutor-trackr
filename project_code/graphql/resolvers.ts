@@ -5,20 +5,20 @@ export const resolvers = {
         finduser: async (_parent: any, args: any, context: Context) => {
 
             const student = await context.prisma.student.findUnique({
-                where: { email: args.email },
+                where: { id: args.id },
             });
 
             const tutor = await context.prisma.tutor.findUnique({
-                where: { email: args.email },
+                where: { id: args.id },
             });
 
             const siteAdmin = await context.prisma.siteAdmin.findUnique({
-                where: { email: args.email },
+                where: { id: args.id },
             });
 
 
             const tutorAdmin = await context.prisma.tutorAdmin.findUnique({
-                where: { email: args.email },
+                where: { id: args.id },
             });
 
             if (student||tutor||siteAdmin||tutorAdmin) {
@@ -123,7 +123,7 @@ export const resolvers = {
         getStudentProfile: async (_parent: any, args: any, context: Context) => {
             return context.prisma.studentProfile.findUnique({
                 where: {
-                    email: args.email,
+                    studentId: args.studentId,
                 },
             });
         },
@@ -132,7 +132,7 @@ export const resolvers = {
         getTutorProfile: async (_parent: any, args: any, context: Context) => {
             return context.prisma.tutorProfile.findUnique({
                 where: {
-                    email: args.email,
+                    tutorId: args.tutorId,
                 },
             });
         },
@@ -354,7 +354,7 @@ export const resolvers = {
             try {
                 const student = await context.prisma.student.findUnique({
                     where: {
-                        email: args.email,
+                        id: args.id,
                     }
                 });
 
@@ -367,7 +367,7 @@ export const resolvers = {
 
                     return await context.prisma.student.delete({
                         where: {
-                            email: args.email,
+                            id: args.id,
                         }
                     });
                 } else {
@@ -383,7 +383,7 @@ export const resolvers = {
             try {
                 const tutor = await context.prisma.tutor.findUnique({
                     where: {
-                        email: args.email,
+                        id: args.id,
                     }
                 });
 
@@ -396,7 +396,7 @@ export const resolvers = {
 
                     return await context.prisma.tutor.delete({
                         where: {
-                            email: args.email,
+                            id: args.id,
                         }
                     });
                 } else {

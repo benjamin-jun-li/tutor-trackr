@@ -52,7 +52,7 @@ model Course {
   studentId   String[]  @db.ObjectId
   tutors      Tutor[]   @relation(fields: [tutorId], references: [id])
   tutorId     String[]  @db.ObjectId
-  price       Int @default(0)
+  price       Int @default(100)
 }
 
 model StudentProfile {
@@ -64,7 +64,7 @@ model StudentProfile {
   address        String?
   timeZone       String?
   biography      String?
-  accountBalance Int     @default(0)
+  accountBalance Int     @default(10)
   student        Student @relation(fields: [studentId], references: [id])
   studentId      String  @unique @db.ObjectId
 }
@@ -78,7 +78,7 @@ model TutorProfile {
   address           String?
   timeZone          String?
   professionalBio   String?
-  accountBalance    Int     @default(0)
+  accountBalance    Int     @default(10)
   experienceSummary String?
   courseCanTeach    String?
   tutor             Tutor   @relation(fields: [tutorId], references: [id])

@@ -119,7 +119,7 @@ type PasswordResetResponse {
 
  
   type Query {
-    finduser(email: String):PasswordResetResponse
+    finduser(id: String): PasswordResetResponse
 	student(email: String): Student
     tutor(email: String): Tutor
     siteAdmin(email: String): SiteAdmin
@@ -128,8 +128,8 @@ type PasswordResetResponse {
     courses: [Course]
     getStudentList:[Student]
     getTutorList:[Tutor]
-    getStudentProfile(email: String!): StudentProfile
-    getTutorProfile(email: String!): TutorProfile
+    getStudentProfile(studentId: String!): StudentProfile
+    getTutorProfile(tutorId: String!): TutorProfile
     getApplication: [TutorApplication]
     getSingleApplication(id: String!): TutorApplication
     getInterview: [Interview]
@@ -157,8 +157,8 @@ type PasswordResetResponse {
       thumbnail: String, studentId: [String], tutorId: [String], price: Int, tags: [String]
     ) : Course
     deleteCourse(id: ID!): Course
-    deleteStudent(email: String!): Student
-      deleteTutor(email: String!): Tutor
+    deleteStudent(id: ID!): Student
+      deleteTutor(id: ID!): Tutor
      addApplication(name: String, email: String, courseName: String,description:String) : TutorApplication
     addInterview(name: String, email: String, courseName: String, date: String
     ) : Interview
