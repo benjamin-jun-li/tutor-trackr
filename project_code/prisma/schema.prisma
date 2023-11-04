@@ -119,6 +119,7 @@ model Interview {
   application   TutorApplication @relation(fields: [applicationId], references: [id])
   applicationId String           @unique @db.ObjectId
   status        String?
+  description   String?
 }
 
 model Appointment {

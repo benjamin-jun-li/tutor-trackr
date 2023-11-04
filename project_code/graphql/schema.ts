@@ -118,6 +118,7 @@ type PasswordResetResponse {
     application: TutorApplication
     applicationId: String
     status:String
+    description: String
   }
 
   type Appointment {
@@ -179,6 +180,8 @@ type PasswordResetResponse {
   type Mutation {
     approveApplication(id: ID!): TutorApplication
       rejectApplication(id: ID!): TutorApplication
+      interviewFeedback(id: ID!,description: String,status:String): Interview
+    
     addStudent (name:String, email:String, password:String) : Student
     addTutor (name:String, email:String, password:String) : Tutor
     updateStudentProfile(id: ID!,

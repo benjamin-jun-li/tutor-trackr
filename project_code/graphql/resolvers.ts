@@ -483,7 +483,20 @@ export const resolvers = {
                 },
             });
         },
-        
+
+        interviewFeedback: async (_parent: any, args: any, context: Context) => {
+            return context.prisma.interview.update({
+                where: {
+                    id: args.id
+                },
+                data: {
+                    description: args.description,
+                    status: args.status,
+                },
+            });
+        },
+
+
         // Student enrol course
         registerCourseForStudent: async (_parent: any, args: any, context: Context) => {
             // Ensure the student and course exist
