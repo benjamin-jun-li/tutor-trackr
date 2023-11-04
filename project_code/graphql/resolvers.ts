@@ -191,11 +191,11 @@ export const resolvers = {
             const identity = await context.prisma.identity.findUnique({
                 where: { email: args.email, },
             });
-
+            console.log(identity);
             if (!identity) {
                 throw new Error('No user found with this email!');
             }
-            return identity.userType;
+            return identity;
         },
     },
 

@@ -54,7 +54,7 @@ const SignInForm = () => {
     const [getIdentity, { loading: loadingIdentity, error: identityError, data: dataIdentity }] = useLazyQuery(GET_USERTYPE);
   const onSubmit = async (values: z.infer<typeof FormSchema>) => {
         const res = await getIdentity({variables: {email: values.email}});
-
+        console.log(res.data);
       // setters.setIdentity(values.identity);
       // if (values.identity === "student") {
       //     const res = await authStudent({variables: {email: values.email}})
