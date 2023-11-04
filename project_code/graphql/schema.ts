@@ -172,7 +172,7 @@ type PasswordResetResponse {
       tags: [String!],
     ): [Course]
     getTutorAvailability(tutorId: String!,courseId:String!): TutorAvailability
-    getUserType(email: String!): UserType!
+    getUserType(email: String!): Identity
   }
 
   type Mutation {
