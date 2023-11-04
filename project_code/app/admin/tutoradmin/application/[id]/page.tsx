@@ -70,22 +70,27 @@ const ApplicationPage = () => {
                     </div>
                 )}
                 <div className="flex gap-2">
-                    <Button
-                        className="bg-blue-500 hover:bg-blue-600 text-white rounded"
-                        onClick={handleAcceptClick}
-                    >
-                        Accept
-                    </Button>
-                    <Button
-                        className="bg-red-500 hover:bg-red-600 text-white rounded"
-                        onClick={handleRejectClick}
-                    >
-                        Reject
-                    </Button>
+                    {status !== 'Approved' && status !== 'Rejected' && (
+                        <>
+                            <Button
+                                className="bg-blue-500 hover:bg-blue-600 text-white rounded"
+                                onClick={handleAcceptClick}
+                            >
+                                Accept
+                            </Button>
+                            <Button
+                                className="bg-red-500 hover:bg-red-600 text-white rounded"
+                                onClick={handleRejectClick}
+                            >
+                                Reject
+                            </Button>
+                        </>
+                    )}
                     <Link href="/admin/tutoradmin/dashboard">
                         <Button className="bg-gray-500 hover:bg-blue-600 text-white rounded">Back</Button>
                     </Link>
                 </div>
+
             </main>
         </div>
     );

@@ -140,6 +140,16 @@ export const Reject_Application = gql`
   }
 `
 
+export const Interview_Feedback = gql`
+    mutation interviewFeedback($id: ID!,$description: String!, $status: String!){
+    interviewFeedback(id: $id, description: $description, status: $status) {
+    description
+    status
+    }
+    }
+`
+
+
 
 export const ADD_COURSE = gql`
   mutation AddCourse(
@@ -256,12 +266,7 @@ export const ADD_Interview = gql`
 export const REGISTER_COURSE_FOR_STUDENT = gql`
   mutation RegisterCourseForStudent($studentId: ID!, $courseId: ID!) {
     registerCourseForStudent(studentId: $studentId, courseId: $courseId) {
-      id
-      name
-      courses {
-        id
-        name
-      }
+     status
     }
   }
 `;
@@ -317,6 +322,21 @@ export const ADD_APPOINTMENT = gql`
       studentEmail
       startTime
       endTime
+    }
+  }
+`;
+
+export const ADD_IDENTITY = gql`
+  mutation AddIdentity(
+    $email: String!,
+    $userType: UserType!
+  ) {
+    addIdentity(
+      email: $email,
+      userType: $userType
+    ) {
+      email
+      userType
     }
   }
 `;

@@ -75,6 +75,17 @@ export const GET_COURSE = gql`
     }
 `
 
+export  const Get_TutorAvailability = gql`
+    query TutorAvailability(
+        $tutorId: String!,
+        $courseId:String!
+    ) {getTutorAvailability(tutorId:$tutorId,
+    courseId: $courseId){
+        startTime
+        endTime
+    }}
+`
+
 export const GET_TUTORS_BY_COURSE = gql`
 query Course($id: String!) {
     course(id: $id) {
@@ -257,6 +268,22 @@ export const FILTER_COURSES = gql`
       description
       tags
       thumbnail
+    }
+  }
+`;
+
+export const GET_USERTYPE = gql`
+  query GetUserType($email: String!) {
+    getUserType(email: $email) {
+        userType
+    }
+  }
+`;
+
+export const FET_SUCCESSFUL_RESERVATION = gql`
+  query GetSuccessfulReservation($tutorEmail: String!) {
+    getSuccessfulReservation(tutorEmail: $tutorEmail) {
+      courseName
     }
   }
 `;

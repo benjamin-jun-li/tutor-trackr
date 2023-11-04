@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import CourseFilter from "@/components/dashboard/course-filter";
 import CourseList from "@/components/dashboard/courseList";
-import AppointmentCalendar from "@/components/dashboard/AppmtCalendar";
 import { Filters } from "@/components/dashboard/filters";
 
 export default function DashboardComponent() {
@@ -23,7 +22,6 @@ export default function DashboardComponent() {
               <CourseList role={"student"} filters={filters} />
             </div>
             <div className="col-span-1 flex flex-col items-center space-y-2">
-              <AppointmentCalendar />
             </div>
           </div>
         </div>

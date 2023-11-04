@@ -18,8 +18,8 @@ import Link from "next/link";
 import GoogleSignInBtn from "../GoogleSignInBtn";
 import { useRouter } from "next/navigation";
 
-import { Auth_Student, Auth_Tutor } from "@/graphql/queries";
-import { useLazyQuery } from "@apollo/client";
+import {Auth_SiteAdmin, Auth_Student, Auth_Tutor, Auth_TutorAdmin, GET_USERTYPE} from "@/graphql/queries";
+import {useLazyQuery, useQuery} from "@apollo/client";
 import {RadioGroup, RadioGroupItem} from "@/components/ui/radio-group";
 import { useContextValue } from  "@/components/context"
 
@@ -30,7 +30,7 @@ const FormSchema = z.object({
     .string()
     .min(1, "Password is required")
     .min(8, "Password must be at least 8 characters"),
-  identity: z.enum(["student", "tutor",""]),
+  // identity: z.enum(["student", "tutor",""]),
 });
 
 const SignInForm = () => {
@@ -38,44 +38,69 @@ const SignInForm = () => {
     const { getters, setters } = useContextValue();
     const [authStudent, { loading: loadingStudent, error: stuError, data: dataStudent }] = useLazyQuery(Auth_Student);
     const [authTutor, { loading: loadingTutor, error: tutError,  data: dataTutor }] = useLazyQuery(Auth_Tutor);
+    const [authSiteAdmin, { loading: loadingAdminSite, error: adminSiteError, data: dataAdminSite }] = useLazyQuery(Auth_SiteAdmin);
+    const [authTutorAdmin, { loading: loadingAdminTut, error: adminTutError, data: dataAdminTut }] = useLazyQuery(Auth_TutorAdmin);
+
 
     const form = useForm<z.infer<typeof FormSchema>>({
         resolver: zodResolver(FormSchema),
         defaultValues: {
             email: "",
             password: "",
-            identity: ""
+            // identity: ""
         },
     });
 
     const { getValues } = form;
     const values = getValues();
     const enteredPassword = values.password;
-
+    const [getIdentity, { loading: loadingIdentity, error: identityError, data: dataIdentity }] = useLazyQuery(GET_USERTYPE);
   const onSubmit = async (values: z.infer<typeof FormSchema>) => {
-      setters.setIdentity(values.identity);
-      if (values.identity === "student") {
-          const res = await authStudent({variables: {email: values.email}})
-          if (res.data?.student?.password === enteredPassword) {
+        const res = await getIdentity({
+            variables: {
+                email: values.email
+            }
+        });
+      let userIdentity = res.data?.getUserType?.userType
+        setters.setIdentity(userIdentity);
+      if (userIdentity === "Student") {
+          const res2 = await authStudent({variables: {email: values.email}})
+              if (res2.data?.student?.password === enteredPassword) {
+                  setters.setEmail(values.email)
+                  setters.setName(res2.data.student.name)
+                  setters.setUserStatus(true)
+                  router.replace('/student/dashboard')
+              } else {
+                  alert("invalid student info")
+              }
+      } else if (userIdentity === "Tutor") {
+          const res2 = await authTutor({variables: {email: values.email}});
+          if (res2.data?.tutor?.password === enteredPassword) {
               setters.setEmail(values.email)
-              setters.setName(res.data.student.name)
-              setters.setUserStatus(true)
-              router.replace('/student/dashboard')
-          } else {
-              alert("invalid student info")
-          }
-      } else if (values.identity === "tutor") {
-          const res = await authTutor({variables: {email: values.email}});
-          if (res.data?.tutor?.password === enteredPassword) {
-              setters.setEmail(values.email)
-              setters.setName(res.data.tutor.name)
+              setters.setName(res2.data.tutor.name)
               setters.setUserStatus(true)
               router.replace('/tutor/dashboard')
           } else {
               alert("Invalid tutor info")
           }
+      } else if (userIdentity === "SiteAdmin") {
+          const res2 = await authSiteAdmin({ variables: { email: values.email } });
+          if (res2.data?.siteAdmin?.password === enteredPassword) {
+              setters.setUserStatus(true);
+              router.replace('/admin/siteadmin/dashboard');
+          } else {
+              alert("Invalid site admin info");
+          }
+      } else if (userIdentity === "TutorAdmin") {
+            const res2 = await authTutorAdmin({ variables: { email: values.email } });
+            if (res2.data?.tutorAdmin?.password === enteredPassword) {
+                setters.setUserStatus(true);
+                router.replace('/admin/tutoradmin/dashboard');
+            } else {
+                alert("Invalid tutor admin info");
+            }
       }
-      if (loadingStudent || loadingTutor || getters.userStatus) {
+      if (loadingIdentity || loadingStudent || loadingTutor || loadingAdminSite || loadingAdminTut || getters.userStatus) {
           return <span className="loading loading-bars loading-lg"></span>
       }
   };
@@ -119,37 +144,6 @@ const SignInForm = () => {
               )}
             />
           </div>
-
-            <FormField
-                control={form.control}
-                name="identity"
-                render={({ field }) => (
-                    <FormItem className="space-y-3">
-                        <FormLabel>Your Identity</FormLabel>
-                        <FormControl>
-                            <RadioGroup
-                                onValueChange={field.onChange}
-                                defaultValue={field.value}
-                                className="flex justify-evenly border-solid border-2 border-sky-600 p-2 rounded-full"
-                            >
-                                <FormItem className="flex items-center space-x-3 space-y-0">
-                                    <FormControl>
-                                        <RadioGroupItem value="student" />
-                                    </FormControl>
-                                    <FormLabel className="font-normal">Student</FormLabel>
-                                </FormItem>
-                                <FormItem className="flex items-center space-x-3 space-y-0">
-                                    <FormControl>
-                                        <RadioGroupItem value="tutor" />
-                                    </FormControl>
-                                    <FormLabel className="font-normal">Tutor</FormLabel>
-                                </FormItem>
-                            </RadioGroup>
-                        </FormControl>
-                        <FormMessage />
-                    </FormItem>
-                )}
-            />
 
           <Button className="w-full mt-6" type="submit">
             Sign in

@@ -157,6 +157,16 @@ export const resolvers = {
                 }})
         },
 
+        getTutorAvailability: async (_parent: any, args: any, context: Context) => {
+            return  context.prisma.tutorAvailability.findMany({
+                where: {
+                    tutorId: args.tutorId,
+                    courseId: args.courseId,
+                },
+            });
+        },
+
+
         //get consultation
         getAppointments: async (_parent: any, args: any, context: Context) => {
             return context.prisma.appointment.findMany();
@@ -175,9 +185,31 @@ export const resolvers = {
           
             return filteredCourses;
         },
+
+        //get user type
+        getUserType: async (_parent: any, args: any, context: Context) => {
+            const identity = await context.prisma.identity.findUnique({
+                where: { email: args.email, },
+            });
+            console.log(identity);
+            if (!identity) {
+                throw new Error('No user found with this email!');
+            }
+            return identity;
+        },
+
+        //UOOI-28
+        getSuccessfulReservation: async (_parent: any, args: any, context: Context) => {
+            const reservation = await context.prisma.appointment.findMany({
+                where: {
+                    status: "Approve",
+                  },
+            });
+
+            return reservation;
+        }
     },
 
-    // Todo Before we change the data in database we must check the data before
 
     Mutation: {
         resetPassword: async (_parent: any, args: any, context: Context) => {
@@ -405,7 +437,6 @@ export const resolvers = {
             } catch (error: any) {
                 throw new Error(`Failed to delete student: ${error.message}`);
             }
-
         },
 
         // Todo Need to use update
@@ -452,7 +483,20 @@ export const resolvers = {
                 },
             });
         },
-        
+
+        interviewFeedback: async (_parent: any, args: any, context: Context) => {
+            return context.prisma.interview.update({
+                where: {
+                    id: args.id
+                },
+                data: {
+                    description: args.description,
+                    status: args.status,
+                },
+            });
+        },
+
+
         // Student enrol course
         registerCourseForStudent: async (_parent: any, args: any, context: Context) => {
             // Ensure the student and course exist
@@ -462,19 +506,24 @@ export const resolvers = {
             const course = await context.prisma.course.findUnique({
               where: { id: args.courseId },
             });
-          
+            console.log(student);
+            console.log(course);
             if (!student || !course) {
               throw new Error("Student or Course not found");
             }
           
             // Register the course for the student by updating the relation
-            return context.prisma.student.update({
-              where: { id: args.studentId },
-              data: {
-                courses: {
-                  connect: { id: args.courseId },
+            return context.prisma.registerCourse.create({
+                data: {
+                    student: {
+                    connect: { id: args.studentId },
+                    },
+                    course: {
+                    connect: { id: args.courseId },
+                    },
+                    date: new Date().toISOString(),
+                    status: "Success",
                 },
-              },
             });
         },
         
@@ -563,6 +612,17 @@ export const resolvers = {
                     startTime: args.startTime,
                     endTime: args.endTime,
                     status: "Waiting for accepts",
+                },
+            });
+        },
+
+        //add identity
+        addIdentity: async (_parent: any, args: any, context: Context) => {
+            
+            return context.prisma.identity.create({
+                data: {
+                    email: args.email,
+                    userType: args.userType,
                 },
             });
         },

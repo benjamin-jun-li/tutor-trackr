@@ -15,16 +15,18 @@ model Student {
   courses  Course[]        @relation(fields: [courseId], references: [id])
   courseId String[]        @db.ObjectId
   profile  StudentProfile?
+  register RegisterCourse[]
 }
 
 model Tutor {
-  id       String        @id @default(auto()) @map("_id") @db.ObjectId
-  name     String
-  email    String        @unique
-  password String
-  courses  Course[]      @relation(fields: [courseId], references: [id])
-  courseId String[]      @db.ObjectId
-  profile  TutorProfile?
+  id             String              @id @default(auto()) @map("_id") @db.ObjectId
+  name           String
+  email          String              @unique
+  password       String
+  courses        Course[]            @relation(fields: [courseId], references: [id])
+  courseId       String[]            @db.ObjectId
+  profile        TutorProfile?
+  availabilities TutorAvailability[]
 }
 
 model SiteAdmin {
@@ -42,17 +44,29 @@ model TutorAdmin {
 }
 
 model Course {
-  id          String    @id @default(auto()) @map("_id") @db.ObjectId
-  name        String
-  description String?
-  tags        String[]
-  comments    String[]
-  thumbnail   String?
-  students    Student[] @relation(fields: [studentId], references: [id])
-  studentId   String[]  @db.ObjectId
-  tutors      Tutor[]   @relation(fields: [tutorId], references: [id])
-  tutorId     String[]  @db.ObjectId
-  price       Int @default(100)
+  id             String              @id @default(auto()) @map("_id") @db.ObjectId
+  name           String
+  description    String?
+  tags           String[]
+  comments       String[]
+  thumbnail      String?
+  students       Student[]           @relation(fields: [studentId], references: [id])
+  studentId      String[]            @db.ObjectId
+  tutors         Tutor[]             @relation(fields: [tutorId], references: [id])
+  tutorId        String[]            @db.ObjectId
+  price          Int                 @default(100)
+  availabilities TutorAvailability[]
+  register       RegisterCourse[]
+}
+
+model TutorAvailability {
+  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  tutor     Tutor  @relation(fields: [tutorId], references: [id])
+  tutorId   String @db.ObjectId
+  course    Course @relation(fields: [courseId], references: [id])
+  courseId  String @db.ObjectId
+  startTime String
+  endTime   String
 }
 
 model StudentProfile {
@@ -86,38 +100,62 @@ model TutorProfile {
 }
 
 model TutorApplication {
-  id         String @id @default(auto()) @map("_id") @db.ObjectId
-  name       String
-  email      String @unique
-  courseName String
-  date       DateTime @default(now())
+  id          String     @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  email       String
+  courseName  String
+  date        DateTime   @default(now())
   description String
-  interview  Interview?
-  status     String?
+  interview   Interview?
+  status      String?
 }
 
 model Interview {
-  id         String @id @default(auto()) @map("_id") @db.ObjectId
-  name       String
-  email      String @unique
-  courseName String
-  date       String
-  application TutorApplication @relation(fields: [applicationId], references: [id])
-  applicationId String @unique @db.ObjectId
-  status     String?
+  id            String           @id @default(auto()) @map("_id") @db.ObjectId
+  name          String
+  email         String           @unique
+  courseName    String
+  date          String
+  application   TutorApplication @relation(fields: [applicationId], references: [id])
+  applicationId String           @unique @db.ObjectId
+  status        String?
+  description   String?
 }
 
-
 model Appointment {
-  id           String @id @default(auto()) @map("_id") @db.ObjectId
+  id           String  @id @default(auto()) @map("_id") @db.ObjectId
   courseName   String?
   tutorName    String?
   tutorEmail   String?
   studentName  String?
   studentEmail String?
-  duration     Int @default(1)
+  duration     Int     @default(1)
   date         String?
   startTime    String?
   endTime      String?
   status       String?
+}
+
+model RegisterCourse {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  studentId String
+  student   Student  @relation(fields: [studentId], references: [id])
+  courseId  String
+  course    Course   @relation(fields: [courseId], references: [id])
+  date      DateTime
+  status    String
+}
+
+
+model Identity {
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  email    String   @unique
+  userType UserType
+}
+
+enum UserType {
+  Student
+  Tutor
+  SiteAdmin
+  TutorAdmin
 }
