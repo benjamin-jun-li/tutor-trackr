@@ -64,7 +64,7 @@ const TutorInterviewPage: React.FC = () => {
             },
         });
         if (res.data?.addInterview?.email) {
-            alert("Interview added successfully");
+            alert("Application added successfully");
             router.replace(`/tutor/dashboard/`)
         }
         else {

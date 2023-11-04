@@ -3,8 +3,18 @@ import { useQuery } from "@apollo/client";
 import { GET_APPLICATION } from "@/graphql/queries";
 import Link from "next/link";
 
+interface Application {
+    id: string;
+    courseName: string;
+    email: string;
+    name: string;
+    date: string;
+    status: string; // Assuming status is a string that can be 'approved' or 'rejected'
+}
+
+
 const ApplicationList: React.FC = () => {
-    const { data, loading } = useQuery(GET_APPLICATION);
+    const { data, loading } = useQuery<{ getApplication: Application[] }>(GET_APPLICATION);
 
     if (!loading && !data?.getApplication) {
         return (
@@ -31,7 +41,9 @@ const ApplicationList: React.FC = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {data.getApplication.map((application: any) => (
+                            {data.getApplication
+                                .filter(application => application.status !== 'Approved' && application.status !== 'Rejected')
+                                .map((application: any) => (
                                 <tr key={application.id} className="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                     <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{application.courseName}</th>
                                     <td className="px-6 py-4">{application.email}</td>
