@@ -175,6 +175,18 @@ export const resolvers = {
           
             return filteredCourses;
         },
+
+        //get user type
+        getUserType: async (_parent: any, args: any, context: Context) => {
+            const identity = await context.prisma.identity.findUnique({
+                where: { email: args.email, },
+            });
+
+            if (!identity) {
+                throw new Error('No user found with this email!');
+            }
+            return identity.userType;
+        },
     },
 
     // Todo Before we change the data in database we must check the data before
@@ -405,7 +417,6 @@ export const resolvers = {
             } catch (error: any) {
                 throw new Error(`Failed to delete student: ${error.message}`);
             }
-
         },
 
         // Todo Need to use update
@@ -563,6 +574,17 @@ export const resolvers = {
                     startTime: args.startTime,
                     endTime: args.endTime,
                     status: "Waiting for accepts",
+                },
+            });
+        },
+
+        //add identity
+        addIdentity: async (_parent: any, args: any, context: Context) => {
+            
+            return context.prisma.identity.create({
+                data: {
+                    email: args.email,
+                    userType: args.userType,
                 },
             });
         },

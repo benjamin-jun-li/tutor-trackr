@@ -2,6 +2,13 @@ export const typeDefs = `#graphql
 
 union UserByEmail = Student | Tutor | SiteAdmin | TutorAdmin
 
+enum UserType {
+  Student
+  Tutor
+  SiteAdmin
+  TutorAdmin
+}
+
 type PasswordResetResponse {
     status: Boolean!
     message: String
@@ -116,6 +123,12 @@ type PasswordResetResponse {
     status:String
   }
 
+  type Identity {
+    id: ID!
+    email: String!
+    userType: UserType!
+  }
+
 
  
   type Query {
@@ -137,13 +150,14 @@ type PasswordResetResponse {
     filterCourses(
       tags: [String!],
     ): [Course]
+    getUserType(email: String!): UserType!
   }
 
   type Mutation {
     approveApplication(id: ID!): TutorApplication
       rejectApplication(id: ID!): TutorApplication
-    addStudent (name:String, email:String,password:String) : Student
-    addTutor (name:String, email:String,password:String) : Tutor
+    addStudent (name:String, email:String, password:String) : Student
+    addTutor (name:String, email:String, password:String) : Tutor
     updateStudentProfile(id: ID!,
       email: String, thumbnail: String, username: String, phone: String,
       address: String, timeZone: String, biography: String
@@ -177,5 +191,6 @@ type PasswordResetResponse {
       startTime: String
       endTime: String
     ): Appointment
+    addIdentity(email: String, userType: UserType): Identity
   }
 `;

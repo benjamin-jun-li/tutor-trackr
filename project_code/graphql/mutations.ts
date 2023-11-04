@@ -320,3 +320,18 @@ export const ADD_APPOINTMENT = gql`
     }
   }
 `;
+
+export const ADD_IDENTITY = gql`
+  mutation AddIdentity(
+    $email: String!,
+    $userType: UserType!
+  ) {
+    addIdentity(
+      email: $email,
+      userType: $userType
+    ) {
+      email
+      userType
+    }
+  }
+`;

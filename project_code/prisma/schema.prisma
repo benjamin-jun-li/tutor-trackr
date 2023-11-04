@@ -121,3 +121,16 @@ model Appointment {
   endTime      String?
   status       String?
 }
+
+model Identity {
+  id           String @id @default(auto()) @map("_id") @db.ObjectId
+  email        String          @unique
+  userType     UserType
+}
+
+enum UserType {
+  Student
+  Tutor
+  SiteAdmin
+  TutorAdmin
+}

@@ -260,3 +260,11 @@ export const FILTER_COURSES = gql`
     }
   }
 `;
+
+export const GET_USERTYPE = gql`
+  query GetUserType($email: [String!]) {
+    getUserType(email: $email) {
+      userType
+    }
+  }
+`;
