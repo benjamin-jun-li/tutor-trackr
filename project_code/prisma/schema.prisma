@@ -25,6 +25,7 @@ model Tutor {
   courses  Course[]      @relation(fields: [courseId], references: [id])
   courseId String[]      @db.ObjectId
   profile  TutorProfile?
+  availabilities TutorAvailability[]
 }
 
 model SiteAdmin {
@@ -53,7 +54,19 @@ model Course {
   tutors      Tutor[]   @relation(fields: [tutorId], references: [id])
   tutorId     String[]  @db.ObjectId
   price       Int @default(100)
+  availabilities TutorAvailability[]
 }
+
+model TutorAvailability {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  tutor      Tutor    @relation(fields: [tutorId], references: [id])
+  tutorId    String   @db.ObjectId
+  course     Course   @relation(fields: [courseId], references: [id])
+  courseId   String   @db.ObjectId
+  startTime  String
+  endTime    String
+}
+
 
 model StudentProfile {
   id             String  @id @default(auto()) @map("_id") @db.ObjectId
