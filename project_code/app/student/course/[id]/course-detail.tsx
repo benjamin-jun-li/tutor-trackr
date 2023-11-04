@@ -55,6 +55,12 @@ const CourseDetail:FC<{ role:string }> = ({ role }) => {
                         </div>
                     </div>
 
+                    {role === "tutor" &&
+                        <div className="w-3/4 p-4 mt-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+
+                        </div>
+                    }
+
                     <div className="w-3/4 p-4 mt-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
                         <div className="flex items-center justify-between mb-4">
                             <h5 className="text-xl font-bold leading-none text-gray-900 dark:text-white">Available Tutors</h5>
