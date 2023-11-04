@@ -1,6 +1,5 @@
 import CourseFilter from "@/components/dashboard/course-filter";
 import CourseList from "@/components/dashboard/courseList";
-import AppointmentCalendar from "@/components/dashboard/AppmtCalendar";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -28,7 +27,6 @@ export default function DashboardPage() {
               <CourseList role={"student"}/>
             </div>
             <div className="col-span-1 flex flex-col items-center space-y-2">
-              <AppointmentCalendar />
             </div>
           </div>
         </div>
