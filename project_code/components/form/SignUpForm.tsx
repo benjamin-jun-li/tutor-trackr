@@ -18,7 +18,7 @@ import Link from "next/link";
 import GoogleSignInBtn from "../GoogleSignInBtn";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
-import { ADD_Student,ADD_Tutor } from "@/graphql/mutations";
+import {ADD_IDENTITY, ADD_Student, ADD_Tutor} from "@/graphql/mutations";
 import { useMutation } from "@apollo/client";
 import { useRouter } from "next/navigation"
 import { useContextValue } from  "@/components/context"
@@ -46,6 +46,7 @@ const SignUpForm = () => {
     const { getters,setters } = useContextValue();
     const [addStudent,{data:studentData,loading:studentLoading,error:studentError}] = useMutation(ADD_Student);
     const [addTutor,{data:tutorData,loading:tutorLoading,error:tutorError}] = useMutation(ADD_Tutor);
+    const [addIdentity, { data: identityData, loading: identityLoading, error: identityError }] = useMutation(ADD_IDENTITY);
     const router = useRouter()
     const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -60,6 +61,13 @@ const SignUpForm = () => {
 
 
   const onSubmit = async (values: z.infer<typeof FormSchema>) => {
+      let userIdentity = "";
+      if (values.identity === "student") {
+          userIdentity = "Student";
+      } else if (values.identity === "tutor") {
+          userIdentity = "Tutor";
+      }
+
       if (studentLoading || tutorLoading) {
           return <span className="loading loading-bars loading-lg"></span>
       }
@@ -97,6 +105,18 @@ const SignUpForm = () => {
           } else {
               console.log(res);
           }
+      }
+
+      const res2 = await addIdentity({
+          variables: {
+              email: values.email,
+              userType: userIdentity,
+          },
+      });
+      if (res2.data?.addIdentity?.email) {
+          console.log("Identity added");
+      } else {
+          console.log(res2);
       }
   };
   return (
