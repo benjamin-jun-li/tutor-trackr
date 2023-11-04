@@ -12,4 +12,6 @@ Week 5
 Worked on reset password functionality and decoupling components on frontend side.
 Followed up sprint 2 progress.
 Week 7
-worked on frontend pages and config queries and mutations to meet frontend needs, implement features on Jira.
+Worked on frontend pages and config queries and mutations to meet frontend needs, implement features on Jira.
+Week 8
+Worked on frontend pages
