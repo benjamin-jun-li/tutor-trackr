@@ -482,19 +482,24 @@ export const resolvers = {
             const course = await context.prisma.course.findUnique({
               where: { id: args.courseId },
             });
-          
+            console.log(student);
+            console.log(course);
             if (!student || !course) {
               throw new Error("Student or Course not found");
             }
           
             // Register the course for the student by updating the relation
-            return context.prisma.student.update({
-              where: { id: args.studentId },
-              data: {
-                courses: {
-                  connect: { id: args.courseId },
+            return context.prisma.registerCourse.create({
+                data: {
+                    student: {
+                    connect: { id: args.studentId },
+                    },
+                    course: {
+                    connect: { id: args.courseId },
+                    },
+                    date: new Date().toISOString(),
+                    status: "Success",
                 },
-              },
             });
         },
         

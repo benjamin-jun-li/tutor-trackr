@@ -198,7 +198,6 @@ type PasswordResetResponse {
      addApplication(name: String, email: String, courseName: String,description:String) : TutorApplication
     addInterview(name: String, email: String, courseName: String, date: String
     ) : Interview
-    #   Todo
     registerCourseForStudent(studentId: ID!, courseId: ID!): RegisterCourse
     registerCourseForTutor(tutorId: ID!, courseId: ID!): Tutor
     payTheCourse(studentId: ID!, courseId: ID!): Course
