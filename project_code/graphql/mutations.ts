@@ -256,12 +256,7 @@ export const ADD_Interview = gql`
 export const REGISTER_COURSE_FOR_STUDENT = gql`
   mutation RegisterCourseForStudent($studentId: ID!, $courseId: ID!) {
     registerCourseForStudent(studentId: $studentId, courseId: $courseId) {
-      id
-      name
-      courses {
-        id
-        name
-      }
+     status
     }
   }
 `;

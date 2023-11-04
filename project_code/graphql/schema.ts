@@ -134,6 +134,16 @@ type PasswordResetResponse {
     status:String
   }
 
+  type RegisterCourse {
+    id: ID!
+    studentId: String
+    student: Student
+    courseId: String
+    course: Course
+    date: String
+    status: String
+  }
+
   type Identity {
     id: ID!
     email: String!
@@ -188,7 +198,8 @@ type PasswordResetResponse {
      addApplication(name: String, email: String, courseName: String,description:String) : TutorApplication
     addInterview(name: String, email: String, courseName: String, date: String
     ) : Interview
-    registerCourseForStudent(studentId: ID!, courseId: ID!): Student
+    #   Todo
+    registerCourseForStudent(studentId: ID!, courseId: ID!): RegisterCourse
     registerCourseForTutor(tutorId: ID!, courseId: ID!): Tutor
     payTheCourse(studentId: ID!, courseId: ID!): Course
     resetPassword(email: String!, password: String!): PasswordResetResponse
