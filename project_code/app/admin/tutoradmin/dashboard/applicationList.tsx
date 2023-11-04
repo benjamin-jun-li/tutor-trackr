@@ -14,7 +14,9 @@ interface Application {
 
 
 const ApplicationList: React.FC = () => {
-    const { data, loading } = useQuery<{ getApplication: Application[] }>(GET_APPLICATION);
+    const { data, loading } = useQuery<{ getApplication: Application[] }>(GET_APPLICATION, {
+        fetchPolicy: 'network-only',
+    });
 
     if (!loading && !data?.getApplication) {
         return (
