@@ -18,8 +18,8 @@ import Link from "next/link";
 import GoogleSignInBtn from "../GoogleSignInBtn";
 import { useRouter } from "next/navigation";
 
-import { Auth_Student, Auth_Tutor } from "@/graphql/queries";
-import { useLazyQuery } from "@apollo/client";
+import {Auth_Student, Auth_Tutor, GET_USERTYPE} from "@/graphql/queries";
+import {useLazyQuery, useQuery} from "@apollo/client";
 import {RadioGroup, RadioGroupItem} from "@/components/ui/radio-group";
 import { useContextValue } from  "@/components/context"
 
@@ -51,6 +51,11 @@ const SignInForm = () => {
     const { getValues } = form;
     const values = getValues();
     const enteredPassword = values.password;
+    const { loading, error, data } = useQuery(GET_USERTYPE, {
+        variables: { email: values.email },
+    });
+    console.log(data)
+    // const userIdentity = data?.getUserType?.identity;
 
   const onSubmit = async (values: z.infer<typeof FormSchema>) => {
       setters.setIdentity(values.identity);
