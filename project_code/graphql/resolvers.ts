@@ -195,8 +195,19 @@ export const resolvers = {
             if (!identity) {
                 throw new Error('No user found with this email!');
             }
-            return identity.userType;
+            return identity;
         },
+
+        //UOOI-28
+        getSuccessfulReservation: async (_parent: any, args: any, context: Context) => {
+            const reservation = await context.prisma.appointment.findMany({
+                where: {
+                    status: "Approve",
+                  },
+            });
+
+            return reservation;
+        }
     },
 
 
