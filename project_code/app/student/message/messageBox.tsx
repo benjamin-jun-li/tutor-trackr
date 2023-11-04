@@ -115,7 +115,7 @@ const MessageBox = () => {
                 )}
             </div>
             <Link href="/student/dashboard">
-                <button className="px-4 py-2 mt-4 text-white bg-blue-600 rounded-md hover:bg-blue-700">Return</button>
+                <button className="px-4 py-2 mt-4 text-white bg-blue-600 rounded-md hover:bg-blue-700">Back</button>
             </Link>
         </section>
     );
