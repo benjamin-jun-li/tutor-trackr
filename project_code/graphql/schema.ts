@@ -62,6 +62,17 @@ type PasswordResetResponse {
     tags: [String]
   }
 
+
+  type TutorAvailability {
+    id:        ID!   
+    tutor:      Tutor    
+    tutorId:    [String] 
+    course:     Course   
+    courseId:   [String]  
+    startTime:  String
+    endTime:    String
+  }
+
   type StudentProfile {
     id: ID!
     thumbnail: String
@@ -150,6 +161,7 @@ type PasswordResetResponse {
     filterCourses(
       tags: [String!],
     ): [Course]
+    getTutorAvailability(tutorId: String!,courseId:String!): TutorAvailability
     getUserType(email: String!): UserType!
   }
 

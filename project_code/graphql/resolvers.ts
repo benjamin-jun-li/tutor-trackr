@@ -157,6 +157,16 @@ export const resolvers = {
                 }})
         },
 
+        getTutorAvailability: async (_parent: any, args: any, context: Context) => {
+            return  context.prisma.tutorAvailability.findMany({
+                where: {
+                    tutorId: args.tutorId,
+                    courseId: args.courseId,
+                },
+            });
+        },
+
+
         //get consultation
         getAppointments: async (_parent: any, args: any, context: Context) => {
             return context.prisma.appointment.findMany();
@@ -189,7 +199,6 @@ export const resolvers = {
         },
     },
 
-    // Todo Before we change the data in database we must check the data before
 
     Mutation: {
         resetPassword: async (_parent: any, args: any, context: Context) => {
