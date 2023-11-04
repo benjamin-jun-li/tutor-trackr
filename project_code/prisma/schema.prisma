@@ -102,7 +102,7 @@ model TutorProfile {
 model TutorApplication {
   id          String     @id @default(auto()) @map("_id") @db.ObjectId
   name        String
-  email       String     @unique
+  email       String
   courseName  String
   date        DateTime   @default(now())
   description String
