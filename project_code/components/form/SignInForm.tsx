@@ -30,7 +30,7 @@ const FormSchema = z.object({
     .string()
     .min(1, "Password is required")
     .min(8, "Password must be at least 8 characters"),
-  identity: z.enum(["student", "tutor",""]),
+  // identity: z.enum(["student", "tutor",""]),
 });
 
 const SignInForm = () => {
@@ -44,45 +44,42 @@ const SignInForm = () => {
         defaultValues: {
             email: "",
             password: "",
-            identity: ""
+            // identity: ""
         },
     });
 
     const { getValues } = form;
     const values = getValues();
     const enteredPassword = values.password;
-    const { loading, error, data } = useQuery(GET_USERTYPE, {
-        variables: { email: values.email },
-    });
-    console.log(data)
-    // const userIdentity = data?.getUserType?.identity;
-
+    const [getIdentity, { loading: loadingIdentity, error: identityError, data: dataIdentity }] = useLazyQuery(GET_USERTYPE);
   const onSubmit = async (values: z.infer<typeof FormSchema>) => {
-      setters.setIdentity(values.identity);
-      if (values.identity === "student") {
-          const res = await authStudent({variables: {email: values.email}})
-          if (res.data?.student?.password === enteredPassword) {
-              setters.setEmail(values.email)
-              setters.setName(res.data.student.name)
-              setters.setUserStatus(true)
-              router.replace('/student/dashboard')
-          } else {
-              alert("invalid student info")
-          }
-      } else if (values.identity === "tutor") {
-          const res = await authTutor({variables: {email: values.email}});
-          if (res.data?.tutor?.password === enteredPassword) {
-              setters.setEmail(values.email)
-              setters.setName(res.data.tutor.name)
-              setters.setUserStatus(true)
-              router.replace('/tutor/dashboard')
-          } else {
-              alert("Invalid tutor info")
-          }
-      }
-      if (loadingStudent || loadingTutor || getters.userStatus) {
-          return <span className="loading loading-bars loading-lg"></span>
-      }
+        const res = await getIdentity({variables: {email: values.email}});
+      console.log(res.data)
+      // setters.setIdentity(values.identity);
+      // if (values.identity === "student") {
+      //     const res = await authStudent({variables: {email: values.email}})
+      //     if (res.data?.student?.password === enteredPassword) {
+      //         setters.setEmail(values.email)
+      //         setters.setName(res.data.student.name)
+      //         setters.setUserStatus(true)
+      //         router.replace('/student/dashboard')
+      //     } else {
+      //         alert("invalid student info")
+      //     }
+      // } else if (values.identity === "tutor") {
+      //     const res = await authTutor({variables: {email: values.email}});
+      //     if (res.data?.tutor?.password === enteredPassword) {
+      //         setters.setEmail(values.email)
+      //         setters.setName(res.data.tutor.name)
+      //         setters.setUserStatus(true)
+      //         router.replace('/tutor/dashboard')
+      //     } else {
+      //         alert("Invalid tutor info")
+      //     }
+      // }
+      // if (loadingStudent || loadingTutor || getters.userStatus) {
+      //     return <span className="loading loading-bars loading-lg"></span>
+      // }
   };
 
   return (
@@ -125,36 +122,36 @@ const SignInForm = () => {
             />
           </div>
 
-            <FormField
-                control={form.control}
-                name="identity"
-                render={({ field }) => (
-                    <FormItem className="space-y-3">
-                        <FormLabel>Your Identity</FormLabel>
-                        <FormControl>
-                            <RadioGroup
-                                onValueChange={field.onChange}
-                                defaultValue={field.value}
-                                className="flex justify-evenly border-solid border-2 border-sky-600 p-2 rounded-full"
-                            >
-                                <FormItem className="flex items-center space-x-3 space-y-0">
-                                    <FormControl>
-                                        <RadioGroupItem value="student" />
-                                    </FormControl>
-                                    <FormLabel className="font-normal">Student</FormLabel>
-                                </FormItem>
-                                <FormItem className="flex items-center space-x-3 space-y-0">
-                                    <FormControl>
-                                        <RadioGroupItem value="tutor" />
-                                    </FormControl>
-                                    <FormLabel className="font-normal">Tutor</FormLabel>
-                                </FormItem>
-                            </RadioGroup>
-                        </FormControl>
-                        <FormMessage />
-                    </FormItem>
-                )}
-            />
+            {/*<FormField*/}
+            {/*    control={form.control}*/}
+            {/*    name="identity"*/}
+            {/*    render={({ field }) => (*/}
+            {/*        <FormItem className="space-y-3">*/}
+            {/*            <FormLabel>Your Identity</FormLabel>*/}
+            {/*            <FormControl>*/}
+            {/*                <RadioGroup*/}
+            {/*                    onValueChange={field.onChange}*/}
+            {/*                    defaultValue={field.value}*/}
+            {/*                    className="flex justify-evenly border-solid border-2 border-sky-600 p-2 rounded-full"*/}
+            {/*                >*/}
+            {/*                    <FormItem className="flex items-center space-x-3 space-y-0">*/}
+            {/*                        <FormControl>*/}
+            {/*                            <RadioGroupItem value="student" />*/}
+            {/*                        </FormControl>*/}
+            {/*                        <FormLabel className="font-normal">Student</FormLabel>*/}
+            {/*                    </FormItem>*/}
+            {/*                    <FormItem className="flex items-center space-x-3 space-y-0">*/}
+            {/*                        <FormControl>*/}
+            {/*                            <RadioGroupItem value="tutor" />*/}
+            {/*                        </FormControl>*/}
+            {/*                        <FormLabel className="font-normal">Tutor</FormLabel>*/}
+            {/*                    </FormItem>*/}
+            {/*                </RadioGroup>*/}
+            {/*            </FormControl>*/}
+            {/*            <FormMessage />*/}
+            {/*        </FormItem>*/}
+            {/*    )}*/}
+            {/*/>*/}
 
           <Button className="w-full mt-6" type="submit">
             Sign in
