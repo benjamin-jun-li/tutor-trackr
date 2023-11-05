@@ -151,8 +151,8 @@ export const GET_TutorList = gql`
 `;
 
 export const GET_STUDENT_PROFILE = gql`
-  query StudentProfile($studentId: String!) {
-    getStudentProfile(studentId: $studentId) {
+  query StudentProfile($id: String!) {
+    getStudentProfile(id: $id) {
       id
       thumbnail
       email
@@ -167,8 +167,8 @@ export const GET_STUDENT_PROFILE = gql`
 `;
 
 export const GET_TUTOR_PROFILE = gql`
-  query TutorProfile($tutorId: String!) {
-    getTutorProfile(tutorId: $tutorId) {
+  query TutorProfile($id: String!) {
+    getTutorProfile(id: $id) {
       id
       thumbnail
       email

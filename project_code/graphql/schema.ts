@@ -155,7 +155,7 @@ type PasswordResetResponse {
  
   type Query {
     finduser(id: String): PasswordResetResponse
-	student(email: String): Student
+	  student(email: String): Student
     tutor(email: String): Tutor
     siteAdmin(email: String): SiteAdmin
     tutorAdmin(email: String): TutorAdmin
@@ -163,8 +163,8 @@ type PasswordResetResponse {
     courses: [Course]
     getStudentList:[Student]
     getTutorList:[Tutor]
-    getStudentProfile(studentId: String!): StudentProfile
-    getTutorProfile(tutorId: String!): TutorProfile
+    getStudentProfile(id: String!): StudentProfile
+    getTutorProfile(id: String!): TutorProfile
     getApplication: [TutorApplication]
     getSingleApplication(id: String!): TutorApplication
     getInterview: [Interview]
