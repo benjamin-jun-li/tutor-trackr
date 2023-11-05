@@ -133,6 +133,7 @@ type PasswordResetResponse {
     date: String
     startTime: String
     endTime: String
+    appointmentDate: String
     status:String
   }
 
@@ -218,6 +219,7 @@ type PasswordResetResponse {
       date: String
       startTime: String
       endTime: String
+      appointmentDate: String
     ): Appointment
     addIdentity(email: String, userType: UserType): Identity
   }

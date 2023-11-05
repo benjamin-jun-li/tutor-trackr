@@ -8,7 +8,8 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-} from "@/components/ui/dialog"
+} from "@/components/ui/dialog";
+import {DialogClose} from "@radix-ui/react-dialog";
 import { Label } from "@/components/ui/label"
 import {Textarea} from "@/components/ui/textarea";
 import {
@@ -19,17 +20,42 @@ import {
     SelectLabel,
     SelectTrigger,
     SelectValue,
-} from "@/components/ui/select"
+} from "@/components/ui/select";
+import { useToast } from "@/components/ui/use-toast";
 import {useState} from "react";
-import {useMutation} from "@apollo/client";
+import {useMutation, useQuery} from "@apollo/client";
+import { ADD_Application } from "@/graphql/mutations";
+import {GET_COURSE} from "@/graphql/queries";
+import {useParams} from "next/navigation";
+import {useContextValue} from "@/components/context";
 
 const TutorApplyModal = () => {
+    const {getters,} = useContextValue();
+    const params = useParams()
+    const courseData = useQuery(GET_COURSE, { variables: { id: params?.id }});
+    const { toast } = useToast();
+    const [msg, setMsg] = useState("")
     const startTime = 8;
     const endTime = 21;
     const timeArray: number[] = Array.from({ length: endTime - startTime + 1 }, (_, index) => startTime + index);
     const [startAvail, setStartAvail] = useState("start time");
     const [endAvail, setEndAvail] = useState("end time");
-    //TODO useMutation to send application
+    const [addApplication, {loading, error, data}] = useMutation(ADD_Application)
+    const submitApplication = async () => {
+        const applicationRes = await addApplication({
+            variables:{
+                name:getters.userName,
+                email:getters.userEmail,
+                courseName:courseData?.data?.course?.name,
+                description:msg
+            }
+        })
+        toast({
+            title: "Application submitted",
+            description: "Friday, February 10, 2023 at 5:57 PM",
+        })
+    }
+
 
     return (
         <Dialog>
@@ -78,10 +104,12 @@ const TutorApplyModal = () => {
                     <Label htmlFor="reason" className="pl-1">
                         Explain the reasons to apply this role
                     </Label>
-                    <Textarea id="reason" className="" placeholder="Type your message here." />
+                    <Textarea id="reason" className="" onChange={(e) => {setMsg(e.target.value)}} placeholder="Type your message here." />
                 </div>
                 <DialogFooter>
-                    <Button type="submit">Save changes</Button>
+                    <DialogClose asChild>
+                        <Button type="submit" onClick={submitApplication}>Send Application</Button>
+                    </DialogClose>
                 </DialogFooter>
             </DialogContent>
         </Dialog>

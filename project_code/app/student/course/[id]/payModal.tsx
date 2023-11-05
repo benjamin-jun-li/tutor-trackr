@@ -58,7 +58,8 @@ const PayModal:FC<PayModalProps> = ({}) => {
                 studentName,
                 studentEmail,
                 startTime: "",
-                endTime: ""
+                endTime: "",
+                appointmentDate: selectedDate
             }
         })
         const payResponse = await payCourse({
