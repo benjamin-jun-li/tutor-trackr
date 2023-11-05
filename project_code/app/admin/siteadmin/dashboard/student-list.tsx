@@ -13,12 +13,11 @@ export default function StudentList() {
     })
     const [studentName, setStudentName] = useState("");
     const [studentEmail, setStudentEmail] = useState("");
-
-    const deleteStudent = (email: string) => {
-        deleteStudentMutation({variables: {email: email}}).then()
+    const [studentId, setStudentId] = useState("");
+    const deleteStudent = (id: string) => {
+        deleteStudentMutation({variables: {id: id}}).then()
     }
 
-    console.log(studentList.data?.getStudentList)
 
     return (
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -63,6 +62,7 @@ export default function StudentList() {
                                     if (modal) { modal.showModal() }
                                     setStudentName(student.name);
                                     setStudentEmail(student.email);
+                                    setStudentId(student.id);
                                 }}
                             >
                                 Delete
@@ -78,7 +78,7 @@ export default function StudentList() {
                     <p className="py-4">Do you want to delete {studentName}: {studentEmail}</p>
                     <div className="modal-action flex justify-between">
                         <form method="dialog" className="flex justify-between w-full">
-                            <button className="btn" onClick={() => deleteStudent(studentEmail)}>Confirm</button>
+                            <button className="btn" onClick={() => deleteStudent(studentId)}>Confirm</button>
                             <button className="btn">Close</button>
                         </form>
                     </div>

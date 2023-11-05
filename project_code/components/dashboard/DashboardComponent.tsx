@@ -14,14 +14,12 @@ export default function DashboardComponent() {
   return (
     <section className="space-y-4 p-8 mt-[5rem]">
         <div className="mx-10">
-          <div className="mb-4">
+          <div className="flex justify-center items-center mb-4">
             <CourseFilter onFilterChange={setFilters} />
           </div>
-          <div className="grid grid-cols-3 place-items-center">
-            <div className="col-span-2 flex flex-col justify-center items-center space-y-2">
+          <div className="place-items-center">
+            <div className="flex flex-col justify-center items-center">
               <CourseList role={"student"} filters={filters} />
-            </div>
-            <div className="col-span-1 flex flex-col items-center space-y-2">
             </div>
           </div>
         </div>

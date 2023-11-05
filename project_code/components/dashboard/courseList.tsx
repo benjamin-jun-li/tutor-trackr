@@ -8,8 +8,8 @@ import Link from "next/link";
 import { Filters } from "@/components/dashboard/filters";
 
 interface CourseListProps {
-    role: string;
-    filters: Filters;
+    role?: string;
+    filters?: Filters;
 }
 
 const CourseList: FC<CourseListProps> = ({ role, filters }) => {
@@ -26,15 +26,15 @@ const CourseList: FC<CourseListProps> = ({ role, filters }) => {
         console.log(`Course tags (lowercased):`, lowerCaseTags);
         console.log(`Filters:`, filters);
     
-        if (filters.timeZone && !lowerCaseTags.includes(filters.timeZone.toLowerCase())) {
+        if (filters?.timeZone && !lowerCaseTags.includes(filters.timeZone.toLowerCase())) {
             console.log('Rejected by timeZone');
             return false;
         }
-        if (filters.courseType && !lowerCaseTags.includes(filters.courseType.toLowerCase())) {
+        if (filters?.courseType && !lowerCaseTags.includes(filters.courseType.toLowerCase())) {
             console.log('Rejected by courseType');
             return false;
         }
-        if (filters.experienceLevel && !lowerCaseTags.includes(filters.experienceLevel.toLowerCase())) {
+        if (filters?.experienceLevel && !lowerCaseTags.includes(filters.experienceLevel.toLowerCase())) {
             console.log('Rejected by experienceLevel');
             return false;
         }

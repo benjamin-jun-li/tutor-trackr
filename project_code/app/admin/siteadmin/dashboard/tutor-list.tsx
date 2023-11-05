@@ -11,12 +11,13 @@ export default function TutorList() {
     const [deleteTutorMutation,{data, loading, error}] = useMutation(DELETE_Tutor,{
         refetchQueries: [{query: GET_TutorList}]
     })
+    const [tutorId, setTutorId] = useState("");
     const [tutorName, setTutorName] = useState("");
     const [tutorEmail, setTutorEmail] = useState("");
 
 
-    const deleteTutor = (email: string) => {
-        deleteTutorMutation({variables: {email: email}}).then()
+    const deleteTutor = (id: string) => {
+        deleteTutorMutation({variables: {id: id}}).then()
     }
 
     return (
@@ -60,6 +61,7 @@ export default function TutorList() {
                                 onClick={() => {
                                     const modal = document.getElementById('my_modal_2');
                                     if (modal) { modal.showModal() }
+                                    setTutorId(tutor.id);
                                     setTutorName(tutor.name);
                                     setTutorEmail(tutor.email);
                                 }}
@@ -77,7 +79,7 @@ export default function TutorList() {
                     <p className="py-4">Do you want to delete {tutorName}: {tutorEmail}</p>
                     <div className="modal-action flex justify-between">
                         <form method="dialog" className="flex justify-between w-full">
-                            <button className="btn" onClick={() => deleteTutor(tutorEmail)}>Confirm</button>
+                            <button className="btn" onClick={() => deleteTutor(tutorId)}>Confirm</button>
                             <button className="btn">Close</button>
                         </form>
                     </div>
