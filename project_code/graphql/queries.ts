@@ -280,9 +280,9 @@ export const GET_USERTYPE = gql`
   }
 `;
 
-export const FET_SUCCESSFUL_RESERVATION = gql`
-  query GetSuccessfulReservation($tutorEmail: String!) {
-    getSuccessfulReservation(tutorEmail: $tutorEmail) {
+export const GET_SUCCESSFUL_RESERVATION = gql`
+  query GetSuccessfulReservation($id: String!) {
+    getSuccessfulReservation(id: $id) {
       courseName
     }
   }

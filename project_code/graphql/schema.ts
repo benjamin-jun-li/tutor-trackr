@@ -173,7 +173,8 @@ type PasswordResetResponse {
     ): [Course]
     getTutorAvailability(tutorId: String!,courseId:String!): TutorAvailability
     getUserType(email: String!): Identity
-    getSuccessfulReservation(tutorEmail: String!): [Appointment]
+    getSuccessfulReservation(id: String!): [Appointment]
+    getStudentInfo(name: String!): [Course]
   }
 
   type Mutation {
