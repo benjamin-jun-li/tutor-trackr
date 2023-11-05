@@ -20,26 +20,17 @@ const CourseList: FC<CourseListProps> = ({ role, filters }) => {
     }
 
     const filteredCourses = data.courses.filter((course: Course_type) => {
-        console.log(`Filtering course: ${course.name}`);
-        
         const lowerCaseTags = course.tags.map(tag => tag.toLowerCase());
-        console.log(`Course tags (lowercased):`, lowerCaseTags);
-        console.log(`Filters:`, filters);
     
         if (filters?.timeZone && !lowerCaseTags.includes(filters.timeZone.toLowerCase())) {
-            console.log('Rejected by timeZone');
             return false;
         }
         if (filters?.courseType && !lowerCaseTags.includes(filters.courseType.toLowerCase())) {
-            console.log('Rejected by courseType');
             return false;
         }
         if (filters?.experienceLevel && !lowerCaseTags.includes(filters.experienceLevel.toLowerCase())) {
-            console.log('Rejected by experienceLevel');
             return false;
         }
-    
-        console.log('Course accepted');
         return true;
     });
     

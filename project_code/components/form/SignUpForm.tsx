@@ -80,9 +80,11 @@ const SignUpForm = () => {
               },
           });
           if (res.data?.addStudent?.email) {
+              const userId = res.data?.addStudent?.id;
               setters.setEmail(values.email);
               setters.setName(values.username);
               setters.setIdentity(values.identity);
+              setters.setUserID(userId);
               setters.setUserStatus(true);
               router.replace(`/student/dashboard/`)
           } else {
@@ -97,9 +99,11 @@ const SignUpForm = () => {
               },
           });
           if (res.data?.addTutor?.email) {
+              const userId = res.data?.addTutor?.id;
               setters.setEmail(values.email);
               setters.setName(values.username);
               setters.setIdentity(values.identity);
+              setters.setUserID(userId);
               setters.setUserStatus(true);
               router.replace(`/tutor/dashboard/`)
           } else {
