@@ -16,7 +16,9 @@ export interface Course_type {
 }
 
 export default function DashboardPage() {
-  return (
-    <DashboardComponent />
-  );
+    return (
+        <section className="mt-[5rem]">
+          <DashboardComponent role={"student"}/>
+        </section>
+    );
 }

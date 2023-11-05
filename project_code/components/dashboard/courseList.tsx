@@ -8,7 +8,7 @@ import Link from "next/link";
 import { Filters } from "@/components/dashboard/filters";
 
 interface CourseListProps {
-    role?: string;
+    role: string;
     filters?: Filters;
 }
 
