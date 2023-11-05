@@ -60,6 +60,7 @@ type PasswordResetResponse {
     tutorId: [String]
     price: Int
     tags: [String]
+    status: String
   }
 
 

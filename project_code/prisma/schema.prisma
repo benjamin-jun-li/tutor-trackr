@@ -57,6 +57,7 @@ model Course {
   price          Int                 @default(100)
   availabilities TutorAvailability[]
   register       RegisterCourse[]
+  status         String?
 }
 
 model TutorAvailability {
