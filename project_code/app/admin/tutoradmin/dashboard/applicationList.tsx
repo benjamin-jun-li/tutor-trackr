@@ -1,24 +1,25 @@
 "use client"
 import { useQuery } from "@apollo/client";
-import { GET_APPLICATION } from "@/graphql/queries";
+import {GET_APPLICATION, GET_COURSES} from "@/graphql/queries";
 import Link from "next/link";
 
-interface Application {
+interface Courses {
     id: string;
     courseName: string;
     email: string;
     name: string;
-    date: string;
     status: string; // Assuming status is a string that can be 'approved' or 'rejected'
 }
 
 
 const ApplicationList: React.FC = () => {
-    const { data, loading } = useQuery<{ getApplication: Application[] }>(GET_APPLICATION, {
+    const { data, loading } = useQuery(GET_COURSES, {
         fetchPolicy: 'network-only',
     });
 
-    if (!loading && !data?.getApplication) {
+    console.log(data?.courses);
+
+    if (!loading && !data?.courses) {
         return (
             <section className="p-6 bg-gray-100 dark:bg-gray-900">
                 <h2 className="text-xl font-extrabold leading-none tracking-tight mb-5 text-gray-900 md:text-2xl lg:text-3xl dark:text-white">Tutor Application Table</h2>
@@ -30,29 +31,27 @@ const ApplicationList: React.FC = () => {
     return (
         <section className="w-full p-2">
             <h2 className="text-xl font-extrabold leading-none tracking-tight mb-5 text-gray-900 md:text-2xl lg:text-3xl dark:text-white">Tutor Application Table</h2>
-            {data?.getApplication ? (
+            {data?.courses ? (
                 <div className="relative overflow-x-auto shadow-md sm:rounded-lg bg-white dark:bg-gray-800">
                     <table className="min-w-full text-sm text-left">
                         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                                 <th scope="col" className="px-6 py-3">Course Name</th>
                                 <th scope="col" className="px-6 py-3">Email</th>
-                                <th scope="col" className="px-6 py-3">Candidate Name</th>
-                                <th scope="col" className="px-6 py-3">Date</th>
+                                <th scope="col" className="px-6 py-3">Name</th>
                                 <th scope="col" className="px-6 py-3 text-center">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {data.getApplication
-                                .filter(application => application.status !== 'Approved' && application.status !== 'Rejected')
-                                .map((application: any) => (
-                                <tr key={application.id} className="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                    <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{application.courseName}</th>
-                                    <td className="px-6 py-4">{application.email}</td>
-                                    <td className="px-6 py-4">{application.name}</td>
-                                    <td className="px-6 py-4">{application.date}</td>
+                            {data.courses
+                                .filter((course: { status: string; }) => course.status === 'pending')
+                                .map((course: any) => (
+                                <tr key={course.id} className="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                    <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{course.name}</th>
+                                    <td className="px-6 py-4">{course?.tutors?.email}</td>
+                                    <td className="px-6 py-4">{course?.tutors?.name}</td>
                                     <td className="px-6 py-4 text-center">
-                                    <Link className="font-medium text-blue-600 dark:text-blue-500 hover:underline" href={`/admin/tutoradmin/application/${application.id}/`}>
+                                    <Link className="font-medium text-blue-600 dark:text-blue-500 hover:underline" href={`/admin/tutoradmin/application/${course.id}/`}>
                                         More
                                     </Link>
                                     </td>

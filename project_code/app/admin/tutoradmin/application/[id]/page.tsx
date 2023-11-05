@@ -1,5 +1,5 @@
 "use client";
-import { GET_APPLICATION_BY_ID } from "@/graphql/queries";
+import {GET_APPLICATION_BY_ID, GET_COURSE} from "@/graphql/queries";
 import {useMutation, useQuery} from "@apollo/client";
 import { useParams } from "next/navigation";
 import {Button} from "@/components/ui/button";
@@ -9,11 +9,11 @@ import {useEffect, useState} from "react";
 
 const ApplicationPage = () => {
     const param = useParams();
-    const application = useQuery(GET_APPLICATION_BY_ID, { variables: { id: param?.id } });
+    const course = useQuery(GET_COURSE, { variables: { id: param?.id } });
     const [acceptApplication, {data:acceptData,loading:acceptLoading,error:acceptError}] = useMutation(Approval_Application);
     const [rejectApplication, {data:rejectData,loading:rejectLoading,error:rejectError}] = useMutation(Reject_Application);
 
-    const appDetails = application.data?.getSingleApplication;
+    const appDetails = course?.data?.course;
     const [status, setStatus] = useState(appDetails?.status);
 
     useEffect(() => {
@@ -27,7 +27,7 @@ const ApplicationPage = () => {
     const handleAcceptClick = async () => {
         await acceptApplication({
             variables: {
-                id: application.data?.getSingleApplication?.id,
+                id: appDetails?.id,
             },
         }).then(() => {
             alert("Application accepted successfully!")
@@ -38,7 +38,7 @@ const ApplicationPage = () => {
     const handleRejectClick = async () => {
         await rejectApplication({
             variables: {
-                id: application.data?.getSingleApplication?.id,
+                id: appDetails?.id,
             },
         }).then(() => {
             alert("Application rejected successfully!")
@@ -50,23 +50,23 @@ const ApplicationPage = () => {
         <div className="flex flex-col items-center">
             <main className="p-5 bg-white shadow-lg rounded-lg w-full max-w-2xl">
                 <div className="mb-4">
-                    <span className="font-semibold">Name:</span> {appDetails.name}
+                    <span className="font-semibold">Name:</span> {appDetails?.tutors?.name}
                 </div>
                 <div className="mb-4">
-                    <span className="font-semibold">Email:</span> {appDetails.email}
+                    <span className="font-semibold">Email:</span> {appDetails?.tutors?.email}
                 </div>
                 <div className="mb-4">
-                    <span className="font-semibold">Course Name:</span> {appDetails.courseName}
+                    <span className="font-semibold">Course Name:</span> {appDetails?.name}
                 </div>
                 <div className="mb-4">
-                    <span className="font-semibold">Description:</span> {appDetails.description}
+                    <span className="font-semibold">Description:</span> {appDetails?.description}
                 </div>
                 <div className="mb-4">
-                    <span className="font-semibold">Status:</span> {status}
+                    <span className="font-semibold">Status:</span> {appDetails?.status}
                 </div>
                 {appDetails.interview && (
                     <div className="mb-4">
-                        <span className="font-semibold">Interview:</span> {appDetails.interview}
+                        <span className="font-semibold">Interview:</span> {appDetails?.interview}
                     </div>
                 )}
                 <div className="flex gap-2">

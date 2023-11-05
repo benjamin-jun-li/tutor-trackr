@@ -68,13 +68,12 @@ const NewCourseForm: React.FC = () => {
 
     const onSubmit = async (formData: FormData) => {
         const tags = [formData.timeZone, formData.courseType, formData.experienceLevel].filter(tag => tag);
-        const tutorId = [getters.userID]
 
         console.log(formData);
 
         const res = await addCourse({
             variables: {
-                tutorIds: tutorId,
+                tutorId: getters.userID,
                 name: formData.courses,
                 description: formData.description,
                 price: parseInt(formData.price),
