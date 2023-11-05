@@ -25,9 +25,11 @@ interface ComboboxProps {
        label: string
     }[]
     placeholder: string;
+    onChange: (selectedValue: string) => void;
 }
 
-const Combobox:FC<ComboboxProps> = ({ items, placeholder  }) => {
+
+const Combobox:FC<ComboboxProps> = ({ items, placeholder,onChange  }) => {
     const [open, setOpen] = useState(false)
     const [value, setValue] = useState("")
 
@@ -53,12 +55,20 @@ const Combobox:FC<ComboboxProps> = ({ items, placeholder  }) => {
                     <CommandGroup>
                         {items.map((item) => (
                             <CommandItem
-                                key={item.value}
-                                onSelect={() => {
-                                    setValue(prevValue => item.value === prevValue ? "" : item.value);  // 使用 item.value
+                            key={item.value}
+                            onSelect={() => {
+                                setTimeout(() => {
+                                    setValue(prevValue => {
+                                        const newValue = item.value === prevValue ? "" : item.value;
+                                        onChange?.(newValue);
+                                        return newValue;
+                                    });
                                     setOpen(false);
-                                }}
-                            >
+                                }, 0);
+                            }}
+                            
+                        >
+                        
                                 <Check
                                     className={cn(
                                         "mr-2 h-4 w-4",

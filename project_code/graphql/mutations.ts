@@ -140,6 +140,16 @@ export const Reject_Application = gql`
   }
 `
 
+export const Interview_Feedback = gql`
+    mutation interviewFeedback($id: ID!,$description: String!, $status: String!){
+    interviewFeedback(id: $id, description: $description, status: $status) {
+    description
+    status
+    }
+    }
+`
+
+
 
 export const ADD_COURSE = gql`
   mutation AddCourse(
