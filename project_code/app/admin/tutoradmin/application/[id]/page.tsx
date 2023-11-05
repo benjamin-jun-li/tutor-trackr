@@ -16,6 +16,8 @@ const ApplicationPage = () => {
     const appDetails = course?.data?.course;
     const [status, setStatus] = useState(appDetails?.status);
 
+    console.log(appDetails);
+
     useEffect(() => {
         setStatus(appDetails?.status);
     }, [appDetails?.status]);

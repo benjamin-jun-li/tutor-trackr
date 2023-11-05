@@ -197,7 +197,6 @@ export const resolvers = {
             return identity;
         },
 
-        //UOOI-28
         getSuccessfulReservation: async (_parent: any, args: any, context: Context) => {
             const reservation = await context.prisma.appointment.findMany({
                 where: {
@@ -368,7 +367,7 @@ export const resolvers = {
 
         addCourse: async (_parent: any, args: any, context: Context) => {
 
-            const status = args.status ==="approve" ? "approve" : "pending";
+            const status = args.status ==="Approved" ? "Approved" : "Pending";
 
             return context.prisma.course.create({
                 data: {
@@ -503,6 +502,28 @@ export const resolvers = {
 
         rejectApplication: async (_parent: any, args: any, context: Context) => {
             return context.prisma.tutorApplication.update({
+                where: {
+                    id: args.id,
+                },
+                data: {
+                    status: "Rejected",
+                },
+            });
+        },
+
+        approveCourseApplication: async (_parent: any, args: any, context: Context) => {
+            return context.prisma.course.update({
+                where: {
+                    id: args.id,
+                },
+                data: {
+                    status: "Approved",
+                },
+            });
+        },
+
+        rejectCourseApplication: async (_parent: any, args: any, context: Context) => {
+            return context.prisma.course.update({
                 where: {
                     id: args.id,
                 },
