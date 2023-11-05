@@ -3,7 +3,7 @@
 import React from 'react';
 import { useContextValue } from "@/components/context"
 import { GET_COURSES } from "@/graphql/queries";
-import { ADD_Application } from "@/graphql/mutations";
+import {ADD_COURSE} from "@/graphql/mutations";
 import { useMutation, useQuery } from "@apollo/client";
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
@@ -19,6 +19,7 @@ import {
     FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { useRouter } from "next/navigation";
 import TimezonePicker from "@/components/TimezonePicker";
 import Link from "next/link";
@@ -40,7 +41,7 @@ const formSchema = z.object({
     thumbnail: z.string().url("Invalid url"), // New validation for thumbnail URL
     timeZone: z.string().min(1).max(255),
     courseType: z.string().optional(),
-    experienceLevel: z.string().optional(),
+    experienceLevel: z.enum(["Beginner", "Intermediate", "Advanced", "Expert", "Master"]),
 });
 
 const NewCourseForm: React.FC = () => {
@@ -50,7 +51,7 @@ const NewCourseForm: React.FC = () => {
     const userName = getters.userName;
 
     const { data, loading, error } = useQuery(GET_COURSES);
-    const [addApplication, { data: tutorData, loading: tutorLoading, error: tutorError }] = useMutation(ADD_Application);
+    const [addCourse, { data: courseData, loading: courseLoading, error: courseError }] = useMutation(ADD_COURSE);
 
     const form = useForm<FormData>({
         resolver: zodResolver(formSchema),
@@ -67,27 +68,27 @@ const NewCourseForm: React.FC = () => {
 
     const onSubmit = async (formData: FormData) => {
         const tags = [formData.timeZone, formData.courseType, formData.experienceLevel].filter(tag => tag);
+        const tutorId = [getters.userID]
 
         console.log(formData);
 
-        // const res = await addApplication({
-        //     variables: {
-        //         name: userName,
-        //         email: userEmail,
-        //         courseName: formData.courses,
-        //         description: formData.description,
-        //         price: formData.price,
-        //         thumbnail: formData.thumbnail, // Pass thumbnail URL
-        //         tags: tags,
-        //     },
-        // });
-        //
-        // if (res.data?.addInterview?.email) {
-        //     alert("Application added successfully");
-        //     router.replace(`/tutor/dashboard/`)
-        // } else {
-        //     console.log(res);
-        // }
+        const res = await addCourse({
+            variables: {
+                tutorIds: tutorId,
+                name: formData.courses,
+                description: formData.description,
+                price: parseInt(formData.price),
+                thumbnail: formData.thumbnail, // Pass thumbnail URL
+                tags: tags,
+            },
+        });
+
+        if (res.data?.addCourse?.email) {
+            alert("Course details send to admin for approval");
+            router.replace(`/tutor/dashboard/`)
+        } else {
+            console.log(res);
+        }
     };
 
     if (loading) {
@@ -96,120 +97,147 @@ const NewCourseForm: React.FC = () => {
 
 
     return (
-        <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-                <FormField
-                    control={form.control}
-                    name="courses"
-                    render={({ field }) => (
-                        <FormItem className="flex flex-col">
-                            <FormLabel className="mb-2 text-lg">Courses</FormLabel>
-                            <FormControl>
-                                <Input {...field} className="border rounded" />
-                            </FormControl>
-                            <FormDescription className="mt-2 text-sm text-gray-500">
-                                Enter the course you are interested in.
-                            </FormDescription>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-                <FormField
-                    control={form.control}
-                    name="thumbnail"
-                    render={({ field }) => (
-                        <FormItem className="flex flex-col">
-                            <FormLabel className="mb-2 text-lg">Thumbnail URL</FormLabel>
-                            <FormControl>
-                                <Input {...field} className="border rounded" />
-                            </FormControl>
-                            <FormDescription className="mt-2 text-sm text-gray-500">
-                                Enter the URL of the course thumbnail image.
-                            </FormDescription>
-                        </FormItem>
-                    )}
-                />
-                <FormField
-                    control={form.control}
-                    name="description"
-                    render={({ field }) => (
-                        <FormItem className="flex flex-col">
-                            <FormLabel className="mb-2 text-lg">Description</FormLabel>
-                            <FormControl>
-                                <Input {...field} className="border p-2 rounded h-32"/>
-                            </FormControl>
-                            <FormDescription className="mt-2 text-sm text-gray-500">
-                                Describe the course details
-                            </FormDescription>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-                <FormField
-                    control={form.control}
-                    name="price"
-                    render={({ field }) => (
-                        <FormItem className="flex flex-col">
-                            <FormLabel className="mb-2 text-lg">Price</FormLabel>
-                            <FormControl>
-                                <Input type="number" {...field} className="border rounded"/>
-                            </FormControl>
-                            <FormDescription className="mt-2 text-sm text-gray-500">
-                                Describe the course details
-                            </FormDescription>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-                <div className="space-y-4">
+        <div className="mt-10 p-4 bg-white shadow-md rounded-lg">
+            <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                     <FormField
                         control={form.control}
-                        name="timeZone"
+                        name="courses"
                         render={({ field }) => (
                             <FormItem className="flex flex-col">
-                                <FormLabel className="mb-2 text-lg">Time Zone</FormLabel>
-                                <FormControl>
-                                    <div className="select-wrapper" {...field}>
-                                        <TimezonePicker />
-                                    </div>
-                                </FormControl>
-                            </FormItem>
-                        )}
-                    />
-                    <FormField
-                        control={form.control}
-                        name="courseType"
-                        render={({ field }) => (
-                            <FormItem className="flex flex-col">
-                                <FormLabel className="mb-2 text-lg">Course Type</FormLabel>
+                                <FormLabel className="mb-2 text-lg">Courses</FormLabel>
                                 <FormControl>
                                     <Input {...field} className="border rounded" />
                                 </FormControl>
+                                <FormDescription className="mt-2 text-sm text-gray-500">
+                                    Enter the course you are interested in.
+                                </FormDescription>
+                                <FormMessage />
                             </FormItem>
                         )}
                     />
                     <FormField
                         control={form.control}
-                        name="experienceLevel"
+                        name="thumbnail"
                         render={({ field }) => (
                             <FormItem className="flex flex-col">
-                                <FormLabel className="mb-2 text-lg">Experience Level</FormLabel>
+                                <FormLabel className="mb-2 text-lg">Thumbnail URL</FormLabel>
                                 <FormControl>
                                     <Input {...field} className="border rounded" />
                                 </FormControl>
+                                <FormDescription className="mt-2 text-sm text-gray-500">
+                                    Enter the URL of the course thumbnail image.
+                                </FormDescription>
                             </FormItem>
                         )}
                     />
-                </div>
-                <div className="flex gap-2">
-                    <Button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white p-2 rounded">Submit</Button>
-                    <Link href="/tutor/dashboard">
-                        <Button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white p-2 rounded">Back</Button>
-                    </Link>
-                </div>
+                    <FormField
+                        control={form.control}
+                        name="description"
+                        render={({ field }) => (
+                            <FormItem className="flex flex-col">
+                                <FormLabel className="mb-2 text-lg">Description</FormLabel>
+                                <FormControl>
+                                    <Input {...field} className="border p-2 rounded h-32"/>
+                                </FormControl>
+                                <FormDescription className="mt-2 text-sm text-gray-500">
+                                    Describe the course details
+                                </FormDescription>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
+                        control={form.control}
+                        name="price"
+                        render={({ field }) => (
+                            <FormItem className="flex flex-col">
+                                <FormLabel className="mb-2 text-lg">Price</FormLabel>
+                                <FormControl>
+                                    <Input type="number" {...field} className="border rounded"/>
+                                </FormControl>
+                                <FormDescription className="mt-2 text-sm text-gray-500">
+                                    Describe the course price
+                                </FormDescription>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <div className="space-y-4">
+                        <FormField
+                            control={form.control}
+                            name="timeZone"
+                            render={({ field }) => (
+                                <FormItem className="flex flex-col">
+                                    <FormLabel className="mb-2 text-lg">Time Zone</FormLabel>
+                                    <FormControl>
+                                        <div className="select-wrapper" {...field}>
+                                            <TimezonePicker />
+                                        </div>
+                                    </FormControl>
+                                    <FormDescription className="mt-2 text-sm text-gray-500">
+                                        Choose a time zone for your course
+                                    </FormDescription>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="courseType"
+                            render={({ field }) => (
+                                <FormItem className="flex flex-col">
+                                    <FormLabel className="mb-2 text-lg">Course Type</FormLabel>
+                                    <FormControl>
+                                        <Input {...field} className="border rounded" />
+                                    </FormControl>
+                                    <FormDescription className="mt-2 text-sm text-gray-500">
+                                        Enter the type of course you are interested in.
+                                    </FormDescription>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="experienceLevel"
+                            render={({ field }) => (
+                                <FormItem className="flex flex-col">
+                                    <FormLabel className="mb-2 text-lg">Experience Level</FormLabel>
+                                    <FormControl>
+                                        <RadioGroup
+                                            onValueChange={field.onChange} // Handle value change
+                                            defaultValue={field.value} // Default value
+                                            className="flex flex-col space-y-1"
+                                        >
+                                            {["Beginner", "Intermediate", "Advanced", "Expert", "Master"].map((level) => (
+                                                <FormItem key={level} className="flex items-center space-x-3 space-y-0">
+                                                    <FormControl>
+                                                        <RadioGroupItem value={level} />
+                                                    </FormControl>
+                                                    <FormLabel className="font-normal">{level}</FormLabel>
+                                                </FormItem>
+                                            ))}
+                                        </RadioGroup>
+                                    </FormControl>
+                                    <FormDescription className="mt-2 text-sm text-gray-500">
+                                        Choose your experience level
+                                    </FormDescription>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                    </div>
+                    <div className="flex gap-2">
+                        <Button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white p-2 rounded">Submit</Button>
+                        <Link href="/tutor/dashboard">
+                            <Button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white p-2 rounded">Back</Button>
+                        </Link>
+                    </div>
 
-            </form>
-        </Form>
+                </form>
+            </Form>
+        </div>
     );
 };
 
