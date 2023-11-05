@@ -152,46 +152,48 @@ export const Interview_Feedback = gql`
 
 
 export const ADD_COURSE = gql`
-  mutation AddCourse(
-    $name: String!
-    $description: String
-    $comments: [String!]
-    $thumbnail: String
-    $studentIds: [String!]
-    $tutorIds: [String!]
-    $price: Int
-    $tags: [String!]
-
-  ) {
-    addCourse(
-      name: $name
-      description: $description
-      comments: $comments
-      thumbnail: $thumbnail
-      studentId: $studentIds
-      tutorId: $tutorIds
-      price: $price
-      tags: $tags
+    mutation AddCourse(
+        $name: String!
+        $description: String
+        $comments: [String!]
+        $thumbnail: String
+        $studentIds: [String!]
+        $tutorIds: [String!]
+        $price: Int
+        $tags: [String!]
+        $status: String
     ) {
-      id
-      name
-      description
-      comments
-      thumbnail
-      students {
-        id
-        name
-      }
-      studentId
-      tutors {
-        id
-        name
-      }
-      tutorId
-      price
-      tags
+        addCourse(
+            name: $name
+            description: $description
+            comments: $comments
+            thumbnail: $thumbnail
+            studentId: $studentIds
+            tutorId: $tutorIds
+            price: $price
+            tags: $tags
+            status: $status
+        ) {
+            id
+            name
+            description
+            comments
+            thumbnail
+            students {
+                id
+                name
+            }
+            studentId
+            tutors {
+                id
+                name
+            }
+            tutorId
+            price
+            tags
+            status
+        }
     }
-  }
 `;
 
 export const DELETE_COURSE = gql`

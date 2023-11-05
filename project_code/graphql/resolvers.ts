@@ -191,7 +191,6 @@ export const resolvers = {
             const identity = await context.prisma.identity.findUnique({
                 where: { email: args.email, },
             });
-            console.log(identity);
             if (!identity) {
                 throw new Error('No user found with this email!');
             }
@@ -359,6 +358,9 @@ export const resolvers = {
 
 
         addCourse: async (_parent: any, args: any, context: Context) => {
+
+            const status = args.status ==="approve" ? "approve" : "pending";
+
             return context.prisma.course.create({
                 data: {
                     name: args.name,
@@ -366,6 +368,7 @@ export const resolvers = {
                     tags: args.tags,
                     thumbnail: args.thumbnail,
                     price: args.price,
+                    status: status,
                 },
             });
         },

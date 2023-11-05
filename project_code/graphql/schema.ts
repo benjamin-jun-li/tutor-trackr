@@ -60,6 +60,7 @@ type PasswordResetResponse {
     tutorId: [String]
     price: Int
     tags: [String]
+    status: String
   }
 
 
@@ -196,7 +197,7 @@ type PasswordResetResponse {
       courseCanTeach: String, professionalBio: String
     ) : TutorProfile
     addCourse(name: String!, description: String, comments: [String], 
-      thumbnail: String, studentId: [String], tutorId: [String], price: Int, tags: [String]
+      thumbnail: String, studentId: [String], tutorId: [String], price: Int, tags: [String],status: String
     ) : Course
     deleteCourse(id: ID!): Course
     deleteStudent(id: ID!): Student
