@@ -72,6 +72,7 @@ export const GET_COURSE = gql`
                 email
             }
             tags
+            price
         }
     }
 `
@@ -120,6 +121,7 @@ export const GET_COURSES = gql`
       }
         tags
         status
+        price
     }
   }
 `;

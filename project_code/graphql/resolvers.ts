@@ -77,27 +77,22 @@ export const resolvers = {
                     id: args.id,
                 },
                 include: {
-                    students: {
-                        select: {
-                            id: true,
-                            name: true,
-                            email: true
-                        }
-                    },
-                    tutors: {
-                        select: {
-                            id: true,
-                            name: true,
-                            email: true
-                        }
-                    }
+                    students: true,
+                    tutors: true
                 }
             });
         },
 
         //get course list
         courses: async (_parent: any, args: any, context: Context) => {
-            return context.prisma.course.findMany();
+            return context.prisma.course.findMany(
+                {
+                    include:{
+                        students: true,
+                        tutors: true
+                    }
+                }
+            );
         },
 
         //get student list
