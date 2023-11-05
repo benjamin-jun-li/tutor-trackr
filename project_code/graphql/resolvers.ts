@@ -378,6 +378,7 @@ export const resolvers = {
                     thumbnail: args.thumbnail,
                     price: args.price,
                     status: status,
+                    tutorId: args.tutorId,
                 },
             });
         },
