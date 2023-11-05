@@ -3,13 +3,13 @@ import { useQuery } from "@apollo/client";
 import {GET_COURSES} from "@/graphql/queries";
 import Link from "next/link";
 
-interface Courses {
-    id: string;
-    courseName: string;
-    email: string;
-    name: string;
-    status: string; // Assuming status is a string that can be 'approved' or 'rejected'
-}
+// interface Courses {
+//     id: string;
+//     courseName: string;
+//     email: string;
+//     name: string;
+//     status: string; // Assuming status is a string that can be 'approved' or 'rejected'
+// }
 
 
 const ApplicationList: React.FC = () => {
@@ -17,7 +17,7 @@ const ApplicationList: React.FC = () => {
         fetchPolicy: 'network-only',
     });
 
-    console.log(data?.courses);
+    console.log(data?.courses.map((course: any) => course.tags));
 
     if (!loading && !data?.courses) {
         return (
