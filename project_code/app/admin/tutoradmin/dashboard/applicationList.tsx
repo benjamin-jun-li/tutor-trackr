@@ -1,6 +1,6 @@
 "use client"
 import { useQuery } from "@apollo/client";
-import {GET_APPLICATION, GET_COURSES} from "@/graphql/queries";
+import {GET_COURSES} from "@/graphql/queries";
 import Link from "next/link";
 
 interface Courses {
@@ -22,7 +22,7 @@ const ApplicationList: React.FC = () => {
     if (!loading && !data?.courses) {
         return (
             <section className="p-6 bg-gray-100 dark:bg-gray-900">
-                <h2 className="text-xl font-extrabold leading-none tracking-tight mb-5 text-gray-900 md:text-2xl lg:text-3xl dark:text-white">Tutor Application Table</h2>
+                <h2 className="text-xl font-extrabold leading-none tracking-tight mb-5 text-gray-900 md:text-2xl lg:text-3xl dark:text-white">New Course Table</h2>
                 <p>No data available.</p>
             </section>
         );
@@ -30,7 +30,7 @@ const ApplicationList: React.FC = () => {
 
     return (
         <section className="w-full p-2">
-            <h2 className="text-xl font-extrabold leading-none tracking-tight mb-5 text-gray-900 md:text-2xl lg:text-3xl dark:text-white">Tutor Application Table</h2>
+            <h2 className="text-xl font-extrabold leading-none tracking-tight mb-5 text-gray-900 md:text-2xl lg:text-3xl dark:text-white">New Course Table</h2>
             {data?.courses ? (
                 <div className="relative overflow-x-auto shadow-md sm:rounded-lg bg-white dark:bg-gray-800">
                     <table className="min-w-full text-sm text-left">
@@ -44,7 +44,7 @@ const ApplicationList: React.FC = () => {
                         </thead>
                         <tbody>
                             {data.courses
-                                .filter((course: { status: string; }) => course.status === 'pending')
+                                .filter((course: { status: string; }) => course.status === 'Pending')
                                 .map((course: any) => (
                                 <tr key={course.id} className="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                     <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{course.name}</th>

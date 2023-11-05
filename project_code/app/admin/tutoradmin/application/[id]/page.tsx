@@ -4,14 +4,17 @@ import {useMutation, useQuery} from "@apollo/client";
 import { useParams } from "next/navigation";
 import {Button} from "@/components/ui/button";
 import Link from "next/link";
-import {Approval_Application, Reject_Application} from "@/graphql/mutations";
+import {
+    Approval_Course_Application,
+    Reject_Course_Application
+} from "@/graphql/mutations";
 import {useEffect, useState} from "react";
 
 const ApplicationPage = () => {
     const param = useParams();
     const course = useQuery(GET_COURSE, { variables: { id: param?.id } });
-    const [acceptApplication, {data:acceptData,loading:acceptLoading,error:acceptError}] = useMutation(Approval_Application);
-    const [rejectApplication, {data:rejectData,loading:rejectLoading,error:rejectError}] = useMutation(Reject_Application);
+    const [acceptApplication, {data:acceptData,loading:acceptLoading,error:acceptError}] = useMutation(Approval_Course_Application);
+    const [rejectApplication, {data:rejectData,loading:rejectLoading,error:rejectError}] = useMutation(Reject_Course_Application);
 
     const appDetails = course?.data?.course;
     const [status, setStatus] = useState(appDetails?.status);
@@ -29,7 +32,7 @@ const ApplicationPage = () => {
     const handleAcceptClick = async () => {
         await acceptApplication({
             variables: {
-                id: appDetails?.id,
+                id: param?.id,
             },
         }).then(() => {
             alert("Application accepted successfully!")
@@ -40,7 +43,7 @@ const ApplicationPage = () => {
     const handleRejectClick = async () => {
         await rejectApplication({
             variables: {
-                id: appDetails?.id,
+                id: param?.id,
             },
         }).then(() => {
             alert("Application rejected successfully!")
