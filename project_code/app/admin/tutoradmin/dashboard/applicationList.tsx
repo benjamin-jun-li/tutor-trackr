@@ -42,14 +42,19 @@ const ApplicationList: React.FC = () => {
                                 <th scope="col" className="px-6 py-3 text-center">Actions</th>
                             </tr>
                         </thead>
+
                         <tbody>
                             {data.courses
                                 .filter((course: { status: string; }) => course.status === 'Pending')
                                 .map((course: any) => (
                                 <tr key={course.id} className="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                     <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{course.name}</th>
-                                    <td className="px-6 py-4">{course?.tutors?.email}</td>
-                                    <td className="px-6 py-4">{course?.tutors?.name}</td>
+                                    <td className="px-6 py-4">  {course?.tutors?.map((tutor: any, index: number) => (
+                                        <p key={tutor.id}> {tutor.email}</p>
+                                    ))}</td>
+                                    <td className="px-6 py-4">{course?.tutors?.map((tutor: any, index: number) => (
+                                        <p key={tutor.id}> {tutor.name}</p>
+                                    ))}</td>
                                     <td className="px-6 py-4 text-center">
                                     <Link className="font-medium text-blue-600 dark:text-blue-500 hover:underline" href={`/admin/tutoradmin/application/${course.id}/`}>
                                         More
