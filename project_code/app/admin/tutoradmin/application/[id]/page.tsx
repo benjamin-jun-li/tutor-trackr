@@ -55,10 +55,18 @@ const ApplicationPage = () => {
         <div className="flex flex-col items-center">
             <main className="p-5 bg-white shadow-lg rounded-lg w-full max-w-2xl">
                 <div className="mb-4">
-                    <span className="font-semibold">Name:</span> {appDetails?.tutors?.name}
+                    <span className="font-semibold">Name:</span> {appDetails?.tutors?.map(
+                    (tutor: any, index: number) => (
+                        <p key={tutor.id}> {tutor.name}</p>
+                    )
+                )}
                 </div>
                 <div className="mb-4">
-                    <span className="font-semibold">Email:</span> {appDetails?.tutors?.email}
+                    <span className="font-semibold">Email:</span> {appDetails?.tutors?.map(
+                    (tutor: any, index: number) => (
+                        <p key={tutor.id}> {tutor.email}</p>
+                    )
+                )}
                 </div>
                 <div className="mb-4">
                     <span className="font-semibold">Course Name:</span> {appDetails?.name}
