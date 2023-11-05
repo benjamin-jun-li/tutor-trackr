@@ -96,122 +96,120 @@ const NewCourseForm: React.FC = () => {
 
 
     return (
-        <div className="mt-10 p-4 bg-white shadow-md rounded-lg">
-            <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+                <FormField
+                    control={form.control}
+                    name="courses"
+                    render={({ field }) => (
+                        <FormItem className="flex flex-col">
+                            <FormLabel className="mb-2 text-lg">Courses</FormLabel>
+                            <FormControl>
+                                <Input {...field} className="border rounded" />
+                            </FormControl>
+                            <FormDescription className="mt-2 text-sm text-gray-500">
+                                Enter the course you are interested in.
+                            </FormDescription>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+                <FormField
+                    control={form.control}
+                    name="thumbnail"
+                    render={({ field }) => (
+                        <FormItem className="flex flex-col">
+                            <FormLabel className="mb-2 text-lg">Thumbnail URL</FormLabel>
+                            <FormControl>
+                                <Input {...field} className="border rounded" />
+                            </FormControl>
+                            <FormDescription className="mt-2 text-sm text-gray-500">
+                                Enter the URL of the course thumbnail image.
+                            </FormDescription>
+                        </FormItem>
+                    )}
+                />
+                <FormField
+                    control={form.control}
+                    name="description"
+                    render={({ field }) => (
+                        <FormItem className="flex flex-col">
+                            <FormLabel className="mb-2 text-lg">Description</FormLabel>
+                            <FormControl>
+                                <Input {...field} className="border p-2 rounded h-32"/>
+                            </FormControl>
+                            <FormDescription className="mt-2 text-sm text-gray-500">
+                                Describe the course details
+                            </FormDescription>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+                <FormField
+                    control={form.control}
+                    name="price"
+                    render={({ field }) => (
+                        <FormItem className="flex flex-col">
+                            <FormLabel className="mb-2 text-lg">Price</FormLabel>
+                            <FormControl>
+                                <Input type="number" {...field} className="border rounded"/>
+                            </FormControl>
+                            <FormDescription className="mt-2 text-sm text-gray-500">
+                                Describe the course details
+                            </FormDescription>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+                <div className="space-y-4">
                     <FormField
                         control={form.control}
-                        name="courses"
+                        name="timeZone"
                         render={({ field }) => (
                             <FormItem className="flex flex-col">
-                                <FormLabel className="mb-2 text-lg">Courses</FormLabel>
+                                <FormLabel className="mb-2 text-lg">Time Zone</FormLabel>
+                                <FormControl>
+                                    <div className="select-wrapper" {...field}>
+                                        <TimezonePicker />
+                                    </div>
+                                </FormControl>
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
+                        control={form.control}
+                        name="courseType"
+                        render={({ field }) => (
+                            <FormItem className="flex flex-col">
+                                <FormLabel className="mb-2 text-lg">Course Type</FormLabel>
                                 <FormControl>
                                     <Input {...field} className="border rounded" />
                                 </FormControl>
-                                <FormDescription className="mt-2 text-sm text-gray-500">
-                                    Enter the course you are interested in.
-                                </FormDescription>
-                                <FormMessage />
                             </FormItem>
                         )}
                     />
                     <FormField
                         control={form.control}
-                        name="thumbnail"
+                        name="experienceLevel"
                         render={({ field }) => (
                             <FormItem className="flex flex-col">
-                                <FormLabel className="mb-2 text-lg">Thumbnail URL</FormLabel>
+                                <FormLabel className="mb-2 text-lg">Experience Level</FormLabel>
                                 <FormControl>
                                     <Input {...field} className="border rounded" />
                                 </FormControl>
-                                <FormDescription className="mt-2 text-sm text-gray-500">
-                                    Enter the URL of the course thumbnail image.
-                                </FormDescription>
                             </FormItem>
                         )}
                     />
-                    <FormField
-                        control={form.control}
-                        name="description"
-                        render={({ field }) => (
-                            <FormItem className="flex flex-col">
-                                <FormLabel className="mb-2 text-lg">Description</FormLabel>
-                                <FormControl>
-                                    <Input {...field} className="border p-2 rounded h-32"/>
-                                </FormControl>
-                                <FormDescription className="mt-2 text-sm text-gray-500">
-                                    Describe the course details
-                                </FormDescription>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <FormField
-                        control={form.control}
-                        name="price"
-                        render={({ field }) => (
-                            <FormItem className="flex flex-col">
-                                <FormLabel className="mb-2 text-lg">Price</FormLabel>
-                                <FormControl>
-                                    <Input type="number" {...field} className="border rounded"/>
-                                </FormControl>
-                                <FormDescription className="mt-2 text-sm text-gray-500">
-                                    Describe the course details
-                                </FormDescription>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <div className="space-y-4">
-                        <FormField
-                            control={form.control}
-                            name="timeZone"
-                            render={({ field }) => (
-                                <FormItem className="flex flex-col">
-                                    <FormLabel className="mb-2 text-lg">Time Zone</FormLabel>
-                                    <FormControl>
-                                        <div className="select-wrapper" {...field}>
-                                            <TimezonePicker />
-                                        </div>
-                                    </FormControl>
-                                </FormItem>
-                            )}
-                        />
-                        <FormField
-                            control={form.control}
-                            name="courseType"
-                            render={({ field }) => (
-                                <FormItem className="flex flex-col">
-                                    <FormLabel className="mb-2 text-lg">Course Type</FormLabel>
-                                    <FormControl>
-                                        <Input {...field} className="border rounded" />
-                                    </FormControl>
-                                </FormItem>
-                            )}
-                        />
-                        <FormField
-                            control={form.control}
-                            name="experienceLevel"
-                            render={({ field }) => (
-                                <FormItem className="flex flex-col">
-                                    <FormLabel className="mb-2 text-lg">Experience Level</FormLabel>
-                                    <FormControl>
-                                        <Input {...field} className="border rounded" />
-                                    </FormControl>
-                                </FormItem>
-                            )}
-                        />
-                    </div>
-                    <div className="flex gap-2">
-                        <Button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white p-2 rounded">Submit</Button>
-                        <Link href="/tutor/dashboard">
-                            <Button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white p-2 rounded">Back</Button>
-                        </Link>
-                    </div>
+                </div>
+                <div className="flex gap-2">
+                    <Button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white p-2 rounded">Submit</Button>
+                    <Link href="/tutor/dashboard">
+                        <Button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white p-2 rounded">Back</Button>
+                    </Link>
+                </div>
 
-                </form>
-            </Form>
-        </div>
+            </form>
+        </Form>
     );
 };
 
