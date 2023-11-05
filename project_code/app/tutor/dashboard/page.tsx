@@ -10,7 +10,7 @@ const DashboardPage = () => {
     return (
         <section className="grid grid-cols-8 gap-4 mt-[8rem] px-6">
             <div className="col-span-5">
-                <CourseList role={"tutor"}/>
+                <CourseList role={"tutor"} />
             </div>
             <div className="col-span-3">
                 <AppointmentTable />
