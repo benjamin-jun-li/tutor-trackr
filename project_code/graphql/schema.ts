@@ -202,7 +202,7 @@ type PasswordResetResponse {
     deleteCourse(id: ID!): Course
     deleteStudent(id: ID!): Student
       deleteTutor(id: ID!): Tutor
-     addApplication(name: String, email: String, courseName: String,description:String) : TutorApplication
+     addApplication(name: String, email: String, courseName: String,description:String,appointmentDate:String) : TutorApplication
     addInterview(name: String, email: String, courseName: String, date: String
     ) : Interview
     registerCourseForStudent(studentId: ID!, courseId: ID!): RegisterCourse

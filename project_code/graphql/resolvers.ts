@@ -273,7 +273,7 @@ export const resolvers = {
 
         // add user
         addStudent: async (_parent: any, args: any, context: Context) => {
-            return context.prisma.student.create({
+            const student = await context.prisma.student.create({
                 data: {
                     name: args.name,
                     email: args.email,
@@ -285,8 +285,13 @@ export const resolvers = {
                         }
                     },
                 },
+                select: {
+                    id: true // This will only return the id of the student
+                }
             });
+            return student; // This will return an object with only the student's id, e.g., { id: "some-id" }
         },
+
 
         // add tutor
         addTutor: async (_parent: any, args: any, context: Context) => {
