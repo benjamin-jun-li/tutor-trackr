@@ -19,7 +19,6 @@ import {
     FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import {Course_type} from "@/app/student/dashboard/page";
 import {useRouter} from "next/navigation";
 import Link from "next/link";
@@ -30,8 +29,8 @@ type FormData = {
 };
 
 const formSchema = z.object({
-    courses: z.string(),
-    coverLetter: z.string(),
+    courses: z.string().min(1).max(100),
+    coverLetter: z.string().min(1).max(1000),
 });
 
 
@@ -86,22 +85,11 @@ const TutorInterviewPage: React.FC = () => {
                         render={({ field }) => (
                             <FormItem className="flex flex-col">
                                 <FormLabel className="mb-2 text-lg">Courses</FormLabel>
-                                <RadioGroup
-                                    onValueChange={field.onChange}
-                                    defaultValue={field.value}
-                                    className="flex flex-col space-y-2"
-                                >
-                                    {data?.courses?.map((course: Course_type) => (
-                                        <FormItem key={course.id} className="flex items-center space-x-3">
-                                            <FormControl>
-                                                <RadioGroupItem value={course.name} />
-                                            </FormControl>
-                                            <FormLabel className="font-normal">{course.name}</FormLabel>
-                                        </FormItem>
-                                    ))}
-                                </RadioGroup>
+                                <FormControl>
+                                    <Input {...field} className="border rounded" />
+                                </FormControl>
                                 <FormDescription className="mt-2 text-sm text-gray-500">
-                                    Select the course you are interested in.
+                                    Enter the course you are interested in.
                                 </FormDescription>
                                 <FormMessage />
                             </FormItem>
