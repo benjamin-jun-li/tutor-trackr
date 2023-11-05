@@ -108,6 +108,7 @@ type PasswordResetResponse {
     interview: Interview
     description: String
     status:String
+    appointmentDate:String
   }
 
   type Interview {
