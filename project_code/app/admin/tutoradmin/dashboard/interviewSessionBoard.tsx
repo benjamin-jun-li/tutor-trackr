@@ -9,7 +9,7 @@ const InterviewBoard = () => {
         return (
             <section>
                 <h2 className="text-xl font-extrabold leading-none tracking-tight
-            text-gray-900 md:text-2xl lg:text-3xl dark:text-white">Tutor Interview Board</h2>
+            text-gray-900 md:text-2xl lg:text-3xl dark:text-white">Tutor Application Board</h2>
                 <p className="flex justify-center">No data available</p>
             </section>
         )
@@ -17,7 +17,7 @@ const InterviewBoard = () => {
     return (
         <section className="w-full p-2">
             <h2 className="text-xl my-2 font-extrabold leading-none tracking-tight
-            text-gray-900 md:text-2xl lg:text-3xl dark:text-white">Tutor Interview Board</h2>
+            text-gray-900 md:text-2xl lg:text-3xl dark:text-white">Tutor Application Board</h2>
             { interviews?.data ? (
                 <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
                     <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">

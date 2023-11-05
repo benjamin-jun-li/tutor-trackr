@@ -52,7 +52,7 @@ const CourseList: FC<CourseListProps> = ({ role, filters }) => {
             col-span-2 flex flex-col justify-center items-center space-y-2">
                 <div className="grid grid-cols-3 gap-4">
                     {filteredCourses
-                        .filter((course: { status: string; }) => course.status === 'approve')
+                        .filter((course: { status: string; }) => course.status === 'Approved')
                         .map((course: Course_type) => (
                         <div
                             id={course.id}
