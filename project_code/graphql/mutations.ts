@@ -158,7 +158,7 @@ export const ADD_COURSE = gql`
         $comments: [String!]
         $thumbnail: String
         $studentIds: [String!]
-        $tutorIds: [String!]
+        $tutorId: [String!]
         $price: Int
         $tags: [String!]
         $status: String
@@ -169,7 +169,7 @@ export const ADD_COURSE = gql`
             comments: $comments
             thumbnail: $thumbnail
             studentId: $studentIds
-            tutorId: $tutorIds
+            tutorId: $tutorId
             price: $price
             tags: $tags
             status: $status
