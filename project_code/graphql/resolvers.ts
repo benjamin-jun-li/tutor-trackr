@@ -372,6 +372,14 @@ export const resolvers = {
 
         deleteCourse: async (_parent: any, args: any, context: Context) => {
             try {
+                await context.prisma.registerCourse.deleteMany({
+                    where: { courseId: args.id },
+                });
+
+                await context.prisma.tutorAvailability.deleteMany({
+                    where: { courseId: args.id },
+                });
+
                 return context.prisma.course.delete({
                     where: {
                         id: args.id,
@@ -389,6 +397,8 @@ export const resolvers = {
                         id: args.id,
                     }
                 });
+
+
 
                 if (student) {
                     await context.prisma.studentProfile.delete({
@@ -422,8 +432,12 @@ export const resolvers = {
                 if (tutor) {
                     await context.prisma.tutorProfile.delete({
                         where: {
-                            tutorId: tutor.id
+                            tutorId: args.id
                         }
+                    });
+
+                    await context.prisma.tutorAvailability.deleteMany({
+                        where: { tutorId: args.id },
                     });
 
                     return await context.prisma.tutor.delete({
