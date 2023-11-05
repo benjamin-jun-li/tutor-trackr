@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 const AppointmentTable = () => {
     return (
         <section className="shadow-md sm:rounded-lg">
@@ -19,7 +17,6 @@ const AppointmentTable = () => {
                 </tr>
                 </thead>
                 <tbody>
-                <Link href="tutor/appointment/">
                     <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                         <th scope="row" className="py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             Apple
@@ -31,7 +28,6 @@ const AppointmentTable = () => {
                             Laptop
                         </td>
                     </tr>
-                </Link>
                 </tbody>
             </table>
         </section>

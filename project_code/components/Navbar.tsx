@@ -20,8 +20,7 @@ const Navbar = () => {
 
   const pathname = usePathname();
 
-  const isAdminPage =
-      pathname?.includes('/siteadmin/') ?? pathname?.includes('/tutoradmin/');
+  const isAdminPage = pathname?.includes('/siteadmin/') ?? pathname?.includes('/tutoradmin/');
   const isTutorPage = pathname?.startsWith('/tutor/');
   const isStudentPage = pathname?.startsWith('/student/');
 
@@ -43,14 +42,14 @@ const Navbar = () => {
   };
 
   return (
-      <aside className="navbar bg-base-100 fixed w-full z-10 top-0">
-        <section className="navbar-start">
+      <aside className="navbar justify-between bg-base-100 fixed z-10 top-0">
+        <section className="">
           <div>{handleLogo()}</div>
         </section>
-        <section className="navbar-center">
+        <section className="">
           <h2 className="text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-white">TutorTrackr</h2>
         </section>
-        <section className="navbar-end">{renderContent()}</section>
+        <section className="">{renderContent()}</section>
       </aside>
   );
 };

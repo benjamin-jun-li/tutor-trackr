@@ -1,6 +1,7 @@
 import { Metadata } from "next"
 import AppointmentTable from "@/app/tutor/dashboard/appointmentTable";
 import DashboardComponent from "@/components/dashboard/DashboardComponent";
+import CourseTab from "@/app/tutor/dashboard/courseTab";
 export const metadata: Metadata = {
     title: "Tutor Dashboard",
     description: "Tutor interface",
@@ -14,6 +15,7 @@ const DashboardPage = () => {
             </div>
             <div className="col-span-3">
                 <AppointmentTable />
+                <CourseTab />
             </div>
         </section>
     )
