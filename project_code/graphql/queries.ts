@@ -131,7 +131,7 @@ export const GET_StudentList = gql`
         email
         name
         courses {
-          id
+            id
           name
         }
     }
