@@ -472,6 +472,7 @@ export const resolvers = {
                     email: args.email,
                     courseName: args.courseName,
                     description: args.description,
+                    appointmentDate: args.appointmentDate
                 },
             });
         },
