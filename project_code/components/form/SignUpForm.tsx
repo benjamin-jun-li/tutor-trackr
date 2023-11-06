@@ -79,7 +79,7 @@ const SignUpForm = () => {
                   password: values.password,
               },
           });
-          if (res.data?.addStudent?.email) {
+          if (res.data?.addStudent?.id) {
               const userId = res.data?.addStudent?.id;
               setters.setEmail(values.email);
               setters.setName(values.username);
@@ -98,7 +98,7 @@ const SignUpForm = () => {
                   password: values.password,
               },
           });
-          if (res.data?.addTutor?.email) {
+          if (res.data?.addTutor?.id) {
               const userId = res.data?.addTutor?.id;
               setters.setEmail(values.email);
               setters.setName(values.username);
