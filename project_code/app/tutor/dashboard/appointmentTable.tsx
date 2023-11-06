@@ -17,17 +17,17 @@ const AppointmentTable = () => {
                 </tr>
                 </thead>
                 <tbody>
-                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                    <th scope="row" className="py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        Apple
-                    </th>
-                    <td className="py-4">
-                        Silver
-                    </td>
-                    <td className="py-4">
-                        Laptop
-                    </td>
-                </tr>
+                    <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                        <th scope="row" className="py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            Apple
+                        </th>
+                        <td className="py-4">
+                            Silver
+                        </td>
+                        <td className="py-4">
+                            Laptop
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </section>

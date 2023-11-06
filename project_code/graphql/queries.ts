@@ -56,21 +56,23 @@ export const Auth_TutorAdmin = gql`
 export const GET_COURSE = gql`
     query Course($id: String!) {
         course(id: $id) {
-          name
-          description
-          comments
-          thumbnail
-          students {
             name
-            email
-            id
-          }
-          tutors {
-            id
-            name
-            email
-          }
+            description
+            comments
+            thumbnail
+            status
+            students {
+                name
+                email
+                id
+            }
+            tutors {
+                id
+                name
+                email
+            }
             tags
+            price
         }
     }
 `
@@ -118,6 +120,8 @@ export const GET_COURSES = gql`
         email
       }
         tags
+        status
+        price
     }
   }
 `;
@@ -129,7 +133,7 @@ export const GET_StudentList = gql`
         email
         name
         courses {
-          id
+            id
           name
         }
     }

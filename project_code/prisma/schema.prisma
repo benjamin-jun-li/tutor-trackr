@@ -8,12 +8,12 @@ datasource db {
 }
 
 model Student {
-  id       String          @id @default(auto()) @map("_id") @db.ObjectId
+  id       String           @id @default(auto()) @map("_id") @db.ObjectId
   name     String
-  email    String          @unique
+  email    String           @unique
   password String
-  courses  Course[]        @relation(fields: [courseId], references: [id])
-  courseId String[]        @db.ObjectId
+  courses  Course[]         @relation(fields: [courseId], references: [id])
+  courseId String[]         @db.ObjectId
   profile  StudentProfile?
   register RegisterCourse[]
 }
@@ -57,6 +57,7 @@ model Course {
   price          Int                 @default(100)
   availabilities TutorAvailability[]
   register       RegisterCourse[]
+  status         String?
 }
 
 model TutorAvailability {
@@ -123,17 +124,18 @@ model Interview {
 }
 
 model Appointment {
-  id           String  @id @default(auto()) @map("_id") @db.ObjectId
-  courseName   String?
-  tutorName    String?
-  tutorEmail   String?
-  studentName  String?
-  studentEmail String?
-  duration     Int     @default(1)
-  date         String?
-  startTime    String?
-  endTime      String?
-  status       String?
+  id              String  @id @default(auto()) @map("_id") @db.ObjectId
+  courseName      String?
+  tutorName       String?
+  tutorEmail      String?
+  studentName     String?
+  studentEmail    String?
+  duration        Int     @default(1)
+  date            String?
+  startTime       String?
+  endTime         String?
+  status          String?
+  appointmentDate String?
 }
 
 model RegisterCourse {
@@ -145,7 +147,6 @@ model RegisterCourse {
   date      DateTime
   status    String
 }
-
 
 model Identity {
   id       String   @id @default(auto()) @map("_id") @db.ObjectId

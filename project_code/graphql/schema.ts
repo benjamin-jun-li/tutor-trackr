@@ -3,10 +3,10 @@ export const typeDefs = `#graphql
 union UserByEmail = Student | Tutor | SiteAdmin | TutorAdmin
 
 enum UserType {
-  Student
-  Tutor
-  SiteAdmin
-  TutorAdmin
+    Student
+    Tutor
+    SiteAdmin
+    TutorAdmin
 }
 
 type PasswordResetResponse {
@@ -14,66 +14,67 @@ type PasswordResetResponse {
     message: String
 }
 
-  type Student {
+type Student {
     id:    ID!
     name: String
-    email: String 
+    email: String
     password: String
     courses: [Course]
     profile: StudentProfile
-  }
+}
 
-  type Tutor {
+type Tutor {
     id:    ID!
     name: String
-    email: String 
+    email: String
     password: String
     courses: [Course]
     profile: TutorProfile
-  }
+}
 
-  type SiteAdmin {
+type SiteAdmin {
     id:    ID!
     name: String
-    email: String 
+    email: String
     password: String
-  }
+}
 
 
-  type TutorAdmin {
+type TutorAdmin {
     id:    ID!
     name: String
-    email: String 
+    email: String
     password: String
-  }
-  
+}
 
-  type Course {
+
+type Course {
     id:   ID!
     name: String
     description: String
     comments: [String]
     thumbnail: String
-    students: [Student]  
+    students: [Student]
     studentId: [String]
     tutors: [Tutor]
     tutorId: [String]
     price: Int
     tags: [String]
-  }
+    status: String
+}
 
 
-  type TutorAvailability {
-    id:        ID!   
-    tutor:      Tutor    
-    tutorId:    [String] 
-    course:     Course   
-    courseId:   [String]  
+type TutorAvailability {
+    id:        ID!
+    tutor:      Tutor
+    tutorId:    [String]
+    course:     Course
+    courseId:   [String]
     startTime:  String
     endTime:    String
-  }
+}
 
-  type StudentProfile {
+type StudentProfile {
     id: ID!
     thumbnail: String
     email: String
@@ -83,9 +84,9 @@ type PasswordResetResponse {
     timeZone: String
     biography: String
     accountBalance: Int
-  }
+}
 
-  type TutorProfile {
+type TutorProfile {
     id: ID!
     thumbnail: String
     email: String
@@ -97,9 +98,9 @@ type PasswordResetResponse {
     professionalBio:String
     experienceSummary: String
     courseCanTeach: String
-  }
+}
 
-  type TutorApplication {
+type TutorApplication {
     id: ID!
     name: String
     email: String
@@ -107,9 +108,10 @@ type PasswordResetResponse {
     interview: Interview
     description: String
     status:String
-  }
+    appointmentDate:String
+}
 
-  type Interview {
+type Interview {
     id: ID!
     name: String
     email: String
@@ -119,9 +121,9 @@ type PasswordResetResponse {
     applicationId: String
     status:String
     description: String
-  }
+}
 
-  type Appointment {
+type Appointment {
     id: ID!
     courseName: String
     tutorName: String
@@ -132,10 +134,11 @@ type PasswordResetResponse {
     date: String
     startTime: String
     endTime: String
+    appointmentDate: String
     status:String
-  }
+}
 
-  type RegisterCourse {
+type RegisterCourse {
     id: ID!
     studentId: String
     student: Student
@@ -143,19 +146,19 @@ type PasswordResetResponse {
     course: Course
     date: String
     status: String
-  }
+}
 
-  type Identity {
+type Identity {
     id: ID!
     email: String!
     userType: UserType!
-  }
+}
 
 
- 
-  type Query {
+
+type Query {
     finduser(id: String): PasswordResetResponse
-	  student(email: String): Student
+    student(email: String): Student
     tutor(email: String): Tutor
     siteAdmin(email: String): SiteAdmin
     tutorAdmin(email: String): TutorAdmin
@@ -170,7 +173,7 @@ type PasswordResetResponse {
     getInterview: [Interview]
     getAppointments: [Appointment]
     filterCourses(
-      tags: [String!],
+        tags: [String!],
     ): [Course]
     getTutorAvailability(tutorId: String!,courseId:String!): TutorAvailability
     getUserType(email: String!): Identity
@@ -178,29 +181,32 @@ type PasswordResetResponse {
     getStudentInfo(tutorId: String!): [Course]
   }
 
-  type Mutation {
+type Mutation {
     approveApplication(id: ID!): TutorApplication
     rejectApplication(id: ID!): TutorApplication
-    interviewFeedback(id: ID!,description: String,status:String): Interview
+
+    approveCourseApplication(id: ID!): Course
+    rejectCourseApplication(id: ID!): Course
     
+    interviewFeedback(id: ID!,description: String,status:String): Interview
     addStudent (name:String, email:String, password:String) : Student
     addTutor (name:String, email:String, password:String) : Tutor
     updateStudentProfile(id: ID!,
-      email: String, thumbnail: String, username: String, phone: String,
-      address: String, timeZone: String, biography: String
+        email: String, thumbnail: String, username: String, phone: String,
+        address: String, timeZone: String, biography: String
     ) : StudentProfile
     updateTutorProfile(
-      email: String!, thumbnail: String, username: String, phone: String,
-      address: String, timeZone: String,  experienceSummary: String, 
-      courseCanTeach: String, professionalBio: String
+        email: String!, thumbnail: String, username: String, phone: String,
+        address: String, timeZone: String,  experienceSummary: String,
+        courseCanTeach: String, professionalBio: String
     ) : TutorProfile
-    addCourse(name: String!, description: String, comments: [String], 
-      thumbnail: String, studentId: [String], tutorId: [String], price: Int, tags: [String]
+    addCourse(name: String!, description: String, comments: [String],
+        thumbnail: String, studentId: [String], tutorId: [String], price: Int, tags: [String],status: String
     ) : Course
     deleteCourse(id: ID!): Course
     deleteStudent(id: ID!): Student
-      deleteTutor(id: ID!): Tutor
-     addApplication(name: String, email: String, courseName: String,description:String) : TutorApplication
+    deleteTutor(id: ID!): Tutor
+    addApplication(name: String, email: String, courseName: String,description:String,appointmentDate:String) : TutorApplication
     addInterview(name: String, email: String, courseName: String, date: String
     ) : Interview
     registerCourseForStudent(studentId: ID!, courseId: ID!): RegisterCourse
@@ -208,16 +214,17 @@ type PasswordResetResponse {
     payTheCourse(studentId: ID!, courseId: ID!): Course
     resetPassword(email: String!, password: String!): PasswordResetResponse
     addAppointment(
-      courseName: String,
-      tutorName: String,
-      tutorEmail: String,
-      studentName: String,
-      studentEmail: String,
-      duration: Int 
-      date: String
-      startTime: String
-      endTime: String
+        courseName: String,
+        tutorName: String,
+        tutorEmail: String,
+        studentName: String,
+        studentEmail: String,
+        duration: Int
+        date: String
+        startTime: String
+        endTime: String
+        appointmentDate: String
     ): Appointment
     addIdentity(email: String, userType: UserType): Identity
-  }
+}
 `;

@@ -140,6 +140,21 @@ export const Reject_Application = gql`
   }
 `
 
+export const Approval_Course_Application = gql`
+    mutation ApprovalApplication($id: ID!) {
+        approveCourseApplication(id: $id) {
+            status
+        }
+    }
+`
+export const Reject_Course_Application = gql`
+    mutation RejectApplication($id: ID!) {
+        rejectCourseApplication(id: $id) {
+            status
+        }
+    }
+`
+
 export const Interview_Feedback = gql`
     mutation interviewFeedback($id: ID!,$description: String!, $status: String!){
     interviewFeedback(id: $id, description: $description, status: $status) {
@@ -152,46 +167,48 @@ export const Interview_Feedback = gql`
 
 
 export const ADD_COURSE = gql`
-  mutation AddCourse(
-    $name: String!
-    $description: String
-    $comments: [String!]
-    $thumbnail: String
-    $studentIds: [String!]
-    $tutorIds: [String!]
-    $price: Int
-    $tags: [String!]
-
-  ) {
-    addCourse(
-      name: $name
-      description: $description
-      comments: $comments
-      thumbnail: $thumbnail
-      studentId: $studentIds
-      tutorId: $tutorIds
-      price: $price
-      tags: $tags
+    mutation AddCourse(
+        $name: String!
+        $description: String
+        $comments: [String!]
+        $thumbnail: String
+        $studentIds: [String!]
+        $tutorId: [String!]
+        $price: Int
+        $tags: [String!]
+        $status: String
     ) {
-      id
-      name
-      description
-      comments
-      thumbnail
-      students {
-        id
-        name
-      }
-      studentId
-      tutors {
-        id
-        name
-      }
-      tutorId
-      price
-      tags
+        addCourse(
+            name: $name
+            description: $description
+            comments: $comments
+            thumbnail: $thumbnail
+            studentId: $studentIds
+            tutorId: $tutorId
+            price: $price
+            tags: $tags
+            status: $status
+        ) {
+            id
+            name
+            description
+            comments
+            thumbnail
+            students {
+                id
+                name
+            }
+            studentId
+            tutors {
+                id
+                name
+            }
+            tutorId
+            price
+            tags
+            status
+        }
     }
-  }
 `;
 
 export const DELETE_COURSE = gql`
@@ -304,7 +321,8 @@ export const ADD_APPOINTMENT = gql`
     $studentName: String,
     $studentEmail: String,
     $startTime: String,
-    $endTime: String
+    $endTime: String,
+    $appointmentDate: String
   ) {
     addAppointment(
       courseName: $courseName,
@@ -312,8 +330,9 @@ export const ADD_APPOINTMENT = gql`
       tutorEmail: $tutorEmail,
       studentName: $studentName,
       studentEmail: $studentEmail,
-      startTime: $courseName
+      startTime: $startTime
       endTime: $endTime
+      appointmentDate: $appointmentDate
     ) {
       courseName
       tutorName
@@ -322,6 +341,7 @@ export const ADD_APPOINTMENT = gql`
       studentEmail
       startTime
       endTime
+      appointmentDate
     }
   }
 `;

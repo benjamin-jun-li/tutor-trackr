@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import DashboardComponent from "@/components/dashboard/DashboardComponent";
+import CourseTab from "@/app/tutor/dashboard/courseTab";
 
 export const metadata: Metadata = {
   title: "Student Dashboard",
@@ -16,7 +16,9 @@ export interface Course_type {
 }
 
 export default function DashboardPage() {
-  return (
-    <DashboardComponent />
-  );
+    return (
+        <section className="mt-[5rem]">
+            <CourseTab role={"student"}/>
+        </section>
+    );
 }

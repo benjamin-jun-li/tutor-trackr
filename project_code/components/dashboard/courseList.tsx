@@ -8,7 +8,7 @@ import Link from "next/link";
 import { Filters } from "@/components/dashboard/filters";
 
 interface CourseListProps {
-    role?: string;
+    role: string;
     filters?: Filters;
 }
 
@@ -20,26 +20,17 @@ const CourseList: FC<CourseListProps> = ({ role, filters }) => {
     }
 
     const filteredCourses = data.courses.filter((course: Course_type) => {
-        console.log(`Filtering course: ${course.name}`);
-        
         const lowerCaseTags = course.tags.map(tag => tag.toLowerCase());
-        console.log(`Course tags (lowercased):`, lowerCaseTags);
-        console.log(`Filters:`, filters);
     
         if (filters?.timeZone && !lowerCaseTags.includes(filters.timeZone.toLowerCase())) {
-            console.log('Rejected by timeZone');
             return false;
         }
         if (filters?.courseType && !lowerCaseTags.includes(filters.courseType.toLowerCase())) {
-            console.log('Rejected by courseType');
             return false;
         }
         if (filters?.experienceLevel && !lowerCaseTags.includes(filters.experienceLevel.toLowerCase())) {
-            console.log('Rejected by experienceLevel');
             return false;
         }
-    
-        console.log('Course accepted');
         return true;
     });
     
@@ -60,7 +51,9 @@ const CourseList: FC<CourseListProps> = ({ role, filters }) => {
             <div className="border-solid border-2 border-sky-400 rounded-md
             col-span-2 flex flex-col justify-center items-center space-y-2">
                 <div className="grid grid-cols-3 gap-4">
-                    {filteredCourses.map((course: Course_type) => (
+                    {filteredCourses
+                        .filter((course: { status: string; }) => course.status === 'Approved')
+                        .map((course: Course_type) => (
                         <div
                             id={course.id}
                             className="card card-compact bg-base-100 shadow-xl"

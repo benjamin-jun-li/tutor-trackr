@@ -77,27 +77,22 @@ export const resolvers = {
                     id: args.id,
                 },
                 include: {
-                    students: {
-                        select: {
-                            id: true,
-                            name: true,
-                            email: true
-                        }
-                    },
-                    tutors: {
-                        select: {
-                            id: true,
-                            name: true,
-                            email: true
-                        }
-                    }
+                    students: true,
+                    tutors: true
                 }
             });
         },
 
         //get course list
         courses: async (_parent: any, args: any, context: Context) => {
-            return context.prisma.course.findMany();
+            return context.prisma.course.findMany(
+                {
+                    include:{
+                        students: true,
+                        tutors: true
+                    }
+                }
+            );
         },
 
         //get student list
@@ -191,14 +186,12 @@ export const resolvers = {
             const identity = await context.prisma.identity.findUnique({
                 where: { email: args.email, },
             });
-            console.log(identity);
             if (!identity) {
                 throw new Error('No user found with this email!');
             }
             return identity;
         },
 
-        //UOOI-28
         getSuccessfulReservation: async (_parent: any, args: any, context: Context) => {
             const reservation = await context.prisma.appointment.findMany({
                 where: {
@@ -299,7 +292,7 @@ export const resolvers = {
 
         // add user
         addStudent: async (_parent: any, args: any, context: Context) => {
-            return context.prisma.student.create({
+            const student = await context.prisma.student.create({
                 data: {
                     name: args.name,
                     email: args.email,
@@ -311,12 +304,17 @@ export const resolvers = {
                         }
                     },
                 },
+                select: {
+                    id: true
+                }
             });
+            return student;
         },
+
 
         // add tutor
         addTutor: async (_parent: any, args: any, context: Context) => {
-            return context.prisma.tutor.create({
+            const tutor = await context.prisma.tutor.create({
                 data: {
                     name: args.name,
                     email: args.email,
@@ -328,7 +326,11 @@ export const resolvers = {
                         }
                     },
                 },
+                select: {
+                    id: true
+                }
             });
+            return tutor;
         },
 
         // update student profile
@@ -384,6 +386,9 @@ export const resolvers = {
 
 
         addCourse: async (_parent: any, args: any, context: Context) => {
+
+            const status = args.status ==="Approved" ? "Approved" : "Pending";
+
             return context.prisma.course.create({
                 data: {
                     name: args.name,
@@ -391,6 +396,8 @@ export const resolvers = {
                     tags: args.tags,
                     thumbnail: args.thumbnail,
                     price: args.price,
+                    status: status,
+                    tutorId: args.tutorId,
                 },
             });
         },
@@ -497,6 +504,7 @@ export const resolvers = {
                     email: args.email,
                     courseName: args.courseName,
                     description: args.description,
+                    appointmentDate: args.appointmentDate
                 },
             });
         },
@@ -514,6 +522,28 @@ export const resolvers = {
 
         rejectApplication: async (_parent: any, args: any, context: Context) => {
             return context.prisma.tutorApplication.update({
+                where: {
+                    id: args.id,
+                },
+                data: {
+                    status: "Rejected",
+                },
+            });
+        },
+
+        approveCourseApplication: async (_parent: any, args: any, context: Context) => {
+            return context.prisma.course.update({
+                where: {
+                    id: args.id,
+                },
+                data: {
+                    status: "Approved",
+                },
+            });
+        },
+
+        rejectCourseApplication: async (_parent: any, args: any, context: Context) => {
+            return context.prisma.course.update({
                 where: {
                     id: args.id,
                 },
