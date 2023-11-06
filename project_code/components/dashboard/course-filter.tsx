@@ -50,7 +50,7 @@ const CourseFilter: React.FC<CourseFilterProps> = ({ onFilterChange }) => {
     }, [data?.courses]); // Run this effect when data.courses changes
 
     return (
-        <section style={{ display: 'flex'}}>
+        <section className="flex">
             <Combobox
                 items={timeZones}
                 placeholder="Select Time Zone"
