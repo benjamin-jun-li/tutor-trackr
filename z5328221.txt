@@ -16,4 +16,7 @@ I finished the site-admin page and fixed some bugs.Worked on reset password func
 Followed up sprint 2 progress.
 
 Week 7
-Worked on student payment page and fixed some bugs.
+Worked on student payment page and fixed some bugs.I really waste some time to find the reason of the bug.
+
+Week 8
+Worked on tutor application feature and change the structure of backend  fixed some bugs.
