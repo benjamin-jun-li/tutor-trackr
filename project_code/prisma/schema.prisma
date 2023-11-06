@@ -54,7 +54,7 @@ model Course {
   studentId      String[]            @db.ObjectId
   tutors         Tutor[]             @relation(fields: [tutorId], references: [id])
   tutorId        String[]            @db.ObjectId
-  price          Int                 @default(100)
+  price          Int
   availabilities TutorAvailability[]
   register       RegisterCourse[]
   status         String?
@@ -79,7 +79,7 @@ model StudentProfile {
   address        String?
   timeZone       String?
   biography      String?
-  accountBalance Int     @default(10)
+  accountBalance Int
   student        Student @relation(fields: [studentId], references: [id])
   studentId      String  @unique @db.ObjectId
 }

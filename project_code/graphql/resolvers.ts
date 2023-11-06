@@ -300,7 +300,8 @@ export const resolvers = {
                     profile: {
                         create: {
                             username: args.name,
-                            email: args.email
+                            email: args.email,
+                            accountBalance:1000000
                         }
                     },
                 },
@@ -398,6 +399,7 @@ export const resolvers = {
                     price: args.price,
                     status: status,
                     tutorId: args.tutorId,
+                    price: args.price,
                 },
             });
         },
