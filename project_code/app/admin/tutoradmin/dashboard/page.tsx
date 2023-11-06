@@ -1,6 +1,6 @@
 import { Metadata } from "next"
-import ApplicationList from "@/app/admin/tutoradmin/dashboard/applicationList";
-import InterviewBoard from "@/app/admin/tutoradmin/dashboard/interviewSessionBoard";
+import NewCourseList from "@/app/admin/tutoradmin/dashboard/newCourseList";
+import TutorApplicationList from "@/app/admin/tutoradmin/dashboard/tutorApplicationList";
 import AppointmentList from "@/app/admin/tutoradmin/dashboard/appointmentList";
 
 export const metadata: Metadata = {
@@ -13,10 +13,10 @@ export default function DashboardPage() {
         <main className="mt-[5rem] p-4">
             <section className="grid grid-cols-2 gap-4">
                 <div className="col-span-1 mx-3">
-                    <ApplicationList />
+                    <NewCourseList />
                 </div>
                 <div className="col-span-1 mx-3">
-                    <InterviewBoard />
+                    <TutorApplicationList />
                 </div>
             </section>
             <section className="mx-3 mt-3">
