@@ -15,7 +15,10 @@ week 4
 Adjusted the runtime logic of the login screen and dashboard screen.
 
 week 5
-Update student page. 
+Update student dashboard page. 
 
 week 7
 Update filter and appointment page.
+
+week8
+Update filter logic and finish Retrospective B
