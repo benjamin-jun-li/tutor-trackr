@@ -79,7 +79,7 @@ export function TutorProfileUpdateForm() {
     })
 
     const { loading, error, data } = useQuery(GET_TUTOR_PROFILE, {
-        variables: { email: getters.userEmail },
+        variables: { id: getters.userID },
     });
 
     const profileId = data?.getStudentProfile?.id;

@@ -22,7 +22,7 @@ export function TutorProfileDisplay() {
     }, [getters.userEmail]);
 
     const { loading, error, data } = useQuery(GET_TUTOR_PROFILE, {
-        variables: { email: userEmail },
+        variables: { id: getters.userID },
         fetchPolicy: 'network-only'
     });
 

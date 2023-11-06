@@ -78,7 +78,7 @@ export function StudentProfileUpdateForm() {
     })
 
     const { loading, error, data } = useQuery(GET_STUDENT_PROFILE, {
-        variables: { email: getters.userEmail },
+        variables: { id: getters.userID },
     });
 
     const profileId = data?.getStudentProfile?.id;

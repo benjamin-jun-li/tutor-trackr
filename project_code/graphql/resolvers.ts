@@ -118,7 +118,7 @@ export const resolvers = {
         getStudentProfile: async (_parent: any, args: any, context: Context) => {
             return context.prisma.studentProfile.findUnique({
                 where: {
-                    id: args.id,
+                    studentId: args.id,
                 },
             });
         },
@@ -127,7 +127,7 @@ export const resolvers = {
         getTutorProfile: async (_parent: any, args: any, context: Context) => {
             return context.prisma.tutorProfile.findUnique({
                 where: {
-                    id: args.id,
+                    tutorId: args.id,
                 },
             });
         },

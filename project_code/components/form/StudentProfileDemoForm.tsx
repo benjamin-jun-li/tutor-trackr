@@ -17,12 +17,13 @@ export function StudentProfileDisplay() {
     const router = useRouter();
     const [userEmail, setUserEmail] = useState('');
 
+
     useEffect(() => {
         setUserEmail(getters.userEmail);
     }, [getters.userEmail]);
 
     const { loading, error, data } = useQuery(GET_STUDENT_PROFILE, {
-        variables: { email: userEmail },
+        variables: { id: getters.userID },
         fetchPolicy: 'network-only'
     });
 
