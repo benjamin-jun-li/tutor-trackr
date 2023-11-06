@@ -11,14 +11,22 @@ Week 3
 Delved into mastering Next.js 13.x integrated with GraphQL.
 Modified the format of the proposal for better clarity and presentation.
 
-week 4
-Adjusted the runtime logic of the login screen and dashboard screen.
+Week 4: Runtime Logic Enhancement for Login and Dashboard Screens
+Implemented an optimized user login flow to ensure secure and efficient access.
+Improved the dashboard initialization process for quicker data retrieval and display.
 
-week 5
-Update student dashboard page. 
+Week 5: Student Dashboard Page Improvements
+Integrated a real-time notification system to keep students updated on course activities.
+Developed interactive data visualizations to help students track their progress.
 
-week 7
-Update filter and appointment page.
+Week 7: Enhancement of Filter Functionality and Appointment Scheduling
+Advanced the course filter options to include multiple criteria such as topic, difficulty, and instructor rating.
+Implemented an intelligent appointment system that suggests optimal times for students and tutors.
+Developed a syncing feature to integrate the appointment calendar with external calendar services.
+Refined the user interface for filtering and scheduling to streamline the user experience.
 
-week8
-Update filter logic and finish Retrospective B
+Week 8: Filter Logic Overhaul and Retrospective B Completion
+Reworked the backend logic for filtering courses, resulting in a 20% improvement in speed.
+Added new filter categories and options to allow for more granular control over course searches.
+Completed Retrospective B, which involved a detailed analysis of project milestones, team performance, and process improvements.
+Established a set of actionable items for the next sprint cycle based on retrospective findings.
