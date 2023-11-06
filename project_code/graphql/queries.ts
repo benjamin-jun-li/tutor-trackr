@@ -287,3 +287,14 @@ export const GET_SUCCESSFUL_RESERVATION = gql`
     }
   }
 `;
+
+export const GET_STUDENT_INFO = gql`
+  query GetStudentInfo($tutorId: String!) {
+    getStudentInfo(tutorId: $tutorId) {
+      students {
+        id
+        email
+      }
+    }
+  }
+`;

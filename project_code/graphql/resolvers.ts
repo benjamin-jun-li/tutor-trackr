@@ -207,6 +207,31 @@ export const resolvers = {
             });
 
             return reservation;
+        },
+
+        //UOOI-23
+        getStudentInfo: async (_parent: any, args: any, context: Context) => {
+            const tutorId = args.tutorId;
+            const courses = await context.prisma.course.findMany({
+                where: { 
+                    tutorId: {
+                        has: tutorId
+                    }
+                },
+
+                include: {
+                    students: {
+                        select: {
+                            id: true,
+                            name: true,
+                            email: true,
+                            profile: true
+                        }
+                    },
+                }
+            });
+
+            return courses;
         }
     },
 

@@ -175,13 +175,13 @@ type PasswordResetResponse {
     getTutorAvailability(tutorId: String!,courseId:String!): TutorAvailability
     getUserType(email: String!): Identity
     getSuccessfulReservation(id: String!): [Appointment]
-    getStudentInfo(name: String!): [Course]
+    getStudentInfo(tutorId: String!): [Course]
   }
 
   type Mutation {
     approveApplication(id: ID!): TutorApplication
-      rejectApplication(id: ID!): TutorApplication
-      interviewFeedback(id: ID!,description: String,status:String): Interview
+    rejectApplication(id: ID!): TutorApplication
+    interviewFeedback(id: ID!,description: String,status:String): Interview
     
     addStudent (name:String, email:String, password:String) : Student
     addTutor (name:String, email:String, password:String) : Tutor
