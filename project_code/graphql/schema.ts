@@ -178,8 +178,8 @@ type Query {
     getTutorAvailability(tutorId: String!,courseId:String!): TutorAvailability
     getUserType(email: String!): Identity
     getSuccessfulReservation(id: String!): [Appointment]
-    getStudentInfo(name: String!): [Course]
-}
+    getStudentInfo(tutorId: String!): [Course]
+  }
 
 type Mutation {
     approveApplication(id: ID!): TutorApplication
