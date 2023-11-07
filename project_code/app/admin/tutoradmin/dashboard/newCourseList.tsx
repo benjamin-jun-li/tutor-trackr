@@ -3,16 +3,8 @@ import { useQuery } from "@apollo/client";
 import {GET_COURSES} from "@/graphql/queries";
 import Link from "next/link";
 
-// interface Courses {
-//     id: string;
-//     courseName: string;
-//     email: string;
-//     name: string;
-//     status: string; // Assuming status is a string that can be 'approved' or 'rejected'
-// }
 
-
-const ApplicationList: React.FC = () => {
+const NewCourseList: React.FC = () => {
     const { data, loading } = useQuery(GET_COURSES, {
         fetchPolicy: 'network-only',
     });
@@ -56,7 +48,7 @@ const ApplicationList: React.FC = () => {
                                         <p key={tutor.id}> {tutor.name}</p>
                                     ))}</td>
                                     <td className="px-6 py-4 text-center">
-                                    <Link className="font-medium text-blue-600 dark:text-blue-500 hover:underline" href={`/admin/tutoradmin/application/${course.id}/`}>
+                                    <Link className="font-medium text-blue-600 dark:text-blue-500 hover:underline" href={`/admin/tutoradmin/new-course/${course.id}/`}>
                                         More
                                     </Link>
                                     </td>
@@ -74,5 +66,5 @@ const ApplicationList: React.FC = () => {
     );
 }
 
-export default ApplicationList;
+export default NewCourseList;
 

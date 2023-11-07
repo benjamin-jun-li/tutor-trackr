@@ -118,7 +118,7 @@ export const resolvers = {
         getStudentProfile: async (_parent: any, args: any, context: Context) => {
             return context.prisma.studentProfile.findUnique({
                 where: {
-                    id: args.id,
+                    studentId: args.id,
                 },
             });
         },
@@ -127,7 +127,7 @@ export const resolvers = {
         getTutorProfile: async (_parent: any, args: any, context: Context) => {
             return context.prisma.tutorProfile.findUnique({
                 where: {
-                    id: args.id,
+                    tutorId: args.id,
                 },
             });
         },
@@ -300,7 +300,8 @@ export const resolvers = {
                     profile: {
                         create: {
                             username: args.name,
-                            email: args.email
+                            email: args.email,
+                            accountBalance:1000000
                         }
                     },
                 },
@@ -398,6 +399,7 @@ export const resolvers = {
                     price: args.price,
                     status: status,
                     tutorId: args.tutorId,
+                    price: args.price,
                 },
             });
         },

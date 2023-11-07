@@ -64,7 +64,7 @@ const PayModal:FC<PayModalProps> = ({}) => {
         })
         const payResponse = await payCourse({
             variables: {
-                studentId: "653e03b1b3198c69406bf165",
+                studentId: getters.userID,
                 courseId: params?.id,
             }
         })

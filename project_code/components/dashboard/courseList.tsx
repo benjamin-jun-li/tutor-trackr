@@ -60,11 +60,11 @@ const CourseList: FC<CourseListProps> = ({ role, filters }) => {
                             key={course.id}
                         >
                             <figure>
-                                <Image src="/front-end.jpg" alt="FrontEnd" width={300} height={300} />
+                                <Image src="/course-pic.jpg" alt="CoursePic" width={300} height={300} />
                             </figure>
                             <article className="card-body">
                                 <h2 className="card-title">{course.name}</h2>
-                                <p>Front-end test</p>
+                                <p>{course.description}</p>
                                 <div className="card-actions justify-end">
                                     <Link href={`/${role}/course/${course.id}`}>
                                         <button className="btn btn-primary">More</button>

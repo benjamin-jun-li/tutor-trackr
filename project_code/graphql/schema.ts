@@ -184,10 +184,8 @@ type Query {
 type Mutation {
     approveApplication(id: ID!): TutorApplication
     rejectApplication(id: ID!): TutorApplication
-
     approveCourseApplication(id: ID!): Course
     rejectCourseApplication(id: ID!): Course
-    
     interviewFeedback(id: ID!,description: String,status:String): Interview
     addStudent (name:String, email:String, password:String) : Student
     addTutor (name:String, email:String, password:String) : Tutor
