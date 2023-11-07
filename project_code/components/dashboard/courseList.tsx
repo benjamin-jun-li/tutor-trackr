@@ -35,45 +35,35 @@ const CourseList: FC<CourseListProps> = ({ role, filters }) => {
     });
     
     return (
-        <section className="">
+        <section>
             <div className="flex">
             <h2 className="mb-4 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-white">
-                {filteredCourses.length === 0 ? "There are no courses under this entry." : "Courses"}
+                {filteredCourses.length === 0 ? "There are no courses under this entry." : ""}
             </h2>
-
-                { role === "tutor" &&
-                    <Link href="/tutor/application">
-                        <button type="button" className="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mx-2 mb-2">Add course</button>
-                    </Link>
-                }
             </div>
-
-            <div className="border-solid border-2 border-sky-400 rounded-md
-            col-span-2 flex flex-col justify-center items-center space-y-2">
-                <div className="grid grid-cols-3 gap-4">
-                    {filteredCourses
-                        .filter((course: { status: string; }) => course.status === 'Approved')
-                        .map((course: Course_type) => (
-                        <div
-                            id={course.id}
-                            className="card card-compact bg-base-100 shadow-xl"
-                            key={course.id}
-                        >
-                            <figure>
-                                <Image src="/course-pic.jpg" alt="CoursePic" width={300} height={300} />
-                            </figure>
-                            <article className="card-body">
-                                <h2 className="card-title">{course.name}</h2>
-                                <p>{course.description}</p>
-                                <div className="card-actions justify-end">
-                                    <Link href={`/${role}/course/${course.id}`}>
-                                        <button className="btn btn-primary">More</button>
-                                    </Link>
-                                </div>
-                            </article>
-                        </div>
-                    ))}
-                </div>
+            <div className="grid grid-cols-3 gap-4">
+                {filteredCourses
+                    .filter((course: { status: string; }) => course.status === 'Approved')
+                    .map((course: Course_type) => (
+                    <div
+                        id={course.id}
+                        className="card card-compact bg-base-100 shadow-xl"
+                        key={course.id}
+                    >
+                        <figure>
+                            <Image src="/course-pic.jpg" alt="CoursePic" width={300} height={300} />
+                        </figure>
+                        <article className="card-body">
+                            <h2 className="card-title">{course.name}</h2>
+                            <p>{course.description}</p>
+                            <div className="card-actions justify-end">
+                                <Link href={`/${role}/course/${course.id}`}>
+                                    <button className="btn btn-primary">More</button>
+                                </Link>
+                            </div>
+                        </article>
+                    </div>
+                ))}
             </div>
         </section>
     )

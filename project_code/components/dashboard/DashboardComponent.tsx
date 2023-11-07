@@ -11,7 +11,7 @@ const DashboardComponent:FC<{role:string}> = ({role}) => {
   });
 
   return (
-    <section className="space-y-4 p-8">
+    <section className="space-y-4 py-4">
         <div className="mx-10">
           {role === "student" &&
               <div className="flex justify-center items-center mb-4">
