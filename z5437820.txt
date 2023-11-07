@@ -29,7 +29,19 @@ Tutor profile update and modify
 Student register course with course payment
 
 Week7
-Backend development: 
+Backend function design: 
 Filter courses
 Appointment between student users and tutor users
 Interview for tutors
+
+Week8:
+Backend function design: 
+Restrict all user functions identity key as their id
+Add identity functions for identify users, like student or tutor
+Reservation status update and check
+Tutor can check students' information about who have reserved the tutor's course
+Default fund for student account and course itself
+
+Week9:
+Final test for the whole project functionalities
+Delete user/course functions debug
