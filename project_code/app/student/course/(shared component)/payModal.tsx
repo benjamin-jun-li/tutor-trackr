@@ -45,7 +45,7 @@ const PayModal:FC<PayModalProps> = ({}) => {
         const studentName = getters.userName;
         const studentEmail = getters.userEmail;
         let tutorEmail = "";
-        tutorsByCourse.data?.course?.tutors.forEach((tutor) => {
+        tutorsByCourse.data?.course?.tutors.forEach((tutor: any) => {
             if (tutor.name === tutorName) {
                 tutorEmail = tutor.email;
             }
@@ -69,6 +69,7 @@ const PayModal:FC<PayModalProps> = ({}) => {
             }
         })
     }
+    console.log(tutorsByCourse?.data?.course?.tutors)
     return (
         <AlertDialog>
             <AlertDialogTrigger data-popover-target="popover-default" className="w-full text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-lg px-5 py-2.5 text-center mr-2 mb-2">

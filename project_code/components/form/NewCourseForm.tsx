@@ -23,6 +23,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { useRouter } from "next/navigation";
 import TimezonePicker from "@/components/TimezonePicker";
 import Link from "next/link";
+import { useToast } from "@/components/ui/use-toast";
 
 type FormData = {
     courses: string;
@@ -48,6 +49,7 @@ const NewCourseForm: React.FC = () => {
     const { getters } = useContextValue();
     const userEmail = getters.userEmail;
     const router = useRouter();
+    const { toast } = useToast();
     const userName = getters.userName;
 
     const { data, loading, error } = useQuery(GET_COURSES);
@@ -82,9 +84,12 @@ const NewCourseForm: React.FC = () => {
             },
         });
 
-        if (res.data?.addCourse?.email) {
-            alert("Course details send to admin for approval");
-            router.replace(`/tutor/dashboard/`)
+        if (res.data?.addCourse?.id) {
+            toast({
+                title: "Course details send to admin for approval",
+                description: "You can view your course in the dashboard after approval",
+            })
+            // router.replace(`/tutor/dashboard/`)
         } else {
             console.log(res);
         }
@@ -93,7 +98,6 @@ const NewCourseForm: React.FC = () => {
     if (loading) {
         return <span className="loading loading-infinity loading-lg"></span>
     }
-
 
     return (
         <div className="mt-10 p-4 bg-white shadow-md rounded-lg">
@@ -228,7 +232,7 @@ const NewCourseForm: React.FC = () => {
                         />
                     </div>
                     <div className="flex gap-2">
-                        <Button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white p-2 rounded">Submit</Button>
+                        <Button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white p-2 rounded" >Submit</Button>
                         <Link href="/tutor/dashboard">
                             <Button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white p-2 rounded">Back</Button>
                         </Link>

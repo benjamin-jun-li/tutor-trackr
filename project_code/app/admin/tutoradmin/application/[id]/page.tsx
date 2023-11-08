@@ -2,9 +2,9 @@
 
 import {useParams} from "next/navigation";
 import {useMutation, useQuery} from "@apollo/client";
-import {GET_APPLICATION, GET_APPLICATION_BY_ID} from "@/graphql/queries";
+import {GET_APPLICATION_BY_ID} from "@/graphql/queries";
 import {
-    Approval_Application,
+    Approval_Application, REGISTER_COURSE_FOR_TUTOR,
     Reject_Application,
 } from "@/graphql/mutations";
 import {useEffect, useState} from "react";
@@ -16,6 +16,7 @@ const TutorApplicationPage = () => {
     const application = useQuery(GET_APPLICATION_BY_ID, { variables: { id: param?.id } });
     const [acceptApplication, {data:acceptData,loading:acceptLoading,error:acceptError}] = useMutation(Approval_Application);
     const [rejectApplication, {data:rejectData,loading:rejectLoading,error:rejectError}] = useMutation(Reject_Application);
+    const [addTutor, {data:addTutorData,loading:addTutorLoading,error:addTutorError}] = useMutation(REGISTER_COURSE_FOR_TUTOR);
 
     const appDetails = application?.data?.getSingleApplication;
     const [status, setStatus] = useState(appDetails?.status);
@@ -34,6 +35,12 @@ const TutorApplicationPage = () => {
         await acceptApplication({
             variables: {
                 id: param?.id,
+            },
+        })
+        await addTutor({
+            variables: {
+                tutorId: appDetails?.tutorId,
+                courseId: appDetails?.courseId,
             },
         }).then(() => {
             alert("Application accepted successfully!")
