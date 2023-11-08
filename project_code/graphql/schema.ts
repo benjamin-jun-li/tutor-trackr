@@ -125,7 +125,9 @@ type Interview {
 
 type Appointment {
     id: ID!
+    courseId: String
     courseName: String
+    tutorId: String
     tutorName: String
     tutorEmail: String
     studentName: String
@@ -213,7 +215,9 @@ type Mutation {
     payTheCourse(studentId: ID!, courseId: ID!): Course
     resetPassword(email: String!, password: String!): PasswordResetResponse
     addAppointment(
+        courseId: String
         courseName: String,
+        tutorId: String,
         tutorName: String,
         tutorEmail: String,
         studentName: String,

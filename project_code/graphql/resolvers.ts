@@ -603,6 +603,7 @@ export const resolvers = {
             });
         },
 
+
         approveApplication: async (_parent: any, args: any, context: Context) => {
             return context.prisma.tutorApplication.update({
                 where: {
@@ -766,7 +767,9 @@ export const resolvers = {
         addAppointment: async (_parent: any, args: any, context: Context) => {
             return context.prisma.appointment.create({
                 data: {
+                    courseId: args.courseId,
                     courseName: args.courseName,
+                    tutorId: args.tutorId,
                     tutorName: args.tutorName,
                     tutorEmail: args.tutorEmail,
                     studentName: args.studentName,

@@ -252,8 +252,10 @@ export const GET_Appointment = gql`
     query Appointment($id: String!) {
         getAppointmentById(id: $id) {
             id
+            tutorId
             tutorName
             tutorEmail
+            courseId
             studentName
             studentEmail
             startTime
@@ -268,8 +270,10 @@ export const GET_APPOINTMENT = gql`
   query Appointment {
     getAppointments {
         id
+        tutorId
         tutorName
         tutorEmail
+        courseId
         studentName
         studentEmail
         startTime
