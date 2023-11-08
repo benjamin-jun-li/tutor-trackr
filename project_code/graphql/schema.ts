@@ -179,6 +179,7 @@ type Query {
     getUserType(email: String!): Identity
     getSuccessfulReservation(id: String!): [Appointment]
     getStudentInfo(tutorId: String!): [Course]
+    getAppointmentById(id: String!): Appointment
   }
 
 type Mutation {
@@ -202,8 +203,8 @@ type Mutation {
         thumbnail: String, studentId: [String], tutorId: [String], price: Int, tags: [String],status: String
     ) : Course
     deleteCourse(id: ID!): Course
-    deleteStudent(id: ID!): Student
-    deleteTutor(id: ID!): Tutor
+    deleteStudent(id: ID!, email:String): Student
+    deleteTutor(id: ID!, email:String): Tutor
     addApplication(name: String, email: String, courseName: String,description:String,appointmentDate:String) : TutorApplication
     addInterview(name: String, email: String, courseName: String, date: String
     ) : Interview

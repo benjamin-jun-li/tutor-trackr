@@ -220,17 +220,19 @@ export const DELETE_COURSE = gql`
 `;
 
 export const DELETE_Student = gql`
-  mutation DeleteStudent($id: ID!) {
-    deleteStudent(id: $id) {
-     id
-   }
-  }
+    mutation DeleteStudent($id: ID!,$email:String!) {
+        deleteStudent(id: $id,email: $email) {
+            id
+            email
+        }
+    }
 `;
 
 export const DELETE_Tutor = gql`
-    mutation DeleteTutor($id: ID!) {
-        deleteTutor(id: $id) {
-          id
+    mutation DeleteTutor($id: ID!,$email:String!) {
+        deleteStudent(id: $id,email: $email) {
+            id
+            email
         }
     }
 `;

@@ -248,6 +248,22 @@ export const GET_INTERVIEW = gql`
   }
 `;
 
+export const GET_Appointment = gql`
+    query Appointment($id: String!) {
+        getAppointmentById(id: $id) {
+            id
+            tutorName
+            tutorEmail
+            studentName
+            studentEmail
+            startTime
+            endTime
+            courseName
+            status
+        }
+    }
+`;
+
 export const GET_APPOINTMENT = gql`
   query Appointment {
     getAppointments {
