@@ -15,7 +15,7 @@ export default function StudentList() {
     const [studentEmail, setStudentEmail] = useState("");
     const [studentId, setStudentId] = useState("");
     const deleteStudent = (id: string) => {
-        deleteStudentMutation({variables: {id: id}}).then()
+        deleteStudentMutation({variables: {id: id,email:studentEmail}}).then()
     }
 
 

@@ -160,7 +160,13 @@ export const resolvers = {
                 },
             });
         },
-
+        getAppointmentById: async (_parent: any, args: any, context: Context) => {
+            return context.prisma.appointment.findUnique({
+                where: {
+                    id: args.id,
+                },
+            });
+        },
 
         //get consultation
         getAppointments: async (_parent: any, args: any, context: Context) => {
@@ -399,7 +405,6 @@ export const resolvers = {
                     price: args.price,
                     status: status,
                     tutorId: args.tutorId,
-                    price: args.price,
                 },
             });
         },
@@ -424,6 +429,57 @@ export const resolvers = {
             }
         },
 
+        // deleteStudent: async (_parent: any, args: any, context: Context) => {
+        //     try {
+        //
+        //         const student = await context.prisma.student.findUnique({
+        //             where: {
+        //                 id: args.id,
+        //             }
+        //         });
+        //
+        //         // Todo delete related records in course
+        //         if (student) {
+        //             // Delete related RegisterCourse records first
+        //             await context.prisma.registerCourse.deleteMany({
+        //                 where: {
+        //                     studentId: student.id
+        //                 }
+        //             });
+        //
+        //             // Then delete the StudentProfile
+        //             await context.prisma.studentProfile.delete({
+        //                 where: {
+        //                     studentId: student.id
+        //                 }
+        //             });
+        //
+        //             await context.prisma.identity.delete({
+        //                 where: {
+        //                     email: args.id
+        //                 }
+        //             });
+        //
+        //             // Finally, delete the Student
+        //             return await context.prisma.student.delete({
+        //                 where: {
+        //                     id: args.id,
+        //                 }
+        //             });
+        //         }
+        //         else {
+        //             throw new Error("Student not found");
+        //         }
+        //     } catch (error: any) {
+        //         throw new Error(`Failed to delete student: ${error.message}`);
+        //     }
+        //
+        // },
+
+
+
+
+        // deleteStudent function
         deleteStudent: async (_parent: any, args: any, context: Context) => {
             try {
                 const student = await context.prisma.student.findUnique({
@@ -432,28 +488,58 @@ export const resolvers = {
                     }
                 });
 
-
-
-                if (student) {
-                    await context.prisma.studentProfile.delete({
-                        where: {
-                            studentId: student.id
-                        }
-                    });
-
-                    return await context.prisma.student.delete({
-                        where: {
-                            id: args.id,
-                        }
-                    });
-                } else {
+                if (!student) {
                     throw new Error("Student not found");
                 }
-            } catch (error: any) {
-                throw new Error(`Failed to delete student: ${error.message}`);
-            }
 
+                // Begin a transaction
+                const transaction = await context.prisma.$transaction(async (prisma) => {
+                    // Remove the student from all courses
+                    const courses = await prisma.course.findMany({
+                        where: {
+                            studentId: {
+                                has: args.id,
+                            },
+                        },
+                    });
+
+                    for (const course of courses) {
+                        const updatedStudentIds = course.studentId.filter(studentId => studentId !== args.id);
+                        await prisma.course.update({
+                            where: {
+                                id: course.id,
+                            },
+                            data: {
+                                studentId: {
+                                    set: updatedStudentIds,
+                                },
+                            },
+                        });
+                    }
+
+
+                    // Delete the student's profile
+                    await prisma.studentProfile.delete({
+                        where: {
+                            studentId: args.id,
+                        },
+                    });
+
+                    // Finally, delete the student
+                    return prisma.student.delete({
+                        where: {
+                            id: args.id,
+                        },
+                    });
+                });
+
+                // The transaction resolves to the result of the student deletion
+                return transaction;
+            } catch (error) {
+                throw new Error(`Failed to delete studentq`);
+            }
         },
+
 
         deleteTutor: async (_parent: any, args: any, context: Context) => {
             try {
@@ -467,6 +553,12 @@ export const resolvers = {
                     await context.prisma.tutorProfile.delete({
                         where: {
                             tutorId: args.id
+                        }
+                    });
+
+                    await context.prisma.identity.delete({
+                        where: {
+                            email: args.id
                         }
                     });
 
@@ -510,6 +602,7 @@ export const resolvers = {
                 },
             });
         },
+
 
         approveApplication: async (_parent: any, args: any, context: Context) => {
             return context.prisma.tutorApplication.update({
@@ -674,7 +767,9 @@ export const resolvers = {
         addAppointment: async (_parent: any, args: any, context: Context) => {
             return context.prisma.appointment.create({
                 data: {
+                    courseId: args.courseId,
                     courseName: args.courseName,
+                    tutorId: args.tutorId,
                     tutorName: args.tutorName,
                     tutorEmail: args.tutorEmail,
                     studentName: args.studentName,
@@ -682,7 +777,7 @@ export const resolvers = {
                     date: new Date().toISOString(),
                     startTime: args.startTime,
                     endTime: args.endTime,
-                    status: "Waiting for accepts",
+                    status: "Pending",
                 },
             });
         },

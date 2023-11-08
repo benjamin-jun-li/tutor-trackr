@@ -17,7 +17,7 @@ export default function TutorList() {
 
 
     const deleteTutor = (id: string) => {
-        deleteTutorMutation({variables: {id: id}}).then()
+        deleteTutorMutation({variables: {id: id,email:tutorEmail}}).then()
     }
 
     return (

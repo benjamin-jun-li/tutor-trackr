@@ -220,17 +220,19 @@ export const DELETE_COURSE = gql`
 `;
 
 export const DELETE_Student = gql`
-  mutation DeleteStudent($id: ID!) {
-    deleteStudent(id: $id) {
-     id
-   }
-  }
+    mutation DeleteStudent($id: ID!,$email:String!) {
+        deleteStudent(id: $id,email: $email) {
+            id
+            email
+        }
+    }
 `;
 
 export const DELETE_Tutor = gql`
-    mutation DeleteTutor($id: ID!) {
-        deleteTutor(id: $id) {
-          id
+    mutation DeleteTutor($id: ID!,$email:String!) {
+        deleteStudent(id: $id,email: $email) {
+            id
+            email
         }
     }
 `;
@@ -314,36 +316,42 @@ export const PAY_THE_COURSE = gql`
 `;
 
 export const ADD_APPOINTMENT = gql`
-  mutation AddAppointment(
-    $courseName: String,
-    $tutorName: String,
-    $tutorEmail: String,
-    $studentName: String,
-    $studentEmail: String,
-    $startTime: String,
-    $endTime: String,
-    $appointmentDate: String
-  ) {
-    addAppointment(
-      courseName: $courseName,
-      tutorName: $tutorName,
-      tutorEmail: $tutorEmail,
-      studentName: $studentName,
-      studentEmail: $studentEmail,
-      startTime: $startTime
-      endTime: $endTime
-      appointmentDate: $appointmentDate
+    mutation AddAppointment(
+        $courseId: String,
+        $courseName: String,
+        $tutorId: String,
+        $tutorName: String,
+        $tutorEmail: String,
+        $studentName: String,
+        $studentEmail: String,
+        $startTime: String,
+        $endTime: String,
+        $appointmentDate: String
     ) {
-      courseName
-      tutorName
-      tutorEmail
-      studentName
-      studentEmail
-      startTime
-      endTime
-      appointmentDate
+        addAppointment(
+            courseId: $courseId,
+            courseName: $courseName,
+            tutorId: $courseId
+            tutorName: $tutorName,
+            tutorEmail: $tutorEmail,
+            studentName: $studentName,
+            studentEmail: $studentEmail,
+            startTime: $startTime
+            endTime: $endTime
+            appointmentDate: $appointmentDate
+        ) {
+            courseId
+            courseName
+            tutorId
+            tutorName
+            tutorEmail
+            studentName
+            studentEmail
+            startTime
+            endTime
+            appointmentDate
+        }
     }
-  }
 `;
 
 export const ADD_IDENTITY = gql`

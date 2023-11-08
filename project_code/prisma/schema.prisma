@@ -125,7 +125,9 @@ model Interview {
 
 model Appointment {
   id              String  @id @default(auto()) @map("_id") @db.ObjectId
+  courseId        String?
   courseName      String?
+  tutorId         String?
   tutorName       String?
   tutorEmail      String?
   studentName     String?
