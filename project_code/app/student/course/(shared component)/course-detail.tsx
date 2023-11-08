@@ -5,13 +5,14 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from "@/components/ui/accordion"
-import { FC } from "react";
+import {FC, useState} from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import { useQuery } from "@apollo/client";
 import { GET_COURSE } from "@/graphql/queries";
 import {useContextValue} from "@/components/context";
 import Image from "next/image";
+import {Button} from "@/components/ui/button";
 
 const CourseDetail:FC<{ role:string }> = ({ role }) => {
     const params = useParams();
@@ -22,6 +23,20 @@ const CourseDetail:FC<{ role:string }> = ({ role }) => {
 
     const roundedRating = Math.floor(rating);
     const hasHalfStar = rating % 1 >= 0.5;
+
+    const [currentRate, setCurrentRate] = useState<number | null>(null);
+
+    const handleRate = () => {
+        const rates = document.getElementsByName("rating-2") as NodeListOf<HTMLInputElement>;
+        for (let i = 0; i < rates.length; i++) {
+            if (rates[i].checked) {
+                setCurrentRate(i + 1); // Assuming the rates are 1-indexed
+                console.log(i + 1);
+                break;
+            }
+        }
+    };
+
 
     return (
         getCourseDetail.data ?
@@ -56,7 +71,7 @@ const CourseDetail:FC<{ role:string }> = ({ role }) => {
                         <div className="p-5">
                             <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{getCourseDetail.data.course?.description || "sample description"}</h5>
                             <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                                ratings:
+                                ratings: &nbsp;{rating}
                                 <div className="flex items-center">
                                     <div className="flex items-center space-x-2 mb-5">
                                         {Array.from({ length: 5 }, (_, index) => (
@@ -76,9 +91,18 @@ const CourseDetail:FC<{ role:string }> = ({ role }) => {
                                             </svg>
                                         ))}
                                     </div>
-                                    <div>
-                                        {rating}
+                                </div>
+
+                                <div className="flex gap-2">
+                                    Add your rate:
+                                    <div className="rating">
+                                        <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
+                                        <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
+                                        <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
+                                        <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
+                                        <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
                                     </div>
+                                    <Button onClick={handleRate}>Submit</Button>
                                 </div>
 
                                 <br/>
