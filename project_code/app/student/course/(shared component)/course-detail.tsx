@@ -41,7 +41,7 @@ const CourseDetail:FC<{ role:string }> = ({ role }) => {
                         </ol>
                     </nav>
                     <h1 className="my-6 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-white">{getCourseDetail?.data?.course?.name}</h1>
-                    <div className="w-3/4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                    <div className="w-full md:w-3/4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                         <div>
                             <img className="rounded-t-lg" src={getCourseDetail.data.course?.thumbnail} alt="null" />
                         </div>
@@ -55,12 +55,12 @@ const CourseDetail:FC<{ role:string }> = ({ role }) => {
                     </div>
 
                     {role === "tutor" &&
-                        <div className="w-3/4 p-4 mt-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+                        <div className="w-full md:w-3/4 p-4 mt-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
 
                         </div>
                     }
 
-                    <div className="w-3/4 p-4 mt-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+                    <div className="w-full md:w-3/4 p-4 mt-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
                         <div className="flex items-center justify-between mb-4">
                             <h5 className="text-xl font-bold leading-none text-gray-900 dark:text-white">Available Tutors</h5>
                         </div>

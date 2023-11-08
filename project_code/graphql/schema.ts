@@ -102,8 +102,10 @@ type TutorProfile {
 
 type TutorApplication {
     id: ID!
+    tutorId: String
     name: String
     email: String
+    courseId: String
     courseName: String
     interview: Interview
     description: String
@@ -125,7 +127,9 @@ type Interview {
 
 type Appointment {
     id: ID!
+    courseId: String
     courseName: String
+    tutorId: String
     tutorName: String
     tutorEmail: String
     studentName: String
@@ -179,6 +183,7 @@ type Query {
     getUserType(email: String!): Identity
     getSuccessfulReservation(id: String!): [Appointment]
     getStudentInfo(tutorId: String!): [Course]
+    getAppointmentById(id: String!): Appointment
     getTutorCourses(tutorId: String!): [Course]
   }
 
@@ -203,9 +208,9 @@ type Mutation {
         thumbnail: String, studentId: [String], tutorId: [String], price: Int, tags: [String],status: String
     ) : Course
     deleteCourse(id: ID!): Course
-    deleteStudent(id: ID!): Student
-    deleteTutor(id: ID!): Tutor
-    addApplication(name: String, email: String, courseName: String,description:String,appointmentDate:String) : TutorApplication
+    deleteStudent(id: ID!, email:String): Student
+    deleteTutor(id: ID!, email:String): Tutor
+    addApplication(name: String, email: String, courseName: String,description:String,appointmentDate:String,tutorId:String,courseId:String) : TutorApplication
     addInterview(name: String, email: String, courseName: String, date: String
     ) : Interview
     registerCourseForStudent(studentId: ID!, courseId: ID!): RegisterCourse
@@ -213,7 +218,9 @@ type Mutation {
     payTheCourse(studentId: ID!, courseId: ID!): Course
     resetPassword(email: String!, password: String!): PasswordResetResponse
     addAppointment(
+        courseId: String
         courseName: String,
+        tutorId: String,
         tutorName: String,
         tutorEmail: String,
         studentName: String,

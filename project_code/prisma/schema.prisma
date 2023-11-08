@@ -102,8 +102,10 @@ model TutorProfile {
 
 model TutorApplication {
   id          String     @id @default(auto()) @map("_id") @db.ObjectId
+  tutorId     String
   name        String
   email       String
+  courseId    String
   courseName  String
   date        DateTime   @default(now())
   description String
@@ -125,7 +127,9 @@ model Interview {
 
 model Appointment {
   id              String  @id @default(auto()) @map("_id") @db.ObjectId
+  courseId        String?
   courseName      String?
+  tutorId         String?
   tutorName       String?
   tutorEmail      String?
   studentName     String?
