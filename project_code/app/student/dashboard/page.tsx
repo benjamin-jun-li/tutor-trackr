@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import CourseTab from "@/app/tutor/dashboard/courseTab";
+import CourseTab from "@/components/dashboard/courseTab";
 
 export const metadata: Metadata = {
   title: "Student Dashboard",

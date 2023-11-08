@@ -1,11 +1,6 @@
 "use client"
 import {
     Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
 } from "@/components/ui/card"
 import {
     Tabs,
@@ -15,7 +10,6 @@ import {
 } from "@/components/ui/tabs"
 import DashboardComponent from "@/components/dashboard/DashboardComponent";
 import {FC} from "react";
-import Link from "next/link";
 
 const CourseTab:FC<{role:string}> = ({role}) => {
     return (

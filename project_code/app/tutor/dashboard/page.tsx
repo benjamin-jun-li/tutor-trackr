@@ -1,6 +1,6 @@
 import { Metadata } from "next"
 import AppointmentTable from "@/app/tutor/dashboard/appointmentTable";
-import CourseTab from "@/app/tutor/dashboard/courseTab";
+import CourseTab from "@/components/dashboard/courseTab";
 import Link from "next/link";
 import Image from "next/image";
 import { ChevronRight } from "lucide-react";
