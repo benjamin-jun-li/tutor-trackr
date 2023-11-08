@@ -3,7 +3,7 @@ import InteractBoxTutor from "@/app/tutor/course/(shared component)/interactBoxT
 
 const CoursePageTut = () => {
     return (
-        <main className="mt-[5rem] grid grid-cols-3 px-24">
+        <main className="mt-[5rem] grid grid-cols-1 md:grid-cols-3 px-24">
             <CourseDetail role={"tutor"}/>
             <InteractBoxTutor />
         </main>
