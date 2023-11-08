@@ -250,6 +250,25 @@ export const resolvers = {
             });
 
             return courses;
+        },
+
+        getStudentCourses: async (_parent: any, args: any, context: Context) => {
+            const studentId = args.studentId;
+            const courses = await context.prisma.course.findMany({
+                where: { 
+                    studentId: {
+                        has: studentId
+                    }
+                },
+                select: {
+                    id: true,
+                    name: true,
+                    description: true,
+                    thumbnail: true,
+                }
+            });
+
+            return courses;
         }
     },
 
@@ -424,6 +443,7 @@ export const resolvers = {
                     price: args.price,
                     status: status,
                     tutorId: args.tutorId,
+                    rate: "0.1",
                 },
             });
         },

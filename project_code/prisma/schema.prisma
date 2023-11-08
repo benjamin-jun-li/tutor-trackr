@@ -58,6 +58,7 @@ model Course {
   availabilities TutorAvailability[]
   register       RegisterCourse[]
   status         String?
+  rate           String?
 }
 
 model TutorAvailability {

@@ -73,6 +73,7 @@ export const GET_COURSE = gql`
             }
             tags
             price
+            rate
         }
     }
 `
@@ -122,6 +123,7 @@ export const GET_COURSES = gql`
         tags
         status
         price
+        rate
     }
   }
 `;
@@ -330,6 +332,17 @@ export const GET_STUDENT_INFO = gql`
 export const GET_TUTOR_COURSES = gql`
   query GetTutorCourses($tutorId: String!) {
     getTutorCourses(tutorId: $tutorId) {
+      id
+      name
+      description
+      thumbnail
+    }
+  }
+`;
+
+export const GET_STUDENT_COURSES = gql`
+  query GetStudentCourses($studentId: String!) {
+    getStudentCourses(studentId: $studentId) {
       id
       name
       description

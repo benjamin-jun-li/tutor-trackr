@@ -177,6 +177,7 @@ export const ADD_COURSE = gql`
         $price: Int
         $tags: [String!]
         $status: String
+        $rate: String
     ) {
         addCourse(
             name: $name
@@ -188,6 +189,7 @@ export const ADD_COURSE = gql`
             price: $price
             tags: $tags
             status: $status
+            rate: $rate
         ) {
             id
             name
@@ -207,6 +209,7 @@ export const ADD_COURSE = gql`
             price
             tags
             status
+            rate
         }
     }
 `;
