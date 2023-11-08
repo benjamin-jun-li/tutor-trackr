@@ -225,6 +225,25 @@ export const resolvers = {
             });
 
             return courses;
+        },
+
+        getTutorCourses: async (_parent: any, args: any, context: Context) => {
+            const tutorId = args.tutorId;
+            const courses = await context.prisma.course.findMany({
+                where: { 
+                    tutorId: {
+                        has: tutorId
+                    }
+                },
+                select: {
+                    id: true,
+                    name: true,
+                    description: true,
+                    thumbnail: true,
+                }
+            });
+
+            return courses;
         }
     },
 
@@ -431,8 +450,6 @@ export const resolvers = {
                         id: args.id,
                     }
                 });
-
-
 
                 if (student) {
                     await context.prisma.studentProfile.delete({

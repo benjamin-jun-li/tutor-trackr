@@ -179,6 +179,7 @@ type Query {
     getUserType(email: String!): Identity
     getSuccessfulReservation(id: String!): [Appointment]
     getStudentInfo(tutorId: String!): [Course]
+    getTutorCourses(tutorId: String!): [Course]
   }
 
 type Mutation {

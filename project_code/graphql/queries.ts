@@ -302,3 +302,14 @@ export const GET_STUDENT_INFO = gql`
     }
   }
 `;
+
+export const GET_TUTOR_COURSES = gql`
+  query GetTutorCourses($tutorId: String!) {
+    getTutorCourses(tutorId: $tutorId) {
+      id
+      name
+      description
+      thumbnail
+    }
+  }
+`;
