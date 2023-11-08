@@ -102,8 +102,10 @@ type TutorProfile {
 
 type TutorApplication {
     id: ID!
+    tutorId: String
     name: String
     email: String
+    courseId: String
     courseName: String
     interview: Interview
     description: String
@@ -207,7 +209,7 @@ type Mutation {
     deleteCourse(id: ID!): Course
     deleteStudent(id: ID!, email:String): Student
     deleteTutor(id: ID!, email:String): Tutor
-    addApplication(name: String, email: String, courseName: String,description:String,appointmentDate:String) : TutorApplication
+    addApplication(name: String, email: String, courseName: String,description:String,appointmentDate:String,tutorId:String,courseId:String) : TutorApplication
     addInterview(name: String, email: String, courseName: String, date: String
     ) : Interview
     registerCourseForStudent(studentId: ID!, courseId: ID!): RegisterCourse

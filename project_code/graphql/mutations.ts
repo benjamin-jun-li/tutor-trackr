@@ -238,25 +238,31 @@ export const DELETE_Tutor = gql`
 `;
 
 export const ADD_Application = gql`
-  mutation AddApplication(
-    $name: String
-    $email: String
-    $courseName: String
-    $description: String
-  ) {
-    addApplication(
-      name: $name
-      email: $email
-      courseName: $courseName
-      description: $description
+    mutation AddApplication(
+        $tutorId: String
+        $name: String
+        $email: String
+        $courseId: String
+        $courseName: String
+        $description: String
     ) {
-      id
-      name
-      email
-      courseName
-      description
+        addApplication(
+            tutorId: $tutorId
+            name: $name
+            email: $email
+            courseId: $courseId
+            courseName: $courseName
+            description: $description
+        ) {
+            id
+            tutorId
+            name
+            email
+            courseId
+            courseName
+            description
+        }
     }
-  }
 `;
 
 

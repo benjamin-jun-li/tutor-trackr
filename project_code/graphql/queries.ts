@@ -192,8 +192,10 @@ export const GET_APPLICATION = gql`
   query TutorApplication {
     getApplication {
         id
+        tutorId
         name
         email
+        courseId
         courseName
         description
         status
@@ -212,8 +214,10 @@ export const GET_APPLICATION_BY_ID = gql`
 query TutorApplication($id: String!) {
     getSingleApplication(id: $id) {
         id
+        tutorId
         name
         email
+        courseId
         courseName
         status
         interview {
