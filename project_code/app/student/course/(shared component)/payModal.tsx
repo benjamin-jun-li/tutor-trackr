@@ -2,7 +2,7 @@
 import { FC, useState } from "react";
 import {
     AlertDialog, AlertDialogAction, AlertDialogCancel,
-    AlertDialogContent, AlertDialogDescription, AlertDialogFooter,
+    AlertDialogContent, AlertDialogFooter,
     AlertDialogHeader,
     AlertDialogTitle,
     AlertDialogTrigger
@@ -23,6 +23,7 @@ import { useParams } from "next/navigation";
 import {REGISTER_COURSE_FOR_STUDENT, PAY_THE_COURSE, ADD_APPOINTMENT } from "@/graphql/mutations";
 import { useContextValue } from "@/components/context";
 import DatePicker from "@/app/student/course/(shared component)/datePicker";
+import {useToast} from "@/components/ui/use-toast";
 
 interface PayModalProps {
 
@@ -31,6 +32,7 @@ interface PayModalProps {
 const PayModal:FC<PayModalProps> = ({}) => {
     const {getters, setters} = useContextValue();
     const params = useParams();
+    const { toast } = useToast();
     const [selectedTutor, setTutor] = useState("Select a tutor");
     const [availTime, setAvailTime] = useState("Select an available time");
     const [msg, setMsg] = useState("");
@@ -67,6 +69,10 @@ const PayModal:FC<PayModalProps> = ({}) => {
                 studentId: getters.userID,
                 courseId: params?.id,
             }
+        })
+        toast({
+            title: "Appointment submitted",
+            description: "Friday, February 10, 2023 at 5:57 PM",
         })
     }
     console.log(tutorsByCourse?.data?.course?.tutors)
