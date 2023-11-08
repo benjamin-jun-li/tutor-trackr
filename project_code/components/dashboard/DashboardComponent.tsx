@@ -2,11 +2,17 @@
 import { useState, FC } from 'react';
 import CourseFilter from "@/components/dashboard/course-filter";
 import CourseList from "@/components/dashboard/courseList";
-import { Filters } from "@/components/dashboard/filters";
-const DashboardComponent:FC<{role:string}> = ({role}) => {
-  const [filters, setFilters] = useState<Filters>({
+import { FiltersType } from "@/components/dashboard/course-filter";
+
+interface DashboardComponentProps {
+  role: string,
+  courseType: string,
+}
+
+const DashboardComponent:FC<DashboardComponentProps> = ({ role, courseType}) => {
+  const [filters, setFilters] = useState<FiltersType>({
     timeZone: null,
-    courseType: null,
+    courseLevel: null,
     experienceLevel: null
   });
 

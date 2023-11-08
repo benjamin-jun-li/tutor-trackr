@@ -5,11 +5,11 @@ import { useQuery } from "@apollo/client";
 import { GET_COURSES } from "@/graphql/queries";
 import { FC } from "react"
 import Link from "next/link";
-import { Filters } from "@/components/dashboard/filters";
+import {FiltersType} from "@/components/dashboard/course-filter";
 
 interface CourseListProps {
     role: string;
-    filters?: Filters;
+    filters?: FiltersType;
 }
 
 const CourseList: FC<CourseListProps> = ({ role, filters }) => {
@@ -25,13 +25,10 @@ const CourseList: FC<CourseListProps> = ({ role, filters }) => {
         if (filters?.timeZone && !lowerCaseTags.includes(filters.timeZone.toLowerCase())) {
             return false;
         }
-        if (filters?.courseType && !lowerCaseTags.includes(filters.courseType.toLowerCase())) {
+        if (filters?.courseLevel && !lowerCaseTags.includes(filters.courseLevel.toLowerCase())) {
             return false;
         }
-        if (filters?.experienceLevel && !lowerCaseTags.includes(filters.experienceLevel.toLowerCase())) {
-            return false;
-        }
-        return true;
+        return !(filters?.experienceLevel && !lowerCaseTags.includes(filters.experienceLevel.toLowerCase()));
     });
     
     return (

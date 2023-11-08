@@ -20,12 +20,12 @@ const CourseTab:FC<{role:string}> = ({role}) => {
             </TabsList>
             <TabsContent value="my course">
                 <Card>
-                    <DashboardComponent role={role}/>
+                    <DashboardComponent role={role} courseType={"my"}/>
                 </Card>
             </TabsContent>
             <TabsContent value="all course">
                 <Card>
-                    <DashboardComponent role={role}/>
+                    <DashboardComponent role={role} courseType={"all"}/>
                 </Card>
             </TabsContent>
         </Tabs>

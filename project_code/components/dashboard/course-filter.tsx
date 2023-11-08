@@ -1,22 +1,27 @@
 "use client"
 import Combobox from "@/components/ui/combo-box";
 import React, { useState, useEffect } from 'react';
-import { Filters } from './filters';
 import { useQuery } from "@apollo/client";
 import { GET_COURSES } from "@/graphql/queries";
 
 // These arrays will hold objects with value and label properties
 const timeZones: { value: string; label: string; }[] = [];
-const courseTypes: { value: string; label: string; }[] = [];
+const courseLevels: { value: string; label: string; }[] = [];
 const experienceLevels: { value: string; label: string; }[] = [];
 
+export interface FiltersType {
+    timeZone?: string | null;
+    courseLevel?: string | null;
+    experienceLevel?: string | null;
+}
+
 interface CourseFilterProps {
-    onFilterChange: (filters: Filters) => void;
+    onFilterChange: (filters: FiltersType) => void;
 }
 
 const CourseFilter: React.FC<CourseFilterProps> = ({ onFilterChange }) => {
     const [timeZone, setTimeZone] = useState<string | null>(null);
-    const [courseType, setCourseType] = useState<string | null>(null);
+    const [courseLevel, setCourseLevel] = useState<string | null>(null);
     const [experienceLevel, setExperienceLevel] = useState<string | null>(null);
     const { data, loading } = useQuery(GET_COURSES, {
         fetchPolicy: 'network-only',
@@ -33,8 +38,8 @@ const CourseFilter: React.FC<CourseFilterProps> = ({ onFilterChange }) => {
                     if (!timeZones.some(tz => tz.value === timeZoneObject.value)) {
                         timeZones.push(timeZoneObject);
                     }
-                    if (!courseTypes.some(ct => ct.value === courseTypeObject.value)) {
-                        courseTypes.push(courseTypeObject);
+                    if (!courseLevels.some(ct => ct.value === courseTypeObject.value)) {
+                        courseLevels.push(courseTypeObject);
                     }
                     if (!experienceLevels.some(el => el.value === experienceLevelObject.value)) {
                         experienceLevels.push(experienceLevelObject);
@@ -43,7 +48,7 @@ const CourseFilter: React.FC<CourseFilterProps> = ({ onFilterChange }) => {
             });
             onFilterChange({
                 timeZone,
-                courseType,
+                courseLevel,
                 experienceLevel
             });
         }
@@ -57,9 +62,9 @@ const CourseFilter: React.FC<CourseFilterProps> = ({ onFilterChange }) => {
                 onChange={(selectedValue) => { setTimeZone(selectedValue); }}
             />
             <Combobox
-                items={courseTypes}
+                items={courseLevels}
                 placeholder="Select Course Type"
-                onChange={(selectedValue) => { setCourseType(selectedValue); }}
+                onChange={(selectedValue) => { setCourseLevel(selectedValue); }}
             />
             <Combobox
                 items={experienceLevels}
