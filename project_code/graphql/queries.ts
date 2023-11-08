@@ -101,13 +101,6 @@ query Course($id: String!) {
 }
 `
 
-export const GET_COURSES_BY_TUTOR = gql`
- query Course {
-    
- }
- 
-`
-
 export const GET_COURSES = gql`
   query Course {
     courses {
