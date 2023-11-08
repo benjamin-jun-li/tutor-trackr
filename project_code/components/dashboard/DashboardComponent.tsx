@@ -26,7 +26,7 @@ const DashboardComponent:FC<DashboardComponentProps> = ({ role, courseType}) => 
           }
           <div className="place-items-center">
             <div className="flex flex-col justify-center items-center">
-              <CourseList role={role} filters={filters} />
+              <CourseList role={role} courseType={courseType} filters={filters} />
             </div>
           </div>
         </div>

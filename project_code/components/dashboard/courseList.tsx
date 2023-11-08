@@ -8,11 +8,12 @@ import Link from "next/link";
 import {FiltersType} from "@/components/dashboard/course-filter";
 
 interface CourseListProps {
-    role: string;
-    filters?: FiltersType;
+    role: string,
+    courseType: string,
+    filters?: FiltersType,
 }
 
-const CourseList: FC<CourseListProps> = ({ role, filters }) => {
+const CourseList: FC<CourseListProps> = ({ role, courseType, filters }) => {
     const { data, loading, error } = useQuery(GET_COURSES);
 
     if (loading) {
@@ -54,7 +55,7 @@ const CourseList: FC<CourseListProps> = ({ role, filters }) => {
                             <h2 className="card-title">{course.name}</h2>
                             <p>{course.description}</p>
                             <div className="card-actions justify-end">
-                                <Link href={`/${role}/course/${course.id}`}>
+                                <Link href={`/${role}/course/${courseType}/${course.id}`}>
                                     <button className="btn btn-primary">More</button>
                                 </Link>
                             </div>

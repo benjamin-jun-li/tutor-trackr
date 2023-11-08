@@ -1,4 +1,4 @@
-import TutorApplyModal from "@/app/tutor/course/[id]/tutorApplyModal";
+import TutorApplyModal from "@/app/tutor/course/(shared component)/tutorApplyModal";
 
 const InteractBoxTutor = () => {
     return (

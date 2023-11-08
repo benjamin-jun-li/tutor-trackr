@@ -1,5 +1,4 @@
-import PayModal from "@/app/student/course/[id]/payModal";
-import { Heart } from "lucide-react";
+import PayModal from "@/app/student/course/(shared component)/payModal";
 const InteractBoxStudent = () => {
     return (
         <section className="col-span-1">

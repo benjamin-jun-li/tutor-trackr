@@ -22,7 +22,7 @@ import {useMutation, useQuery} from "@apollo/client";
 import { useParams } from "next/navigation";
 import {REGISTER_COURSE_FOR_STUDENT, PAY_THE_COURSE, ADD_APPOINTMENT } from "@/graphql/mutations";
 import { useContextValue } from "@/components/context";
-import DatePicker from "@/app/student/course/[id]/datePicker";
+import DatePicker from "@/app/student/course/(shared component)/datePicker";
 
 interface PayModalProps {
 

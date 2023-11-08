@@ -1,5 +1,5 @@
-import CourseDetail from "@/app/student/course/[id]/course-detail";
-import InteractBoxTutor from "@/app/tutor/course/[id]/interactBoxTutor";
+import CourseDetail from "@/app/student/course/(shared component)/course-detail";
+import InteractBoxTutor from "@/app/tutor/course/(shared component)/interactBoxTutor";
 
 const CoursePageTut = () => {
     return (
