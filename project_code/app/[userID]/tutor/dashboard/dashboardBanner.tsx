@@ -3,9 +3,9 @@
 import React from 'react';
 import Link from "next/link";
 import Image from "next/image";
-import AddCourseIcon from "@/assets/addCourseIcon.svg";
+import AddCourseIcon from "@/public/addCourseIcon.svg";
 import {ChevronRight} from "lucide-react";
-import MsgIcon from "@/assets/message.svg";
+import MsgIcon from "@/public/message.svg";
 import {useParams} from "next/navigation";
 
 const DashboardBanner = () => {

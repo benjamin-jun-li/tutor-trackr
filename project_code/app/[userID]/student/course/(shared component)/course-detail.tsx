@@ -6,33 +6,53 @@ import {
     AccordionTrigger,
 } from "@/components/ui/accordion"
 import {FC, useState} from "react";
-import { useParams } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import Link from "next/link";
-import { useQuery } from "@apollo/client";
-import { GET_COURSE } from "@/graphql/queries";
+import {useMutation, useQuery} from "@apollo/client";
+import {GET_COURSE, GET_SCORE} from "@/graphql/queries";
 import {useContextValue} from "@/components/context";
 import Image from "next/image";
 import {Button} from "@/components/ui/button";
+import {ADD_IDENTITY, ADD_RATE} from "@/graphql/mutations";
 
 const CourseDetail:FC<{ role:string }> = ({ role }) => {
     const params = useParams();
+    const pathname = usePathname();
     const { getters } = useContextValue();
     const getCourseDetail = useQuery(GET_COURSE, {variables:{ id:params?.id }});
+    const getScore = useQuery(GET_SCORE, {
+        variables:{ id:params?.id },
+        fetchPolicy: "network-only",
+    });
+    const [addRate, { data: rateData, loading: rateLoading, error: rateError }] = useMutation(ADD_RATE);
 
-    const rating = 2.8;
+    const rating = getScore.data?.getScore?.score === null ? 0 : parseInt(getScore.data?.getScore?.score);
 
     const roundedRating = Math.floor(rating);
     const hasHalfStar = rating % 1 >= 0.5;
 
     const [currentRate, setCurrentRate] = useState<number | null>(null);
 
-    const handleRate = () => {
+    const handleRate = async () => {
         const rates = document.getElementsByName("rating-2") as NodeListOf<HTMLInputElement>;
         for (let i = 0; i < rates.length; i++) {
             if (rates[i].checked) {
                 setCurrentRate(i + 1); // Assuming the rates are 1-indexed
                 console.log(i + 1);
                 break;
+            }
+        }
+        if (currentRate) {
+            try {
+                await addRate({
+                    variables: {
+                        id: params?.id,
+                        score: currentRate
+                    }
+                });
+                alert("Rate successfully!");
+            } catch (e) {
+                alert('Rate failed!');
             }
         }
     };
@@ -45,7 +65,7 @@ const CourseDetail:FC<{ role:string }> = ({ role }) => {
                     <nav className="flex" aria-label="Breadcrumb">
                         <ol className="inline-flex items-center space-x-1 md:space-x-3">
                             <li className="inline-flex items-center">
-                                <Link href={`/${params.userID}/${role}/dashboard/`} className="inline-flex items-center text-md font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
+                                <Link href={`/${params?.userID}/${role}/dashboard/`} className="inline-flex items-center text-md font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
                                     <svg className="w-3 h-3 mr-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                                         <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z"/>
                                     </svg>
@@ -111,19 +131,19 @@ const CourseDetail:FC<{ role:string }> = ({ role }) => {
                         </div>
                     </div>
 
-                    {role === "tutor" &&
+                    {role === "tutor" && pathname?.includes("my") &&
                         <div className="w-full md:w-3/4 p-4 mt-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
-
+                            Students&apos; list where could navigate to profile
                         </div>
                     }
 
-                    <div className="w-full md:w-3/4 p-4 mt-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+                    <div className="w-full md:w-3/4 p-4 my-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
                         <div className="flex items-center justify-between mb-4">
                             <h5 className="text-xl font-bold leading-none text-gray-900 dark:text-white">Available Tutors</h5>
                         </div>
                         <div className="flow-root">
                             <ul role="list" className="divide-y divide-gray-200 dark:divide-gray-700">
-                                {getCourseDetail.data.course?.tutors.map((tutor:any) => (
+                                {getCourseDetail?.data?.course?.tutors.map((tutor:any) => (
                                     <li key={tutor.id} className="py-3 sm:py-4">
                                         <Accordion type="single" collapsible className="w-full">
                                             <AccordionItem value="item-1">

@@ -8,15 +8,16 @@ datasource db {
 }
 
 model Student {
-  id       String           @id @default(auto()) @map("_id") @db.ObjectId
-  name     String
-  email    String           @unique
-  password String
-  courses  Course[]         @relation(fields: [courseId], references: [id])
-  courseId String[]         @db.ObjectId
-  profile  StudentProfile?
-  register RegisterCourse[]
-  message        Message[]            @relation(fields: [messageId], references: [id])
+  id          String           @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  email       String           @unique
+  password    String
+  courses     Course[]         @relation(fields: [courseId], references: [id])
+  courseId    String[]         @db.ObjectId
+  profile     StudentProfile?
+  register    RegisterCourse[]
+  ChatChannel ChatChannel[]
+  message        MessageBox[]            @relation(fields: [messageId], references: [id])
   messageId       String[]            @db.ObjectId
 }
 
@@ -29,7 +30,8 @@ model Tutor {
   courseId       String[]            @db.ObjectId
   profile        TutorProfile?
   availabilities TutorAvailability[]
-  message        Message[]            @relation(fields: [messageId], references: [id])
+  ChatChannel    ChatChannel[]
+  message        MessageBox[]            @relation(fields: [messageId], references: [id])
   messageId       String[]            @db.ObjectId
 }
 
@@ -62,7 +64,7 @@ model Course {
   availabilities TutorAvailability[]
   register       RegisterCourse[]
   status         String?
-  rate           String[]          
+  rate           String[]
   score          String?
 }
 
@@ -171,6 +173,23 @@ enum UserType {
   TutorAdmin
 }
 
+model ChatChannel {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  studentId String
+  student   Student   @relation(fields: [studentId], references: [id])
+  tutorId   String
+  tutor     Tutor     @relation(fields: [tutorId], references: [id])
+  messages  Message[]
+}
+
+model Message {
+  id            String       @id @default(auto()) @map("_id") @db.ObjectId
+  date          DateTime
+  content       String
+  ChatChannel   ChatChannel? @relation(fields: [chatChannelId], references: [id])
+  chatChannelId String?      @db.ObjectId
+}
+
 // model Notification {
 //   id              String   @id @default(auto()) @map("_id") @db.ObjectId
 //   senderId        String
@@ -178,7 +197,7 @@ enum UserType {
 //   content         String
 // }
 
-model Message {
+model MessageBox {
   id              String   @id @default(auto()) @map("_id") @db.ObjectId
   senderId        String
   content         String
