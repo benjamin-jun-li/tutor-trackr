@@ -863,7 +863,7 @@ export const resolvers = {
             return context.prisma.course.update({
                 where: { id: args.id },
                 data: { 
-                    // rate: updatedRateArray,
+                    rate: updatedRateArray,
                     score: newAverageScore.toString(),
                 },
             });

@@ -21,6 +21,8 @@ type Student {
     password: String
     courses: [Course]
     profile: StudentProfile
+    message: [Message]
+    messageId: [String]
 }
 
 type Tutor {
@@ -30,6 +32,8 @@ type Tutor {
     password: String
     courses: [Course]
     profile: TutorProfile
+    message: [Message]
+    messageId: [String]
 }
 
 type SiteAdmin {
@@ -160,6 +164,15 @@ type Identity {
     userType: UserType!
 }
 
+type Message {
+    id: ID!
+    senderId: String
+    content: String
+    students: [Student]
+    studentId: [String]
+    tutors: [Tutor]
+    tutorId: [String]
+}
 
 
 type Query {
@@ -236,6 +249,6 @@ type Mutation {
         appointmentDate: String
     ): Appointment
     addIdentity(email: String, userType: UserType): Identity
-    addRate(id: ID!, rate: String): Course
+    addRate(id: ID!, rate: String): Course 
 }
 `;

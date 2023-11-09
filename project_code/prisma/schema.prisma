@@ -16,6 +16,8 @@ model Student {
   courseId String[]         @db.ObjectId
   profile  StudentProfile?
   register RegisterCourse[]
+  message        Message[]            @relation(fields: [messageId], references: [id])
+  messageId       String[]            @db.ObjectId
 }
 
 model Tutor {
@@ -27,6 +29,8 @@ model Tutor {
   courseId       String[]            @db.ObjectId
   profile        TutorProfile?
   availabilities TutorAvailability[]
+  message        Message[]            @relation(fields: [messageId], references: [id])
+  messageId       String[]            @db.ObjectId
 }
 
 model SiteAdmin {
@@ -165,4 +169,21 @@ enum UserType {
   Tutor
   SiteAdmin
   TutorAdmin
+}
+
+// model Notification {
+//   id              String   @id @default(auto()) @map("_id") @db.ObjectId
+//   senderId        String
+//   receiverId      String
+//   content         String
+// }
+
+model Message {
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  senderId        String
+  content         String
+  students       Student[]           @relation(fields: [studentId], references: [id])
+  studentId      String[]            @db.ObjectId
+  tutors         Tutor[]             @relation(fields: [tutorId], references: [id])
+  tutorId        String[]            @db.ObjectId
 }
