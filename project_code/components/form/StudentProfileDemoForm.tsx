@@ -13,18 +13,11 @@ import {
 import { Button } from "@/components/ui/button";
 
 export function StudentProfileDisplay() {
-    const { getters } = useContextValue();
     const router = useRouter();
     const params = useParams();
-    const [userEmail, setUserEmail] = useState('');
-
-
-    useEffect(() => {
-        setUserEmail(getters.userEmail);
-    }, [getters.userEmail]);
 
     const { loading, error, data } = useQuery(GET_STUDENT_PROFILE, {
-        variables: { id: getters.userID },
+        variables: { id: params?.userID },
         fetchPolicy: 'network-only'
     });
 
