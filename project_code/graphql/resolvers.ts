@@ -267,8 +267,19 @@ export const resolvers = {
                     thumbnail: true,
                 }
             });
-
             return courses;
+        },
+
+        //get score
+        getScore: async (_parent: any, args: any, context: Context) => {
+            return context.prisma.course.findUnique({
+                where: {
+                    id: args.id,
+                },
+                select: {
+                    score: true,
+                }
+            });
         }
     },
 
@@ -833,7 +844,7 @@ export const resolvers = {
             });
         },
 
-        // add rate
+        //add rate
         addRate: async (_parent: any, args: any, context: Context) => {
             
             const course = await context.prisma.course.findUnique({

@@ -188,7 +188,7 @@ type Query {
     getAppointmentById(id: String!): Appointment
     getTutorCourses(tutorId: String!): [Course]
     getStudentCourses(studentId: String!): [Course]
-
+    getScore(id: String!): Course
   }
 
 type Mutation {

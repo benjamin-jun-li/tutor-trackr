@@ -352,3 +352,11 @@ export const GET_STUDENT_COURSES = gql`
     }
   }
 `;
+
+export const GET_SCORE = gql`
+  query GetScore($id: String!) {
+    getScore(id: $id) {
+      score
+    }
+  }
+`;
