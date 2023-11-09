@@ -62,6 +62,7 @@ type Course {
     tags: [String]
     status: String
     rate: [String]
+    score: String
 }
 
 
@@ -208,7 +209,7 @@ type Mutation {
         courseCanTeach: String, professionalBio: String
     ) : TutorProfile
     addCourse(name: String!, description: String, comments: [String],
-        thumbnail: String, studentId: [String], tutorId: [String], price: Int, tags: [String], status: String, rate: [String],
+        thumbnail: String, studentId: [String], tutorId: [String], price: Int, tags: [String], status: String, rate: [String], score: String
     ) : Course
     deleteCourse(id: ID!): Course
     deleteStudent(id: ID!, email:String): Student

@@ -74,6 +74,7 @@ export const GET_COURSE = gql`
             tags
             price
             rate
+            score
         }
     }
 `
@@ -124,6 +125,7 @@ export const GET_COURSES = gql`
         status
         price
         rate
+        score
     }
   }
 `;
