@@ -76,7 +76,7 @@ const NewCourseForm: React.FC = () => {
 
         const res = await addCourse({
             variables: {
-                tutorId: getters.userID,
+                tutorId: params?.userID,
                 name: formData.courses,
                 description: formData.description,
                 price: parseInt(formData.price),
