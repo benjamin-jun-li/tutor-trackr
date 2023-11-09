@@ -443,7 +443,7 @@ export const resolvers = {
                     price: args.price,
                     status: status,
                     tutorId: args.tutorId,
-                    rate: "0.1",
+                    rate: args.rate,
                 },
             });
         },
@@ -829,6 +829,26 @@ export const resolvers = {
                     email: args.email,
                     userType: args.userType,
                 },
+            });
+        },
+
+        // add rate
+        addRate: async (_parent: any, args: any, context: Context) => {
+            
+            const course = await context.prisma.course.findUnique({
+                where: {
+                    id: args.id,
+                },
+                select: { rate: true },
+            });
+
+            if (!course || !course.rate) {
+                throw new Error("Course not found or rate field is not defined");
+            }
+            const updatedRateArray = [...course.rate, args.rate];
+            return context.prisma.course.update({
+                where: { id: args.id },
+                data: { rate: updatedRateArray },
             });
         },
     }

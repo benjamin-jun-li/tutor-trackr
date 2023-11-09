@@ -61,7 +61,7 @@ type Course {
     price: Int
     tags: [String]
     status: String
-    rate: String
+    rate: [String]
 }
 
 
@@ -187,6 +187,7 @@ type Query {
     getAppointmentById(id: String!): Appointment
     getTutorCourses(tutorId: String!): [Course]
     getStudentCourses(studentId: String!): [Course]
+
   }
 
 type Mutation {
@@ -207,7 +208,7 @@ type Mutation {
         courseCanTeach: String, professionalBio: String
     ) : TutorProfile
     addCourse(name: String!, description: String, comments: [String],
-        thumbnail: String, studentId: [String], tutorId: [String], price: Int, tags: [String], status: String, rate: String,
+        thumbnail: String, studentId: [String], tutorId: [String], price: Int, tags: [String], status: String, rate: [String],
     ) : Course
     deleteCourse(id: ID!): Course
     deleteStudent(id: ID!, email:String): Student
@@ -234,5 +235,6 @@ type Mutation {
         appointmentDate: String
     ): Appointment
     addIdentity(email: String, userType: UserType): Identity
+    addRate(id: ID!, rate: String): Course
 }
 `;

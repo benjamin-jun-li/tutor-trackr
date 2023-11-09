@@ -177,7 +177,7 @@ export const ADD_COURSE = gql`
         $price: Int
         $tags: [String!]
         $status: String
-        $rate: String
+        $rate: [String]
     ) {
         addCourse(
             name: $name
@@ -223,8 +223,8 @@ export const DELETE_COURSE = gql`
 `;
 
 export const DELETE_Student = gql`
-    mutation DeleteStudent($id: ID!,$email:String!) {
-        deleteStudent(id: $id,email: $email) {
+    mutation DeleteStudent($id: ID!, $email:String!) {
+        deleteStudent(id: $id, email: $email) {
             id
             email
         }
@@ -374,6 +374,21 @@ export const ADD_IDENTITY = gql`
     ) {
       email
       userType
+    }
+  }
+`;
+
+export const ADD_RATE = gql`
+  mutation AddRate(
+    $id: ID!,
+    $rate: String!
+  ) {
+    addRate(
+      id: $id
+      rate: $rate
+    ) {
+      id
+      rate
     }
   }
 `;
