@@ -17,21 +17,37 @@ import {
 import {useParams, usePathname} from "next/navigation";
 import { useContextValue } from "@/components/context";
 import Link from "next/link";
+import {useQuery} from "@apollo/client";
+import {GET_STUDENT_PROFILE, GET_TUTOR_PROFILE} from "@/graphql/queries";
 
-interface NavbarProps {
-  userEmail: string;
-  userName: string;
-}
-
-export function UserNav(NavbarProps: NavbarProps) {
+export function UserNav() {
   const { getters,setters } = useContextValue();
   const params = useParams();
+  const { loading: loading1, error: error1, data: data1 } = useQuery(GET_STUDENT_PROFILE, {
+    variables: { id: params?.userID },
+    fetchPolicy: 'network-only'
+  });
+  const {loading: loading2, error: error2, data: data2} = useQuery(GET_TUTOR_PROFILE, {
+    variables: { id: params?.userID },
+    fetchPolicy: 'network-only'
+  });
+
+  console.log(data1?.getStudentProfile?.username);
+
   let currentPath = usePathname();
 
   currentPath =
       currentPath?.includes('/student') ? `/${params?.userID}/student` :
           currentPath?.includes('/tutor') ? `/${params?.userID}/tutor` :
               currentPath;
+
+  const userName = currentPath?.includes('/student') ? data1?.getStudentProfile?.username :
+        currentPath?.includes('/tutor') ? data2?.getTutorProfile?.username :
+            "";
+
+    const userEmail = currentPath?.includes('/student') ? data1?.getStudentProfile?.email :
+        currentPath?.includes('/tutor') ? data2?.getTutorProfile?.email :
+            "";
 
   const handleLogout = () => {
     setters.setEmail("");
@@ -53,9 +69,9 @@ export function UserNav(NavbarProps: NavbarProps) {
       <DropdownMenuContent className="w-56" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">{NavbarProps.userName}</p>
+            <p className="text-sm font-medium leading-none">{userName}</p>
             <p className="text-xs leading-none text-muted-foreground">
-              {NavbarProps.userEmail}
+              {userEmail}
             </p>
           </div>
         </DropdownMenuLabel>
