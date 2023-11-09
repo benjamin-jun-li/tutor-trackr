@@ -444,6 +444,7 @@ export const resolvers = {
                     status: status,
                     tutorId: args.tutorId,
                     rate: args.rate,
+                    score: args.score,
                 },
             });
         },
@@ -846,9 +847,14 @@ export const resolvers = {
                 throw new Error("Course not found or rate field is not defined");
             }
             const updatedRateArray = [...course.rate, args.rate];
+            const newAverageScore = updatedRateArray.reduce((acc, curr) => acc + parseFloat(curr), 0) / updatedRateArray.length;
+
             return context.prisma.course.update({
                 where: { id: args.id },
-                data: { rate: updatedRateArray },
+                data: { 
+                    // rate: updatedRateArray,
+                    score: newAverageScore.toString(),
+                },
             });
         },
     }
