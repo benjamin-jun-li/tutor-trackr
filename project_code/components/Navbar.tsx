@@ -1,13 +1,14 @@
 'use client'
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import React, { useEffect, useState } from 'react';
+import {useParams, usePathname} from 'next/navigation';
+import { useEffect, useState } from 'react';
 import { Atom } from 'lucide-react';
 import { UserNav } from '@/components/dashboard/user-nav';
 import { useContextValue } from  "@/components/context"
 
 const Navbar = () => {
+  const params = useParams();
 
   const { getters } = useContextValue();
   const [userEmail, setUserEmail] = useState(getters.userEmail);
@@ -21,8 +22,8 @@ const Navbar = () => {
   const pathname = usePathname();
 
   const isAdminPage = pathname?.includes('/siteadmin/') ?? pathname?.includes('/tutoradmin/');
-  const isTutorPage = pathname?.startsWith('/tutor/');
-  const isStudentPage = pathname?.startsWith('/student/');
+  const isTutorPage = pathname?.includes('/tutor/');
+  const isStudentPage = pathname?.includes('/student/');
 
   const renderContent = () => {
     if (isAdminPage || isTutorPage || isStudentPage) {
@@ -35,9 +36,8 @@ const Navbar = () => {
   };
 
   const handleLogo = () => {
-    if (isAdminPage) return handleLogoLink('/admin/dashboard');
-    if (isTutorPage) return handleLogoLink('/tutor/dashboard');
-    if (isStudentPage) return handleLogoLink('/student/dashboard');
+    if (isTutorPage) return handleLogoLink(`/${params?.userID}/tutor/dashboard`);
+    if (isStudentPage) return handleLogoLink(`/${params?.userID}/student/dashboard`);
     return handleLogoLink('/');
   };
 

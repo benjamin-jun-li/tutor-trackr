@@ -20,7 +20,7 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { useRouter } from "next/navigation";
+import {useParams, useRouter} from "next/navigation";
 import TimezonePicker from "@/components/TimezonePicker";
 import Link from "next/link";
 import { useToast } from "@/components/ui/use-toast";
@@ -49,6 +49,7 @@ const NewCourseForm: React.FC = () => {
     const { getters } = useContextValue();
     const userEmail = getters.userEmail;
     const router = useRouter();
+    const params = useParams();
     const { toast } = useToast();
     const userName = getters.userName;
 
@@ -233,7 +234,7 @@ const NewCourseForm: React.FC = () => {
                     </div>
                     <div className="flex gap-2">
                         <Button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white p-2 rounded" >Submit</Button>
-                        <Link href="/tutor/dashboard">
+                        <Link href={`/${params?.userID}/tutor/dashboard`}>
                             <Button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white p-2 rounded">Back</Button>
                         </Link>
                     </div>

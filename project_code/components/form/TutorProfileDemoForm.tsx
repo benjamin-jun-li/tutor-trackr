@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { GET_TUTOR_PROFILE } from "@/graphql/queries";
-import { useRouter } from "next/navigation";
+import {useParams, useRouter} from "next/navigation";
 import { useContextValue } from "@/components/context";
 import {
     Avatar,
@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button";
 export function TutorProfileDisplay() {
     const { getters } = useContextValue();
     const router = useRouter();
+    const params = useParams();
     const [userEmail, setUserEmail] = useState('');
 
     useEffect(() => {
@@ -27,11 +28,11 @@ export function TutorProfileDisplay() {
     });
 
     const handleUpdateClick = () => {
-        router.push('/tutor/profile/update');
+        router.push(`/${params?.userID}/tutor/profile/update`);
     };
 
     const handleDashboardClick = () => {
-        router.push('/tutor/dashboard');
+        router.push(`/${params?.userID}/tutor/dashboard`);
     };
 
     return (

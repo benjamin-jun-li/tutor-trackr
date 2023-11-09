@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { GET_STUDENT_PROFILE } from "@/graphql/queries";
-import { useRouter } from "next/navigation";
+import {useParams, useRouter} from "next/navigation";
 import { useContextValue } from "@/components/context";
 import {
     Avatar,
@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button";
 export function StudentProfileDisplay() {
     const { getters } = useContextValue();
     const router = useRouter();
+    const params = useParams();
     const [userEmail, setUserEmail] = useState('');
 
 
@@ -28,11 +29,11 @@ export function StudentProfileDisplay() {
     });
 
     const handleUpdateClick = () => {
-        router.push('/student/profile/update');
+        router.push(`/${params?.userID}/student/profile/update`);
     };
 
     const handleDashboardClick = () => {
-        router.push('/student/dashboard');
+        router.push(`/${params?.userID}/student/dashboard`);
     };
 
     return (
