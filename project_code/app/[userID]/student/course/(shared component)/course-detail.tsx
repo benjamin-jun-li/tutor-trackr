@@ -6,7 +6,7 @@ import {
     AccordionTrigger,
 } from "@/components/ui/accordion"
 import {FC, useState} from "react";
-import { useParams } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import Link from "next/link";
 import { useQuery } from "@apollo/client";
 import { GET_COURSE } from "@/graphql/queries";
@@ -16,6 +16,7 @@ import {Button} from "@/components/ui/button";
 
 const CourseDetail:FC<{ role:string }> = ({ role }) => {
     const params = useParams();
+    const pathname = usePathname();
     const { getters } = useContextValue();
     const getCourseDetail = useQuery(GET_COURSE, {variables:{ id:params?.id }});
 
@@ -111,13 +112,13 @@ const CourseDetail:FC<{ role:string }> = ({ role }) => {
                         </div>
                     </div>
 
-                    {role === "tutor" &&
+                    {role === "tutor" && pathname.includes("my") &&
                         <div className="w-full md:w-3/4 p-4 mt-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
-
+                            Students' list where could navigate to profile
                         </div>
                     }
 
-                    <div className="w-full md:w-3/4 p-4 mt-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+                    <div className="w-full md:w-3/4 p-4 my-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
                         <div className="flex items-center justify-between mb-4">
                             <h5 className="text-xl font-bold leading-none text-gray-900 dark:text-white">Available Tutors</h5>
                         </div>

@@ -4,10 +4,9 @@ import {useParams} from "next/navigation";
 import {AppointsDisplay} from "@/components/AppointsDisplay";
 
 const TutorAppointment = () => {
-    const param = useParams();
+    const params = useParams();
     return (
         <main className="">
-            {/*{param?.id}*/}
             <AppointsDisplay />
         </main>
     )

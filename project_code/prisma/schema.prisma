@@ -8,14 +8,15 @@ datasource db {
 }
 
 model Student {
-  id       String           @id @default(auto()) @map("_id") @db.ObjectId
-  name     String
-  email    String           @unique
-  password String
-  courses  Course[]         @relation(fields: [courseId], references: [id])
-  courseId String[]         @db.ObjectId
-  profile  StudentProfile?
-  register RegisterCourse[]
+  id          String           @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  email       String           @unique
+  password    String
+  courses     Course[]         @relation(fields: [courseId], references: [id])
+  courseId    String[]         @db.ObjectId
+  profile     StudentProfile?
+  register    RegisterCourse[]
+  ChatChannel ChatChannel[]
 }
 
 model Tutor {
@@ -27,6 +28,7 @@ model Tutor {
   courseId       String[]            @db.ObjectId
   profile        TutorProfile?
   availabilities TutorAvailability[]
+  ChatChannel    ChatChannel[]
 }
 
 model SiteAdmin {
@@ -58,7 +60,7 @@ model Course {
   availabilities TutorAvailability[]
   register       RegisterCourse[]
   status         String?
-  rate           String[]             @default(["0.0"])
+  rate           String[]            @default(["0.0"])
 }
 
 model TutorAvailability {
@@ -164,4 +166,21 @@ enum UserType {
   Tutor
   SiteAdmin
   TutorAdmin
+}
+
+model ChatChannel {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  studentId String
+  student   Student   @relation(fields: [studentId], references: [id])
+  tutorId   String
+  tutor     Tutor     @relation(fields: [tutorId], references: [id])
+  messages  Message[]
+}
+
+model Message {
+  id            String       @id @default(auto()) @map("_id") @db.ObjectId
+  date          DateTime
+  content       String
+  ChatChannel   ChatChannel? @relation(fields: [chatChannelId], references: [id])
+  chatChannelId String?      @db.ObjectId
 }
