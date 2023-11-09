@@ -164,7 +164,7 @@ type Identity {
     userType: UserType!
 }
 
-type Message {
+type MessageBox {
     id: ID!
     senderId: String
     content: String
