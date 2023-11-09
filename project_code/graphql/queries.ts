@@ -74,6 +74,7 @@ export const GET_COURSE = gql`
             tags
             price
             rate
+            score
         }
     }
 `
@@ -124,6 +125,7 @@ export const GET_COURSES = gql`
         status
         price
         rate
+        score
     }
   }
 `;
@@ -347,6 +349,14 @@ export const GET_STUDENT_COURSES = gql`
       name
       description
       thumbnail
+    }
+  }
+`;
+
+export const GET_SCORE = gql`
+  query GetScore($id: String!) {
+    getScore(id: $id) {
+      score
     }
   }
 `;
