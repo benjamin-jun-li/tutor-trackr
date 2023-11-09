@@ -164,7 +164,27 @@ type Identity {
     userType: UserType!
 }
 
-type MessageBox {
+
+type ChatChannel {
+    id: ID!
+    students: [Student]
+    studentId: [String]
+    tutors: [Tutor]
+    tutorId: [String]
+    messages: [Message]
+    messageId: [String]
+}
+
+
+type Message {
+    id: ID!
+    date: String
+    content: String
+    ChatChannel: [ChatChannel]
+    chatChannelId: [String]
+}
+
+type Notification {
     id: ID!
     senderId: String
     content: String

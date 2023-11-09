@@ -99,7 +99,7 @@ const NewCoursePage = () => {
                             </Button>
                         </>
                     )}
-                    <Link href="/admin/tutoradmin/dashboard">
+                    <Link href={`/${param?.userID}/admin/tutoradmin/dashboard`}>
                         <Button className="bg-gray-500 hover:bg-blue-600 text-white rounded">Back</Button>
                     </Link>
                 </div>

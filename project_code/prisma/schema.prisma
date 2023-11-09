@@ -17,8 +17,8 @@ model Student {
   profile     StudentProfile?
   register    RegisterCourse[]
   ChatChannel ChatChannel[]
-  message        MessageBox[]            @relation(fields: [messageId], references: [id])
-  messageId       String[]            @db.ObjectId
+  notification        Notification[]            @relation(fields: [notificationId], references: [id])
+  notificationId       String[]            @db.ObjectId
 }
 
 model Tutor {
@@ -31,8 +31,8 @@ model Tutor {
   profile        TutorProfile?
   availabilities TutorAvailability[]
   ChatChannel    ChatChannel[]
-  message        MessageBox[]            @relation(fields: [messageId], references: [id])
-  messageId       String[]            @db.ObjectId
+  notification        Notification[]            @relation(fields: [notificationId], references: [id])
+  notificationId       String[]            @db.ObjectId
 }
 
 model SiteAdmin {
@@ -175,19 +175,23 @@ enum UserType {
 
 model ChatChannel {
   id        String    @id @default(auto()) @map("_id") @db.ObjectId
-  studentId String
+  studentId String      @db.ObjectId
   student   Student   @relation(fields: [studentId], references: [id])
-  tutorId   String
+  tutorId   String      @db.ObjectId
   tutor     Tutor     @relation(fields: [tutorId], references: [id])
-  messages  Message[]
+
+  messageId String[]      @db.ObjectId
+  messages  Message[]     @relation(fields: [messageId], references: [id])
+
 }
 
 model Message {
   id            String       @id @default(auto()) @map("_id") @db.ObjectId
-  date          DateTime
+  date          String
   content       String
-  ChatChannel   ChatChannel? @relation(fields: [chatChannelId], references: [id])
-  chatChannelId String?      @db.ObjectId
+  chatChannelId String[]        @db.ObjectId
+  ChatChannel   ChatChannel[]  @relation(fields: [chatChannelId], references: [id])
+
 }
 
 // model Notification {
@@ -197,7 +201,7 @@ model Message {
 //   content         String
 // }
 
-model MessageBox {
+model Notification {
   id              String   @id @default(auto()) @map("_id") @db.ObjectId
   senderId        String
   content         String

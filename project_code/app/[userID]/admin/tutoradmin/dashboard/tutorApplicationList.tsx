@@ -3,8 +3,10 @@ import { useQuery } from "@apollo/client"
 import {GET_APPLICATION, GET_INTERVIEW} from "@/graphql/queries"
 import Link from "next/link";
 import {application} from "express";
+import {useParams} from "next/navigation";
 
 const InterviewBoard = () => {
+    const params = useParams();
     const applications = useQuery(GET_APPLICATION);
     if (applications?.data?.getApplication?.length === 0 && applications?.loading === false) {
         return (
@@ -53,7 +55,7 @@ const InterviewBoard = () => {
                                     {application.email}
                                 </td>
                                 <td className="px-6 py-4 text-right">
-                                    <Link href={`/admin/tutoradmin/application/${application.id}`} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">More</Link>
+                                    <Link href={`/${params?.userID}/admin/tutoradmin/application/${application.id}`} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">More</Link>
                                 </td>
                             </tr>
                         ))}

@@ -2,9 +2,11 @@
 import Link from "next/link";
 import { GET_APPOINTMENT } from "@/graphql/queries";
 import { useQuery } from "@apollo/client";
+import {useParams} from "next/navigation";
 
 const AppointmentList = () => {
     const appointments = useQuery(GET_APPOINTMENT)
+    const params = useParams();
     if (appointments.data) console.log(appointments.data)
     return (
         <section className="p-2">
@@ -36,7 +38,7 @@ const AppointmentList = () => {
                     </tr>
                     </thead>
                     <tbody>
-                    {appointments.data?.getAppointments.map((appointment) => (
+                    {appointments.data?.getAppointments.map((appointment: any) => (
                         <tr key={appointment.id} className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
                             <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 {appointment.courseName}
@@ -54,7 +56,7 @@ const AppointmentList = () => {
                                 12.04.2023
                             </td>
                             <td className="px-6 py-4">
-                                <Link href={`/appointment/`} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">More</Link>
+                                <Link href={`/${params?.userID}/admin/tutoradmin/appointment/${appointment.id}/`} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">More</Link>
                             </td>
                         </tr>
                     ))}

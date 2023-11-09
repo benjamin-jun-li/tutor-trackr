@@ -5,7 +5,7 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from "@/components/ui/accordion"
-import {FC, useState} from "react";
+import {FC, useEffect, useState} from "react";
 import { useParams, usePathname } from "next/navigation";
 import Link from "next/link";
 import {useMutation, useQuery} from "@apollo/client";
@@ -20,41 +20,42 @@ const CourseDetail:FC<{ role:string }> = ({ role }) => {
     const pathname = usePathname();
     const { getters } = useContextValue();
     const getCourseDetail = useQuery(GET_COURSE, {variables:{ id:params?.id }});
-    const getScore = useQuery(GET_SCORE, {
-        variables:{ id:params?.id },
+    const { loading, data, error, refetch } = useQuery(GET_SCORE, {
+        variables: { id: params?.id },
         fetchPolicy: "network-only",
     });
+
+
     const [addRate, { data: rateData, loading: rateLoading, error: rateError }] = useMutation(ADD_RATE);
 
-    const rating = getScore.data?.getScore?.score === null ? 0 : parseInt(getScore.data?.getScore?.score);
+    const rating = data?.getScore?.score === null ? 0 : parseFloat(parseFloat(data?.getScore?.score).toFixed(2));
 
     const roundedRating = Math.floor(rating);
     const hasHalfStar = rating % 1 >= 0.5;
 
     const [currentRate, setCurrentRate] = useState<number | null>(null);
 
-    const handleRate = async () => {
-        const rates = document.getElementsByName("rating-2") as NodeListOf<HTMLInputElement>;
-        for (let i = 0; i < rates.length; i++) {
-            if (rates[i].checked) {
-                setCurrentRate(i + 1); // Assuming the rates are 1-indexed
-                console.log(i + 1);
-                break;
-            }
-        }
-        if (currentRate) {
+    const submitRate = async () => {
+        if (currentRate !== null) {
             try {
                 await addRate({
                     variables: {
                         id: params?.id,
-                        score: currentRate
-                    }
+                        rate: currentRate.toString(), // Ensure this is a string as your schema expects
+                    },
                 });
                 alert("Rate successfully!");
+                await refetch();
             } catch (e) {
-                alert('Rate failed!');
+                alert('Rate failed!: ' + e.message || 'unknown error');
             }
+        } else {
+            alert('Please select a rating before submitting.');
         }
+    };
+
+    const handleRateChange = (rate: number) => {
+        setCurrentRate(rate);
     };
 
 
@@ -116,13 +117,18 @@ const CourseDetail:FC<{ role:string }> = ({ role }) => {
                                 <div className="flex gap-2">
                                     Add your rate:
                                     <div className="rating">
-                                        <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
-                                        <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
-                                        <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
-                                        <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
-                                        <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
+                                        {[1, 2, 3, 4, 5].map((rate) => (
+                                            <input
+                                                key={rate}
+                                                type="radio"
+                                                name="rating-2"
+                                                className="mask mask-star-2 bg-orange-400"
+                                                checked={currentRate === rate}
+                                                onChange={() => handleRateChange(rate)}
+                                            />
+                                        ))}
                                     </div>
-                                    <Button onClick={handleRate}>Submit</Button>
+                                    <Button onClick={submitRate}>Submit</Button>
                                 </div>
 
                                 <br/>
