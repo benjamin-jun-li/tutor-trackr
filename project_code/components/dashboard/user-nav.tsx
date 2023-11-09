@@ -14,7 +14,7 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import {usePathname } from "next/navigation";
+import {useParams, usePathname} from "next/navigation";
 import { useContextValue } from "@/components/context";
 import Link from "next/link";
 
@@ -25,11 +25,12 @@ interface NavbarProps {
 
 export function UserNav(NavbarProps: NavbarProps) {
   const { getters,setters } = useContextValue();
+  const params = useParams();
   let currentPath = usePathname();
 
   currentPath =
-      currentPath?.startsWith('/student') ? '/student' :
-          currentPath?.startsWith('/tutor') ? '/tutor' :
+      currentPath?.includes('/student') ? `/${params?.userID}/student` :
+          currentPath?.includes('/tutor') ? `/${params?.userID}/tutor` :
               currentPath;
 
   const handleLogout = () => {

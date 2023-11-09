@@ -25,7 +25,7 @@ import {useEffect, useState} from "react";
 import {useMutation, useQuery} from "@apollo/client";
 import {GET_STUDENT_PROFILE, GET_TUTOR_PROFILE} from "@/graphql/queries";
 import {UPDATE_TUTOR_PROFILE} from "@/graphql/mutations";
-import {usePathname, useRouter} from "next/navigation";
+import {useParams, usePathname, useRouter} from "next/navigation";
 import {useContextValue} from "@/components/context";
 import TimezonePicker from "@/components/TimezonePicker";
 
@@ -68,6 +68,7 @@ type ProfileFormValues = z.infer<typeof profileFormSchema>
 export function TutorProfileUpdateForm() {
     const { getters,setters } = useContextValue();
     const router = useRouter();
+    const params = useParams();
     let currentPath = usePathname();
 
     const form = useForm<ProfileFormValues>({
@@ -87,8 +88,8 @@ export function TutorProfileUpdateForm() {
     const [updateTutorProfile,{data:studentData,loading:studentLoading,error:studentError}] = useMutation(UPDATE_TUTOR_PROFILE);
 
     currentPath =
-        currentPath?.startsWith('/student') ? '/student' :
-            currentPath?.startsWith('/tutor') ? '/tutor' :
+        currentPath?.includes('/student') ? `/${params?.userID}/student` :
+            currentPath?.includes('/tutor') ? `/${params?.userID}/tutor` :
                 currentPath;
 
 

@@ -1,6 +1,6 @@
 import { Server } from "socket.io";
 
-const SocketHandler = (req, res) => {
+const SocketHandler = (req: any, res: any) => {
     if (res.socket.server.io) {
         console.log("Already set up");
         res.end();
@@ -10,8 +10,8 @@ const SocketHandler = (req, res) => {
     const io : any = new Server(res.socket.server);
     res.socket.server.io = io;
 
-    io.on("connection", (socket) => {
-        socket.on("send-message", (obj) => {
+    io.on("connection", (socket: any) => {
+        socket.on("send-message", (obj: any) => {
             io.emit("receive-message", obj);
         });
     });
