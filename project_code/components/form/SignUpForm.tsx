@@ -86,7 +86,7 @@ const SignUpForm = () => {
               setters.setIdentity(values.identity);
               setters.setUserID(userId);
               setters.setUserStatus(true);
-              router.replace(`/student/dashboard/`)
+              router.replace(`${userId}/student/dashboard/`)
           } else {
               console.log(res);
           }
@@ -105,7 +105,7 @@ const SignUpForm = () => {
               setters.setIdentity(values.identity);
               setters.setUserID(userId);
               setters.setUserStatus(true);
-              router.replace(`/tutor/dashboard/`)
+              router.replace(`${userId}/tutor/dashboard/`)
           } else {
               console.log(res);
           }

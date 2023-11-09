@@ -1,7 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import {FC} from "react";
-import {Course_type} from "@/app/student/dashboard/page";
+import {Course_type} from "@/app/[userID]/student/dashboard/page";
+import { useParams } from "next/navigation";
 
 interface CLprops{
   data: any,
@@ -9,6 +10,7 @@ interface CLprops{
   courseType: string,
 }
 const CourseListComponent:FC<CLprops> = ({data, role, courseType}) => {
+    const params = useParams();
     return (
         <section>
             <div className="flex">
@@ -33,7 +35,7 @@ const CourseListComponent:FC<CLprops> = ({data, role, courseType}) => {
                                 <h2 className="card-title">{course.name}</h2>
                                 <p>{course.description}</p>
                                 <div className="card-actions justify-end">
-                                    <Link href={`/${role}/course/${courseType}/${course.id}`}>
+                                    <Link href={`/${params.userID}/${role}/course/${courseType}/${course.id}`}>
                                         <button className="btn btn-primary">More</button>
                                     </Link>
                                 </div>

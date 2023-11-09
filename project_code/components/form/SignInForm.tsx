@@ -65,41 +65,43 @@ const SignInForm = () => {
         setters.setIdentity(userIdentity);
       if (userIdentity === "Student") {
           const res2 = await authStudent({variables: {email: values.email}})
-              if (res2.data?.student?.password === enteredPassword) {
-                  const userId = res2.data?.student?.id
-                  setters.setEmail(values.email)
-                  setters.setName(res2.data.student.name)
-                  setters.setUserID(userId)
-                  setters.setUserStatus(true)
-                  router.replace('/student/dashboard')
-              } else {
-                  alert("invalid student info")
-              }
+          if (res2.data?.student?.password === enteredPassword) {
+              const userId = res2.data?.student?.id
+              setters.setEmail(values.email)
+              setters.setName(res2.data.student.name)
+              setters.setUserID(userId)
+              setters.setUserStatus(true)
+              router.replace(`${userId}/student/dashboard`)
+          } else {
+              alert("invalid student info")
+          }
       } else if (userIdentity === "Tutor") {
           const res2 = await authTutor({variables: {email: values.email}});
           if (res2.data?.tutor?.password === enteredPassword) {
-                const userId = res2.data?.tutor?.id
+              const userId = res2.data?.tutor?.id
               setters.setEmail(values.email)
               setters.setName(res2.data.tutor.name)
               setters.setUserID(userId)
               setters.setUserStatus(true)
-              router.replace('/tutor/dashboard')
+              router.replace(`${userId}/tutor/dashboard`)
           } else {
               alert("Invalid tutor info")
           }
       } else if (userIdentity === "SiteAdmin") {
           const res2 = await authSiteAdmin({ variables: { email: values.email } });
           if (res2.data?.siteAdmin?.password === enteredPassword) {
+              const userId = res2.data?.siteAdmin?.id
               setters.setUserStatus(true);
-              router.replace('/admin/siteadmin/dashboard');
+              router.replace(`${userId}/admin/siteadmin/dashboard`);
           } else {
               alert("Invalid site admin info");
           }
       } else if (userIdentity === "TutorAdmin") {
             const res2 = await authTutorAdmin({ variables: { email: values.email } });
             if (res2.data?.tutorAdmin?.password === enteredPassword) {
+                const userId = res2.data?.tutorAdmin?.id
                 setters.setUserStatus(true);
-                router.replace('/admin/tutoradmin/dashboard');
+                router.replace(`${userId}/admin/tutoradmin/dashboard`);
             } else {
                 alert("Invalid tutor admin info");
             }

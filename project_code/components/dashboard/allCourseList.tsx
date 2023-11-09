@@ -1,6 +1,6 @@
 "use client"
 import Image from "next/image";
-import { Course_type } from "@/app/student/dashboard/page";
+import { Course_type } from "@/app/[userID]/student/dashboard/page";
 import { useQuery } from "@apollo/client";
 import { GET_COURSES } from "@/graphql/queries";
 import { FC } from "react"
