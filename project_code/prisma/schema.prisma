@@ -17,6 +17,8 @@ model Student {
   profile     StudentProfile?
   register    RegisterCourse[]
   ChatChannel ChatChannel[]
+  message        MessageBox[]            @relation(fields: [messageId], references: [id])
+  messageId       String[]            @db.ObjectId
 }
 
 model Tutor {
@@ -29,6 +31,8 @@ model Tutor {
   profile        TutorProfile?
   availabilities TutorAvailability[]
   ChatChannel    ChatChannel[]
+  message        MessageBox[]            @relation(fields: [messageId], references: [id])
+  messageId       String[]            @db.ObjectId
 }
 
 model SiteAdmin {
@@ -184,4 +188,21 @@ model Message {
   content       String
   ChatChannel   ChatChannel? @relation(fields: [chatChannelId], references: [id])
   chatChannelId String?      @db.ObjectId
+}
+
+// model Notification {
+//   id              String   @id @default(auto()) @map("_id") @db.ObjectId
+//   senderId        String
+//   receiverId      String
+//   content         String
+// }
+
+model MessageBox {
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  senderId        String
+  content         String
+  students       Student[]           @relation(fields: [studentId], references: [id])
+  studentId      String[]            @db.ObjectId
+  tutors         Tutor[]             @relation(fields: [tutorId], references: [id])
+  tutorId        String[]            @db.ObjectId
 }

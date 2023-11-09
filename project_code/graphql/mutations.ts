@@ -391,6 +391,7 @@ export const ADD_RATE = gql`
       rate: $rate
     ) {
       id
+      rate
       score
     }
   }
