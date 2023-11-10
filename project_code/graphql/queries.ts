@@ -338,10 +338,10 @@ export const GET_STUDENT_INFO = gql`
 export const GET_TUTOR_COURSES = gql`
   query GetTutorCourses($tutorId: String!) {
     getTutorCourses(tutorId: $tutorId) {
-        id:   ID
-        name: String
-        description: String
-        status: String
+        id
+        name
+        description
+        status
     }
   }
 `;
@@ -349,10 +349,10 @@ export const GET_TUTOR_COURSES = gql`
 export const GET_STUDENT_COURSES = gql`
   query GetStudentCourses($studentId: String!) {
     getStudentCourses(studentId: $studentId) {
-        id:   ID
-        name: String
-        description: String
-        status: String
+        id
+        name
+        description
+        status
     }
   }
 `;

@@ -30,11 +30,12 @@ const MyCourseList:FC<MyCourseProps> = ({role, courseType}) => {
                 }
             }).then((res) => {
                 data.current = res;
+                console.log(res.data.getTutorCourses);
             });
 
         }
     }, []);
-    console.log(data);
+    // console.log(data);
     return (
         <></>
     )

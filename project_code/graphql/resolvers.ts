@@ -602,6 +602,17 @@ export const resolvers = {
 
 
         approveApplication: async (_parent: any, args: any, context: Context) => {
+            // Todo send a message to the tutor
+            // const notification = await context.prisma.notification.create({
+            //     data: {
+            //         tutorId: args.tutorId,
+            //         senderId: args.senderId,
+            //         content: "Your application has been approved",
+            //         date: new Date().toISOString(),
+            //     },
+            // })
+
+
             return context.prisma.tutorApplication.update({
                 where: {
                     id: args.id,
@@ -624,6 +635,7 @@ export const resolvers = {
         },
 
         approveCourseApplication: async (_parent: any, args: any, context: Context) => {
+
             return context.prisma.course.update({
                 where: {
                     id: args.id,
