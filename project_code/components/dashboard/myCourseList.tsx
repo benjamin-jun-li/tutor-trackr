@@ -19,20 +19,19 @@ const MyCourseList:FC<MyCourseProps> = ({role, courseType}) => {
         // Define the async function inside useEffect
         const fetchData = async () => {
             if (role === "student") {
-                const data = await getStudentCourses({
+                const res = await getStudentCourses({
                     variables: {
                         studentId: params?.userID
                     }
                 });
-                // setData(data?.getStudentCourses);
+                setData(res?.data?.getStudentCourses);
             } else {
-                const data = await getTutorCourses({
+                const res = await getTutorCourses({
                     variables: {
                         tutorId: params?.userID
                     }
                 });
-                console.log(data?.getTutorCourses)
-                // setData(data?.getTutorCourses);
+                setData(res?.data?.getTutorCourses);
             }
         };
 
