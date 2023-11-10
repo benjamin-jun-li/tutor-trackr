@@ -13,6 +13,7 @@ import {GET_COURSE, GET_SCORE} from "@/graphql/queries";
 import {useContextValue} from "@/components/context";
 import Image from "next/image";
 import {Button} from "@/components/ui/button";
+import TutorBioDisplay from "@/components/TutorBioDisplay";
 import {ADD_RATE} from "@/graphql/mutations";
 import ProfileTable from "@/app/[userID]/tutor/course/(shared component)/profileTable";
 
@@ -163,7 +164,7 @@ const CourseDetail:FC<{ role:string }> = ({ role }) => {
                                                     </div>
                                                 </AccordionTrigger>
                                                 <AccordionContent>
-                                                    I am proficient in Scala and Hadoop
+                                                    <TutorBioDisplay tutorId={tutor.id} />
                                                 </AccordionContent>
                                             </AccordionItem>
                                         </Accordion>
