@@ -1,10 +1,15 @@
 "use client"
-import { useEffect, useState } from "react";
+import {FC, useEffect, useState} from "react";
 import io from "socket.io-client";
 import type { Socket } from 'socket.io-client';
 
-let socket: undefined | Socket
-const ChatComponent = () => {
+let socket: undefined | Socket;
+
+interface chatComponentProps {
+    channelID: string | string[] | undefined,
+
+}
+const ChatComponent:FC<chatComponentProps> = ({}) => {
     const [messages, setMessages] = useState<string[]>([]);
     const [message, setMessage] = useState<string>("");
 
