@@ -13,7 +13,8 @@ import {GET_COURSE, GET_SCORE} from "@/graphql/queries";
 import {useContextValue} from "@/components/context";
 import Image from "next/image";
 import {Button} from "@/components/ui/button";
-import {ADD_IDENTITY, ADD_RATE} from "@/graphql/mutations";
+import {ADD_RATE} from "@/graphql/mutations";
+import ProfileTable from "@/app/[userID]/tutor/course/(shared component)/profileTable";
 
 const CourseDetail:FC<{ role:string }> = ({ role }) => {
     const params = useParams();
@@ -91,8 +92,8 @@ const CourseDetail:FC<{ role:string }> = ({ role }) => {
                         </div>
                         <div className="p-5">
                             <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{getCourseDetail.data.course?.description || "sample description"}</h5>
-                            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                                ratings: &nbsp;{rating}
+                            <div className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                                Ratings: &nbsp;{isNaN(rating) ? ("Rating data not available") : (
                                 <div className="flex items-center">
                                     <div className="flex items-center space-x-2 mb-5">
                                         {Array.from({ length: 5 }, (_, index) => (
@@ -113,34 +114,34 @@ const CourseDetail:FC<{ role:string }> = ({ role }) => {
                                         ))}
                                     </div>
                                 </div>
-
-                                <div className="flex gap-2">
-                                    Add your rate:
-                                    <div className="rating">
-                                        {[1, 2, 3, 4, 5].map((rate) => (
-                                            <input
-                                                key={rate}
-                                                type="radio"
-                                                name="rating-2"
-                                                className="mask mask-star-2 bg-orange-400"
-                                                checked={currentRate === rate}
-                                                onChange={() => handleRateChange(rate)}
-                                            />
-                                        ))}
-                                    </div>
-                                    <Button onClick={submitRate}>Submit</Button>
-                                </div>
+                            )}
+                        <div className="flex gap-2">
+                            Add your rate:
+                            <div className="rating">
+                                {[1, 2, 3, 4, 5].map((rate) => (
+                                    <input
+                                        key={rate}
+                                        type="radio"
+                                        name="rating-2"
+                                        className="mask mask-star-2 bg-orange-400"
+                                        checked={currentRate === rate}
+                                        onChange={() => handleRateChange(rate)}
+                                    />
+                                ))}
+                            </div>
+                            <Button onClick={submitRate}>Submit</Button>
+                        </div>
 
                                 <br/>
-                                students:
-                            </p>
+                                {getCourseDetail?.data?.course?.students?.length} students are in this course.
+                            </div>
                         </div>
                     </div>
 
                     {role === "tutor" && pathname?.includes("my") &&
-                        <div className="w-full md:w-3/4 p-4 mt-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
-                            Students&apos; list where could navigate to profile
-                        </div>
+                        <ProfileTable data={getCourseDetail?.data?.course?.students}
+                          className="w-full md:w-3/4 p-4 mt-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700"
+                        />
                     }
 
                     <div className="w-full md:w-3/4 p-4 my-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
@@ -170,7 +171,6 @@ const CourseDetail:FC<{ role:string }> = ({ role }) => {
                                 ))}
                             </ul>
                         </div>
-
                     </div>
                 </section>
             ) : (

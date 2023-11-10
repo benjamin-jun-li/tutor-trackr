@@ -53,6 +53,18 @@ export const Auth_TutorAdmin = gql`
   }
 `;
 
+export const GET_STUDENTS_IN_COURSE = gql`
+    query Course($id: String!) {
+        course(id: $id) {
+            students {
+                name
+                email
+                id
+            }
+        }
+    }
+`
+
 export const GET_COURSE = gql`
     query Course($id: String!) {
         course(id: $id) {
@@ -79,7 +91,7 @@ export const GET_COURSE = gql`
     }
 `
 
-export  const Get_TutorAvailability = gql`
+export const Get_TutorAvailability = gql`
     query TutorAvailability(
         $tutorId: String!,
         $courseId:String!
