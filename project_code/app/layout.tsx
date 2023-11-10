@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import { Toaster } from "@/components/ui/toaster"
 import { ApolloProviders } from "@/components/ApolloProviders";
 import ContextProvider from "@/components/context";
+import {SocketProvider} from "@/components/socketProvider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -23,12 +24,14 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ApolloProviders>
-          <ContextProvider>
-            <Navbar />
-            {children}
-            <Toaster />
-            <Footer />
-          </ContextProvider>
+          <SocketProvider>
+            <ContextProvider>
+              <Navbar />
+              {children}
+              <Toaster />
+              <Footer />
+            </ContextProvider>
+          </SocketProvider>
         </ApolloProviders>
       </body>
     </html>
