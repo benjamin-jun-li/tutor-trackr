@@ -5,23 +5,23 @@ export const resolvers = {
         finduser: async (_parent: any, args: any, context: Context) => {
 
             const student = await context.prisma.student.findUnique({
-                where: { id: args.id },
+                where: {id: args.id},
             });
 
             const tutor = await context.prisma.tutor.findUnique({
-                where: { id: args.id },
+                where: {id: args.id},
             });
 
             const siteAdmin = await context.prisma.siteAdmin.findUnique({
-                where: { id: args.id },
+                where: {id: args.id},
             });
 
 
             const tutorAdmin = await context.prisma.tutorAdmin.findUnique({
-                where: { id: args.id },
+                where: {id: args.id},
             });
 
-            if (student||tutor||siteAdmin||tutorAdmin) {
+            if (student || tutor || siteAdmin || tutorAdmin) {
                 return {
                     status: 1,
                     message: "find user successfully",
@@ -33,6 +33,20 @@ export const resolvers = {
                 };
             }
         },
+
+        getStudent: async (_parent: any, args: any, context: Context) => {
+            return context.prisma.student.findUnique({
+                where: {
+                    id: args.id,
+                },
+            });},
+
+        getTutor: async (_parent: any, args: any, context: Context) => {
+            return context.prisma.tutor.findUnique({
+                where: {
+                    id: args.id,
+                },
+            });},
 
         //auth student by email
         student: async (_parent: any, args: any, context: Context) => {
@@ -87,7 +101,7 @@ export const resolvers = {
         courses: async (_parent: any, args: any, context: Context) => {
             return context.prisma.course.findMany(
                 {
-                    include:{
+                    include: {
                         students: true,
                         tutors: true
                     }
@@ -132,28 +146,22 @@ export const resolvers = {
             });
         },
 
-        //get interview
-        getInterview: async (_parent: any, args: any, context: Context) => {
-            return context.prisma.interview.findMany();
-        },
 
         //get Application
         getApplication: async (_parent: any, args: any, context: Context) => {
-            return context.prisma.tutorApplication.findMany({
-                include: {
-                    interview: true
-            }})
+            return context.prisma.tutorApplication.findMany()
         },
 
         getSingleApplication: async (_parent: any, args: any, context: Context) => {
             return context.prisma.tutorApplication.findUnique({
                 where: {
                     id: args.id,
-                }})
+                }
+            })
         },
 
         getTutorAvailability: async (_parent: any, args: any, context: Context) => {
-            return  context.prisma.tutorAvailability.findMany({
+            return context.prisma.tutorAvailability.findMany({
                 where: {
                     tutorId: args.tutorId,
                     courseId: args.courseId,
@@ -178,19 +186,19 @@ export const resolvers = {
 
             const filteredCourses = await context.prisma.course.findMany({
                 where: {
-                  tags: {
-                    hasSome: args.tags,
-                  },
+                    tags: {
+                        hasSome: args.tags,
+                    },
                 },
-              });
-          
+            });
+
             return filteredCourses;
         },
 
         //get user type
         getUserType: async (_parent: any, args: any, context: Context) => {
             const identity = await context.prisma.identity.findUnique({
-                where: { email: args.email, },
+                where: {email: args.email,},
             });
             if (!identity) {
                 throw new Error('No user found with this email!');
@@ -202,17 +210,16 @@ export const resolvers = {
             const reservation = await context.prisma.appointment.findMany({
                 where: {
                     status: "Approve",
-                  },
+                },
             });
 
             return reservation;
         },
 
-        //UOOI-23
         getStudentInfo: async (_parent: any, args: any, context: Context) => {
             const tutorId = args.tutorId;
             const courses = await context.prisma.course.findMany({
-                where: { 
+                where: {
                     tutorId: {
                         has: tutorId
                     }
@@ -236,7 +243,7 @@ export const resolvers = {
         getTutorCourses: async (_parent: any, args: any, context: Context) => {
             const tutorId = args.tutorId;
             const courses = await context.prisma.course.findMany({
-                where: { 
+                where: {
                     tutorId: {
                         has: tutorId
                     }
@@ -255,7 +262,7 @@ export const resolvers = {
         getStudentCourses: async (_parent: any, args: any, context: Context) => {
             const studentId = args.studentId;
             const courses = await context.prisma.course.findMany({
-                where: { 
+                where: {
                     studentId: {
                         has: studentId
                     }
@@ -289,45 +296,45 @@ export const resolvers = {
             let userFound = false;
 
             const student = await context.prisma.student.findUnique({
-                where: { email: args.email },
+                where: {email: args.email},
             });
             if (student) {
                 await context.prisma.student.update({
-                    where: { email: args.email },
-                    data: { password: args.password },
+                    where: {email: args.email},
+                    data: {password: args.password},
                 });
                 userFound = true;
             }
 
             const tutor = await context.prisma.tutor.findUnique({
-                where: { email: args.email },
+                where: {email: args.email},
             });
             if (tutor) {
                 await context.prisma.tutor.update({
-                    where: { email: args.email },
-                    data: { password: args.password },
+                    where: {email: args.email},
+                    data: {password: args.password},
                 });
                 userFound = true;
             }
 
             const siteAdmin = await context.prisma.siteAdmin.findUnique({
-                where: { email: args.email },
+                where: {email: args.email},
             });
             if (siteAdmin) {
                 await context.prisma.siteAdmin.update({
-                    where: { email: args.email },
-                    data: { password: args.password },
+                    where: {email: args.email},
+                    data: {password: args.password},
                 });
                 userFound = true;
             }
 
             const tutorAdmin = await context.prisma.tutorAdmin.findUnique({
-                where: { email: args.email },
+                where: {email: args.email},
             });
             if (tutorAdmin) {
                 await context.prisma.tutorAdmin.update({
-                    where: { email: args.email },
-                    data: { password: args.password },
+                    where: {email: args.email},
+                    data: {password: args.password},
                 });
                 userFound = true;
             }
@@ -356,7 +363,7 @@ export const resolvers = {
                         create: {
                             username: args.name,
                             email: args.email,
-                            accountBalance:1000000
+                            accountBalance: 1000000
                         }
                     },
                 },
@@ -391,21 +398,21 @@ export const resolvers = {
 
         // update student profile
         updateStudentProfile: async (_parent: any, args: any, context: Context) => {
-            const { email, thumbnail, username, phone, address, timeZone, biography, id } = args;
-    
+            const {email, thumbnail, username, phone, address, timeZone, biography, id} = args;
+
             const existingProfile = await context.prisma.studentProfile.findUnique({
-                where: { id: args.id, },
+                where: {id: args.id,},
             });
 
 
             if (!existingProfile) {
                 throw new Error('Student profile not found');
             }
-            
+
             if (email && existingProfile.email !== email) {
                 throw new Error('Email address does not match the existing profile');
             }
-            
+
             return context.prisma.studentProfile.update({
                 where: {
                     id: args.id,
@@ -443,7 +450,7 @@ export const resolvers = {
 
         addCourse: async (_parent: any, args: any, context: Context) => {
 
-            const status = args.status ==="Approved" ? "Approved" : "Pending";
+            const status = args.status === "Approved" ? "Approved" : "Pending";
 
             return context.prisma.course.create({
                 data: {
@@ -463,11 +470,11 @@ export const resolvers = {
         deleteCourse: async (_parent: any, args: any, context: Context) => {
             try {
                 await context.prisma.registerCourse.deleteMany({
-                    where: { courseId: args.id },
+                    where: {courseId: args.id},
                 });
 
                 await context.prisma.tutorAvailability.deleteMany({
-                    where: { courseId: args.id },
+                    where: {courseId: args.id},
                 });
 
                 return context.prisma.course.delete({
@@ -479,56 +486,6 @@ export const resolvers = {
                 throw new Error(`Failed to delete course: ${error.message}`);
             }
         },
-
-        // deleteStudent: async (_parent: any, args: any, context: Context) => {
-        //     try {
-        //
-        //         const student = await context.prisma.student.findUnique({
-        //             where: {
-        //                 id: args.id,
-        //             }
-        //         });
-        //
-        //         // Todo delete related records in course
-        //         if (student) {
-        //             // Delete related RegisterCourse records first
-        //             await context.prisma.registerCourse.deleteMany({
-        //                 where: {
-        //                     studentId: student.id
-        //                 }
-        //             });
-        //
-        //             // Then delete the StudentProfile
-        //             await context.prisma.studentProfile.delete({
-        //                 where: {
-        //                     studentId: student.id
-        //                 }
-        //             });
-        //
-        //             await context.prisma.identity.delete({
-        //                 where: {
-        //                     email: args.id
-        //                 }
-        //             });
-        //
-        //             // Finally, delete the Student
-        //             return await context.prisma.student.delete({
-        //                 where: {
-        //                     id: args.id,
-        //                 }
-        //             });
-        //         }
-        //         else {
-        //             throw new Error("Student not found");
-        //         }
-        //     } catch (error: any) {
-        //         throw new Error(`Failed to delete student: ${error.message}`);
-        //     }
-        //
-        // },
-
-
-
 
         // deleteStudent function
         deleteStudent: async (_parent: any, args: any, context: Context) => {
@@ -614,7 +571,7 @@ export const resolvers = {
                     });
 
                     await context.prisma.tutorAvailability.deleteMany({
-                        where: { tutorId: args.id },
+                        where: {tutorId: args.id},
                     });
 
                     return await context.prisma.tutor.delete({
@@ -630,17 +587,6 @@ export const resolvers = {
             }
         },
 
-        // Todo Need to use update
-        addInterview: async (_parent: any, args: any, context: Context) => {
-            return context.prisma.interview.create({
-                data: {
-                    name: args.name,
-                    email: args.email,
-                    courseName: args.courseName,
-                    date: args.date,
-                },
-            });
-        },
         // add application
         addApplication: async (_parent: any, args: any, context: Context) => {
             return context.prisma.tutorApplication.create({
@@ -699,71 +645,59 @@ export const resolvers = {
             });
         },
 
-        interviewFeedback: async (_parent: any, args: any, context: Context) => {
-            return context.prisma.interview.update({
-                where: {
-                    id: args.id
-                },
-                data: {
-                    description: args.description,
-                    status: args.status,
-                },
-            });
-        },
-
 
         // Student enrol course
         registerCourseForStudent: async (_parent: any, args: any, context: Context) => {
             // Ensure the student and course exist
             const student = await context.prisma.student.findUnique({
-              where: { id: args.studentId },
+                where: {id: args.studentId},
             });
             const course = await context.prisma.course.findUnique({
-              where: { id: args.courseId },
+                where: {id: args.courseId},
             });
             console.log(student);
             console.log(course);
             if (!student || !course) {
-              throw new Error("Student or Course not found");
+                throw new Error("Student or Course not found");
             }
-          
+
             // Register the course for the student by updating the relation
             return context.prisma.registerCourse.create({
                 data: {
                     student: {
-                    connect: { id: args.studentId },
+                        connect: {id: args.studentId},
                     },
                     course: {
-                    connect: { id: args.courseId },
+                        connect: {id: args.courseId},
                     },
                     date: new Date().toISOString(),
                     status: "Success",
                 },
             });
         },
-        
+
         // Tutor enrol course
         registerCourseForTutor: async (_parent: any, args: any, context: Context) => {
             // Ensure the tutor and course exist
             const tutor = await context.prisma.tutor.findUnique({
-              where: { id: args.tutorId },
+                where: {id: args.tutorId},
             });
             const course = await context.prisma.course.findUnique({
-              where: { id: args.courseId },
+                where: {id: args.courseId},
             });
-          
+
             if (!tutor || !course) {
-              throw new Error("Tutor or Course not found");
+                throw new Error("Tutor or Course not found");
             }
-          
+
             // Register the course for the tutor by updating the relation
             return context.prisma.tutor.update({
-              where: { id: args.tutorId },
-              data: {
-                courses: {
-                  connect: { id: args.courseId },
+                where: {id: args.tutorId},
+                data: {
+                    courses: {
+                        connect: {id: args.courseId},
+                    },
                 },
-              },
             });
         },
 
@@ -771,10 +705,10 @@ export const resolvers = {
         payTheCourse: async (_parent: any, args: any, context: Context) => {
             // Ensure the student and course exist
             const student = await context.prisma.studentProfile.findUnique({
-                where: { studentId: args.studentId },
+                where: {studentId: args.studentId},
             });
             const course = await context.prisma.course.findUnique({
-                where: { id: args.courseId },
+                where: {id: args.courseId},
             });
 
             if (!student) {
@@ -785,7 +719,7 @@ export const resolvers = {
             }
             if (!course.price) {
                 throw new Error("Course price unavailable: " + args.course.price);
-            }  
+            }
 
             // Ensure student's account balance is enough
             if (student.accountBalance < course.price) {
@@ -797,18 +731,18 @@ export const resolvers = {
             const price = course.price;
             const newBalance = balance - price;
             await context.prisma.studentProfile.update({
-                where: { studentId: args.studentId },
+                where: {studentId: args.studentId},
                 data: {
                     accountBalance: newBalance
                 }
-            });  
+            });
 
             // Register the course for the student by updating the relation
             return context.prisma.course.update({
-                where: { id: args.courseId },
+                where: {id: args.courseId},
                 data: {
                     students: {
-                        connect: { id: args.studentId },
+                        connect: {id: args.studentId},
                     },
                 },
             });
@@ -816,15 +750,20 @@ export const resolvers = {
 
         // add appointment
         addAppointment: async (_parent: any, args: any, context: Context) => {
+            const course = await context.prisma.course.findUnique({where: {id: args.courseId}});
+            const tutor = await context.prisma.tutor.findUnique({where: {id: args.tutorId}});
+            const student = await context.prisma.student.findUnique({where: {id: args.studentId}});
+
             return context.prisma.appointment.create({
                 data: {
-                    courseId: args.courseId,
-                    courseName: args.courseName,
-                    tutorId: args.tutorId,
-                    tutorName: args.tutorName,
-                    tutorEmail: args.tutorEmail,
-                    studentName: args.studentName,
-                    studentEmail: args.studentEmail,
+                    courseId: course?.id,
+                    courseName: course?.name,
+                    tutorId: tutor?.id,
+                    tutorName: tutor?.name,
+                    tutorEmail: tutor?.email,
+                    studentId: student?.id,
+                    studentName: student?.name,
+                    studentEmail: student?.email,
                     date: new Date().toISOString(),
                     startTime: args.startTime,
                     endTime: args.endTime,
@@ -835,7 +774,7 @@ export const resolvers = {
 
         //add identity
         addIdentity: async (_parent: any, args: any, context: Context) => {
-            
+
             return context.prisma.identity.create({
                 data: {
                     email: args.email,
@@ -846,12 +785,12 @@ export const resolvers = {
 
         //add rate
         addRate: async (_parent: any, args: any, context: Context) => {
-            
+
             const course = await context.prisma.course.findUnique({
                 where: {
                     id: args.id,
                 },
-                select: { rate: true },
+                select: {rate: true},
             });
 
             if (!course || !course.rate) {
@@ -861,8 +800,8 @@ export const resolvers = {
             const newAverageScore = updatedRateArray.reduce((acc, curr) => acc + parseFloat(curr), 0) / updatedRateArray.length;
 
             return context.prisma.course.update({
-                where: { id: args.id },
-                data: { 
+                where: {id: args.id},
+                data: {
                     rate: updatedRateArray,
                     score: newAverageScore.toString(),
                 },

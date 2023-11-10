@@ -117,29 +117,19 @@ model TutorApplication {
   courseName  String
   date        DateTime   @default(now())
   description String
-  interview   Interview?
   status      String?
 }
 
-model Interview {
-  id            String           @id @default(auto()) @map("_id") @db.ObjectId
-  name          String
-  email         String           @unique
-  courseName    String
-  date          String
-  application   TutorApplication @relation(fields: [applicationId], references: [id])
-  applicationId String           @unique @db.ObjectId
-  status        String?
-  description   String?
-}
+
 
 model Appointment {
   id              String  @id @default(auto()) @map("_id") @db.ObjectId
-  courseId        String?
+  courseId        String? @db.ObjectId
   courseName      String?
-  tutorId         String?
+  tutorId         String? @db.ObjectId
   tutorName       String?
   tutorEmail      String?
+  studentId       String? @db.ObjectId
   studentName     String?
   studentEmail    String?
   duration        Int     @default(1)
@@ -191,15 +181,7 @@ model Message {
   content       String
   chatChannelId String[]        @db.ObjectId
   ChatChannel   ChatChannel[]  @relation(fields: [chatChannelId], references: [id])
-
 }
-
-// model Notification {
-//   id              String   @id @default(auto()) @map("_id") @db.ObjectId
-//   senderId        String
-//   receiverId      String
-//   content         String
-// }
 
 model Notification {
   id              String   @id @default(auto()) @map("_id") @db.ObjectId

@@ -113,22 +113,9 @@ type TutorApplication {
     email: String
     courseId: String
     courseName: String
-    interview: Interview
     description: String
     status:String
     appointmentDate:String
-}
-
-type Interview {
-    id: ID!
-    name: String
-    email: String
-    courseName: String
-    date: String
-    application: TutorApplication
-    applicationId: String
-    status:String
-    description: String
 }
 
 type Appointment {
@@ -138,6 +125,7 @@ type Appointment {
     tutorId: String
     tutorName: String
     tutorEmail: String
+    studentId: String 
     studentName: String
     studentEmail: String
     duration: Int
@@ -199,6 +187,8 @@ type Query {
     finduser(id: String): PasswordResetResponse
     student(email: String): Student
     tutor(email: String): Tutor
+    getStudent(id: String!): Student
+    getTutor(id: String!): Tutor
     siteAdmin(email: String): SiteAdmin
     tutorAdmin(email: String): TutorAdmin
     course(id: String!): Course
@@ -209,7 +199,6 @@ type Query {
     getTutorProfile(id: String!): TutorProfile
     getApplication: [TutorApplication]
     getSingleApplication(id: String!): TutorApplication
-    getInterview: [Interview]
     getAppointments: [Appointment]
     filterCourses(
         tags: [String!],
@@ -229,7 +218,6 @@ type Mutation {
     rejectApplication(id: ID!): TutorApplication
     approveCourseApplication(id: ID!): Course
     rejectCourseApplication(id: ID!): Course
-    interviewFeedback(id: ID!,description: String,status:String): Interview
     addStudent (name:String, email:String, password:String) : Student
     addTutor (name:String, email:String, password:String) : Tutor
     updateStudentProfile(id: ID!,
@@ -248,20 +236,15 @@ type Mutation {
     deleteStudent(id: ID!, email:String): Student
     deleteTutor(id: ID!, email:String): Tutor
     addApplication(name: String, email: String, courseName: String,description:String,appointmentDate:String,tutorId:String,courseId:String) : TutorApplication
-    addInterview(name: String, email: String, courseName: String, date: String
-    ) : Interview
+
     registerCourseForStudent(studentId: ID!, courseId: ID!): RegisterCourse
     registerCourseForTutor(tutorId: ID!, courseId: ID!): Tutor
     payTheCourse(studentId: ID!, courseId: ID!): Course
     resetPassword(email: String!, password: String!): PasswordResetResponse
     addAppointment(
-        courseId: String
-        courseName: String,
-        tutorId: String,
-        tutorName: String,
-        tutorEmail: String,
-        studentName: String,
-        studentEmail: String,
+        courseId: String,
+        tutorId: String
+        studentId: String
         duration: Int
         date: String
         startTime: String

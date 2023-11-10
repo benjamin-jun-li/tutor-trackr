@@ -155,15 +155,6 @@ export const Reject_Course_Application = gql`
     }
 `
 
-export const Interview_Feedback = gql`
-    mutation interviewFeedback($id: ID!,$description: String!, $status: String!){
-    interviewFeedback(id: $id, description: $description, status: $status) {
-    description
-    status
-    }
-    }
-`
-
 
 
 export const ADD_COURSE = gql`
@@ -272,27 +263,6 @@ export const ADD_Application = gql`
 `;
 
 
-export const ADD_Interview = gql`
-  mutation AddInterview(
-    $name: String
-    $email: String
-    $courseName: String
-    $date: String
-  ) {
-    addInterview(
-      name: $name
-      email: $email
-      courseName: $courseName
-      date: $date
-    ) {
-      id
-      name
-      email
-      courseName
-      date
-    }
-  }
-`;
 
 export const REGISTER_COURSE_FOR_STUDENT = gql`
   mutation RegisterCourseForStudent($studentId: ID!, $courseId: ID!) {
@@ -329,36 +299,24 @@ export const PAY_THE_COURSE = gql`
 
 export const ADD_APPOINTMENT = gql`
     mutation AddAppointment(
+        $studentId: String,
         $courseId: String,
-        $courseName: String,
         $tutorId: String,
-        $tutorName: String,
-        $tutorEmail: String,
-        $studentName: String,
-        $studentEmail: String,
         $startTime: String,
         $endTime: String,
         $appointmentDate: String
     ) {
         addAppointment(
-            courseId: $courseId,
-            courseName: $courseName,
-            tutorId: $courseId
-            tutorName: $tutorName,
-            tutorEmail: $tutorEmail,
-            studentName: $studentName,
-            studentEmail: $studentEmail,
+            studentId: $studentId
+            courseId: $courseId
+            tutorId: $tutorId
             startTime: $startTime
             endTime: $endTime
             appointmentDate: $appointmentDate
         ) {
+            studentId
             courseId
-            courseName
             tutorId
-            tutorName
-            tutorEmail
-            studentName
-            studentEmail
             startTime
             endTime
             appointmentDate

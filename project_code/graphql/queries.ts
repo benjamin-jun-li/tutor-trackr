@@ -1,4 +1,4 @@
-import { gql } from "@apollo/client";
+import {gql} from "@apollo/client";
 
 export const Find_User = gql`
     query finduser($id: String!) {
@@ -10,47 +10,77 @@ export const Find_User = gql`
 `
 
 export const Auth_Student = gql`
-  query Student($email: String!) {
-    student(email: $email) {
-      id
-      name
-      email
-      password
+    query Student($email: String!) {
+        student(email: $email) {
+            id
+            name
+            email
+            password
+        }
     }
-  }
 `;
 
 export const Auth_Tutor = gql`
-  query Tutor($email: String!) {
-    tutor(email: $email) {
-      id
-      name
-      email
-      password
+    query Tutor($email: String!) {
+        tutor(email: $email) {
+            id
+            name
+            email
+            password
+        }
     }
-  }
 `;
 
 export const Auth_SiteAdmin = gql`
-  query SiteAdmin($email: String!) {
-    siteAdmin(email: $email) {
-      id
-      name
-      email
-      password
+    query SiteAdmin($email: String!) {
+        siteAdmin(email: $email) {
+            id
+            name
+            email
+            password
+        }
     }
-  }
 `;
 
 export const Auth_TutorAdmin = gql`
-  query TutorAdmin($email: String!) {
-    tutorAdmin(email: $email) {
-      id
-      name
-      email
-      password
+    query TutorAdmin($email: String!) {
+        tutorAdmin(email: $email) {
+            id
+            name
+            email
+            password
+        }
     }
-  }
+`;
+
+export const GET_STUDENT = gql`
+    query Student($id: String!) {
+        getStudent(id: $id) {
+            id
+            name
+            email
+            password
+            courses {
+                id
+                name
+            }
+        }
+    }
+`;
+
+export const GET_TUTOR = gql`
+    query Student($id: String!) {
+        getTutor(id: $id) {
+            id
+            name
+            email
+            password
+            courses {
+                id
+                name
+            }
+        }
+    }
 `;
 
 export const GET_STUDENTS_IN_COURSE = gql`
@@ -96,64 +126,64 @@ export const Get_TutorAvailability = gql`
         $tutorId: String!,
         $courseId:String!
     ) {getTutorAvailability(tutorId:$tutorId,
-    courseId: $courseId){
+        courseId: $courseId){
         startTime
         endTime
     }}
 `
 
 export const GET_TUTORS_BY_COURSE = gql`
-query Course($id: String!) {
-    course(id: $id) {
-        name
-        tutors {
-            id
+    query Course($id: String!) {
+        course(id: $id) {
             name
-            email
+            tutors {
+                id
+                name
+                email
+            }
         }
     }
-}
 `
 
 export const GET_COURSES = gql`
-  query Course {
-    courses {
-      id
-      name
-      description
-      comments
-      thumbnail
-      students {
-          id,
-          name,
-          email
+    query Course {
+        courses {
+            id
+            name
+            description
+            comments
+            thumbnail
+            students {
+                id,
+                name,
+                email
+            }
+            tutors {
+                id,
+                name,
+                email
+            }
+            tags
+            status
+            price
+            rate
+            score
         }
-      tutors {
-        id,
-        name,
-        email
-      }
-        tags
-        status
-        price
-        rate
-        score
     }
-  }
 `;
 
 export const GET_StudentList = gql`
-  query Student {
-    getStudentList {
-        id
-        email
-        name
-        courses {
+    query Student {
+        getStudentList {
             id
-          name
+            email
+            name
+            courses {
+                id
+                name
+            }
         }
     }
-  }
 `;
 
 export const GET_TutorList = gql`
@@ -171,111 +201,75 @@ export const GET_TutorList = gql`
 `;
 
 export const GET_STUDENT_PROFILE = gql`
-  query StudentProfile($id: String!) {
-    getStudentProfile(id: $id) {
-      id
-      thumbnail
-      email
-      username
-      phone
-      address
-      timeZone
-      biography
-      accountBalance
+    query StudentProfile($id: String!) {
+        getStudentProfile(id: $id) {
+            id
+            thumbnail
+            email
+            username
+            phone
+            address
+            timeZone
+            biography
+            accountBalance
+        }
     }
-  }
 `;
 
 export const GET_TUTOR_PROFILE = gql`
-  query TutorProfile($id: String!) {
-    getTutorProfile(id: $id) {
-      id
-      thumbnail
-      email
-      username
-      phone
-      address
-      timeZone
-      accountBalance
-      experienceSummary
-      courseCanTeach
-      professionalBio
+    query TutorProfile($id: String!) {
+        getTutorProfile(id: $id) {
+            id
+            thumbnail
+            email
+            username
+            phone
+            address
+            timeZone
+            accountBalance
+            experienceSummary
+            courseCanTeach
+            professionalBio
+        }
     }
-  }
 `;
 
 export const GET_APPLICATION = gql`
-  query TutorApplication {
-    getApplication {
-        id
-        tutorId
-        name
-        email
-        courseId
-        courseName
-        description
-        status
-        interview{
+    query TutorApplication {
+        getApplication {
             id
+            tutorId
             name
             email
+            courseId
             courseName
-            date
+            description
+            status
         }
     }
-  }
 `;
 
 export const GET_APPLICATION_BY_ID = gql`
-query TutorApplication($id: String!) {
-    getSingleApplication(id: $id) {
-        id
-        tutorId
-        name
-        email
-        courseId
-        courseName
-        status
-        interview {
+    query TutorApplication($id: String!) {
+        getSingleApplication(id: $id) {
             id
+            tutorId
             name
             email
+            courseId
             courseName
-            date
-        }
-        description
-    }
-  }
-`
-
-export const GET_INTERVIEW = gql`
-  query Interview {
-    getInterview {
-        id
-        name
-        email
-        courseName
-        date
-        application{
-            id
-            name
-            email
-            courseName
+            status
             description
         }
-        applicationId
     }
-  }
-`;
+`
 
 export const GET_Appointment = gql`
     query Appointment($id: String!) {
         getAppointmentById(id: $id) {
             id
-            tutorId
             tutorName
             tutorEmail
-            courseId
             studentName
             studentEmail
             startTime
@@ -287,88 +281,86 @@ export const GET_Appointment = gql`
 `;
 
 export const GET_APPOINTMENT = gql`
-  query Appointment {
-    getAppointments {
-        id
-        tutorId
-        tutorName
-        tutorEmail
-        courseId
-        studentName
-        studentEmail
-        startTime
-        endTime
-        courseName
-        status
+    query Appointment {
+        getAppointments {
+            id
+            tutorName
+            tutorEmail
+            studentName
+            studentEmail
+            startTime
+            endTime
+            courseName
+            status
+        }
     }
-  }
 `;
 
 export const FILTER_COURSES = gql`
-  query FilterCourses($tags: [String!]) {
-    filterCourses(tags: $tags) {
-      id
-      name
-      description
-      tags
-      thumbnail
+    query FilterCourses($tags: [String!]) {
+        filterCourses(tags: $tags) {
+            id
+            name
+            description
+            tags
+            thumbnail
+        }
     }
-  }
 `;
 
 export const GET_USERTYPE = gql`
-  query GetUserType($email: String!) {
-    getUserType(email: $email) {
-        userType
+    query GetUserType($email: String!) {
+        getUserType(email: $email) {
+            userType
+        }
     }
-  }
 `;
 
 export const GET_SUCCESSFUL_RESERVATION = gql`
-  query GetSuccessfulReservation($id: String!) {
-    getSuccessfulReservation(id: $id) {
-      courseName
+    query GetSuccessfulReservation($id: String!) {
+        getSuccessfulReservation(id: $id) {
+            courseName
+        }
     }
-  }
 `;
 
 export const GET_STUDENT_INFO = gql`
-  query GetStudentInfo($tutorId: String!) {
-    getStudentInfo(tutorId: $tutorId) {
-      students {
-        id
-        email
-      }
+    query GetStudentInfo($tutorId: String!) {
+        getStudentInfo(tutorId: $tutorId) {
+            students {
+                id
+                email
+            }
+        }
     }
-  }
 `;
 
 export const GET_TUTOR_COURSES = gql`
-  query GetTutorCourses($tutorId: String!) {
-    getTutorCourses(tutorId: $tutorId) {
-      id
-      name
-      description
-      thumbnail
+    query GetTutorCourses($tutorId: String!) {
+        getTutorCourses(tutorId: $tutorId) {
+            id
+            name
+            description
+            thumbnail
+        }
     }
-  }
 `;
 
 export const GET_STUDENT_COURSES = gql`
-  query GetStudentCourses($studentId: String!) {
-    getStudentCourses(studentId: $studentId) {
-      id
-      name
-      description
-      thumbnail
+    query GetStudentCourses($studentId: String!) {
+        getStudentCourses(studentId: $studentId) {
+            id
+            name
+            description
+            thumbnail
+        }
     }
-  }
 `;
 
 export const GET_SCORE = gql`
-  query GetScore($id: String!) {
-    getScore(id: $id) {
-      score
+    query GetScore($id: String!) {
+        getScore(id: $id) {
+            score
+        }
     }
-  }
 `;
