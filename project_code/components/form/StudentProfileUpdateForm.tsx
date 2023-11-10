@@ -44,7 +44,7 @@ const profileFormSchema = z.object({
         .string({
             required_error: "Please select an email to display.",
         })
-        .email(),
+        .email().optional(),
     phone: z.string()
         .min(8)
         .max(15)
@@ -70,17 +70,17 @@ export function StudentProfileUpdateForm() {
     const params = useParams();
     let currentPath = usePathname();
 
+    const { loading, error, data } = useQuery(GET_STUDENT_PROFILE, {
+        variables: { id: params?.userID },
+    });
+
     const form = useForm<ProfileFormValues>({
         resolver: zodResolver(profileFormSchema),
         mode: "onChange",
         defaultValues: {
-            email: getters.userEmail
+            email: data?.getStudentProfile?.email
         }
     })
-
-    const { loading, error, data } = useQuery(GET_STUDENT_PROFILE, {
-        variables: { id: getters.userID },
-    });
 
     const profileId = data?.getStudentProfile?.id;
     const [updateStudentProfile,{data:studentData,loading:studentLoading,error:studentError}] = useMutation(UPDATE_STUDENT_PROFILE);
@@ -100,7 +100,7 @@ export function StudentProfileUpdateForm() {
         const res = await updateStudentProfile({
             variables: {
                 id: profileId,
-                email: value.email,
+                email: data?.getStudentProfile?.email,
                 thumbnail: value.avatar,
                 username: value.username,
                 phone: value.phone,
@@ -113,7 +113,7 @@ export function StudentProfileUpdateForm() {
             setters.setEmail(value.email);
             setters.setName(value.username);
             alert("Profile updated successfully!")
-            router.replace(`/student/profile/demo`)
+            router.replace(`/${params?.userID}/student/profile/demo`)
         } else {
             console.log(res);
         }
@@ -184,7 +184,7 @@ export function StudentProfileUpdateForm() {
                             <FormControl>
                                 <Input
                                     disabled
-                                    placeholder={getters.userEmail}
+                                    placeholder={data?.getStudentProfile?.email}
                                     {...field}
                                 />
                             </FormControl>

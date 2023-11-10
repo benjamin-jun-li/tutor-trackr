@@ -43,7 +43,7 @@ const profileFormSchema = z.object({
         .string({
             required_error: "Please select an email to display.",
         })
-        .email(),
+        .email().optional(),
     phone: z.string()
         .min(8)
         .max(15)
@@ -71,19 +71,18 @@ export function TutorProfileUpdateForm() {
     const params = useParams();
     let currentPath = usePathname();
 
+    const { loading, error, data } = useQuery(GET_TUTOR_PROFILE, {
+        variables: { id: params?.userID },
+    });
+
     const form = useForm<ProfileFormValues>({
         resolver: zodResolver(profileFormSchema),
         mode: "onChange",
         defaultValues: {
-            email: getters.userEmail
+            email: data?.getTutorProfile?.email
         }
     })
-
-    const { loading, error, data } = useQuery(GET_TUTOR_PROFILE, {
-        variables: { id: getters.userID },
-    });
-
-    const profileId = data?.getStudentProfile?.id;
+    const profileId = data?.getTutorProfile?.id;
 
     const [updateTutorProfile,{data:studentData,loading:studentLoading,error:studentError}] = useMutation(UPDATE_TUTOR_PROFILE);
 
@@ -91,15 +90,6 @@ export function TutorProfileUpdateForm() {
         currentPath?.includes('/student') ? `/${params?.userID}/student` :
             currentPath?.includes('/tutor') ? `/${params?.userID}/tutor` :
                 currentPath;
-
-
-    const [userEmail, setUserEmail] = useState('')
-
-    useEffect(() => {
-        setUserEmail(getters.userEmail);
-    }, [getters.userEmail]);
-
-
 
     const onSubmit = async (data: ProfileFormValues) => {
         const res = await updateTutorProfile({
@@ -121,7 +111,7 @@ export function TutorProfileUpdateForm() {
             setters.setEmail(data.email);
             setters.setName(data.username);
             alert("Profile updated successfully!")
-            router.replace(`/tutor/profile/demo`)
+            router.replace(`/${params?.userID}/tutor/profile/demo`)
         } else {
             console.log(res);
         }
@@ -192,7 +182,7 @@ export function TutorProfileUpdateForm() {
                             <FormControl>
                                 <Input
                                     disabled
-                                    placeholder={getters.userEmail}
+                                    placeholder={data?.getTutorProfile?.email}
                                     {...field}
                                 />
                             </FormControl>
