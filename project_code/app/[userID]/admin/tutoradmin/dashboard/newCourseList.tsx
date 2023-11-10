@@ -11,8 +11,6 @@ const NewCourseList: React.FC = () => {
         fetchPolicy: 'network-only',
     });
 
-    console.log(data?.courses.map((course: any) => course.tags));
-
     if (!loading && !data?.courses) {
         return (
             <section className="p-6 bg-gray-100 dark:bg-gray-900">

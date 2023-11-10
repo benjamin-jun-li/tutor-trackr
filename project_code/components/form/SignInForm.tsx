@@ -62,7 +62,6 @@ const SignInForm = () => {
             }
         });
       let userIdentity = res.data?.getUserType?.userType
-      console.log(userIdentity)
         setters.setIdentity(userIdentity);
       if (userIdentity === "Student") {
           const res2 = await authStudent({variables: {email: values.email}})

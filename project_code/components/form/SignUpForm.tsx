@@ -117,11 +117,6 @@ const SignUpForm = () => {
               userType: userIdentity,
           },
       });
-      if (res2.data?.addIdentity?.email) {
-          console.log("Identity added");
-      } else {
-          console.log(res2);
-      }
   };
   return (
       <Form {...form}>
