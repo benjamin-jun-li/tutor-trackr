@@ -1,5 +1,5 @@
 "use client"
-import {FC, useEffect, useState} from "react";
+import {FC, useEffect, useState, useRef} from "react";
 import { GET_TUTOR_COURSES, GET_STUDENT_COURSES } from "@/graphql/queries";
 import {useLazyQuery, useQuery} from "@apollo/client";
 import CourseListComponent from "@/components/dashboard/courseListComponent";
@@ -13,39 +13,31 @@ const MyCourseList:FC<MyCourseProps> = ({role, courseType}) => {
     const params = useParams();
     const [getStudentCourses, {data: studentCourses, loading: studentLoading, error: studentError}] = useLazyQuery(GET_STUDENT_COURSES);
     const [getTutorCourses, {data: tutorCourses, loading: tutorLoading, error: tutorError}] = useLazyQuery(GET_TUTOR_COURSES);
-    const [data, setData] = useState<any>([]);
-
+    const data:any = useRef([]);
     useEffect(() => {
-        // Define the async function inside useEffect
-        const fetchData = async () => {
-            if (role === "student") {
-                const res = await getStudentCourses({
-                    variables: {
-                        studentId: params?.userID
-                    }
-                });
-                setData(res?.data?.getStudentCourses);
-            } else {
-                const res = await getTutorCourses({
-                    variables: {
-                        tutorId: params?.userID
-                    }
-                });
-                setData(res?.data?.getTutorCourses);
-            }
-        };
+        if (role === "student") {
+            getStudentCourses({
+                variables: {
+                    studentId: params?.userID
+                }
+            }).then((res) => {
+                data.current = res;
+            });
+        } else {
+            getTutorCourses({
+                variables: {
+                    tutorId: params?.userID
+                }
+            }).then((res) => {
+                data.current = res;
+            });
 
-        // Call the async function
-        fetchData();
-
-        // If you have to clean up resources when the component
-        // unmounts or when the dependencies change, return a cleanup function
-        return () => {
-            // Clean up code here
-        };
-    }, [role, params?.userID, getStudentCourses, getTutorCourses]);
-
-    console.log(data)
+        }
+    }, []);
+    console.log(data);
+    return (
+        <></>
+    )
 
     return (
         <CourseListComponent data={data} role={role} courseType={courseType}/>
