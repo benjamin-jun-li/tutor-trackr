@@ -94,7 +94,7 @@ const CourseDetail:FC<{ role:string }> = ({ role }) => {
                         <div className="p-5">
                             <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{getCourseDetail.data.course?.description || "sample description"}</h5>
                             <div className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                                Ratings: &nbsp;{rating === 0 ? ("Rating data not available") : (
+                                Ratings: &nbsp;{(rating === 0) ? ("Rating data not available") : (
                                 <div className="flex items-center">
                                     <div className="flex items-center space-x-2 mb-5">
                                         {Array.from({ length: 5 }, (_, index) => (
@@ -160,9 +160,19 @@ const CourseDetail:FC<{ role:string }> = ({ role }) => {
                                                     <div>
                                                         <img className="w-8 h-8 rounded-full" src="" alt="Neil image" />
                                                     </div>
-                                                    <div className="hover:!no-underline">
-                                                        {tutor.name}&nbsp;&nbsp;&nbsp;{tutor.email}
-                                                    </div>
+                                                    {
+                                                        role === 'tutor' ? (
+                                                            <div className="hover:!no-underline">
+                                                                {tutor.name}&nbsp;&nbsp;&nbsp;{tutor.email}
+                                                            </div>
+                                                        ) : (
+                                                            <Link href={`/${params?.userID}/student/other-profile/${tutor.id}`}>
+                                                                <div className="hover:!no-underline">
+                                                                    {tutor.name}&nbsp;&nbsp;&nbsp;{tutor.email}
+                                                                </div>
+                                                            </Link>
+                                                        )
+                                                    }
                                                 </AccordionTrigger>
                                                 <AccordionContent>
                                                     <TutorBioDisplay tutorId={tutor.id} />
