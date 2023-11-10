@@ -16,8 +16,10 @@ export function StudentProfileDisplay() {
     const router = useRouter();
     const params = useParams();
 
+    const profileUserID = (params?.otherID) ? params?.otherID : params?.userID;
+
     const { loading, error, data } = useQuery(GET_STUDENT_PROFILE, {
-        variables: { id: params?.userID },
+        variables: { id: profileUserID },
         fetchPolicy: 'network-only'
     });
 
@@ -26,7 +28,8 @@ export function StudentProfileDisplay() {
     };
 
     const handleDashboardClick = () => {
-        router.push(`/${params?.userID}/student/dashboard`);
+        params?.otherID ? router.push(`/${params?.userID}/tutor/dashboard`) :
+            router.push(`/${params?.userID}/student/dashboard`);
     };
 
     return (
@@ -45,7 +48,8 @@ export function StudentProfileDisplay() {
             <div className="text-gray-700">Time Zone: {data?.getStudentProfile?.timeZone}</div>
             <div className="text-gray-700">Bio: {data?.getStudentProfile?.biography}</div>
             <div className="flex justify-center space-x-4 mt-6">
-                <Button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600" onClick={handleUpdateClick}>Update</Button>
+                {(!params?.otherID) ?
+                    <Button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600" onClick={handleUpdateClick}>Update</Button> : null}
                 <Button className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600" onClick={handleDashboardClick}>Back</Button>
             </div>
         </div>
