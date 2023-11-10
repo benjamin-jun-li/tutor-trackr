@@ -5,7 +5,7 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from "@/components/ui/accordion"
-import {FC, useEffect, useState} from "react";
+import {FC, useState} from "react";
 import { useParams, usePathname } from "next/navigation";
 import Link from "next/link";
 import {useMutation, useQuery} from "@apollo/client";
