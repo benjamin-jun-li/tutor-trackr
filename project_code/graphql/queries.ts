@@ -336,25 +336,25 @@ export const GET_STUDENT_INFO = gql`
 `;
 
 export const GET_TUTOR_COURSES = gql`
-    query GetTutorCourses($tutorId: String!) {
-        getTutorCourses(tutorId: $tutorId) {
-            id
-            name
-            description
-            thumbnail
-        }
+  query GetTutorCourses($tutorId: String!) {
+    getTutorCourses(tutorId: $tutorId) {
+        id:   ID
+        name: String
+        description: String
+        status: String
     }
+  }
 `;
 
 export const GET_STUDENT_COURSES = gql`
-    query GetStudentCourses($studentId: String!) {
-        getStudentCourses(studentId: $studentId) {
-            id
-            name
-            description
-            thumbnail
-        }
+  query GetStudentCourses($studentId: String!) {
+    getStudentCourses(studentId: $studentId) {
+        id:   ID
+        name: String
+        description: String
+        status: String
     }
+  }
 `;
 
 export const GET_SCORE = gql`
