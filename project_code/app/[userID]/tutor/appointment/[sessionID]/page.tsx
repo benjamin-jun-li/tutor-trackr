@@ -1,12 +1,8 @@
-'use client'
-
-import {useParams} from "next/navigation";
-import {AppointsDisplay} from "@/components/AppointsDisplay";
+import AppointsDisplay from "@/components/AppointsDisplay";
 
 const TutorAppointment = () => {
-    const params = useParams();
     return (
-        <main className="">
+        <main className="mt-[5rem]">
             <AppointsDisplay />
         </main>
     )
