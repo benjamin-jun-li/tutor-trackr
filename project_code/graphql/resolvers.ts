@@ -252,7 +252,7 @@ export const resolvers = {
                     id: true,
                     name: true,
                     description: true,
-                    thumbnail: true,
+                    status: true,
                 }
             });
 
@@ -271,7 +271,7 @@ export const resolvers = {
                     id: true,
                     name: true,
                     description: true,
-                    thumbnail: true,
+                    status: true,
                 }
             });
             return courses;
