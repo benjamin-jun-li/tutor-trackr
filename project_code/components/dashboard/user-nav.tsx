@@ -32,8 +32,6 @@ export function UserNav() {
     fetchPolicy: 'network-only'
   });
 
-  console.log(data1?.getStudentProfile?.username);
-
   let currentPath = usePathname();
 
   currentPath =
@@ -89,10 +87,6 @@ export function UserNav() {
               <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
             </DropdownMenuItem>
           </Link>
-          <DropdownMenuItem>
-            Settings
-            <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
-          </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <Link href={"/"} onClick={handleLogout}>

@@ -655,8 +655,6 @@ export const resolvers = {
             const course = await context.prisma.course.findUnique({
                 where: {id: args.courseId},
             });
-            console.log(student);
-            console.log(course);
             if (!student || !course) {
                 throw new Error("Student or Course not found");
             }

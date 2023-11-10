@@ -1,9 +1,9 @@
-import ChatComponent from "@/components/chatComponent";
+import AppointsDisplay from "@/components/AppointsDisplay";
 
 const StudentAppointment = () => {
     return (
         <main className="mt-[5rem]">
-            <ChatComponent />
+            <AppointsDisplay />
         </main>
     )
 }

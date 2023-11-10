@@ -16,8 +16,10 @@ export function TutorProfileDisplay() {
     const router = useRouter();
     const params = useParams();
 
+    const profileUserID = (params?.otherID) ? params?.otherID : params?.userID;
+
     const { loading, error, data } = useQuery(GET_TUTOR_PROFILE, {
-        variables: { id: params?.userID },
+        variables: { id: profileUserID },
         fetchPolicy: 'network-only'
     });
 
@@ -26,6 +28,7 @@ export function TutorProfileDisplay() {
     };
 
     const handleDashboardClick = () => {
+        params?.otherID ? router.push(`/${params?.userID}/student/dashboard`) :
         router.push(`/${params?.userID}/tutor/dashboard`);
     };
 
@@ -48,7 +51,8 @@ export function TutorProfileDisplay() {
             <div className="text-gray-700">Course Can Teach: {data?.getTutorProfile?.courseCanTeach}</div>
             <div className="text-gray-700">Balance: {data?.getTutorProfile?.accountBalance}</div>
             <div className="flex justify-center space-x-4 mt-6">
-                <Button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600" onClick={handleUpdateClick}>Update</Button>
+                {(!params?.otherID) ?
+                <Button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600" onClick={handleUpdateClick}>Update</Button> : null}
                 <Button className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600" onClick={handleDashboardClick}>Back</Button>
             </div>
         </div>

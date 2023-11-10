@@ -21,8 +21,6 @@ const TutorApplicationPage = () => {
     const appDetails = application?.data?.getSingleApplication;
     const [status, setStatus] = useState(appDetails?.status);
 
-    console.log(appDetails);
-
     useEffect(() => {
         setStatus(appDetails?.status);
     }, [appDetails?.status]);

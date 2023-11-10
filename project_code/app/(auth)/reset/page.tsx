@@ -16,7 +16,6 @@ const ResetPage = () => {
         e.preventDefault();
         if (password === rePassword) {
             setMismatch(false);
-            console.log(getters.userEmail);
             const res = await updatePwd({
                 variables: {
                     email: getters.userEmail,

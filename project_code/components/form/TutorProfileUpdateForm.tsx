@@ -115,8 +115,6 @@ export function TutorProfileUpdateForm() {
         } else {
             console.log(res);
         }
-
-        console.log("Form data submitted:", data);
         toast({
             title: "You submitted the following values:",
             description: (
