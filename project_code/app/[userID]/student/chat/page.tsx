@@ -1,11 +1,12 @@
-import ChatComponent from "@/components/chatComponent";
+import ChatList from "@/components/chatList";
 
-const StudentChat = () => {
+const StudentChatList = () => {
     return (
         <main className="mt-[5rem]">
-            <ChatComponent />
+            <h1>Talk to your tutors</h1>
+            <ChatList role={"student"}/>
         </main>
     )
 }
 
-export default StudentChat
+export default StudentChatList
