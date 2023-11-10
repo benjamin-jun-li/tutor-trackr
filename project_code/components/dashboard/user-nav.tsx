@@ -32,8 +32,6 @@ export function UserNav() {
     fetchPolicy: 'network-only'
   });
 
-  console.log(data1?.getStudentProfile?.username);
-
   let currentPath = usePathname();
 
   currentPath =
