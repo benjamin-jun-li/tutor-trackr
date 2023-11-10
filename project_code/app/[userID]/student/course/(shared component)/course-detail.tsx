@@ -46,7 +46,7 @@ const CourseDetail:FC<{ role:string }> = ({ role }) => {
                 });
                 alert("Rate successfully!");
                 await refetch();
-            } catch (e) {
+            } catch (e: any) {
                 alert('Rate failed!: ' + e.message || 'unknown error');
             }
         } else {

@@ -3,6 +3,7 @@
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 import React, {useState} from "react";
+import {useParams} from "next/navigation";
 
 const pageSize = 5;
 
@@ -55,6 +56,7 @@ const messages = [
 ].reverse();
 
 const MessageBox = () => {
+    const params = useParams();
     const [currentPage, setCurrentPage] = useState(1);
     const startIndex = (currentPage - 1) * pageSize;
     const endIndex = startIndex + pageSize;
@@ -114,7 +116,7 @@ const MessageBox = () => {
                     </div>
                 )}
             </div>
-            <Link href="/student/dashboard">
+            <Link href={`/${params?.userID}/student/dashboard`}>
                 <button className="px-4 py-2 mt-4 text-white bg-blue-600 rounded-md hover:bg-blue-700">Back</button>
             </Link>
         </section>
