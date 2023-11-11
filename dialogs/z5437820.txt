@@ -30,9 +30,9 @@ Student register course with course payment
 
 Week7
 Backend function design: 
-Filter courses
+Filter courses, specific courses can be getted by different tags
 Appointment between student users and tutor users
-Interview for tutors
+Interview for tutors, tutor send interview applications to tutor admin, then tutor admin return notifications
 
 Week8:
 Backend function design: 
@@ -45,3 +45,7 @@ Default fund for student account and course itself
 Week9:
 Final test for the whole project functionalities
 Delete user/course functions debug
+BAckend function desgin:
+Debug for previous resolver functions
+Notification functionality debug
+Rating tutors
