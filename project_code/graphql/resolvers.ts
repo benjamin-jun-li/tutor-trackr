@@ -478,19 +478,41 @@ export const resolvers = {
 
             const status = args.status === "Approved" ? "Approved" : "Pending";
 
-            return context.prisma.course.create({
-                data: {
-                    name: args.name,
-                    description: args.description,
-                    tags: args.tags,
-                    thumbnail: args.thumbnail,
-                    price: args.price,
-                    status: status,
-                    tutorId: args.tutorId,
-                    rate: args.rate,
-                    score: args.score,
-                },
-            });
+            const notificationData = {
+                tutorId: args.tutorId,
+                content: "New course has been added!",
+            };
+
+            const courseCreate = {
+                name: args.name,
+                description: args.description,
+                tags: args.tags,
+                thumbnail: args.thumbnail,
+                price: args.price,
+                status: status,
+                tutorId: args.tutorId,
+                rate: args.rate,
+                score: args.score,
+            };
+
+            return context.prisma.$transaction([
+                context.prisma.notification.create({data: notificationData}),
+                context.prisma.course.create({data: courseCreate}),
+            ]);
+
+            // return context.prisma.course.create({
+            //     data: {
+            //         name: args.name,
+            //         description: args.description,
+            //         tags: args.tags,
+            //         thumbnail: args.thumbnail,
+            //         price: args.price,
+            //         status: status,
+            //         tutorId: args.tutorId,
+            //         rate: args.rate,
+            //         score: args.score,
+            //     },
+            // });
         },
 
         deleteCourse: async (_parent: any, args: any, context: Context) => {
@@ -645,7 +667,6 @@ export const resolvers = {
             ]);
         },
 
-
         //
         rejectApplication: async (_parent: any, args: any, context: Context) => {
 
@@ -672,26 +693,47 @@ export const resolvers = {
         // todo
         approveCourseApplication: async (_parent: any, args: any, context: Context) => {
 
-            return context.prisma.course.update({
+            const notificationData = {
+                courseId: [args.courseId],
+                content: "Your application has been approved",
+            };
+
+            const courseApplicationUpdateData = {
                 where: {
                     id: args.id,
                 },
                 data: {
                     status: "Approved",
                 },
-            });
+            };
+
+            return context.prisma.$transaction([
+                context.prisma.notification.create({data: notificationData }),
+                context.prisma.course.update(courseApplicationUpdateData)
+            ]);
         },
 
         // todo
         rejectCourseApplication: async (_parent: any, args: any, context: Context) => {
-            return context.prisma.course.update({
+            
+            const notificationData = {
+                courseId: [args.courseId],
+                content: "Your application has been rejected",
+            };
+
+            const courseApplicationUpdateData = {
                 where: {
                     id: args.id,
                 },
                 data: {
                     status: "Rejected",
                 },
-            });
+            };
+
+            return context.prisma.$transaction([
+                context.prisma.notification.create({ data: notificationData }),
+                context.prisma.course.update(courseApplicationUpdateData)
+            ]);
         },
 
 
@@ -819,8 +861,8 @@ export const resolvers = {
             });
             const createNotification = context.prisma.notification.create({
                 data:{
-                    tutorId: args.tutorId,
-                    studentId: args.studentId,
+                    tutorId: [args.tutorId],
+                    studentId: [args.studentId],
                     content: "You have a new appointment",
                 },
             });
@@ -835,7 +877,6 @@ export const resolvers = {
 
         deleteAppointment: async (_parent: any, args: any, context: Context) => {
 
-
             const deleteAppointment = context.prisma.appointment.delete({
                 where: {
                     id: args.id,
@@ -844,8 +885,8 @@ export const resolvers = {
 
             const createNotification = context.prisma.notification.create({
                 data:{
-                    tutorId: args.tutorId,
-                    studentId: args.studentId,
+                    tutorId: [args.tutorId],
+                    studentId: [args.studentId],
                     content: "Your appointment has been cancelled",
                 },
             });
