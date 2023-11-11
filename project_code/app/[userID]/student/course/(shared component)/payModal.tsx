@@ -50,9 +50,9 @@ const PayModal:FC<PayModalProps> = ({}) => {
         })
         const appointmentResponse = await bookAppointment({
             variables:{
-                courseID: params?.id,
-                studentID: params?.userID,
-                tutorID: tutorID,
+                courseId: params?.id,
+                studentId: params?.userID,
+                tutorId: tutorID,
                 startTime: "",
                 endTime: "",
                 appointmentDate: selectedDate
@@ -64,6 +64,7 @@ const PayModal:FC<PayModalProps> = ({}) => {
                 courseId: params?.id,
             }
         })
+
         toast({
             title: "Appointment submitted",
             description: "Friday, February 10, 2023 at 5:57 PM",

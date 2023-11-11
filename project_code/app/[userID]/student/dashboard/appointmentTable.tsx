@@ -18,8 +18,6 @@ const AppointmentTable = () => {
     if (AppointmentLoading) return <p>Loading appointments...</p>;
     if (AppointmentError) return <p>Error loading appointments: {AppointmentError.message}</p>;
 
-    console.log(AppointmentData?.getAppointments)
-
     return (
         <section className="shadow-md sm:rounded-lg">
             <h1 className="text-2xl font-extrabold dark:text-white">Appointment List</h1>
