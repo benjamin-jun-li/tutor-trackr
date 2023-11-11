@@ -277,7 +277,17 @@ export const ADD_Application = gql`
     }
 `;
 
-
+export const Create_TutorAvailability = gql`
+    mutation TutorAvailability($tutorId: String!,$courseId:String!,$startTime:String!,$endTime:String!) {
+        TutorAvailability(tutorId: $tutorId,courseId:$courseId,startTime:$startTime,endTime:$endTime) {
+            id
+            tutorId
+            courseId
+            startTime
+            endTime
+        }
+    }
+`
 
 export const REGISTER_COURSE_FOR_STUDENT = gql`
   mutation RegisterCourseForStudent($studentId: ID!, $courseId: ID!) {
