@@ -139,11 +139,17 @@ export const Approval_Application = gql`
     }
 `
 export const Reject_Application = gql`
-  mutation RejectApplication($id: ID!) {
-    rejectApplication(id: $id) {
-      status
+  mutation RejectApplication(
+    $id: ID!, 
+      $tutorId: String
+      ) {
+      approveApplication(
+        id: $id,
+        tutorId: $tutorId
+        ) {
+        status
+      }
     }
-  }
 `
 
 export const Approval_Course_Application = gql`

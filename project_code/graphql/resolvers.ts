@@ -617,14 +617,32 @@ export const resolvers = {
 
         //
         rejectApplication: async (_parent: any, args: any, context: Context) => {
-            return context.prisma.tutorApplication.update({
+            // return context.prisma.tutorApplication.update({
+            //     where: {
+            //         id: args.id,
+            //     },
+            //     data: {
+            //         status: "Rejected",
+            //     },
+            // });
+            const notificationData = {
+                tutorId: [args.tutorId],
+                content: "Your application has been rejected",
+            };
+
+            const tutorApplicationUpdateData = {
                 where: {
                     id: args.id,
                 },
                 data: {
-                    status: "Rejected",
+                    status: "rejected",
                 },
-            });
+            };
+
+            return context.prisma.$transaction([
+                context.prisma.notification.create({ data: notificationData }),
+                context.prisma.tutorApplication.update(tutorApplicationUpdateData)
+            ]);
         },
 
         // todo

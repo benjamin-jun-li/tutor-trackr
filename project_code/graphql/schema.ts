@@ -214,7 +214,7 @@ type Query {
 type Mutation {
     deleteAppointment(id: ID!,studentId:String,tutorId:String): Appointment
     approveApplication(id: ID!, tutorId: String): TutorApplication
-    rejectApplication(id: ID!): TutorApplication
+    rejectApplication(id: ID!, tutorId: String): TutorApplication
     approveCourseApplication(id: ID!): Course
     rejectCourseApplication(id: ID!): Course
     addStudent (name:String, email:String, password:String) : Student
