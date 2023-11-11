@@ -600,29 +600,30 @@ export const resolvers = {
             });
         },
 
-
         approveApplication: async (_parent: any, args: any, context: Context) => {
-            // Todo send a message to the tutor
-            // const notification = await context.prisma.notification.create({
-            //     data: {
-            //         tutorId: args.tutorId,
-            //         senderId: args.senderId,
-            //         content: "Your application has been approved",
-            //         date: new Date().toISOString(),
-            //     },
-            // })
+            const notificationData = {
+                tutorId: args.tutorId,
+                senderId: args.senderId,
+                content: "Your application has been approved",
+            };
 
-
-            return context.prisma.tutorApplication.update({
+            const tutorApplicationUpdateData = {
                 where: {
                     id: args.id,
                 },
                 data: {
                     status: "Approved",
                 },
-            });
+            };
+
+            return context.prisma.$transaction([
+                context.prisma.notification.create({ data: notificationData }),
+                context.prisma.tutorApplication.update(tutorApplicationUpdateData)
+            ]);
         },
 
+
+        //
         rejectApplication: async (_parent: any, args: any, context: Context) => {
             return context.prisma.tutorApplication.update({
                 where: {
@@ -634,6 +635,7 @@ export const resolvers = {
             });
         },
 
+        // todo
         approveCourseApplication: async (_parent: any, args: any, context: Context) => {
 
             return context.prisma.course.update({
@@ -646,6 +648,7 @@ export const resolvers = {
             });
         },
 
+        // todo
         rejectCourseApplication: async (_parent: any, args: any, context: Context) => {
             return context.prisma.course.update({
                 where: {
@@ -721,20 +724,23 @@ export const resolvers = {
                 where: {id: args.courseId},
             });
 
-            if (!student) {
-                throw new Error("Student not found with ID: " + args.studentId);
-            }
-            if (!course) {
-                throw new Error("Course not found with ID: " + args.courseId);
-            }
-            if (!course.price) {
-                throw new Error("Course price unavailable: " + args.course.price);
-            }
+            console.log(student);
+            console.log(course);
 
-            // Ensure student's account balance is enough
-            if (student.accountBalance < course.price) {
-                throw new Error("Insufficient balance");
-            }
+            // if (!student) {
+            //     throw new Error("Student not found with ID: " + args.studentId);
+            // }
+            // if (!course) {
+            //     throw new Error("Course not found with ID: " + args.courseId);
+            // }
+            // if (!course.price) {
+            //     throw new Error("Course price unavailable: " + args.course.price);
+            // }
+            //
+            // // Ensure student's account balance is enough
+            // if (student.accountBalance < course.price) {
+            //     throw new Error("Insufficient balance");
+            // }
 
             // Deduct the student's account balance
             const balance = student.accountBalance;
@@ -758,7 +764,7 @@ export const resolvers = {
             });
         },
 
-        // add appointment
+        // todo add appointment notification
         addAppointment: async (_parent: any, args: any, context: Context) => {
             const course = await context.prisma.course.findUnique({where: {id: args.courseId}});
             const tutor = await context.prisma.tutor.findUnique({where: {id: args.tutorId}});
@@ -777,9 +783,33 @@ export const resolvers = {
                     date: new Date().toISOString(),
                     startTime: args.startTime,
                     endTime: args.endTime,
-                    status: "Pending",
                 },
             });
+        },
+
+        // todo update appointment notification
+
+        deleteAppointment: async (_parent: any, args: any, context: Context) => {
+
+
+            const deleteAppointment = context.prisma.appointment.delete({
+                where: {
+                    id: args.id,
+                },
+            });
+
+            const createNotification = context.prisma.notification.create({
+                data:{
+                    tutorId: args.tutorId,
+                    studentId: args.studentId,
+                    content: "Your appointment has been cancelled",
+                },
+            });
+
+            return context.prisma.$transaction([
+                deleteAppointment,
+                createNotification,
+            ]);
         },
 
         //add identity

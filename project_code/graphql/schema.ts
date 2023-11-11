@@ -133,7 +133,6 @@ type Appointment {
     startTime: String
     endTime: String
     appointmentDate: String
-    status:String
 }
 
 type RegisterCourse {
@@ -214,6 +213,7 @@ type Query {
   }
 
 type Mutation {
+    deleteAppointment(id: ID!,studentId:String,tutorId:String): Appointment
     approveApplication(id: ID!): TutorApplication
     rejectApplication(id: ID!): TutorApplication
     approveCourseApplication(id: ID!): Course
