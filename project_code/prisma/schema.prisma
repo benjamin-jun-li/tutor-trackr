@@ -29,7 +29,6 @@ model Tutor {
   courses        Course[]            @relation(fields: [courseId], references: [id])
   courseId       String[]            @db.ObjectId
   profile        TutorProfile?
-  availabilities TutorAvailability[]
   ChatChannel    ChatChannel[]
   notification        Notification[]            @relation(fields: [notificationId], references: [id])
   notificationId       String[]            @db.ObjectId
@@ -61,22 +60,12 @@ model Course {
   tutors         Tutor[]             @relation(fields: [tutorId], references: [id])
   tutorId        String[]            @db.ObjectId
   price          Int
-  availabilities TutorAvailability[]
   register       RegisterCourse[]
   status         String?
   rate           String[]
   score          String?
 }
 
-model TutorAvailability {
-  id        String @id @default(auto()) @map("_id") @db.ObjectId
-  tutor     Tutor  @relation(fields: [tutorId], references: [id])
-  tutorId   String @db.ObjectId
-  course    Course @relation(fields: [courseId], references: [id])
-  courseId  String @db.ObjectId
-  startTime String
-  endTime   String
-}
 
 model StudentProfile {
   id             String  @id @default(auto()) @map("_id") @db.ObjectId
@@ -118,6 +107,8 @@ model TutorApplication {
   date        DateTime   @default(now())
   description String?
   status      String?
+  startTime   String?
+  endTime     String?
 }
 
 

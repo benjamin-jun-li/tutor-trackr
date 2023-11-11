@@ -70,16 +70,6 @@ type Course {
 }
 
 
-type TutorAvailability {
-    id:        ID!
-    tutor:      Tutor
-    tutorId:    [String]
-    course:     Course
-    courseId:   [String]
-    startTime:  String
-    endTime:    String
-}
-
 type StudentProfile {
     id: ID!
     thumbnail: String
@@ -116,6 +106,8 @@ type TutorApplication {
     description: String
     status:String
     appointmentDate:String
+    startTime:String
+    endTime:String
 }
 
 type Appointment {
@@ -201,7 +193,6 @@ type Query {
     filterCourses(
         tags: [String!],
     ): [Course]
-    getTutorAvailability(tutorId: String!,courseId:String!): TutorAvailability
     getUserType(email: String!): Identity
     getSuccessfulReservation(id: String!): [Appointment]
     getStudentInfo(tutorId: String!): [Course]
@@ -213,9 +204,7 @@ type Query {
     getStudentNotification(studentId: String!): [Notification]
   }
 
-
 type Mutation {
-    tutorAvailability(tutorId: String!,courseId:String!,startTime:String!,endTime:String!): TutorAvailability
     deleteAppointment(id: ID!,studentId:String,tutorId:String): Appointment
     approveApplication(id: ID!, tutorId: String): TutorApplication
     rejectApplication(id: ID!, tutorId: String): TutorApplication
@@ -238,7 +227,7 @@ type Mutation {
     deleteCourse(id: ID!): Course
     deleteStudent(id: ID!, email:String): Student
     deleteTutor(id: ID!, email:String): Tutor
-    addApplication(name: String, email: String, courseName: String,description:String,appointmentDate:String,tutorId:String,courseId:String) : TutorApplication
+    addApplication(name: String, email: String, courseName: String,description:String,appointmentDate:String,tutorId:String,courseId:String,startTime:String,endTime:String) : TutorApplication
 
     registerCourseForStudent(studentId: ID!, courseId: ID!): RegisterCourse
     registerCourseForTutor(tutorId: ID!, courseId: ID!): Tutor

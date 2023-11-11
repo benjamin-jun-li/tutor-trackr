@@ -170,14 +170,6 @@ export const resolvers = {
             })
         },
 
-        getTutorAvailability: async (_parent: any, args: any, context: Context) => {
-            return context.prisma.tutorAvailability.findMany({
-                where: {
-                    tutorId: args.tutorId,
-                    courseId: args.courseId,
-                },
-            });
-        },
         getAppointmentById: async (_parent: any, args: any, context: Context) => {
             return context.prisma.appointment.findUnique({
                 where: {
@@ -325,16 +317,6 @@ export const resolvers = {
 
 
     Mutation: {
-        tutorAvailability: async (_parent: any, args: any, context: Context) => {
-            return context.prisma.tutorAvailability.create({
-                data: {
-                    tutorId: args.tutorId,
-                    courseId: args.courseId,
-                    startTime: args.startTime,
-                    endTime: args.endTime,
-                },
-            });
-        },
 
         resetPassword: async (_parent: any, args: any, context: Context) => {
             let userFound = false;
@@ -517,9 +499,6 @@ export const resolvers = {
                     where: {courseId: args.id},
                 });
 
-                await context.prisma.tutorAvailability.deleteMany({
-                    where: {courseId: args.id},
-                });
 
                 return context.prisma.course.delete({
                     where: {
@@ -614,9 +593,6 @@ export const resolvers = {
                         }
                     });
 
-                    await context.prisma.tutorAvailability.deleteMany({
-                        where: {tutorId: args.id},
-                    });
 
                     return await context.prisma.tutor.delete({
                         where: {
@@ -641,7 +617,9 @@ export const resolvers = {
                     courseId: args.courseId,
                     courseName: args.courseName,
                     description: args.description,
-                    appointmentDate: args.appointmentDate
+                    appointmentDate: args.appointmentDate,
+                    startTime: args.startTime,
+                    endTime: args.endTime,
                 },
             });
         },

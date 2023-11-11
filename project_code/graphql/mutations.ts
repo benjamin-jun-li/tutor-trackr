@@ -255,6 +255,8 @@ export const ADD_Application = gql`
         $courseName: String
         $description: String
         $appointmentDate: String
+        $startTime: String
+        $endTime: String
     ) {
         addApplication(
             tutorId: $tutorId
@@ -264,6 +266,8 @@ export const ADD_Application = gql`
             courseName: $courseName
             description: $description
             appointmentDate: $appointmentDate
+            startTime: $startTime
+            endTime: $endTime
         ) {
             id
             tutorId
@@ -273,21 +277,12 @@ export const ADD_Application = gql`
             courseName
             description
             appointmentDate
-        }
-    }
-`;
-
-export const Create_TutorAvailability = gql`
-    mutation CreateTutorAvailability($tutorId: String!,$courseId:String!,$startTime:String!,$endTime:String!) {
-        tutorAvailability(tutorId: $tutorId,courseId:$courseId,startTime:$startTime,endTime:$endTime) {
-            id
-            tutorId
-            courseId
             startTime
             endTime
         }
     }
-`
+`;
+
 
 export const REGISTER_COURSE_FOR_STUDENT = gql`
   mutation RegisterCourseForStudent($studentId: ID!, $courseId: ID!) {
