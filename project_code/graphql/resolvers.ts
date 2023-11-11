@@ -595,8 +595,7 @@ export const resolvers = {
 
         approveApplication: async (_parent: any, args: any, context: Context) => {
             const notificationData = {
-                tutorId: args.tutorId,
-                senderId: args.senderId,
+                tutorId: [args.tutorId],
                 content: "Your application has been approved",
             };
 

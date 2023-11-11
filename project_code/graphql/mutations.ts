@@ -126,8 +126,14 @@ export const UPDATE_TUTOR_PROFILE = gql`
 `;
 
 export const Approval_Application = gql`
-    mutation ApprovalApplication($id: ID!) {
-      approveApplication(id: $id) {
+    mutation ApprovalApplication(
+      $id: ID!, 
+      $tutorId: String
+      ) {
+      approveApplication(
+        id: $id,
+        tutorId: $tutorId
+        ) {
         status
       }
     }

@@ -173,7 +173,6 @@ type Message {
 
 type Notification {
     id: ID!
-    senderId: String
     content: String
     students: [Student]
     studentId: [String]
@@ -214,7 +213,7 @@ type Query {
 
 type Mutation {
     deleteAppointment(id: ID!,studentId:String,tutorId:String): Appointment
-    approveApplication(id: ID!): TutorApplication
+    approveApplication(id: ID!, tutorId: String): TutorApplication
     rejectApplication(id: ID!): TutorApplication
     approveCourseApplication(id: ID!): Course
     rejectCourseApplication(id: ID!): Course

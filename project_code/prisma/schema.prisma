@@ -184,7 +184,6 @@ model Message {
 
 model Notification {
   id              String   @id @default(auto()) @map("_id") @db.ObjectId
-  senderId        String
   content         String
   students       Student[]           @relation(fields: [studentId], references: [id])
   studentId      String[]            @db.ObjectId
