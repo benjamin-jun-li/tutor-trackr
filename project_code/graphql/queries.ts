@@ -259,6 +259,8 @@ export const GET_APPLICATION_BY_ID = gql`
             courseName
             status
             description
+            startTime
+            endTime
         }
     }
 `

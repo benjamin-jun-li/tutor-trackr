@@ -75,7 +75,10 @@ const TutorApplicationPage = () => {
                     <span className="font-semibold">Description:</span> {appDetails?.description}
                 </div>
                 <div className="mb-4">
-                    <span className="font-semibold">Status:</span> {appDetails?.status}
+                    <span className="font-semibold">Start time:</span> {appDetails?.startTime}
+                </div>
+                <div className="mb-4">
+                    <span className="font-semibold">End time:</span> {appDetails?.endTime}
                 </div>
                 {appDetails.interview && (
                     <div className="mb-4">

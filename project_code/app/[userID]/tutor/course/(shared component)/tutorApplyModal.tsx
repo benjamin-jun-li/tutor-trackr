@@ -49,7 +49,9 @@ const TutorApplyModal = () => {
                 email:tutorData?.getTutor?.email,
                 courseId: params?.id,
                 courseName:courseData?.data?.course?.name,
-                description:msg
+                description:msg,
+                startTime: startAvail,
+                endTime: endAvail,
             }
         })
         toast({
