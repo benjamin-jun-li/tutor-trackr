@@ -81,7 +81,7 @@ const MessageBox = () => {
             <div className="h-full min-w-[14rem] rounded-md border overflow-auto">
                 <div className="p-4">
                     {visibleMessages.map((message, index) => (
-                        <Link href={`/tutor/message/${message.id}`} key={index}>
+                        <Link href={`/${params?.userID}/student/message/${message.id}`} key={index}>
                             <div className="cursor-pointer">
                                 <div className="text-sm">
                                     <div className="font-semibold">{message.title}</div>
