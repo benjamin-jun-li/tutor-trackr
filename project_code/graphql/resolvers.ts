@@ -582,8 +582,10 @@ export const resolvers = {
         addApplication: async (_parent: any, args: any, context: Context) => {
             return context.prisma.tutorApplication.create({
                 data: {
+                    tutorId: args.tutorId,
                     name: args.name,
                     email: args.email,
+                    courseId: args.courseId,
                     courseName: args.courseName,
                     description: args.description,
                     appointmentDate: args.appointmentDate

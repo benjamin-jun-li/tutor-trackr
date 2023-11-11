@@ -25,14 +25,14 @@ import { useToast } from "@/components/ui/use-toast";
 import {useState} from "react";
 import {useMutation, useQuery} from "@apollo/client";
 import { ADD_Application } from "@/graphql/mutations";
-import {GET_COURSE} from "@/graphql/queries";
+import {GET_COURSE, GET_TUTOR} from "@/graphql/queries";
 import {useParams} from "next/navigation";
 import {useContextValue} from "@/components/context";
 
 const TutorApplyModal = () => {
-    const {getters,} = useContextValue();
     const params = useParams()
     const courseData = useQuery(GET_COURSE, { variables: { id: params?.id }});
+    const {data: tutorData, loading: tutorLoading, error: tutorError} = useQuery(GET_TUTOR, { variables: { id: params?.userID }});
     const { toast } = useToast();
     const [msg, setMsg] = useState("")
     const startTime = 8;
@@ -44,8 +44,10 @@ const TutorApplyModal = () => {
     const submitApplication = async () => {
         const applicationRes = await addApplication({
             variables:{
-                name:getters.userName,
-                email:getters.userEmail,
+                tutorId: params?.userID,
+                name:tutorData?.getTutor?.name,
+                email:tutorData?.getTutor?.email,
+                courseId: params?.id,
                 courseName:courseData?.data?.course?.name,
                 description:msg
             }
