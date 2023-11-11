@@ -136,7 +136,6 @@ model Appointment {
   date            String?
   startTime       String?
   endTime         String?
-  status          String?
   appointmentDate String?
 }
 

@@ -242,6 +242,7 @@ export const ADD_Application = gql`
         $courseId: String
         $courseName: String
         $description: String
+        $appointmentDate: String
     ) {
         addApplication(
             tutorId: $tutorId
@@ -250,6 +251,7 @@ export const ADD_Application = gql`
             courseId: $courseId
             courseName: $courseName
             description: $description
+            appointmentDate: $appointmentDate
         ) {
             id
             tutorId
@@ -258,6 +260,7 @@ export const ADD_Application = gql`
             courseId
             courseName
             description
+            appointmentDate
         }
     }
 `;
@@ -338,6 +341,15 @@ export const ADD_IDENTITY = gql`
     }
   }
 `;
+
+export const Delete_Appointment = gql`
+    mutation DeleteAppointment($id: ID!,$studentId: String!, $tutorId: String!) {
+        deleteAppointment(id: $id,studentId: $studentId, tutorId: $tutorId) {
+            id
+            studentId
+            tutorId
+        }
+    }`
 
 export const ADD_RATE = gql`
   mutation AddRate(
