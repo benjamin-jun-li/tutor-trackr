@@ -1,0 +1,40 @@
+Week 1:
+This week marked the formation of our project group.
+Together, we delved into a lively discussion to determine our project preferences, aligning our interests and skills.
+Personally, I embarked on a journey to acquire knowledge in front-end development,
+dedicating time to online tutorials and resources to build a solid foundation for the tasks ahead.
+
+Week 2:
+A significant milestone was the creation of our GitHub repository, setting the stage for collaborative development.
+Additionally, we had an insightful session with our client, gaining valuable perspective on their expectations.
+Over the weekend, the team convened to deliberate on the project's direction and draft the initial proposal.
+My contribution included articulating user stories and establishing the framework for our upcoming sprints.
+
+Week 3:
+The team gathered to refine our proposal, ensuring it met the project's objectives and our client's vision.
+We launched our first sprint on Tuesday, with a clear agenda and well-defined tasks.
+Throughout the week, each team member meticulously reviewed the proposal, leading to a consensus.
+We submitted the finalized proposal on Friday, confident in our collective effort.
+
+Week 4:
+This week, my focus was on developing the profile page.
+I successfully completed the front-end component, creating an intuitive and responsive design.
+Additionally, I developed a preliminary dashboard demonstration tailored for three distinct user roles,
+showcasing the interface's versatility and potential.
+
+Week 5:
+My attention remained on the profile page, where I implemented enhancements and resolved several bugs,
+particularly in the profile update functionalities. These refinements were crucial in improving the user experience and ensuring reliability.
+
+Week 7:
+I shifted my focus towards the messaging and application features of our platform.
+This entailed developing the application pages, which would serve as a crucial touchpoint for users,
+and integrating a status toggle feature to streamline the application process.
+
+Week 8:
+Continuing with the application features, I dedicated this week to enhancing the application pages and perfecting the status toggle function.
+I also revisited previous pages to debug and improve, such as the profile update and the tutor admin page, ensuring logical consistency and user-friendliness.
+
+Week 9:
+This week was dedicated to the notification functionalities, a key aspect of user engagement on the platform.
+Alongside this, I systematically addressed and resolved bugs from previous pages, enhancing stability and performance across the platform.
