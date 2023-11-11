@@ -91,11 +91,20 @@ export const resolvers = {
                     id: args.id,
                 },
                 include: {
-                    students: true,
-                    tutors: true
+                    students: {
+                        include: {
+                            profile: true,
+                        }
+                    },
+                    tutors: {
+                        include: {
+                            profile: true,
+                        }
+                    }
                 }
             });
         },
+
 
         //get course list
         courses: async (_parent: any, args: any, context: Context) => {
@@ -103,11 +112,12 @@ export const resolvers = {
                 {
                     include: {
                         students: true,
-                        tutors: true
+                        tutors: true,
                     }
                 }
             );
         },
+
 
         //get student list
         getStudentList: async (_parent: any, args: any, context: Context) => {

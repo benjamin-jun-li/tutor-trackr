@@ -9,8 +9,7 @@ import {FC, useState} from "react";
 import { useParams, usePathname } from "next/navigation";
 import Link from "next/link";
 import {useMutation, useQuery} from "@apollo/client";
-import {GET_COURSE, GET_SCORE} from "@/graphql/queries";
-import {useContextValue} from "@/components/context";
+import {GET_COURSE, GET_SCORE, GET_STUDENT_PROFILE} from "@/graphql/queries";
 import Image from "next/image";
 import {Button} from "@/components/ui/button";
 import TutorBioDisplay from "@/components/TutorBioDisplay";
@@ -20,13 +19,11 @@ import ProfileTable from "@/app/[userID]/tutor/course/(shared component)/profile
 const CourseDetail:FC<{ role:string }> = ({ role }) => {
     const params = useParams();
     const pathname = usePathname();
-    const { getters } = useContextValue();
     const getCourseDetail = useQuery(GET_COURSE, {variables:{ id:params?.id }});
     const { loading, data, error, refetch } = useQuery(GET_SCORE, {
         variables: { id: params?.id },
         fetchPolicy: "network-only",
     });
-
 
     const [addRate, { data: rateData, loading: rateLoading, error: rateError }] = useMutation(ADD_RATE);
 
@@ -59,7 +56,6 @@ const CourseDetail:FC<{ role:string }> = ({ role }) => {
     const handleRateChange = (rate: number) => {
         setCurrentRate(rate);
     };
-
 
     return (
         getCourseDetail.data ?
@@ -158,7 +154,7 @@ const CourseDetail:FC<{ role:string }> = ({ role }) => {
                                             <AccordionItem value="item-1">
                                                 <AccordionTrigger className="flex flex-row justify-between">
                                                     <div>
-                                                        <img className="w-8 h-8 rounded-full" src="" alt="Neil image" />
+                                                        <img className="w-8 h-8 rounded-full" src={tutor?.profile?.thumbnail ? tutor?.profile?.thumbnail : "/default-user.png"} alt="Neil image" />
                                                     </div>
                                                     {
                                                         role === 'tutor' ? (
