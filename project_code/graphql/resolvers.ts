@@ -689,7 +689,6 @@ export const resolvers = {
             ]);
         },
 
-
         //
         rejectApplication: async (_parent: any, args: any, context: Context) => {
 
@@ -716,26 +715,47 @@ export const resolvers = {
         // todo
         approveCourseApplication: async (_parent: any, args: any, context: Context) => {
 
-            return context.prisma.course.update({
+            const notificationData = {
+                courseId: [args.courseId],
+                content: "Your application has been approved",
+            };
+
+            const courseApplicationUpdateData = {
                 where: {
                     id: args.id,
                 },
                 data: {
                     status: "Approved",
                 },
-            });
+            };
+
+            return context.prisma.$transaction([
+                context.prisma.notification.create({data: notificationData }),
+                context.prisma.course.update(courseApplicationUpdateData)
+            ]);
         },
 
         // todo
         rejectCourseApplication: async (_parent: any, args: any, context: Context) => {
-            return context.prisma.course.update({
+            
+            const notificationData = {
+                courseId: [args.courseId],
+                content: "Your application has been rejected",
+            };
+
+            const courseApplicationUpdateData = {
                 where: {
                     id: args.id,
                 },
                 data: {
                     status: "Rejected",
                 },
-            });
+            };
+
+            return context.prisma.$transaction([
+                context.prisma.notification.create({ data: notificationData }),
+                context.prisma.course.update(courseApplicationUpdateData)
+            ]);
         },
 
 

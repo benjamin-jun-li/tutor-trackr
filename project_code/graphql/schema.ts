@@ -219,8 +219,8 @@ type Mutation {
     deleteAppointment(id: ID!,studentId:String,tutorId:String): Appointment
     approveApplication(id: ID!, tutorId: String): TutorApplication
     rejectApplication(id: ID!, tutorId: String): TutorApplication
-    approveCourseApplication(id: ID!): Course
-    rejectCourseApplication(id: ID!): Course
+    approveCourseApplication(id: ID!, courseId: String): Course
+    rejectCourseApplication(id: ID!, courseId: String): Course
     addStudent (name:String, email:String, password:String) : Student
     addTutor (name:String, email:String, password:String) : Tutor
     updateStudentProfile(id: ID!,
