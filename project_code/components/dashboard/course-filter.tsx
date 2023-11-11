@@ -1,4 +1,5 @@
 "use client"
+
 import Combobox from "@/components/ui/combo-box";
 import React, { useState, useEffect } from 'react';
 import { useQuery } from "@apollo/client";
@@ -52,7 +53,7 @@ const CourseFilter: React.FC<CourseFilterProps> = ({ onFilterChange }) => {
                 experienceLevel
             });
         }
-    }, [data?.courses]); // Run this effect when data.courses changes
+    }, [data?.courses, timeZone, courseLevel, experienceLevel]); // Run this effect when data.courses changes
 
     return (
         <section className="mb-4 flex justify-center gap-3">
