@@ -32,6 +32,7 @@ const TutorApplicationPage = () => {
     const handleAcceptClick = async () => {
         await acceptApplication({
             variables: {
+                tutorId: appDetails?.tutorId,
                 id: param?.id,
             },
         })
@@ -49,6 +50,7 @@ const TutorApplicationPage = () => {
     const handleRejectClick = async () => {
         await rejectApplication({
             variables: {
+                tutorId: appDetails?.tutorId,
                 id: param?.id,
             },
         }).then(() => {
