@@ -170,17 +170,6 @@ export const resolvers = {
             })
         },
 
-        tutorAvailability: async (_parent: any, args: any, context: Context) => {
-            return context.prisma.tutorAvailability.create({
-                data: {
-                    tutorId: args.tutorId,
-                    courseId: args.courseId,
-                    startTime: args.startTime,
-                    endTime: args.endTime,
-                },
-            });
-        },
-
         getTutorAvailability: async (_parent: any, args: any, context: Context) => {
             return context.prisma.tutorAvailability.findMany({
                 where: {
@@ -336,6 +325,17 @@ export const resolvers = {
 
 
     Mutation: {
+        tutorAvailability: async (_parent: any, args: any, context: Context) => {
+            return context.prisma.tutorAvailability.create({
+                data: {
+                    tutorId: args.tutorId,
+                    courseId: args.courseId,
+                    startTime: args.startTime,
+                    endTime: args.endTime,
+                },
+            });
+        },
+
         resetPassword: async (_parent: any, args: any, context: Context) => {
             let userFound = false;
 

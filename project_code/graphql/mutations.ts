@@ -278,8 +278,8 @@ export const ADD_Application = gql`
 `;
 
 export const Create_TutorAvailability = gql`
-    mutation TutorAvailability($tutorId: String!,$courseId:String!,$startTime:String!,$endTime:String!) {
-        TutorAvailability(tutorId: $tutorId,courseId:$courseId,startTime:$startTime,endTime:$endTime) {
+    mutation CreateTutorAvailability($tutorId: String!,$courseId:String!,$startTime:String!,$endTime:String!) {
+        tutorAvailability(tutorId: $tutorId,courseId:$courseId,startTime:$startTime,endTime:$endTime) {
             id
             tutorId
             courseId

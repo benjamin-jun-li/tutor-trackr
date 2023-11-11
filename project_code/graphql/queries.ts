@@ -130,14 +130,18 @@ export const GET_COURSE = gql`
 `
 
 export const Get_TutorAvailability = gql`
-    query TutorAvailability(
+    query GetTutorAvailability(
         $tutorId: String!,
         $courseId:String!
-    ) {getTutorAvailability(tutorId:$tutorId,
-        courseId: $courseId){
-        startTime
-        endTime
-    }}
+    ) {
+        getTutorAvailability(
+            tutorId:$tutorId,
+            courseId: $courseId)
+        {
+            startTime
+            endTime
+        }
+    }
 `
 
 export const GET_TUTORS_BY_COURSE = gql`
