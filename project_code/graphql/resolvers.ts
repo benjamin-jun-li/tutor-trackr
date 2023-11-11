@@ -278,6 +278,38 @@ export const resolvers = {
                     score: true,
                 }
             });
+        },
+
+        //get tutor notification
+        getTutorNotification: async (_parent: any, args: any, context: Context) => {
+            const tutorId = args.tutorId;
+            const notifications = await context.prisma.notification.findMany({
+                where: {
+                    tutorId: {
+                        has: tutorId
+                    }
+                },
+                select: {
+                    content: true,
+                }
+            });
+            return notifications;
+        },
+
+        //get student notification
+        getStudentNotification: async (_parent: any, args: any, context: Context) => {
+            const studentId = args.studentId;
+            const notifications = await context.prisma.notification.findMany({
+                where: {
+                    studentId: {
+                        has: studentId
+                    }
+                },
+                select: {
+                    content: true,
+                }
+            });
+            return notifications;
         }
     },
 

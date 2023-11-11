@@ -209,6 +209,8 @@ type Query {
     getTutorCourses(tutorId: String!): [Course]
     getStudentCourses(studentId: String!): [Course]
     getScore(id: String!): Course
+    getTutorNotification(tutorId: String!): [Notification]
+    getStudentNotification(tutorId: String!): [Notification]
   }
 
 type Mutation {

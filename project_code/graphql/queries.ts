@@ -362,3 +362,19 @@ export const GET_SCORE = gql`
         }
     }
 `;
+
+export const GET_TUTOR_NOTIFICATION = gql`
+    query GetTutorNotification($tutorId: String!) {
+        getTutorNotification(tutorId: $tutorId) {
+            content
+        }
+    }
+`;
+
+export const GET_STUDENT_NOTIFICATION = gql`
+    query GetStudentNotification($studentId: String!) {
+        getStudentNotification(studentId: $studentId) {
+            content
+        }
+    }
+`;
