@@ -21,7 +21,8 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import {ADD_IDENTITY, ADD_Student, ADD_Tutor} from "@/graphql/mutations";
 import { useMutation } from "@apollo/client";
 import { useRouter } from "next/navigation"
-import { useContextValue } from  "@/components/context"
+import { useContextValue } from "@/components/providers/context"
+import {useState} from "react";
 
 const FormSchema = z
   .object({
@@ -47,7 +48,8 @@ const SignUpForm = () => {
     const [addStudent,{data:studentData,loading:studentLoading,error:studentError}] = useMutation(ADD_Student);
     const [addTutor,{data:tutorData,loading:tutorLoading,error:tutorError}] = useMutation(ADD_Tutor);
     const [addIdentity, { data: identityData, loading: identityLoading, error: identityError }] = useMutation(ADD_IDENTITY);
-    const router = useRouter()
+    const router = useRouter();
+    const [btnClicked, setBtnClicked] = useState(false);
     const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -61,6 +63,7 @@ const SignUpForm = () => {
 
 
   const onSubmit = async (values: z.infer<typeof FormSchema>) => {
+      setBtnClicked(true);
       let userIdentity = "";
       if (values.identity === "student") {
           userIdentity = "Student";
@@ -79,7 +82,7 @@ const SignUpForm = () => {
                   password: values.password,
               },
           });
-          if (res.data?.addStudent?.id) {
+          if (res?.data?.addStudent?.id) {
               const userId = res.data?.addStudent?.id;
               setters.setEmail(values.email);
               setters.setName(values.username);
@@ -89,6 +92,7 @@ const SignUpForm = () => {
               router.replace(`${userId}/student/dashboard/`)
           } else {
               console.log(res);
+              setBtnClicked(false);
           }
       } else {
           const res = await addTutor({
@@ -98,7 +102,7 @@ const SignUpForm = () => {
                   password: values.password,
               },
           });
-          if (res.data?.addTutor?.id) {
+          if (res?.data?.addTutor?.id) {
               const userId = res.data?.addTutor?.id;
               setters.setEmail(values.email);
               setters.setName(values.username);
@@ -108,6 +112,7 @@ const SignUpForm = () => {
               router.replace(`${userId}/tutor/dashboard/`)
           } else {
               console.log(res);
+              setBtnClicked(false);
           }
       }
 
@@ -218,7 +223,7 @@ const SignUpForm = () => {
               )}
             />
           </div>
-          <Button className="w-full mt-6" type="submit">
+          <Button className="w-full mt-6" type="submit" disabled={btnClicked}>
             Sign up
           </Button>
         </form>

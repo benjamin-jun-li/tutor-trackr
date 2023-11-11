@@ -20,7 +20,8 @@ import { useRouter } from "next/navigation";
 
 import {Auth_SiteAdmin, Auth_Student, Auth_Tutor, Auth_TutorAdmin, GET_USERTYPE} from "@/graphql/queries";
 import {useLazyQuery, useQuery} from "@apollo/client";
-import { useContextValue } from  "@/components/context"
+import { useContextValue } from "@/components/providers/context"
+import {useState} from "react";
 
 
 const FormSchema = z.object({
@@ -34,6 +35,7 @@ const FormSchema = z.object({
 
 const SignInForm = () => {
     const router = useRouter();
+    const [btnClicked, setBtnClicked] = useState(false);
     const { getters, setters } = useContextValue();
     const [authStudent, { loading: loadingStudent, error: stuError, data: dataStudent }] = useLazyQuery(Auth_Student);
     const [authTutor, { loading: loadingTutor, error: tutError,  data: dataTutor }] = useLazyQuery(Auth_Tutor);
@@ -55,16 +57,17 @@ const SignInForm = () => {
     const enteredPassword = values.password;
     const [getIdentity, { loading: loadingIdentity, error: identityError, data: dataIdentity }] = useLazyQuery(GET_USERTYPE);
   const onSubmit = async (values: z.infer<typeof FormSchema>) => {
-        const res = await getIdentity({
-            variables: {
-                email: values.email
-            }
-        });
+      setBtnClicked(true);
+      const res = await getIdentity({
+        variables: {
+            email: values.email
+        }
+      });
       let userIdentity = res.data?.getUserType?.userType
         setters.setIdentity(userIdentity);
       if (userIdentity === "Student") {
           const res2 = await authStudent({variables: {email: values.email}})
-          if (res2.data?.student?.password === enteredPassword) {
+          if (res2?.data?.student?.password === enteredPassword) {
               const userId = res2.data?.student?.id
               setters.setEmail(values.email)
               setters.setName(res2.data.student.name)
@@ -73,10 +76,11 @@ const SignInForm = () => {
               router.replace(`/${userId}/student/dashboard`)
           } else {
               alert("invalid student info")
+              setBtnClicked(false);
           }
       } else if (userIdentity === "Tutor") {
           const res2 = await authTutor({variables: {email: values.email}});
-          if (res2.data?.tutor?.password === enteredPassword) {
+          if (res2?.data?.tutor?.password === enteredPassword) {
               const userId = res2.data?.tutor?.id
               setters.setEmail(values.email)
               setters.setName(res2.data.tutor.name)
@@ -84,11 +88,12 @@ const SignInForm = () => {
               setters.setUserStatus(true)
               router.replace(`/${userId}/tutor/dashboard`)
           } else {
-              alert("Invalid tutor info")
+              alert("Invalid tutor info");
+              setBtnClicked(false);
           }
       } else if (userIdentity === "SiteAdmin") {
           const res2 = await authSiteAdmin({ variables: { email: values.email } });
-          if (res2.data?.siteAdmin?.password === enteredPassword) {
+          if (res2?.data?.siteAdmin?.password === enteredPassword) {
               const userId = res2.data?.siteAdmin?.id
               setters.setUserStatus(true);
               router.replace(`/${userId}/admin/siteadmin/dashboard`);
@@ -97,12 +102,13 @@ const SignInForm = () => {
           }
       } else if (userIdentity === "TutorAdmin") {
             const res2 = await authTutorAdmin({ variables: { email: values.email } });
-            if (res2.data?.tutorAdmin?.password === enteredPassword) {
+            if (res2?.data?.tutorAdmin?.password === enteredPassword) {
                 const userId = res2.data?.tutorAdmin?.id
                 setters.setUserStatus(true);
                 router.replace(`/${userId}/admin/tutoradmin/dashboard`);
             } else {
                 alert("Invalid tutor admin info");
+                setBtnClicked(false);
             }
       }
       if (loadingIdentity || loadingStudent || loadingTutor || loadingAdminSite || loadingAdminTut || getters.userStatus) {
@@ -150,7 +156,7 @@ const SignInForm = () => {
             />
           </div>
 
-          <Button className="w-full mt-6" type="submit">
+          <Button className="w-full mt-6" type="submit" disabled={btnClicked}>
             Sign in
           </Button>
         </form>

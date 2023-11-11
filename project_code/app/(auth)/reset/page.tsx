@@ -1,6 +1,6 @@
 "use client"
 import { FormEvent, useState } from "react";
-import { useContextValue } from "@/components/context";
+import { useContextValue } from "@/components/providers/context";
 import { UPDATE_PASSWORD } from "@/graphql/mutations";
 import { useMutation } from "@apollo/client";
 import { useRouter } from "next/navigation";

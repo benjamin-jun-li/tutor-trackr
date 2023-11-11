@@ -15,7 +15,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import {useParams, usePathname} from "next/navigation";
-import { useContextValue } from "@/components/context";
+import { useContextValue } from "@/components/providers/context";
 import Link from "next/link";
 import {useQuery} from "@apollo/client";
 import {GET_STUDENT_PROFILE, GET_TUTOR_PROFILE} from "@/graphql/queries";

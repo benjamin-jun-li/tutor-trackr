@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { GET_TUTOR_PROFILE } from "@/graphql/queries";
 import {useParams, useRouter} from "next/navigation";
-import { useContextValue } from "@/components/context";
+import { useContextValue } from "@/components/providers/context";
 import {
     Avatar,
     AvatarFallback,

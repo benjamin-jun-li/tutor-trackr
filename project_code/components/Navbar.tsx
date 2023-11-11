@@ -5,7 +5,7 @@ import {useParams, usePathname} from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { Atom } from 'lucide-react';
 import { UserNav } from '@/components/dashboard/user-nav';
-import { useContextValue } from  "@/components/context"
+import { useContextValue } from "@/components/providers/context"
 
 const Navbar = () => {
   const params = useParams();

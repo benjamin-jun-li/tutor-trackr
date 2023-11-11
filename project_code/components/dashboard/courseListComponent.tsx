@@ -12,9 +12,9 @@ interface CLprops{
 const CourseListComponent:FC<CLprops> = ({data, role, courseType}) => {
     const params = useParams();
     return (
-        <section>
+        <section className="flex justify-center">
             <div className="flex">
-                {!data &&
+                {data?.length === 0 &&
                     <h2 className="mb-4 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-white">
                         There are no courses under this entry.
                     </h2>

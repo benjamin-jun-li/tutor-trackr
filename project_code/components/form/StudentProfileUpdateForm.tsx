@@ -24,7 +24,7 @@ import { toast } from "@/components/ui/use-toast"
 import {useMutation, useQuery} from "@apollo/client";
 import {UPDATE_STUDENT_PROFILE} from "@/graphql/mutations";
 import {useParams, usePathname, useRouter} from "next/navigation";
-import {useContextValue} from "@/components/context";
+import {useContextValue} from "@/components/providers/context";
 import TimezonePicker from "@/components/TimezonePicker";
 import {GET_STUDENT, GET_STUDENT_PROFILE} from "@/graphql/queries";
 import FileUpload from "@/components/fileUpload";

@@ -2,7 +2,7 @@
 import { useState, useEffect, MouseEvent } from "react";
 import { useLazyQuery } from "@apollo/client";
 import { useRouter } from "next/navigation";
-import { useContextValue } from "@/components/context";
+import { useContextValue } from "@/components/providers/context";
 import { Find_User } from "@/graphql/queries";
 
 const ForgetPasswordPage = () => {

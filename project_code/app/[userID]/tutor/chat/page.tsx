@@ -1,4 +1,4 @@
-import ChatList from "@/components/chatList";
+import ChatList from "@/components/chat/chatList";
 
 const TutorChatList = () => {
     return (

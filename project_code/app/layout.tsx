@@ -5,10 +5,10 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Footer from "@/components/Footer";
 import { Toaster } from "@/components/ui/toaster"
-import { ApolloProviders } from "@/components/ApolloProviders";
+import { ApolloProviders } from "@/components/providers/ApolloProviders";
 import { ClerkProvider } from '@clerk/nextjs'
-import ContextProvider from "@/components/context";
-import {SocketProvider} from "@/components/socketProvider";
+import ContextProvider from "@/components/providers/context";
+import {SocketProvider} from "@/components/providers/socketProvider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {

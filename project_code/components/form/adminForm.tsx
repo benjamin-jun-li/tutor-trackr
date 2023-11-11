@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { useContextValue } from "@/components/context";
+import { useContextValue } from "@/components/providers/context";
 import { useRouter } from "next/navigation";
 
 import { Auth_SiteAdmin, Auth_TutorAdmin } from "@/graphql/queries";

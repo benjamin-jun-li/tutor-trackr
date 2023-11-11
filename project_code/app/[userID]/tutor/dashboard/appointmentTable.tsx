@@ -3,7 +3,7 @@
 import { useQuery } from "@apollo/client";
 import { GET_APPOINTMENT } from "@/graphql/queries";
 import Link from "next/link";
-import {useContextValue} from "@/components/context";
+import {useContextValue} from "@/components/providers/context";
 
 const AppointmentTable = () => {
     const { getters } = useContextValue();

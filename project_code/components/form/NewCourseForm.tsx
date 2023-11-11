@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react';
-import { useContextValue } from "@/components/context"
+import { useContextValue } from "@/components/providers/context"
 import { GET_COURSES } from "@/graphql/queries";
 import {ADD_COURSE} from "@/graphql/mutations";
 import { useMutation, useQuery } from "@apollo/client";

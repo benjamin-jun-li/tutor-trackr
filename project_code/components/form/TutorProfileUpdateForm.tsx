@@ -25,7 +25,7 @@ import {useMutation, useQuery} from "@apollo/client";
 import { GET_TUTOR_PROFILE} from "@/graphql/queries";
 import {UPDATE_TUTOR_PROFILE} from "@/graphql/mutations";
 import {useParams, usePathname, useRouter} from "next/navigation";
-import {useContextValue} from "@/components/context";
+import {useContextValue} from "@/components/providers/context";
 import TimezonePicker from "@/components/TimezonePicker";
 import FileUpload from "@/components/fileUpload";
 
