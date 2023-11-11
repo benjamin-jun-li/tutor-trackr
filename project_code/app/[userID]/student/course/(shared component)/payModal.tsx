@@ -36,7 +36,7 @@ const PayModal:FC<PayModalProps> = ({}) => {
     const [msg, setMsg] = useState("");
     const [selectedDate, setSelectedDate] = useState(new Date());
     const tutorsByCourse = useQuery(GET_TUTORS_BY_COURSE, { variables: { id : params?.id }});
-    const [bookAppointment, {loading:loadingAppo, error: errorAppo, dataAppo}] = useMutation(ADD_APPOINTMENT);
+    const [bookAppointment, {loading:loadingAppo, error: errorAppo, data: dataAppo}] = useMutation(ADD_APPOINTMENT);
     const [payCourse, {loading: loadingPay, error: errorPay, data: dataPay}] = useMutation(PAY_THE_COURSE);
 
     const submitAppointment = async () => {
