@@ -27,8 +27,8 @@ import {UPDATE_STUDENT_PROFILE} from "@/graphql/mutations";
 import {useParams, usePathname, useRouter} from "next/navigation";
 import {useContextValue} from "@/components/context";
 import TimezonePicker from "@/components/TimezonePicker";
-// import fileToBase64 from "@/lib/file2base64";
 import {GET_STUDENT_PROFILE} from "@/graphql/queries";
+import FileUpload from "@/components/fileUpload";
 
 const profileFormSchema = z.object({
     avatar: z.string().optional(),
@@ -146,7 +146,7 @@ export function StudentProfileUpdateForm() {
                                         <AvatarImage src="/default-user.png" alt="avatar" />
                                         <AvatarFallback>Avatar</AvatarFallback>
                                     </Avatar>
-                                    <Input id="avatar" type="file" accept="image/*" {...field} />
+                                    <FileUpload endpoint={"profileImage"} value={field.value} onChange={field.onChange}/>
                                 </div>
                             </FormControl>
                             <FormDescription>
