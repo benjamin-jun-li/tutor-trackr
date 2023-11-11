@@ -797,13 +797,13 @@ export const resolvers = {
             });
         },
 
-        // todo add appointment notification
+
         addAppointment: async (_parent: any, args: any, context: Context) => {
             const course = await context.prisma.course.findUnique({where: {id: args.courseId}});
             const tutor = await context.prisma.tutor.findUnique({where: {id: args.tutorId}});
             const student = await context.prisma.student.findUnique({where: {id: args.studentId}});
 
-            return context.prisma.appointment.create({
+            const appointment = context.prisma.appointment.create({
                 data: {
                     courseId: course?.id,
                     courseName: course?.name,
@@ -818,6 +818,18 @@ export const resolvers = {
                     endTime: args.endTime,
                 },
             });
+            const createNotification = context.prisma.notification.create({
+                data:{
+                    tutorId: args.tutorId,
+                    studentId: args.studentId,
+                    content: "You have a new appointment",
+                },
+            });
+            return context.prisma.$transaction([
+                appointment,
+                createNotification,
+            ]);
+
         },
 
         // todo update appointment notification
