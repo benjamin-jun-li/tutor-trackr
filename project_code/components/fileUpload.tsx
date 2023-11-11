@@ -1,6 +1,8 @@
 "use client"
 import {FC} from "react";
 import { UploadDropzone } from "@/lib/uploadthing";
+import { X } from "lucide-react";
+import Image from "next/image";
 interface fileUploadProps {
     onChange: (url?: string) => void,
     value: string;
@@ -12,10 +14,17 @@ const FileUpload:FC<fileUploadProps> = ({
     endpoint
 }) => {
 
+    const fileType = value?.split(".").pop();
+    if (value) {
+        return (
+            <Image src={value.toString()} alt={"upload"} className="rounded-full" width={100} height={100}/>
+        )
+    }
     return (
         <UploadDropzone
             endpoint={endpoint}
             onClientUploadComplete={(res) => {
+                console.log(res?.[0].fileUrl)
                 onChange(res?.[0].fileUrl);
             }}
             onUploadError={(error: Error) => {
