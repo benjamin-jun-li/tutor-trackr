@@ -21,7 +21,7 @@ const Navbar = () => {
 
   const pathname = usePathname();
 
-  const isAdminPage = pathname?.includes('/siteadmin/') ?? pathname?.includes('/tutoradmin/');
+  const isAdminPage = pathname?.includes('/siteadmin/') || pathname?.includes('/tutoradmin/');
   const isTutorPage = pathname?.includes('/tutor/');
   const isStudentPage = pathname?.includes('/student/');
 
