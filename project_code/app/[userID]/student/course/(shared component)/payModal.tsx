@@ -28,6 +28,18 @@ interface PayModalProps {
 
 }
 
+const hours = Array.from({ length: 10 }, (_, index) => {
+    const hour = index + 8; // start at 9 AM
+    return `${hour}:00 - ${hour + 1}:00`; // format as '9:00', '10:00', etc.
+});
+
+
+const AvailableTime = () => {
+    return hours.map((time, index) => (
+        <SelectItem key={index} value={time}>{time}</SelectItem>
+    ));
+};
+
 const PayModal:FC<PayModalProps> = ({}) => {
     const params = useParams();
     const { toast } = useToast();
@@ -42,6 +54,10 @@ const PayModal:FC<PayModalProps> = ({}) => {
     const submitAppointment = async () => {
         const tutorName = selectedTutor;
         let tutorEmail, tutorID = "";
+        const [hourStr] = availTime.split(':');
+        const hour = parseInt(hourStr, 10);
+        const startTime = new Date(selectedDate.setHours(hour, 0, 0, 0));
+        const endTime = new Date(selectedDate.setHours(hour + 1, 0, 0, 0));
         tutorsByCourse.data?.course?.tutors.forEach((tutor: any) => {
             if (tutor.name === tutorName) {
                 tutorEmail = tutor.email;
@@ -53,8 +69,8 @@ const PayModal:FC<PayModalProps> = ({}) => {
                 courseId: params?.id,
                 studentId: params?.userID,
                 tutorId: tutorID,
-                startTime: "",
-                endTime: "",
+                startTime: startTime,
+                endTime: endTime,
                 appointmentDate: selectedDate
             }
         })
@@ -101,8 +117,8 @@ const PayModal:FC<PayModalProps> = ({}) => {
                         <SelectContent>
                             <SelectGroup>
                                 <SelectLabel>Available Time</SelectLabel>
-                                {tutorsByCourse?.data?.course?.tutors?.map((tutor : any) => (
-                                    <SelectItem key={tutor.id} value={tutor.name}>{tutor.name}</SelectItem>
+                                {hours.map((time, index) => (
+                                <SelectItem key={index} value={time}>{time}</SelectItem>
                                 ))}
                             </SelectGroup>
                         </SelectContent>

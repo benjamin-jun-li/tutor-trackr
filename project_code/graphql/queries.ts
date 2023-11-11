@@ -288,6 +288,7 @@ export const GET_APPOINTMENT = gql`
             tutorEmail
             studentName
             studentEmail
+            date
             startTime
             endTime
             courseName

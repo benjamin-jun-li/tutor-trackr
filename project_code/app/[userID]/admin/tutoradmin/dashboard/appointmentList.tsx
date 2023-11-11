@@ -7,6 +7,15 @@ import {useParams} from "next/navigation";
 const AppointmentList = () => {
     const appointments = useQuery(GET_APPOINTMENT)
     const params = useParams();
+
+    const formatDate = (dateString: any) => {
+        const date = new Date(dateString);
+        const year = date.getFullYear();
+        const month = date.getMonth() + 1; // getMonth() is zero-indexed
+        const day = date.getDate();
+        return `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+    }
+
     if (appointments.data) console.log(appointments.data)
     return (
         <section className="p-2">
@@ -50,10 +59,10 @@ const AppointmentList = () => {
                                 {appointment.studentName}
                             </td>
                             <td className="px-6 py-4">
-                                {appointment.startTime || "1 hour"}
+                                1 hour
                             </td>
                             <td className="px-6 py-4">
-                                12.04.2023
+                                {formatDate(appointment.date)}
                             </td>
                             <td className="px-6 py-4">
                                 <Link href={`/${params?.userID}/admin/tutoradmin/appointment/${appointment.id}/`} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">More</Link>
