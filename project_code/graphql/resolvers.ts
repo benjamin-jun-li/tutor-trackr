@@ -635,7 +635,7 @@ export const resolvers = {
                     id: args.id,
                 },
                 data: {
-                    status: "rejected",
+                    status: "Rejected",
                 },
             };
 
