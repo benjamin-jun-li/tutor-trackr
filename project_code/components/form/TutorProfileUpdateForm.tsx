@@ -21,13 +21,13 @@ import {
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { toast } from "@/components/ui/use-toast"
-import {useEffect, useState} from "react";
 import {useMutation, useQuery} from "@apollo/client";
-import {GET_STUDENT_PROFILE, GET_TUTOR_PROFILE} from "@/graphql/queries";
+import { GET_TUTOR_PROFILE} from "@/graphql/queries";
 import {UPDATE_TUTOR_PROFILE} from "@/graphql/mutations";
 import {useParams, usePathname, useRouter} from "next/navigation";
 import {useContextValue} from "@/components/context";
 import TimezonePicker from "@/components/TimezonePicker";
+import FileUpload from "@/components/fileUpload";
 
 const profileFormSchema = z.object({
     avatar: z.string().optional(),
@@ -142,7 +142,7 @@ export function TutorProfileUpdateForm() {
                                         <AvatarImage src="/default-user.png" alt="avatar" />
                                         <AvatarFallback>Avatar</AvatarFallback>
                                     </Avatar>
-                                    <Input id="avatar" type="file" accept="image/*" {...field} />
+                                    <FileUpload endpoint={"profileImage"} value={field.value} onChange={field.onChange}/>
                                 </div>
                             </FormControl>
                             <FormDescription>

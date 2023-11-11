@@ -21,7 +21,6 @@ import {
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { toast } from "@/components/ui/use-toast"
-import {useEffect, useState} from "react";
 import {useMutation, useQuery} from "@apollo/client";
 import {UPDATE_STUDENT_PROFILE} from "@/graphql/mutations";
 import {useParams, usePathname, useRouter} from "next/navigation";
@@ -89,12 +88,6 @@ export function StudentProfileUpdateForm() {
         currentPath?.includes('/student') ? `/${params?.userID}/student` :
             currentPath?.includes('/tutor') ? `/${params?.userID}/tutor` :
                 currentPath;
-
-
-    const [userEmail, setUserEmail] = useState('')
-    useEffect(() => {
-        setUserEmail(getters.userEmail);
-    }, [getters.userEmail]);
 
     const onSubmit = async (value: ProfileFormValues) => {
         const res = await updateStudentProfile({
