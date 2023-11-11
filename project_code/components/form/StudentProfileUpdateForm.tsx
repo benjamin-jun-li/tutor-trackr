@@ -110,8 +110,6 @@ export function StudentProfileUpdateForm() {
             }
         })
         if (res.data?.updateStudentProfile?.email) {
-            setters.setEmail(value.email);
-            setters.setName(value.username);
             alert("Profile updated successfully!")
             router.replace(`/${params?.userID}/student/profile/demo`)
         } else {

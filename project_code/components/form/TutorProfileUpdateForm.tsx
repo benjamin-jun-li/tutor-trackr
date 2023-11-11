@@ -108,8 +108,6 @@ export function TutorProfileUpdateForm() {
             }
         })
         if (res.data?.updateTutorProfile?.email) {
-            setters.setEmail(data.email);
-            setters.setName(data.username);
             alert("Profile updated successfully!")
             router.replace(`/${params?.userID}/tutor/profile/demo`)
         } else {
