@@ -206,15 +206,6 @@ export const resolvers = {
             return identity;
         },
 
-        getSuccessfulReservation: async (_parent: any, args: any, context: Context) => {
-            const reservation = await context.prisma.appointment.findMany({
-                where: {
-                    status: "Approve",
-                },
-            });
-
-            return reservation;
-        },
 
         getStudentInfo: async (_parent: any, args: any, context: Context) => {
             const tutorId = args.tutorId;
@@ -724,23 +715,21 @@ export const resolvers = {
                 where: {id: args.courseId},
             });
 
-            console.log(student);
-            console.log(course);
 
-            // if (!student) {
-            //     throw new Error("Student not found with ID: " + args.studentId);
-            // }
-            // if (!course) {
-            //     throw new Error("Course not found with ID: " + args.courseId);
-            // }
-            // if (!course.price) {
-            //     throw new Error("Course price unavailable: " + args.course.price);
-            // }
-            //
-            // // Ensure student's account balance is enough
-            // if (student.accountBalance < course.price) {
-            //     throw new Error("Insufficient balance");
-            // }
+            if (!student) {
+                throw new Error("Student not found with ID: " + args.studentId);
+            }
+            if (!course) {
+                throw new Error("Course not found with ID: " + args.courseId);
+            }
+            if (!course.price) {
+                throw new Error("Course price unavailable: " + args.course.price);
+            }
+
+            // Ensure student's account balance is enough
+            if (student.accountBalance < course.price) {
+                throw new Error("Insufficient balance");
+            }
 
             // Deduct the student's account balance
             const balance = student.accountBalance;
