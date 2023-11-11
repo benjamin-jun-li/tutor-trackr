@@ -107,11 +107,19 @@ export const GET_COURSE = gql`
                 name
                 email
                 id
+                profile {
+                    id,
+                    thumbnail
+                }
             }
             tutors {
                 id
                 name
                 email
+                profile {
+                    id,
+                    thumbnail
+                }
             }
             tags
             price
@@ -122,14 +130,18 @@ export const GET_COURSE = gql`
 `
 
 export const Get_TutorAvailability = gql`
-    query TutorAvailability(
+    query GetTutorAvailability(
         $tutorId: String!,
         $courseId:String!
-    ) {getTutorAvailability(tutorId:$tutorId,
-        courseId: $courseId){
-        startTime
-        endTime
-    }}
+    ) {
+        getTutorAvailability(
+            tutorId:$tutorId,
+            courseId: $courseId)
+        {
+            startTime
+            endTime
+        }
+    }
 `
 
 export const GET_TUTORS_BY_COURSE = gql`
@@ -156,12 +168,12 @@ export const GET_COURSES = gql`
             students {
                 id,
                 name,
-                email
+                email,
             }
             tutors {
                 id,
                 name,
-                email
+                email,
             }
             tags
             status

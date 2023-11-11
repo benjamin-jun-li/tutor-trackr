@@ -213,7 +213,9 @@ type Query {
     getStudentNotification(studentId: String!): [Notification]
   }
 
+
 type Mutation {
+    tutorAvailability(tutorId: String!,courseId:String!,startTime:String!,endTime:String!): TutorAvailability
     deleteAppointment(id: ID!,studentId:String,tutorId:String): Appointment
     approveApplication(id: ID!, tutorId: String): TutorApplication
     rejectApplication(id: ID!, tutorId: String): TutorApplication
