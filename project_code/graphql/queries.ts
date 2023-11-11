@@ -275,7 +275,6 @@ export const GET_Appointment = gql`
             startTime
             endTime
             courseName
-            status
         }
     }
 `;
@@ -291,7 +290,6 @@ export const GET_APPOINTMENT = gql`
             startTime
             endTime
             courseName
-            status
         }
     }
 `;
