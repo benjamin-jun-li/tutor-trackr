@@ -23,6 +23,8 @@ export function StudentProfileDisplay() {
         fetchPolicy: 'network-only'
     });
 
+    console.log(data?.getStudentProfile?.thumbnail)
+
     const handleUpdateClick = () => {
         router.push(`/${params?.userID}/student/profile/update`);
     };
@@ -36,7 +38,7 @@ export function StudentProfileDisplay() {
         <div className="p-6 bg-white shadow-md rounded-lg space-y-6">
             <div className="flex justify-center">
                 <Avatar className="w-24 h-24">
-                    <AvatarImage src={data?.getStudentProfile?.avatar || "/default-user.png"} alt="avatar" />
+                    <AvatarImage src={data?.getStudentProfile?.thumbnail || "/default-user.png"} alt="avatar" />
                     <AvatarFallback>Avatar</AvatarFallback>
                 </Avatar>
             </div>

@@ -18,6 +18,7 @@ export default function StudentList() {
         deleteStudentMutation({variables: {id: id,email:studentEmail}}).then()
     }
 
+    console.log(studentList.data?.getStudentList)
 
     return (
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">

@@ -27,7 +27,7 @@ import {UPDATE_STUDENT_PROFILE} from "@/graphql/mutations";
 import {useParams, usePathname, useRouter} from "next/navigation";
 import {useContextValue} from "@/components/context";
 import TimezonePicker from "@/components/TimezonePicker";
-import {GET_STUDENT_PROFILE} from "@/graphql/queries";
+import {GET_STUDENT, GET_STUDENT_PROFILE} from "@/graphql/queries";
 import FileUpload from "@/components/fileUpload";
 
 const profileFormSchema = z.object({
@@ -65,12 +65,11 @@ const profileFormSchema = z.object({
 type ProfileFormValues = z.infer<typeof profileFormSchema>
 
 export function StudentProfileUpdateForm() {
-    const { getters,setters } = useContextValue();
     const router = useRouter();
     const params = useParams();
     let currentPath = usePathname();
 
-    const { loading, error, data } = useQuery(GET_STUDENT_PROFILE, {
+    const { loading: ProfileLoading, error: ProfileError, data: ProfileData } = useQuery(GET_STUDENT_PROFILE, {
         variables: { id: params?.userID },
     });
 
@@ -78,11 +77,11 @@ export function StudentProfileUpdateForm() {
         resolver: zodResolver(profileFormSchema),
         mode: "onChange",
         defaultValues: {
-            email: data?.getStudentProfile?.email
+            email: ProfileData?.getStudentProfile?.email
         }
     })
 
-    const profileId = data?.getStudentProfile?.id;
+    const profileId = ProfileData?.getStudentProfile?.id;
     const [updateStudentProfile,{data:studentData,loading:studentLoading,error:studentError}] = useMutation(UPDATE_STUDENT_PROFILE);
 
     currentPath =
@@ -90,17 +89,11 @@ export function StudentProfileUpdateForm() {
             currentPath?.includes('/tutor') ? `/${params?.userID}/tutor` :
                 currentPath;
 
-
-    const [userEmail, setUserEmail] = useState('')
-    useEffect(() => {
-        setUserEmail(getters.userEmail);
-    }, [getters.userEmail]);
-
     const onSubmit = async (value: ProfileFormValues) => {
         const res = await updateStudentProfile({
             variables: {
                 id: profileId,
-                email: data?.getStudentProfile?.email,
+                email: ProfileData?.getStudentProfile?.email,
                 thumbnail: value.avatar,
                 username: value.username,
                 phone: value.phone,
@@ -141,7 +134,7 @@ export function StudentProfileUpdateForm() {
                             <FormControl>
                                 <div>
                                     <Avatar>
-                                        <AvatarImage src="/default-user.png" alt="avatar" />
+                                        <AvatarImage src={ProfileData?.getStudentProfile?.thumbnail || "/default-user.png"} alt="avatar" />
                                         <AvatarFallback>Avatar</AvatarFallback>
                                     </Avatar>
                                     <FileUpload endpoint={"profileImage"} value={field.value} onChange={field.onChange}/>
@@ -180,7 +173,7 @@ export function StudentProfileUpdateForm() {
                             <FormControl>
                                 <Input
                                     disabled
-                                    placeholder={data?.getStudentProfile?.email}
+                                    placeholder={ProfileData?.getStudentProfile?.email}
                                     {...field}
                                 />
                             </FormControl>

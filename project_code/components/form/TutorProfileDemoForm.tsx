@@ -36,7 +36,7 @@ export function TutorProfileDisplay() {
         <div className="p-6 bg-white shadow-md rounded-lg space-y-6">
             <div className="flex justify-center">
                 <Avatar className="w-24 h-24">
-                    <AvatarImage src={data?.getTutorProfile?.avatar || "/default-user.png"} alt="avatar" />
+                    <AvatarImage src={data?.getTutorProfile?.thumbnail || "/default-user.png"} alt="avatar" />
                     <AvatarFallback>Avatar</AvatarFallback>
                 </Avatar>
             </div>

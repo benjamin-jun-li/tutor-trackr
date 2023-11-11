@@ -28,6 +28,7 @@ import {UPDATE_TUTOR_PROFILE} from "@/graphql/mutations";
 import {useParams, usePathname, useRouter} from "next/navigation";
 import {useContextValue} from "@/components/context";
 import TimezonePicker from "@/components/TimezonePicker";
+import FileUpload from "@/components/fileUpload";
 
 const profileFormSchema = z.object({
     avatar: z.string().optional(),
@@ -66,7 +67,6 @@ const profileFormSchema = z.object({
 type ProfileFormValues = z.infer<typeof profileFormSchema>
 
 export function TutorProfileUpdateForm() {
-    const { getters,setters } = useContextValue();
     const router = useRouter();
     const params = useParams();
     let currentPath = usePathname();
@@ -142,7 +142,7 @@ export function TutorProfileUpdateForm() {
                                         <AvatarImage src="/default-user.png" alt="avatar" />
                                         <AvatarFallback>Avatar</AvatarFallback>
                                     </Avatar>
-                                    <Input id="avatar" type="file" accept="image/*" {...field} />
+                                    <FileUpload endpoint={"profileImage"} value={field.value} onChange={field.onChange}/>
                                 </div>
                             </FormControl>
                             <FormDescription>

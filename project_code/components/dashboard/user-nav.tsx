@@ -47,6 +47,10 @@ export function UserNav() {
         currentPath?.includes('/tutor') ? data2?.getTutorProfile?.email :
             "";
 
+    const userAvatar = currentPath?.includes('/student') ? data1?.getStudentProfile?.thumbnail :
+        currentPath?.includes('/tutor') ? data2?.getTutorProfile?.thumbnail :
+            "";
+
   const handleLogout = () => {
     setters.setEmail("");
     setters.setName("");
@@ -59,7 +63,7 @@ export function UserNav() {
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative h-8 w-8 rounded-full">
           <Avatar className="h-8 w-8">
-            <AvatarImage src="/default-user.png" alt="default-user" />
+            <AvatarImage src={userAvatar === "" ? "/default-user.png" : userAvatar} alt="default-user" />
             <AvatarFallback>User</AvatarFallback>
           </Avatar>
         </Button>

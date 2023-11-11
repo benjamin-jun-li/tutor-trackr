@@ -20,7 +20,6 @@ export default function CourseList() {
         deleteCourseMutation({variables: {id: id}})
     }
 
-
     return (
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
             <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -49,10 +48,12 @@ export default function CourseList() {
                             {course.name}
                         </th>
                         <td className="px-6 py-4">
-                            <p>Tutor name</p>
+                            {course.tutors.map((tutor: any) => (
+                                <p key={tutor.id}>{tutor.name}</p>
+                            ))}
                         </td>
                         <td className="px-6 py-4">
-                            <p>10</p>
+                            {course.students.length}
                         </td>
                         <td className="px-6 py-4">
                             <button
