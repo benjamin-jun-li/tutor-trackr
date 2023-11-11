@@ -110,13 +110,13 @@ model TutorProfile {
 
 model TutorApplication {
   id          String     @id @default(auto()) @map("_id") @db.ObjectId
-  tutorId     String
-  name        String
-  email       String
-  courseId    String
-  courseName  String
+  tutorId     String?
+  name        String?
+  email       String?
+  courseId    String?
+  courseName  String?
   date        DateTime   @default(now())
-  description String
+  description String?
   status      String?
 }
 
