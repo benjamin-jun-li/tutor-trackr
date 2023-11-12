@@ -1,6 +1,5 @@
 "use client"
 
-import { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { GET_STUDENT_PROFILE } from "@/graphql/queries";
 import {useParams, useRouter} from "next/navigation";
@@ -11,6 +10,7 @@ import {
     AvatarImage,
 } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import ChatModal from "@/components/chat/chatModal";
 
 export function StudentProfileDisplay() {
     const router = useRouter();
@@ -23,8 +23,6 @@ export function StudentProfileDisplay() {
         fetchPolicy: 'network-only'
     });
 
-    console.log(data?.getStudentProfile?.thumbnail)
-
     const handleUpdateClick = () => {
         router.push(`/${params?.userID}/student/profile/update`);
     };
@@ -36,15 +34,17 @@ export function StudentProfileDisplay() {
 
     return (
         <div className="p-6 bg-white shadow-md rounded-lg space-y-6">
-            <div className="flex justify-center">
+            <section className="flex justify-center">
                 <Avatar className="w-24 h-24">
                     <AvatarImage src={data?.getStudentProfile?.thumbnail || "/default-user.png"} alt="avatar" />
                     <AvatarFallback>Avatar</AvatarFallback>
                 </Avatar>
-            </div>
-            <div className="text-xl font-semibold text-center mb-4">Profile Details</div>
-            <div className="text-gray-700">Username: {data?.getStudentProfile?.username}</div>
-            <div className="text-gray-700">Email: {data?.getStudentProfile?.email}</div>
+            </section>
+            <section className="font-semibold text-center mb-4 flex flex-col items-center gap-1">
+                <div className="text-xl text-gray-700">Username: {data?.getStudentProfile?.username}</div>
+                <div className="text-xl text-gray-700">Email: {data?.getStudentProfile?.email}</div>
+                <ChatModal />
+            </section>
             <div className="text-gray-700">Phone: {data?.getStudentProfile?.phone}</div>
             <div className="text-gray-700">Address: {data?.getStudentProfile?.address}</div>
             <div className="text-gray-700">Time Zone: {data?.getStudentProfile?.timeZone}</div>

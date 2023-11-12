@@ -46,7 +46,7 @@ const ProfileTable: FC<ProfileTableProps> = ({ data, role }) => {
                                                     {student.name}&nbsp;&nbsp;&nbsp;{student.email}
                                                 </div>
                                             ) : (
-                                                <Link href={`/${params?.userID}/student/other-profile/${student.id}`}>
+                                                <Link href={`/${params?.userID}/tutor/other-profile/${student.id}`}>
                                                     <div className="hover:!no-underline">
                                                         {student.name}&nbsp;&nbsp;&nbsp;{student.email}
                                                     </div>
