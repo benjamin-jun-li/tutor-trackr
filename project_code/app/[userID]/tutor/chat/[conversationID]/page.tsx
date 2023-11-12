@@ -15,7 +15,7 @@ const TutorChat = () => {
             <ChatInput className="mx-1 mt-6"
                        apiUrl={"/api/socket/messages"}
                        query={{
-                           channelId: params?.channelID
+                           conversationId: params?.conversationID
                        }}
             />
         </main>

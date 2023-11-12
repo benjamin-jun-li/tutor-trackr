@@ -143,26 +143,6 @@ type Identity {
     userType: UserType!
 }
 
-
-type ChatChannel {
-    id: ID!
-    students: [Student]
-    studentId: [String]
-    tutors: [Tutor]
-    tutorId: [String]
-    messages: [Message]
-    messageId: [String]
-}
-
-
-type Message {
-    id: ID!
-    date: String
-    content: String
-    ChatChannel: [ChatChannel]
-    chatChannelId: [String]
-}
-
 type Notification {
     id: ID!
     content: String
@@ -171,7 +151,6 @@ type Notification {
     tutors: [Tutor]
     tutorId: [String]
 }
-
 
 type Query {
     finduser(id: String): PasswordResetResponse
