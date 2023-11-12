@@ -20,9 +20,8 @@ type Student {
     email: String
     password: String
     courses: [Course]
+    conversation: [Conversation]
     profile: StudentProfile
-    message: [Message]
-    messageId: [String]
 }
 
 type Tutor {
@@ -32,8 +31,7 @@ type Tutor {
     password: String
     courses: [Course]
     profile: TutorProfile
-    message: [Message]
-    messageId: [String]
+    conversation: [Conversation]
 }
 
 type SiteAdmin {
@@ -117,7 +115,7 @@ type Appointment {
     tutorId: String
     tutorName: String
     tutorEmail: String
-    studentId: String 
+    studentId: String
     studentName: String
     studentEmail: String
     duration: Int
@@ -143,26 +141,6 @@ type Identity {
     userType: UserType!
 }
 
-
-type ChatChannel {
-    id: ID!
-    students: [Student]
-    studentId: [String]
-    tutors: [Tutor]
-    tutorId: [String]
-    messages: [Message]
-    messageId: [String]
-}
-
-
-type Message {
-    id: ID!
-    date: String
-    content: String
-    ChatChannel: [ChatChannel]
-    chatChannelId: [String]
-}
-
 type Notification {
     id: ID!
     content: String
@@ -172,8 +150,28 @@ type Notification {
     tutorId: [String]
 }
 
+type Conversation {
+    id: ID!
+    student: Student
+    studentId: String
+    tutor: Tutor
+    tutorId: String
+    messages: [Message]
+}
+
+type Message {
+    id: ID!
+    conversation: Conversation
+    conversationId: String
+    userId: String
+    content: String
+    createdAt: String
+}
+
 
 type Query {
+    getMessages(conversationId: String!): [Message]
+    getConversations(userId: String!): [Conversation]
     finduser(id: String): PasswordResetResponse
     student(email: String): Student
     tutor(email: String): Tutor
@@ -205,6 +203,8 @@ type Query {
   }
 
 type Mutation {
+    createConversation(studentId: String, tutorId: String): Conversation
+    newMessage(conversationId: String, userId: String, content: String): Message
     deleteAppointment(id: ID!,studentId:String,tutorId:String): Appointment
     approveApplication(id: ID!, tutorId: String): TutorApplication
     rejectApplication(id: ID!, tutorId: String): TutorApplication
@@ -227,8 +227,17 @@ type Mutation {
     deleteCourse(id: ID!): Course
     deleteStudent(id: ID!, email:String): Student
     deleteTutor(id: ID!, email:String): Tutor
-    addApplication(name: String, email: String, courseName: String,description:String,appointmentDate:String,tutorId:String,courseId:String,startTime:String,endTime:String) : TutorApplication
-
+    addApplication(
+        name: String, 
+        email: String, 
+        courseName: String,
+        description:String,
+        appointmentDate:String,
+        tutorId:String,
+        courseId:String,
+        startTime:String,
+        endTime:String
+    ) : TutorApplication
     registerCourseForStudent(studentId: ID!, courseId: ID!): RegisterCourse
     registerCourseForTutor(tutorId: ID!, courseId: ID!): Tutor
     payTheCourse(studentId: ID!, courseId: ID!): Course
@@ -244,6 +253,6 @@ type Mutation {
         appointmentDate: String
     ): Appointment
     addIdentity(email: String, userType: UserType): Identity
-    addRate(id: ID!, rate: String): Course 
+    addRate(id: ID!, rate: String): Course
 }
 `;

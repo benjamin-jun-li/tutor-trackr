@@ -1,7 +1,8 @@
 "use client"
 import { useParams } from "next/navigation";
 import { useQuery } from "@apollo/client";
-import React, {FC, useEffect, useState} from "react";
+import {Get_Conversations} from "@/graphql/queries";
+import {FC, useState} from "react";
 import Link from "next/link";
 import {Separator} from "@/components/ui/separator";
 
@@ -62,6 +63,8 @@ const ChatList:FC<ChatListProps> = ({ role }) => {
     const params = useParams();
     const userID = params?.userID;
     const courseID = params?.id;
+    const {data, loading, error} = useQuery(Get_Conversations);
+    console.log(data);
     const [currentPage, setCurrentPage] = useState(1);
     const startIndex = (currentPage - 1) * pageSize;
     const endIndex = startIndex + pageSize;
@@ -80,7 +83,8 @@ const ChatList:FC<ChatListProps> = ({ role }) => {
             setCurrentPage(currentPage - 1);
         }
     };
-    //TODO useQuery to get all channels
+
+
     return (
         <section className="flex justify-center">
             <div className="w-[95%] rounded-md border">

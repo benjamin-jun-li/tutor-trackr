@@ -2,6 +2,30 @@ import {Context} from "@/pages/api/graphql";
 
 export const resolvers = {
     Query: {
+
+        getMessages: async (_parent: any, args: any, context: Context) => {
+            return context.prisma.message.findMany({
+                where: {
+                    conversationId: args.conversationId,
+                },
+            });
+        },
+
+        getConversations: async (_parent: any, args: any, context: Context) => {
+            return context.prisma.conversation.findMany({
+                where: {
+                    OR: [
+                        {studentId: args.userId},
+                        {tutorId: args.userId},
+                    ],
+                },
+                include: {
+                    student: true,
+                    tutor: true,
+                },
+            });
+        },
+
         finduser: async (_parent: any, args: any, context: Context) => {
 
             const student = await context.prisma.student.findUnique({
@@ -690,7 +714,6 @@ export const resolvers = {
             ]);
         },
 
-        // todo
         approveCourseApplication: async (_parent: any, args: any, context: Context) => {
 
             const notificationData = {
@@ -932,6 +955,39 @@ export const resolvers = {
                 },
             });
         },
+
+        createConversation: async (_parent: any, args: any, context: Context) => {
+            // Check if a conversation between the student and tutor already exists
+            const existingConversation = await context.prisma.conversation.findFirst({
+                where: {
+                    studentId: args.studentId,
+                    tutorId: args.tutorId,
+                },
+            });
+
+            if (existingConversation) {
+                return existingConversation;
+            }
+
+            // If no existing conversation is found, create a new one
+            return context.prisma.conversation.create({
+                data: {
+                    studentId: args.studentId,
+                    tutorId: args.tutorId,
+                },
+            });
+        },
+
+
+        newMessage: async (_parent: any, args: any, context: Context) => {
+            return context.prisma.message.create({
+                data: {
+                    conversationId: args.conversationId,
+                    userId: args.userId,
+                    content: args.content,
+                },
+            });
+        }
     }
 }
 

@@ -21,6 +21,8 @@ const NewCoursePage = () => {
     const appDetails = course?.data?.course;
     const [status, setStatus] = useState(appDetails?.status);
 
+    // console.log(appDetails?.tutors[0].id)
+
     useEffect(() => {
         setStatus(appDetails?.status);
     }, [appDetails?.status]);
