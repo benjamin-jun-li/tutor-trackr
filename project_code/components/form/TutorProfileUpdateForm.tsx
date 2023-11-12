@@ -133,7 +133,7 @@ export function TutorProfileUpdateForm() {
                             <FormControl>
                                 <div>
                                     <Avatar>
-                                        <AvatarImage src="/default-user.png" alt="avatar" />
+                                        <AvatarImage src={data?.getTutorProfile?.thumbnail ? data?.getTutorProfile?.thumbnail : "/default-user.png"} alt="avatar" />
                                         <AvatarFallback>Avatar</AvatarFallback>
                                     </Avatar>
                                     <FileUpload endpoint={"profileImage"} value={field.value} onChange={field.onChange}/>
