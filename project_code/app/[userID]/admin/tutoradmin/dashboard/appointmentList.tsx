@@ -65,7 +65,10 @@ const AppointmentList = () => {
                                 {formatDate(appointment.date)}
                             </td>
                             <td className="px-6 py-4">
-                                <Link href={`/${params?.userID}/admin/tutoradmin/appointment/${appointment.id}/`} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">More</Link>
+                                <Link href={`/${params?.userID}/admin/tutoradmin/appointment/${appointment.id}/`}
+                                      className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                                    More
+                                </Link>
                             </td>
                         </tr>
                     ))}
