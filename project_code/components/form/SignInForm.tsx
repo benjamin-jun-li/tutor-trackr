@@ -21,6 +21,7 @@ import { useRouter } from "next/navigation";
 import {Auth_SiteAdmin, Auth_Student, Auth_Tutor, Auth_TutorAdmin, GET_USERTYPE} from "@/graphql/queries";
 import {useLazyQuery, useQuery} from "@apollo/client";
 import {useState} from "react";
+import {useToast} from "@/components/ui/use-toast";
 
 
 const FormSchema = z.object({
@@ -29,11 +30,11 @@ const FormSchema = z.object({
     .string()
     .min(1, "Password is required")
     .min(8, "Password must be at least 8 characters"),
-  // identity: z.enum(["student", "tutor",""]),
 });
 
 const SignInForm = () => {
     const router = useRouter();
+    const { toast } = useToast();
     const [btnClicked, setBtnClicked] = useState(false);
     const [authStudent, { loading: loadingStudent, error: stuError, data: dataStudent }] = useLazyQuery(Auth_Student);
     const [authTutor, { loading: loadingTutor, error: tutError,  data: dataTutor }] = useLazyQuery(Auth_Tutor);
@@ -46,7 +47,6 @@ const SignInForm = () => {
         defaultValues: {
             email: "",
             password: "",
-            // identity: ""
         },
     });
 
@@ -72,7 +72,11 @@ const SignInForm = () => {
                                     const userId = res2.data?.student?.id
                                     router.replace(`/${userId}/student/dashboard`)
                                 } else {
-                                    alert("invalid student info")
+                                    toast({
+                                        variant: "destructive",
+                                        title: "Invalid student info",
+                                        description: "Please try again",
+                                    })
                                     setBtnClicked(false);
                                 }
                             }
@@ -84,7 +88,11 @@ const SignInForm = () => {
                                     const userId = res2.data?.tutor?.id
                                     router.replace(`/${userId}/tutor/dashboard`)
                                 } else {
-                                    alert("Invalid tutor info");
+                                    toast({
+                                        variant: "destructive",
+                                        title: "Invalid tutor info",
+                                        description: "Please try again",
+                                    })
                                     setBtnClicked(false);
                                 }
                             });
@@ -95,7 +103,11 @@ const SignInForm = () => {
                                     const userId = res2.data?.siteAdmin?.id
                                     router.replace(`/${userId}/admin/siteadmin/dashboard`);
                                 } else {
-                                    alert("Invalid site admin info");
+                                    toast({
+                                        variant: "destructive",
+                                        title: "Invalid site admin info",
+                                        description: "Please try again",
+                                    })
                                 }
                             });
                     } else if (userIdentity === "TutorAdmin") {
@@ -105,14 +117,22 @@ const SignInForm = () => {
                                     const userId = res2.data?.tutorAdmin?.id
                                     router.replace(`/${userId}/admin/tutoradmin/dashboard`);
                                 } else {
-                                    alert("Invalid tutor admin info");
+                                    toast({
+                                        variant: "destructive",
+                                        title: "Invalid tutor admin info",
+                                        description: "Please try again",
+                                    })
                                 }
                             });
                     }
                 })
         } catch (error) {
             console.error(error);
-            alert("An error occurred!");
+            toast({
+                variant: "destructive",
+                title: "An error occurred",
+                description: "Please try again",
+            })
         } finally {
             setBtnClicked(false);
         }

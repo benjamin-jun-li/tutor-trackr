@@ -20,12 +20,10 @@ import {
 } from "@/components/ui/avatar"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { toast } from "@/components/ui/use-toast"
 import {useMutation, useQuery} from "@apollo/client";
 import { GET_TUTOR_PROFILE} from "@/graphql/queries";
 import {UPDATE_TUTOR_PROFILE} from "@/graphql/mutations";
 import {useParams, usePathname, useRouter} from "next/navigation";
-import {useContextValue} from "@/components/providers/context";
 import TimezonePicker from "@/components/TimezonePicker";
 import FileUpload from "@/components/fileUpload";
 
@@ -112,14 +110,6 @@ export function TutorProfileUpdateForm() {
         } else {
             console.log(res);
         }
-        toast({
-            title: "You submitted the following values:",
-            description: (
-                <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-            ),
-        })
     }
 
     const handleDashboardClick = () => {
