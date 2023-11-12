@@ -26,6 +26,15 @@ export const Find_User = gql`
     }
 `
 
+export const Find_User_By_Email = gql`
+    query finduser($email: String!) {
+        finduserbyEmail(email: $email) {
+            status
+            message
+        }
+    }
+`
+
 export const Auth_Student = gql`
     query Student($email: String!) {
         student(email: $email) {

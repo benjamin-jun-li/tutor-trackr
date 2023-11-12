@@ -170,6 +170,7 @@ type Message {
 
 
 type Query {
+    finduserbyEmail(email: String): PasswordResetResponse
     getUserProfile(id:String): UserProfile
     getMessages(conversationId: String!): [Message]
     getConversations(userId: String!): [Conversation]
