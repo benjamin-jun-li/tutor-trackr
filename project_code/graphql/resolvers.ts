@@ -2,6 +2,30 @@ import {Context} from "@/pages/api/graphql";
 
 export const resolvers = {
     Query: {
+
+        getMessages: async (_parent: any, args: any, context: Context) => {
+            return context.prisma.message.findMany({
+                where: {
+                    conversationId: args.conversationId,
+                },
+            });
+        },
+
+        getConversations: async (_parent: any, args: any, context: Context) => {
+            return context.prisma.conversation.findMany({
+                where: {
+                    OR: [
+                        {studentId: args.userId},
+                        {tutorId: args.userId},
+                    ],
+                },
+                include: {
+                    student: true,
+                    tutor: true,
+                },
+            });
+        },
+
         finduser: async (_parent: any, args: any, context: Context) => {
 
             const student = await context.prisma.student.findUnique({
@@ -690,7 +714,6 @@ export const resolvers = {
             ]);
         },
 
-        // todo
         approveCourseApplication: async (_parent: any, args: any, context: Context) => {
 
             const notificationData = {
@@ -951,7 +974,6 @@ export const resolvers = {
                 },
             });
         }
-
     }
 }
 

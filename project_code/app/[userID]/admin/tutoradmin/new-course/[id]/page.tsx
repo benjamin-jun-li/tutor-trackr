@@ -19,6 +19,8 @@ const NewCoursePage = () => {
     const appDetails = course?.data?.course;
     const [status, setStatus] = useState(appDetails?.status);
 
+    // console.log(appDetails?.tutors[0].id)
+
     useEffect(() => {
         setStatus(appDetails?.status);
     }, [appDetails?.status]);
@@ -30,6 +32,7 @@ const NewCoursePage = () => {
     const handleAcceptClick = async () => {
         await acceptApplication({
             variables: {
+                tutorId: appDetails?.tutors[0].id,
                 id: param?.id,
             },
         }).then(() => {
@@ -41,6 +44,7 @@ const NewCoursePage = () => {
     const handleRejectClick = async () => {
         await rejectApplication({
             variables: {
+                tutorId: appDetails?.tutors[0].id,
                 id: param?.id,
             },
         }).then(() => {

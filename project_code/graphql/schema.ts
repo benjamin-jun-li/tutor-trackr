@@ -169,8 +169,9 @@ type Message {
 }
 
 
-
 type Query {
+    getMessages(conversationId: String!): [Message]
+    getConversations(userId: String!): [Conversation]
     finduser(id: String): PasswordResetResponse
     student(email: String): Student
     tutor(email: String): Tutor

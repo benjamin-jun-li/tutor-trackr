@@ -379,3 +379,31 @@ export const GET_STUDENT_NOTIFICATION = gql`
         }
     }
 `;
+
+export const Get_Conversations = gql`
+    query GetConversations($userId: String!) {
+        getConversations(userId: $userId) {
+            id
+            student {
+                id
+                name
+                email
+            }
+            tutor{
+                id
+                name
+                email
+            }
+        }
+    }
+`
+export const Get_Messages = gql`
+    query GetMessages($conversationId: String!) {
+        getMessages(conversationId: $conversationId) {
+            id
+            userId
+            content
+            createdAt
+        }
+    }
+`
