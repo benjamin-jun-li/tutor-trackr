@@ -11,7 +11,9 @@ const AppointmentTable = () => {
     const { data: StudentData, loading: StudentLoading, error: StudentError } = useQuery(GET_STUDENT, {
         variables: { id: params?.userID },
     });
-    const { data: AppointmentData, loading: AppointmentLoading, error: AppointmentError } = useQuery(GET_APPOINTMENT);
+    const { data: AppointmentData, loading: AppointmentLoading, error: AppointmentError } = useQuery(GET_APPOINTMENT, {
+        pollInterval: 200,
+    });
 
     const userEmail = StudentData?.getStudent?.email;
 

@@ -7,7 +7,9 @@ import {useParams} from "next/navigation";
 
 const AppointmentTable = () => {
     const params = useParams();
-    const { data: appointmentData, loading: appointLoading, error: appointError } = useQuery(GET_APPOINTMENT);
+    const { data: appointmentData, loading: appointLoading, error: appointError } = useQuery(GET_APPOINTMENT, {
+        pollInterval: 200,
+    });
     const { data: tutorData, loading: tutorLoading, error: tutorError } = useQuery(GET_TUTOR, {
         variables: {
             id: params?.userID
