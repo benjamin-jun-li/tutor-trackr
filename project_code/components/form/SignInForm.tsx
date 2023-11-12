@@ -20,7 +20,6 @@ import { useRouter } from "next/navigation";
 
 import {Auth_SiteAdmin, Auth_Student, Auth_Tutor, Auth_TutorAdmin, GET_USERTYPE} from "@/graphql/queries";
 import {useLazyQuery, useQuery} from "@apollo/client";
-import { useContextValue } from "@/components/providers/context"
 import {useState} from "react";
 
 
@@ -36,7 +35,6 @@ const FormSchema = z.object({
 const SignInForm = () => {
     const router = useRouter();
     const [btnClicked, setBtnClicked] = useState(false);
-    const { getters, setters } = useContextValue();
     const [authStudent, { loading: loadingStudent, error: stuError, data: dataStudent }] = useLazyQuery(Auth_Student);
     const [authTutor, { loading: loadingTutor, error: tutError,  data: dataTutor }] = useLazyQuery(Auth_Tutor);
     const [authSiteAdmin, { loading: loadingAdminSite, error: adminSiteError, data: dataAdminSite }] = useLazyQuery(Auth_SiteAdmin);
@@ -67,16 +65,11 @@ const SignInForm = () => {
             })
                 .then(res => {
                     let userIdentity = res.data?.getUserType?.userType
-                    setters.setIdentity(userIdentity);
                     if (userIdentity === "Student") {
                         const res2 = authStudent({variables: {email: values.email}}).then(
                             res2 => {
                                 if (res2?.data?.student?.password === enteredPassword) {
                                     const userId = res2.data?.student?.id
-                                    setters.setEmail(values.email)
-                                    setters.setName(res2.data.student.name)
-                                    setters.setUserID(userId)
-                                    setters.setUserStatus(true)
                                     router.replace(`/${userId}/student/dashboard`)
                                 } else {
                                     alert("invalid student info")
@@ -89,10 +82,6 @@ const SignInForm = () => {
                             .then(res2 => {
                                 if (res2?.data?.tutor?.password === enteredPassword) {
                                     const userId = res2.data?.tutor?.id
-                                    setters.setEmail(values.email)
-                                    setters.setName(res2.data.tutor.name)
-                                    setters.setUserID(userId)
-                                    setters.setUserStatus(true)
                                     router.replace(`/${userId}/tutor/dashboard`)
                                 } else {
                                     alert("Invalid tutor info");
@@ -104,7 +93,6 @@ const SignInForm = () => {
                             .then(res2 => {
                                 if (res2?.data?.siteAdmin?.password === enteredPassword) {
                                     const userId = res2.data?.siteAdmin?.id
-                                    setters.setUserStatus(true);
                                     router.replace(`/${userId}/admin/siteadmin/dashboard`);
                                 } else {
                                     alert("Invalid site admin info");
@@ -115,7 +103,6 @@ const SignInForm = () => {
                             .then(res2 => {
                                 if (res2?.data?.tutorAdmin?.password === enteredPassword) {
                                     const userId = res2.data?.tutorAdmin?.id
-                                    setters.setUserStatus(true);
                                     router.replace(`/${userId}/admin/tutoradmin/dashboard`);
                                 } else {
                                     alert("Invalid tutor admin info");
