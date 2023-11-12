@@ -3,6 +3,7 @@ import {FC} from "react";
 import { useQuery } from "@apollo/client";
 import {Get_Messages} from "@/graphql/queries";
 import { useParams } from "next/navigation";
+import SingleMsg from "@/components/chat/singleMsg";
 
 interface chatMsgProps {
     className: string,
@@ -21,11 +22,12 @@ const ChatMessages:FC<chatMsgProps> = ({ className, apiUrl, socketUrl, conversat
     })
     return (
         <section className={className}>
-            {data?.getMessages?.map((msg) => (
-                <div key={msg.id} className="flex flex-col md:flex-row">
-                    <div></div>
-                    <div>{msg.content}</div>
-                </div>
+            {data?.getMessages?.map((msg: any) => (
+                <SingleMsg key={msg.id} className="flex flex-row"
+                           content={msg.content}
+                           createdAt={msg.createdAt}
+                           userId={msg.userId}
+                />
             ))}
         </section>
     )
