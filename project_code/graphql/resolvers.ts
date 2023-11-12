@@ -516,7 +516,7 @@ export const resolvers = {
         updateTutorProfile: async (_parent: any, args: any, context: Context) => {
             return context.prisma.tutorProfile.update({
                 where: {
-                    email: args.email,
+                    id: args.id,
                 },
                 data: {
                     thumbnail: args.thumbnail,
