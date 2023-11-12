@@ -18,15 +18,13 @@ const AppointsDisplay:FC<Props> = ({ role }) => {
         fetchPolicy: 'network-only'
     });
 
-    console.log(data)
-
     const formatDateTime = (dateTimeString: string) => {
         const date = new Date(dateTimeString);
         return date.toLocaleString();
     }
 
     return (
-        <div className="p-6 bg-white shadow-md rounded-lg space-y-6">
+        <div className="w-[40%] p-6 bg-white shadow-md rounded-lg space-y-6">
             <div className="text-gray-700">Course Name: {data?.getAppointmentById?.courseName}</div>
             <div className="text-gray-700">Student Email: {data?.getAppointmentById?.studentEmail}</div>
             <div className="text-gray-700">Student Name: {data?.getAppointmentById?.studentName}</div>
