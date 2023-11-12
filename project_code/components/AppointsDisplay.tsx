@@ -5,8 +5,13 @@ import {GET_Appointment} from "@/graphql/queries";
 import {useParams, useRouter} from "next/navigation";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import {FC} from "react";
 
-const AppointsDisplay = () => {
+interface Props {
+    role: string
+}
+
+const AppointsDisplay:FC<Props> = ({ role }) => {
     const params = useParams();
     const { loading, error, data } = useQuery(GET_Appointment, {
         variables: { id: params?.sessionID },
@@ -27,10 +32,15 @@ const AppointsDisplay = () => {
             <div className="text-gray-700">Student Name: {data?.getAppointmentById?.studentName}</div>
             <div className="text-gray-700">Start Time: {formatDateTime(data?.getAppointmentById?.startTime)}</div>
             <div className="text-gray-700">End Time: {formatDateTime(data?.getAppointmentById?.endTime)}</div>
-            <div className="text-gray-700">Status: {data?.getAppointmentById?.status}</div>
-            <Link href={`/${params?.userID}/student/dashboard`}>
-                <Button className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">Back</Button>
-            </Link>
+            {role === 'student' ? (
+                <Link href={`/${params?.userID}/student/dashboard`}>
+                    <Button className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">Back</Button>
+                </Link>
+            ) : (
+                <Link href={`/${params?.userID}/tutor/dashboard`}>
+                    <Button className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">Back</Button>
+                </Link>
+            )}
         </div>
     );
 }

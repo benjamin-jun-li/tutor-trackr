@@ -1,17 +1,23 @@
 'use client'
 
 import { useQuery } from "@apollo/client";
-import { GET_APPOINTMENT } from "@/graphql/queries";
+import {GET_APPOINTMENT, GET_TUTOR} from "@/graphql/queries";
 import Link from "next/link";
-import {useContextValue} from "@/components/providers/context";
+import {useParams} from "next/navigation";
 
 const AppointmentTable = () => {
-    const { getters } = useContextValue();
-    const userEmail = getters.userEmail;
-    const { data, loading, error } = useQuery(GET_APPOINTMENT);
+    const params = useParams();
+    const { data: appointmentData, loading: appointLoading, error: appointError } = useQuery(GET_APPOINTMENT);
+    const { data: tutorData, loading: tutorLoading, error: tutorError } = useQuery(GET_TUTOR, {
+        variables: {
+            id: params?.userID
+        }
+    });
 
-    if (loading) return <p>Loading appointments...</p>;
-    if (error) return <p>Error loading appointments: {error.message}</p>;
+    const userEmail = tutorData?.getTutor?.email
+
+    if (appointLoading || tutorLoading) return <p>Loading appointments...</p>;
+    if (appointError || tutorError) return <p>Error loading appointments: {tutorError?.message}</p>;
 
     return (
         <section className="shadow-md sm:rounded-lg">
@@ -25,7 +31,7 @@ const AppointmentTable = () => {
                 </tr>
                 </thead>
                 <tbody>
-                {data?.getAppointments
+                {appointmentData?.getAppointments
                     .filter((appointment: any) => appointment.tutorEmail === userEmail)
                     .map((appointment: any) => (
                     <tr key={appointment.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
@@ -34,7 +40,7 @@ const AppointmentTable = () => {
                         </th>
                         <td className="py-4">{appointment.studentEmail}</td>
                         <td className="py-4">
-                            <Link href={`/tutor/appointment/${appointment.id}/`} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">More</Link>
+                            <Link href={`/${params?.userID}/tutor/appointment/${appointment.id}/`} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">More</Link>
                         </td>
                     </tr>
                 ))}

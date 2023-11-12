@@ -41,9 +41,6 @@ const AppointmentList = () => {
                         <th scope="col" className="px-6 py-3">
                             Date
                         </th>
-                        <th scope="col" className="px-6 py-3">
-                            Action
-                        </th>
                     </tr>
                     </thead>
                     <tbody>
@@ -63,12 +60,6 @@ const AppointmentList = () => {
                             </td>
                             <td className="px-6 py-4">
                                 {formatDate(appointment.date)}
-                            </td>
-                            <td className="px-6 py-4">
-                                <Link href={`/${params?.userID}/admin/tutoradmin/appointment/${appointment.id}/`}
-                                      className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                                    More
-                                </Link>
                             </td>
                         </tr>
                     ))}
