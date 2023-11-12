@@ -43,7 +43,7 @@ export function StudentProfileDisplay() {
             <section className="font-semibold text-center mb-4 flex flex-col items-center gap-1">
                 <div className="text-xl text-gray-700">Username: {data?.getStudentProfile?.username}</div>
                 <div className="text-xl text-gray-700">Email: {data?.getStudentProfile?.email}</div>
-                <ChatModal />
+                {(params?.otherID) ? <ChatModal /> : <></>}
             </section>
             <div className="text-gray-700">Phone: {data?.getStudentProfile?.phone}</div>
             <div className="text-gray-700">Address: {data?.getStudentProfile?.address}</div>

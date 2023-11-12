@@ -41,7 +41,7 @@ export function TutorProfileDisplay() {
             <section className="font-semibold text-center mb-4 flex flex-col items-center gap-1">
                 <div className="text-xl text-gray-700">{data?.getTutorProfile?.username}</div>
                 <div className="text-xl text-gray-700">{data?.getTutorProfile?.email}</div>
-                <ChatModal />
+                {(params?.otherID) ? <ChatModal /> : <></>}
             </section>
             <div className="text-gray-700">Phone: {data?.getTutorProfile?.phone}</div>
             <div className="text-gray-700">Location: {data?.getTutorProfile?.address}</div>
