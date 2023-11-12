@@ -69,7 +69,7 @@ const ChatInput:FC<chatInputProps> = ({
                                 <div className="grid grid-cols-8 gap-6 place-items-center">
                                     <Input className="col-span-7" disabled={isLoading} placeholder={"Message"} {...field}/>
                                     <button type="submit"
-                                            className="col-span-1 flex flex-row justify-center gap-3 text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-lg px-6 py-2.5 text-center me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+                                            className="col-span-1 flex flex-row justify-center gap-3 text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-md px-6 py-2.5 text-center me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
                                     >
                                         <Send/> <span>Send</span>
                                     </button>

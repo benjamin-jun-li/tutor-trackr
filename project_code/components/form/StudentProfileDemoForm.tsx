@@ -3,7 +3,6 @@
 import { useQuery } from "@apollo/client";
 import { GET_STUDENT_PROFILE } from "@/graphql/queries";
 import {useParams, useRouter} from "next/navigation";
-import { useContextValue } from "@/components/providers/context";
 import {
     Avatar,
     AvatarFallback,
