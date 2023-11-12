@@ -694,7 +694,7 @@ export const resolvers = {
         approveCourseApplication: async (_parent: any, args: any, context: Context) => {
 
             const notificationData = {
-                courseId: [args.courseId],
+                tutorId: [args.tutorId],
                 content: "Your application has been approved",
             };
 
@@ -717,7 +717,7 @@ export const resolvers = {
         rejectCourseApplication: async (_parent: any, args: any, context: Context) => {
             
             const notificationData = {
-                courseId: [args.courseId],
+                // courseId: [args.id],
                 content: "Your application has been rejected",
             };
 
