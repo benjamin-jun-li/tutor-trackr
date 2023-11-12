@@ -966,7 +966,7 @@ export const resolvers = {
             });
 
             if (existingConversation) {
-                return existingConversation.id;
+                return existingConversation;
             }
 
             // If no existing conversation is found, create a new one

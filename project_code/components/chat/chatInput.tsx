@@ -13,6 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Send } from "lucide-react";
 import { useMutation } from "@apollo/client";
 import { NewMessage } from "@/graphql/mutations";
+import { useParams } from "next/navigation";
 
 interface chatInputProps {
     className: string,
@@ -29,6 +30,7 @@ const ChatInput:FC<chatInputProps> = ({
     apiUrl,
     query
 }) => {
+    const params = useParams();
     const form = useForm<z.infer<typeof FormSchema>>({
         resolver: zodResolver(FormSchema),
         defaultValues: {
@@ -38,9 +40,16 @@ const ChatInput:FC<chatInputProps> = ({
 
     const isLoading = form.formState.isSubmitting;
 
+    const [sendMsg, {data, loading, error}] = useMutation(NewMessage);
     const onSubmit = async (value: z.infer<typeof FormSchema>) => {
         try {
-
+            await sendMsg({
+                variables:{
+                    conversationId: params?.conversationID,
+                    userId: params?.userID,
+                    content: value.content
+                }
+            })
         } catch (error) {
             console.log(error);
         }

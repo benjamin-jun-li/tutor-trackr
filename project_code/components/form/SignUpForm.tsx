@@ -45,8 +45,8 @@ const FormSchema = z
 
 const SignUpForm = () => {
     const { getters,setters } = useContextValue();
-    const [addStudent,{data:studentData,loading:studentLoading,error:studentError}] = useMutation(ADD_Student);
-    const [addTutor,{data:tutorData,loading:tutorLoading,error:tutorError}] = useMutation(ADD_Tutor);
+    const [addStudent, {data:studentData,loading:studentLoading,error:studentError}] = useMutation(ADD_Student);
+    const [addTutor, {data:tutorData,loading:tutorLoading,error:tutorError}] = useMutation(ADD_Tutor);
     const [addIdentity, { data: identityData, loading: identityLoading, error: identityError }] = useMutation(ADD_IDENTITY);
     const router = useRouter();
     const [btnClicked, setBtnClicked] = useState(false);
