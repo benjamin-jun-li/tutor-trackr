@@ -20,7 +20,6 @@ import { useRouter } from "next/navigation";
 
 import {Auth_SiteAdmin, Auth_Student, Auth_Tutor, Auth_TutorAdmin, GET_USERTYPE} from "@/graphql/queries";
 import {useLazyQuery, useQuery} from "@apollo/client";
-import { useContextValue } from "@/components/providers/context"
 import {useState} from "react";
 
 
@@ -36,7 +35,6 @@ const FormSchema = z.object({
 const SignInForm = () => {
     const router = useRouter();
     const [btnClicked, setBtnClicked] = useState(false);
-    const { getters, setters } = useContextValue();
     const [authStudent, { loading: loadingStudent, error: stuError, data: dataStudent }] = useLazyQuery(Auth_Student);
     const [authTutor, { loading: loadingTutor, error: tutError,  data: dataTutor }] = useLazyQuery(Auth_Tutor);
     const [authSiteAdmin, { loading: loadingAdminSite, error: adminSiteError, data: dataAdminSite }] = useLazyQuery(Auth_SiteAdmin);
@@ -60,60 +58,58 @@ const SignInForm = () => {
     const onSubmit = async (values: any) => {
         try {
             setBtnClicked(true);
-            // 处理身份验证逻辑
-            const res = await getIdentity({
+            getIdentity({
                 variables: {
                     email: values.email
                 }
-            });
-            let userIdentity = res.data?.getUserType?.userType
-            setters.setIdentity(userIdentity);
-            if (userIdentity === "Student") {
-                const res2 = await authStudent({variables: {email: values.email}})
-                if (res2?.data?.student?.password === enteredPassword) {
-                    const userId = res2.data?.student?.id
-                    setters.setEmail(values.email)
-                    setters.setName(res2.data.student.name)
-                    setters.setUserID(userId)
-                    setters.setUserStatus(true)
-                    router.replace(`/${userId}/student/dashboard`)
-                } else {
-                    alert("invalid student info")
-                    setBtnClicked(false);
-                }
-            } else if (userIdentity === "Tutor") {
-                const res2 = await authTutor({variables: {email: values.email}});
-                if (res2?.data?.tutor?.password === enteredPassword) {
-                    const userId = res2.data?.tutor?.id
-                    setters.setEmail(values.email)
-                    setters.setName(res2.data.tutor.name)
-                    setters.setUserID(userId)
-                    setters.setUserStatus(true)
-                    router.replace(`/${userId}/tutor/dashboard`)
-                } else {
-                    alert("Invalid tutor info");
-                    setBtnClicked(false);
-                }
-            } else if (userIdentity === "SiteAdmin") {
-                const res2 = await authSiteAdmin({ variables: { email: values.email } });
-                if (res2?.data?.siteAdmin?.password === enteredPassword) {
-                    const userId = res2.data?.siteAdmin?.id
-                    setters.setUserStatus(true);
-                    router.replace(`/${userId}/admin/siteadmin/dashboard`);
-                } else {
-                    alert("Invalid site admin info");
-                }
-            } else if (userIdentity === "TutorAdmin") {
-                const res2 = await authTutorAdmin({ variables: { email: values.email } });
-                if (res2?.data?.tutorAdmin?.password === enteredPassword) {
-                    const userId = res2.data?.tutorAdmin?.id
-                    setters.setUserStatus(true);
-                    router.replace(`/${userId}/admin/tutoradmin/dashboard`);
-                } else {
-                    alert("Invalid tutor admin info");
-                    setBtnClicked(false);
-                }
-            }
+            })
+                .then(res => {
+                    let userIdentity = res.data?.getUserType?.userType
+                    if (userIdentity === "Student") {
+                        const res2 = authStudent({variables: {email: values.email}}).then(
+                            res2 => {
+                                if (res2?.data?.student?.password === enteredPassword) {
+                                    const userId = res2.data?.student?.id
+                                    router.replace(`/${userId}/student/dashboard`)
+                                } else {
+                                    alert("invalid student info")
+                                    setBtnClicked(false);
+                                }
+                            }
+                        )
+                    } else if (userIdentity === "Tutor") {
+                        const res2 = authTutor({variables: {email: values.email}})
+                            .then(res2 => {
+                                if (res2?.data?.tutor?.password === enteredPassword) {
+                                    const userId = res2.data?.tutor?.id
+                                    router.replace(`/${userId}/tutor/dashboard`)
+                                } else {
+                                    alert("Invalid tutor info");
+                                    setBtnClicked(false);
+                                }
+                            });
+                    } else if (userIdentity === "SiteAdmin") {
+                        const res2 = authSiteAdmin({ variables: { email: values.email } })
+                            .then(res2 => {
+                                if (res2?.data?.siteAdmin?.password === enteredPassword) {
+                                    const userId = res2.data?.siteAdmin?.id
+                                    router.replace(`/${userId}/admin/siteadmin/dashboard`);
+                                } else {
+                                    alert("Invalid site admin info");
+                                }
+                            });
+                    } else if (userIdentity === "TutorAdmin") {
+                        const res2 = authTutorAdmin({ variables: { email: values.email } })
+                            .then(res2 => {
+                                if (res2?.data?.tutorAdmin?.password === enteredPassword) {
+                                    const userId = res2.data?.tutorAdmin?.id
+                                    router.replace(`/${userId}/admin/tutoradmin/dashboard`);
+                                } else {
+                                    alert("Invalid tutor admin info");
+                                }
+                            });
+                    }
+                })
         } catch (error) {
             console.error(error);
             alert("An error occurred!");
