@@ -19,7 +19,7 @@ const DashboardBanner = () => {
                     </div>
                     <ChevronRight width={30} height={30} />
                 </Link>
-                <Link href={`/${params?.userID}/tutor/application`} className="w-30 sm:w-[35rem] mx-4 px-[2rem] py-2 flex flex-row justify-between items-center border-2 border-sky-500 rounded-md ">
+                <Link href={`/${params?.userID}/tutor/chat`} className="w-30 sm:w-[35rem] mx-4 px-[2rem] py-2 flex flex-row justify-between items-center border-2 border-sky-500 rounded-md ">
                     <Image src={MsgIcon}  alt={"add course icon"} width={50} height={50}/>
                     <div className="flex flex-col px-6 font-medium">
                         <p className="text-lg">Track your sessions effortlessly</p>

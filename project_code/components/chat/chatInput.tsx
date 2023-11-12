@@ -50,6 +50,7 @@ const ChatInput:FC<chatInputProps> = ({
                     content: value.content
                 }
             })
+            form.reset({ content: "" });
         } catch (error) {
             console.log(error);
         }
