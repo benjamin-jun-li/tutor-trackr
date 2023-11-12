@@ -64,7 +64,7 @@ const SignInForm = () => {
                 }
             })
                 .then(res => {
-                    let userIdentity = res.data?.getUserType?.userType
+                    let userIdentity = res?.data?.getUserType?.userType
                     if (userIdentity === "Student") {
                         const res2 = authStudent({variables: {email: values.email}}).then(
                             res2 => {

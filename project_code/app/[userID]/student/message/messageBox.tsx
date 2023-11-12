@@ -67,7 +67,7 @@ const MessageBox = () => {
         }
     });
 
-    const messages = data?.getTutorNotification.map((notification: any, index: number) => ({
+    const messages = data?.getStudentNotification.map((notification: any, index: number) => ({
         id: index,
         title: "Notification",
         content: notification.content
