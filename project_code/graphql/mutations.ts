@@ -155,11 +155,11 @@ export const Reject_Application = gql`
 export const Approval_Course_Application = gql`
     mutation ApprovalApplication(
       $id: ID!,
-      $courseId: String
+      $tutorId: String
       ) {
         approveCourseApplication(
-          id: $id
-          courseId: $courseId
+          id: $id,
+          tutorId: $tutorId
           ) {
             status
         }
@@ -168,11 +168,11 @@ export const Approval_Course_Application = gql`
 export const Reject_Course_Application = gql`
     mutation RejectApplication(
       $id: ID!,
-      $courseId: String
+      $tutorId: String
       ) {
         rejectCourseApplication(
           id: $id,
-          courseId: $courseId
+          tutorId: $tutorId
           ) {
             status
         }
