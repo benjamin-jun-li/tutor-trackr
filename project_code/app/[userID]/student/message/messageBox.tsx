@@ -63,7 +63,7 @@ const MessageBox = () => {
 
     const {data, loading, error} = useQuery(GET_STUDENT_NOTIFICATION, {
         variables: {
-            tutorId: params?.userID
+            studentId: params?.userID
         }
     });
 
