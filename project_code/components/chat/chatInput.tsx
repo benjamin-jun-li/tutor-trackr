@@ -49,7 +49,8 @@ const ChatInput:FC<chatInputProps> = ({
                     userId: params?.userID,
                     content: value.content
                 }
-            })
+            });
+            form.reset({ content: "" });
         } catch (error) {
             console.log(error);
         }

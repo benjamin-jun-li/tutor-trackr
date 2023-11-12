@@ -15,7 +15,7 @@ const ChatModal = () => {
     const params = useParams();
     const pathname = usePathname();
     const router = useRouter();
-    const role = pathname.includes("student") ? ("student") : ("tutor");
+    const role = pathname?.includes("student") ? ("student") : ("tutor");
     const tutorId = role === "student" ? (params?.otherID) : (params?.userID);
     const studentId = role === "student" ? (params?.userID) : (params?.otherID);
     const [addConversation, {data, loading, error}] = useMutation(CreateConversation, {
@@ -42,7 +42,7 @@ const ChatModal = () => {
                     Message
                 </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px]">
+            <DialogContent className="sm:max-w-[425px] flex flex-col justify-center items-center">
                 <DialogHeader>
                     <DialogTitle>Hi there</DialogTitle>
                 </DialogHeader>
