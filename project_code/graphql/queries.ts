@@ -406,11 +406,17 @@ export const Get_Conversations = gql`
                 id
                 name
                 email
+                profile {
+                    thumbnail
+                }
             }
             tutor{
                 id
                 name
                 email
+                profile {
+                    thumbnail
+                }
             }
         }
     }
