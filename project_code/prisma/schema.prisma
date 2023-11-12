@@ -162,20 +162,17 @@ model Notification {
 
 model Message {
   id             String        @id @default(auto()) @map("_id") @db.ObjectId
-  date           String
   content        String
   userId         String
   createdAt      DateTime      @default(now())
   Conversation   Conversation? @relation(fields: [conversationId], references: [id])
-  conversationId String?
+  conversationId String
 }
 
 model Conversation {
   id String @id @default(auto()) @map("_id") @db.ObjectId
-
   student   Student @relation(fields: [studentId], references: [id])
   studentId String
-
   tutor    Tutor     @relation(fields: [tutorId], references: [id])
   tutorId  String
   Messages Message[]

@@ -932,6 +932,26 @@ export const resolvers = {
                 },
             });
         },
+
+        createConversation: async (_parent: any, args: any, context: Context) => {
+            return context.prisma.conversation.create({
+                data: {
+                    studentId: args.studentId,
+                    tutorId: args.tutorId,
+                },
+            });
+        },
+
+        newMessage: async (_parent: any, args: any, context: Context) => {
+            return context.prisma.message.create({
+                data: {
+                    conversationId: args.conversationId,
+                    userId: args.userId,
+                    content: args.content,
+                },
+            });
+        }
+
     }
 }
 
