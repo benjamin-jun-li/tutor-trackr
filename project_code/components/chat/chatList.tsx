@@ -22,15 +22,13 @@ const ChatList = () => {
 
     const role = pathname?.includes('tutor') ? 'tutor' : 'student';
 
-    const messages = pathname?.includes('tutor') ?
-        conversationData?.getConversations?.filter((conversation: any) => conversation.tutor.id === userID)
-            .map((conversation: any) => ({
+    const conversations = pathname?.includes('tutor') ?
+        conversationData?.getConversations?.map((conversation: any) => ({
                 id: conversation?.id,
                 name: conversation?.student?.name,
                 email: conversation?.student?.email,
             })).reverse() :
-        conversationData?.getConversations?.filter((conversation: any) => conversation.student.id === userID)
-            .map((conversation: any) => ({
+        conversationData?.getConversations?.map((conversation: any) => ({
                 id: conversation?.id,
                 name: conversation?.tutor?.name,
                 email: conversation?.tutor?.email,
@@ -40,9 +38,9 @@ const ChatList = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const startIndex = (currentPage - 1) * pageSize;
     const endIndex = startIndex + pageSize;
-    const visibleMessages = messages?.slice(startIndex, endIndex);
+    const visibleConversations = conversations?.slice(startIndex, endIndex);
 
-    const totalPages = Math.ceil(messages?.length / pageSize);
+    const totalPages = Math.ceil(conversations?.length / pageSize);
 
     const nextPage = () => {
         if (currentPage < totalPages) {
@@ -60,14 +58,14 @@ const ChatList = () => {
         <section className="flex justify-center">
             <div className="w-[95%] rounded-md border">
                 <div className="p-4">
-                    {visibleMessages?.map((message: any, index: any) => (
+                    {visibleConversations?.map((message: any, index: any) => (
                         <Link href={`/${userID}/${role}/chat/${message.id}`} key={index}>
                             <div className="cursor-pointer">
                                 <div className="text-sm">
                                     <div className="font-semibold">{message.name}</div>
                                     <div>{message.email}</div>
                                 </div>
-                                {index !== visibleMessages.length - 1 && (
+                                {index !== visibleConversations.length - 1 && (
                                     <Separator className="my-2" />
                                 )}
                             </div>

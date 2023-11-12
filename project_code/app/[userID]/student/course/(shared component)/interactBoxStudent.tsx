@@ -1,9 +1,6 @@
-"use client"
 import PayModal from "@/app/[userID]/student/course/(shared component)/payModal";
-import { usePathname } from "next/navigation";
 
 const InteractBoxStudent = () => {
-    const pathname = usePathname();
     return (
         <section className="col-span-1">
             <div className="w-full mt-[4rem] p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
@@ -24,11 +21,6 @@ const InteractBoxStudent = () => {
                 {/*</button>*/}
                 <PayModal />
             </div>
-            { pathname?.includes("my") && (
-                <div className="w-full mt-6 p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
-                    view my current appointment
-                </div>
-            )}
         </section>
     )
 }

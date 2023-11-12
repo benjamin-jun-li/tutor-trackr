@@ -148,7 +148,7 @@ const CourseDetail:FC<{ role:string }> = ({ role }) => {
                     </div>
 
                     {role === "tutor" && pathname?.includes("my") &&
-                        <ProfileTable data={getCourseDetail?.data?.course?.students}
+                        <ProfileTable data={getCourseDetail?.data?.course?.students} role={"tutor"}
                           className="w-full md:w-3/4 p-4 mt-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700"
                         />
                     }
