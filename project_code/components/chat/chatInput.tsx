@@ -1,3 +1,4 @@
+"use client"
 import {FC} from "react";
 import * as z from "zod";
 import {useForm} from "react-hook-form";
@@ -10,8 +11,9 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Send } from "lucide-react";
-import axios from "axios";
-import qs from "qs";
+import { useMutation } from "@apollo/client";
+import { NewMessage } from "@/graphql/mutations";
+
 interface chatInputProps {
     className: string,
     apiUrl: string,
@@ -38,12 +40,7 @@ const ChatInput:FC<chatInputProps> = ({
 
     const onSubmit = async (value: z.infer<typeof FormSchema>) => {
         try {
-            const url = qs.stringify({
-                url: apiUrl,
-                query
-            });
 
-            await axios.post(url, value);
         } catch (error) {
             console.log(error);
         }
