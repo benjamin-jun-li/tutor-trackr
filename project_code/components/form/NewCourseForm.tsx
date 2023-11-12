@@ -81,15 +81,10 @@ const NewCourseForm: React.FC = () => {
                 tags: tags,
             },
         });
-
-        if (res.data?.addCourse?.id) {
-            toast({
-                title: "Course details send to admin for approval",
-                description: "You can view your course in the dashboard after approval",
-            })
-        } else {
-            console.log(res);
-        }
+        toast({
+            title: "Course added!",
+            description: "Your course has been added successfully!",
+        });
     };
 
     if (loading) {

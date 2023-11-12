@@ -7,7 +7,7 @@ import {useParams} from "next/navigation";
 const InterviewBoard = () => {
     const params = useParams();
     const applications = useQuery(GET_APPLICATION, {
-        fetchPolicy: "network-only",
+        pollInterval: 200,
     });
     console.log(applications)
     if (applications?.data?.getApplication?.length === 0 && applications?.loading === false) {

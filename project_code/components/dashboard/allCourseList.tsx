@@ -15,7 +15,9 @@ interface CourseListProps {
 }
 
 const AllCourseList: FC<CourseListProps> = ({ role, courseType, filters }) => {
-    const { data, loading, error } = useQuery(GET_COURSES);
+    const { data, loading, error } = useQuery(GET_COURSES, {
+        pollInterval: 200,
+    });
 
     if (loading) {
         return <span className="loading loading-infinity loading-lg"></span>

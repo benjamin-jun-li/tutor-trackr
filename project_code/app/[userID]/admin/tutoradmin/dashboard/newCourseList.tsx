@@ -8,7 +8,7 @@ import {useParams} from "next/navigation";
 const NewCourseList: React.FC = () => {
     const params = useParams();
     const { data, loading } = useQuery(GET_COURSES, {
-        fetchPolicy: 'network-only',
+        pollInterval: 200,
     });
 
     if (!loading && !data?.courses) {

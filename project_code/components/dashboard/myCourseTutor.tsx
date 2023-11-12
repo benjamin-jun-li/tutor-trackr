@@ -15,7 +15,9 @@ const MyCourseTutor:FC<MCTprops> = ({role, courseType}) => {
     const {data: tutorCourses, loading: tutorLoading, error: tutorError} = useQuery(GET_TUTOR_COURSES, {
         variables: {
             tutorId:params?.userID
-    }});
+        },
+        pollInterval: 200,
+    });
     if (tutorLoading) {
         return <div>loading</div>
     }

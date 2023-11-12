@@ -5,7 +5,9 @@ import { useQuery } from "@apollo/client";
 import {useParams} from "next/navigation";
 
 const AppointmentList = () => {
-    const appointments = useQuery(GET_APPOINTMENT)
+    const appointments = useQuery(GET_APPOINTMENT, {
+        pollInterval: 200,
+    })
     const params = useParams();
 
     const formatDate = (dateString: any) => {

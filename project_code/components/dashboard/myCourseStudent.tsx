@@ -14,7 +14,9 @@ const MyCourseStudent:FC<MCSprops> = ({role, courseType}) => {
     const {data: studentCourses, loading: studentLoading, error: studentError} = useQuery(GET_STUDENT_COURSES, {
         variables:{
             studentId: params?.userID
-    }});
+        },
+        pollInterval: 200,
+    });
     if (studentLoading) {
         return <div>loading</div>
     }
