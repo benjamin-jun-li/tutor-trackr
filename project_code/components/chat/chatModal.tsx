@@ -42,7 +42,7 @@ const ChatModal = () => {
                     Message
                 </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px]">
+            <DialogContent className="sm:max-w-[425px] flex flex-col justify-center items-center">
                 <DialogHeader>
                     <DialogTitle>Hi there</DialogTitle>
                 </DialogHeader>
