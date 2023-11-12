@@ -4,10 +4,12 @@ import { useLazyQuery } from "@apollo/client";
 import { useRouter } from "next/navigation";
 import { useContextValue } from "@/components/providers/context";
 import { Find_User } from "@/graphql/queries";
+import {useToast} from "@/components/ui/use-toast";
 
 const ForgetPasswordPage = () => {
     const {getters, setters} = useContextValue();
     const router = useRouter();
+    const toast = useToast();
     const code = "951XF";
     const [email, setEmail] = useState("");
     const [verifyCode, setVerifyCode ] = useState("")
@@ -34,13 +36,25 @@ const ForgetPasswordPage = () => {
                 if (myModal && email !== "") {
                     myModal.showModal();
                 } else {
-                    alert("Info needed!")
+                    toast.toast({
+                        variant: "destructive",
+                        title: "Info needed!",
+                        description: "Please enter your email address",
+                    })
                 }
             } else {
-                alert(res);
+                toast.toast({
+                    variant: "destructive",
+                    title: "Email not sent!",
+                    description: "Please try again",
+                })
             }
         } else {
-            alert("account not found");
+            toast.toast({
+                variant: "destructive",
+                title: "Account not found!",
+                description: "Please try again",
+            })
         }
     }
     const verifyUser = (e:MouseEvent) => {
@@ -49,7 +63,11 @@ const ForgetPasswordPage = () => {
         if (code === verifyCode) {
             router.push("/reset/");
         } else {
-            alert("verification code doesn't match");
+            toast.toast({
+                variant: "destructive",
+                title: "Verification code doesn't match!",
+                description: "Please try again",
+            })
         }
     }
 

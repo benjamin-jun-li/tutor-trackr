@@ -13,7 +13,7 @@ const AppointmentTable = () => {
     });
     const { data: AppointmentData, loading: AppointmentLoading, error: AppointmentError } = useQuery(GET_APPOINTMENT);
 
-    const userEmail = StudentData?.getStudent.email;
+    const userEmail = StudentData?.getStudent?.email;
 
     if (AppointmentLoading) return <p>Loading appointments...</p>;
     if (AppointmentError) return <p>Error loading appointments: {AppointmentError.message}</p>;

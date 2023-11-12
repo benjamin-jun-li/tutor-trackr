@@ -20,14 +20,13 @@ import {
 } from "@/components/ui/avatar"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { toast } from "@/components/ui/use-toast"
 import {useMutation, useQuery} from "@apollo/client";
 import {UPDATE_STUDENT_PROFILE} from "@/graphql/mutations";
 import {useParams, usePathname, useRouter} from "next/navigation";
-import {useContextValue} from "@/components/providers/context";
 import TimezonePicker from "@/components/TimezonePicker";
-import {GET_STUDENT, GET_STUDENT_PROFILE} from "@/graphql/queries";
+import {GET_STUDENT_PROFILE} from "@/graphql/queries";
 import FileUpload from "@/components/fileUpload";
+import {useToast} from "@/components/ui/use-toast";
 
 const profileFormSchema = z.object({
     avatar: z.string().optional(),
@@ -66,6 +65,7 @@ type ProfileFormValues = z.infer<typeof profileFormSchema>
 export function StudentProfileUpdateForm() {
     const router = useRouter();
     const params = useParams();
+    const toast = useToast();
     let currentPath = usePathname();
 
     const { loading: ProfileLoading, error: ProfileError, data: ProfileData } = useQuery(GET_STUDENT_PROFILE, {
@@ -102,19 +102,14 @@ export function StudentProfileUpdateForm() {
             }
         })
         if (res.data?.updateStudentProfile?.email) {
-            alert("Profile updated successfully!")
+            toast.toast({
+                title: "Profile updated successfully!",
+                description: "",
+            })
             router.replace(`/${params?.userID}/student/profile/demo`)
         } else {
             console.log(res);
         }
-        toast({
-            title: "You submitted the following values:",
-            description: (
-                <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(value, null, 2)}</code>
-        </pre>
-            ),
-        })
     }
 
     const handleDashboardClick = () => {
@@ -253,9 +248,6 @@ export function StudentProfileUpdateForm() {
                         </FormItem>
                     )}
                 />
-                {/*<div>*/}
-                {/*    Balance: {data && data.user?.accountBalance ? data.user?.accountBalance : 0}*/}
-                {/*</div>*/}
 
                 <div className="flex space-x-4">
                     <Button type="submit">Update profile</Button>

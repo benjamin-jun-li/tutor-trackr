@@ -29,7 +29,6 @@ type FormData = {
     courses: string;
     description: string;
     price: string; // Changed from string to number
-    thumbnail: string; // New field for thumbnail URL
     timeZone: string;
     courseType: string;
     experienceLevel: string;
@@ -39,7 +38,6 @@ const formSchema = z.object({
     courses: z.string().min(1).max(100),
     description: z.string().min(1).max(1000),
     price: z.string().min(1).max(100), // Changed from string to number and added validation
-    thumbnail: z.string().url("Invalid url"), // New validation for thumbnail URL
     timeZone: z.string().min(1).max(255),
     courseType: z.string().optional(),
     experienceLevel: z.enum(["Beginner", "Intermediate", "Advanced", "Expert", "Master"]),
@@ -62,7 +60,6 @@ const NewCourseForm: React.FC = () => {
             courses: "",
             description: '',
             price: '', // Default value for price as number
-            thumbnail: '', // Default value for thumbnail
             timeZone: 'UTC+10:00 Australian Eastern Standard Time',
             courseType: '',
             experienceLevel: '',
@@ -80,7 +77,7 @@ const NewCourseForm: React.FC = () => {
                 name: formData.courses,
                 description: formData.description,
                 price: parseInt(formData.price),
-                thumbnail: formData.thumbnail, // Pass thumbnail URL
+                thumbnail: "",
                 tags: tags,
             },
         });
@@ -90,7 +87,6 @@ const NewCourseForm: React.FC = () => {
                 title: "Course details send to admin for approval",
                 description: "You can view your course in the dashboard after approval",
             })
-            // router.replace(`/tutor/dashboard/`)
         } else {
             console.log(res);
         }
@@ -117,21 +113,6 @@ const NewCourseForm: React.FC = () => {
                                     Enter the course you are interested in.
                                 </FormDescription>
                                 <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <FormField
-                        control={form.control}
-                        name="thumbnail"
-                        render={({ field }) => (
-                            <FormItem className="flex flex-col">
-                                <FormLabel className="mb-2 text-lg">Thumbnail URL</FormLabel>
-                                <FormControl>
-                                    <Input {...field} className="border rounded" />
-                                </FormControl>
-                                <FormDescription className="mt-2 text-sm text-gray-500">
-                                    Enter the URL of the course thumbnail image.
-                                </FormDescription>
                             </FormItem>
                         )}
                     />

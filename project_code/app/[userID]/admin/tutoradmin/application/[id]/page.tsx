@@ -10,9 +10,11 @@ import {
 import {useEffect, useState} from "react";
 import {Button} from "@/components/ui/button";
 import Link from "next/link";
+import {useToast} from "@/components/ui/use-toast";
 
 const TutorApplicationPage = () => {
     const param = useParams();
+    const toast = useToast();
     const application = useQuery(GET_APPLICATION_BY_ID, { variables: { id: param?.id } });
     const [acceptApplication, {data:acceptData,loading:acceptLoading,error:acceptError}] = useMutation(Approval_Application);
     const [rejectApplication, {data:rejectData,loading:rejectLoading,error:rejectError}] = useMutation(Reject_Application);
@@ -42,7 +44,10 @@ const TutorApplicationPage = () => {
                 courseId: appDetails?.courseId,
             },
         }).then(() => {
-            alert("Application accepted successfully!")
+            toast.toast({
+                title: "Application accepted",
+                description: "Friday, February 10, 2023 at 5:57 PM",
+            })
             setStatus("Approved")
         });
     }
@@ -54,7 +59,10 @@ const TutorApplicationPage = () => {
                 id: param?.id,
             },
         }).then(() => {
-            alert("Application rejected successfully!")
+            toast.toast({
+                title: "Application rejected",
+                description: "Friday, February 10, 2023 at 5:57 PM",
+            })
             setStatus("Rejected")
         });
     }

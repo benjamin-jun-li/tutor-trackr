@@ -9,9 +9,11 @@ import {
     Reject_Course_Application
 } from "@/graphql/mutations";
 import {useEffect, useState} from "react";
+import {useToast} from "@/components/ui/use-toast";
 
 const NewCoursePage = () => {
     const param = useParams();
+    const toast = useToast();
     const course = useQuery(GET_COURSE, { variables: { id: param?.id } });
     const [acceptApplication, {data:acceptData,loading:acceptLoading,error:acceptError}] = useMutation(Approval_Course_Application);
     const [rejectApplication, {data:rejectData,loading:rejectLoading,error:rejectError}] = useMutation(Reject_Course_Application);
@@ -32,11 +34,14 @@ const NewCoursePage = () => {
     const handleAcceptClick = async () => {
         await acceptApplication({
             variables: {
-                tutorId: appDetails?.tutors[0].id,
+                tutorId: appDetails?.tutors[0]?.id,
                 id: param?.id,
             },
         }).then(() => {
-            alert("Application accepted successfully!")
+            toast.toast({
+                title: "Application accepted",
+                description: "Friday, February 10, 2023 at 5:57 PM",
+            })
             setStatus("Approved")
         });
     }
@@ -44,11 +49,15 @@ const NewCoursePage = () => {
     const handleRejectClick = async () => {
         await rejectApplication({
             variables: {
-                tutorId: appDetails?.tutors[0].id,
+                tutorId: appDetails?.tutors[0]?.id,
                 id: param?.id,
             },
         }).then(() => {
-            alert("Application rejected successfully!")
+            toast.toast({
+                variant: "destructive",
+                title: "Application rejected",
+                description: "Friday, February 10, 2023 at 5:57 PM",
+            })
             setStatus("Rejected")
         });
     }

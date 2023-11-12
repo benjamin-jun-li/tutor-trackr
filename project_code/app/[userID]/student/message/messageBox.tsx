@@ -63,11 +63,11 @@ const MessageBox = () => {
 
     const {data, loading, error} = useQuery(GET_STUDENT_NOTIFICATION, {
         variables: {
-            tutorId: params?.userID
+            studentId: params?.userID
         }
     });
 
-    const messages = data?.getTutorNotification.map((notification: any, index: number) => ({
+    const messages = data?.getStudentNotification.map((notification: any, index: number) => ({
         id: index,
         title: "Notification",
         content: notification.content

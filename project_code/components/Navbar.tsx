@@ -26,7 +26,7 @@ const Navbar = () => {
   const isStudentPage = pathname?.includes('/student/');
 
   const renderContent = () => {
-    if (isAdminPage || isTutorPage || isStudentPage) {
+    if (isTutorPage || isStudentPage) {
       return <UserNav userName={userName} userEmail={userEmail} />;
     }
   };

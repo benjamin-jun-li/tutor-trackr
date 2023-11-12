@@ -15,10 +15,12 @@ import {Button} from "@/components/ui/button";
 import TutorBioDisplay from "@/components/TutorBioDisplay";
 import {ADD_RATE} from "@/graphql/mutations";
 import ProfileTable from "@/app/[userID]/tutor/course/(shared component)/profileTable";
+import {useToast} from "@/components/ui/use-toast";
 
 const CourseDetail:FC<{ role:string }> = ({ role }) => {
     const params = useParams();
     const pathname = usePathname();
+    const toast = useToast();
     const getCourseDetail = useQuery(GET_COURSE, {variables:{ id:params?.id }});
     const { loading, data, error, refetch } = useQuery(GET_SCORE, {
         variables: { id: params?.id },
@@ -43,13 +45,22 @@ const CourseDetail:FC<{ role:string }> = ({ role }) => {
                         rate: currentRate.toString(), // Ensure this is a string as your schema expects
                     },
                 });
-                alert("Rate successfully!");
+                toast.toast({
+                    title: "Rate successfully!",
+                })
                 await refetch();
             } catch (e: any) {
-                alert('Rate failed!: ' + e.message || 'unknown error');
+                toast.toast({
+                    variant: "destructive",
+                    title: 'Rate failed!: ',
+                    description: e.message || 'unknown error',
+                })
             }
         } else {
-            alert('Please select a rating before submitting.');
+            toast.toast({
+                variant: "destructive",
+                title: 'Please select a rating before submitting.',
+            })
         }
     };
 
