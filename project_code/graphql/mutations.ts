@@ -207,7 +207,6 @@ export const ADD_COURSE = gql`
             rate: $rate
             score: $score
         ) {
-            id
             name
             description
             comments

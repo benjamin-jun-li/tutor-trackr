@@ -1,5 +1,22 @@
 import {gql} from "@apollo/client";
 
+
+export const Get_Profile = gql`
+query GetProfile($id: String!) {
+    getUserProfile(id: $id) {
+        __typename
+        ... on StudentProfile {
+            username
+            thumbnail
+        }
+        ... on TutorProfile {
+            username
+            thumbnail
+        }
+    }
+}
+`;
+
 export const Find_User = gql`
     query finduser($id: String!) {
         finduser(id: $id) {

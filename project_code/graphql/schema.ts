@@ -1,6 +1,6 @@
 export const typeDefs = `#graphql 
+union UserProfile = StudentProfile | TutorProfile
 
-union UserByEmail = Student | Tutor | SiteAdmin | TutorAdmin
 
 enum UserType {
     Student
@@ -170,6 +170,7 @@ type Message {
 
 
 type Query {
+    getUserProfile(id:String): UserProfile
     getMessages(conversationId: String!): [Message]
     getConversations(userId: String!): [Conversation]
     finduser(id: String): PasswordResetResponse

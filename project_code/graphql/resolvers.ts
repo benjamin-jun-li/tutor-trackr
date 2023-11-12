@@ -1,7 +1,33 @@
 import {Context} from "@/pages/api/graphql";
 
 export const resolvers = {
+    UserProfile: {
+        __resolveType(userProfile:any, context:any, info:any) {
+            if (userProfile.studentId) {
+                return 'StudentProfile';
+            }
+            else if (userProfile.tutorId) {
+                return 'TutorProfile';
+            }
+            return null;
+        }
+    },
     Query: {
+        getUserProfile: async (_parent: any, args: any, context: Context) => {
+            const studentProfile = await context.prisma.studentProfile.findUnique({
+                where: {studentId: args.id,},
+            });
+            const tutorProfile = await context.prisma.tutorProfile.findUnique({
+                where: {tutorId: args.id,},
+            });
+            if (studentProfile) {
+                return studentProfile;
+            } else if (tutorProfile) {
+                return tutorProfile;
+            } else {
+                return null;
+            }
+        },
 
         getMessages: async (_parent: any, args: any, context: Context) => {
             return context.prisma.message.findMany({
@@ -524,19 +550,6 @@ export const resolvers = {
                 context.prisma.course.create({data: courseCreate}),
             ]);
 
-            // return context.prisma.course.create({
-            //     data: {
-            //         name: args.name,
-            //         description: args.description,
-            //         tags: args.tags,
-            //         thumbnail: args.thumbnail,
-            //         price: args.price,
-            //         status: status,
-            //         tutorId: args.tutorId,
-            //         rate: args.rate,
-            //         score: args.score,
-            //     },
-            // });
         },
 
         deleteCourse: async (_parent: any, args: any, context: Context) => {
