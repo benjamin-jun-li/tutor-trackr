@@ -23,11 +23,20 @@ const ChatMessages:FC<chatMsgProps> = ({ className, apiUrl, socketUrl, conversat
     return (
         <section className={className}>
             {data?.getMessages?.map((msg: any) => (
-                <SingleMsg key={msg.id} className="flex flex-row"
-                           content={msg.content}
-                           createdAt={msg.createdAt}
-                           userId={msg.userId}
-                />
+                msg.userId === params?.userID ? (
+                    <SingleMsg key={msg.id} self={true}
+                               content={msg.content}
+                               createdAt={msg.createdAt}
+                               userId={msg.userId}
+                    />
+                    ) : (
+                    <SingleMsg key={msg.id} self={false}
+                               content={msg.content}
+                               createdAt={msg.createdAt}
+                               userId={msg.userId}
+                    />
+                )
+
             ))}
         </section>
     )
