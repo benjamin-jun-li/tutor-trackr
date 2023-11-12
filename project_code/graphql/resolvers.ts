@@ -957,6 +957,19 @@ export const resolvers = {
         },
 
         createConversation: async (_parent: any, args: any, context: Context) => {
+            // Check if a conversation between the student and tutor already exists
+            const existingConversation = await context.prisma.conversation.findFirst({
+                where: {
+                    studentId: args.studentId,
+                    tutorId: args.tutorId,
+                },
+            });
+
+            if (existingConversation) {
+                return existingConversation.id;
+            }
+
+            // If no existing conversation is found, create a new one
             return context.prisma.conversation.create({
                 data: {
                     studentId: args.studentId,
@@ -964,6 +977,7 @@ export const resolvers = {
                 },
             });
         },
+
 
         newMessage: async (_parent: any, args: any, context: Context) => {
             return context.prisma.message.create({
