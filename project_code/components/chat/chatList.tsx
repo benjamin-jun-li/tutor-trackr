@@ -1,76 +1,48 @@
 "use client"
-import { useParams } from "next/navigation";
+import {useParams, usePathname} from "next/navigation";
 import { useQuery } from "@apollo/client";
-import {Get_Conversations} from "@/graphql/queries";
+import {Get_Conversations, GET_STUDENT_PROFILE} from "@/graphql/queries";
 import {FC, useState} from "react";
 import Link from "next/link";
 import {Separator} from "@/components/ui/separator";
 
 const pageSize = 5;
 
-const messages = [
-    {
-        id: 1,
-        title: "Chat Title 1",
-        content: "Message Content 1",
-    },
-    {
-        id: 2,
-        title: "Chat Title 2",
-        content: "Message Content 2",
-    },
-    {
-        id: 3,
-        title: "Chat Title 3",
-        content: "Message Content 3",
-    },
-    {
-        id: 4,
-        title: "Chat Title 4",
-        content: "Message Content 4",
-    },
-    {
-        id: 5,
-        title: "Chat Title 5",
-        content: "Message Content 5",
-    },
-    {
-        id: 6,
-        title: "Chat Title 6",
-        content: "Message Content 6",
-    },
-    {
-        id: 7,
-        title: "Chat Title 7",
-        content: "Message Content 7",
-    },
-    {
-        id: 8,
-        title: "Chat Title 8",
-        content: "Message Content 8",
-    },
-    {
-        id: 9,
-        title: "Chat Title 9",
-        content: "Message Content 9",
-    }
-].reverse();
-
-interface ChatListProps {
-    role: string,
-}
-const ChatList:FC<ChatListProps> = ({ role }) => {
+const ChatList = () => {
     const params = useParams();
+    const pathname = usePathname();
     const userID = params?.userID;
     const courseID = params?.id;
-    const {data, loading, error} = useQuery(Get_Conversations);
-    console.log(data);
+    const {data: conversationData, loading: conversationLoading, error: conversationError} = useQuery(Get_Conversations, {
+        variables: {
+            userId: params?.userID
+        }
+    });
+    console.log(conversationData?.getConversations);
+
+    const role = pathname?.includes('tutor') ? 'tutor' : 'student';
+
+    const messages = pathname?.includes('tutor') ?
+        conversationData?.getConversations?.filter((conversation: any) => conversation.tutor.id === userID)
+            .map((conversation: any) => ({
+                id: conversation?.id,
+                name: conversation?.student?.name,
+                email: conversation?.student?.email,
+            })).reverse() :
+        conversationData?.getConversations?.filter((conversation: any) => conversation.student.id === userID)
+            .map((conversation: any) => ({
+                id: conversation?.id,
+                name: conversation?.tutor?.name,
+                email: conversation?.tutor?.email,
+            })).reverse();
+
+
     const [currentPage, setCurrentPage] = useState(1);
     const startIndex = (currentPage - 1) * pageSize;
     const endIndex = startIndex + pageSize;
-    const visibleMessages = messages.slice(startIndex, endIndex);
+    const visibleMessages = messages?.slice(startIndex, endIndex);
 
-    const totalPages = Math.ceil(messages.length / pageSize);
+    const totalPages = Math.ceil(messages?.length / pageSize);
 
     const nextPage = () => {
         if (currentPage < totalPages) {
@@ -84,17 +56,16 @@ const ChatList:FC<ChatListProps> = ({ role }) => {
         }
     };
 
-
     return (
         <section className="flex justify-center">
             <div className="w-[95%] rounded-md border">
                 <div className="p-4">
-                    {visibleMessages.map((message, index) => (
-                        <Link href={`/${userID}/tutor/chat/${message.id}`} key={index}>
+                    {visibleMessages?.map((message: any, index: any) => (
+                        <Link href={`/${userID}/${role}/chat/${message.id}`} key={index}>
                             <div className="cursor-pointer">
                                 <div className="text-sm">
-                                    <div className="font-semibold">{message.title}</div>
-                                    <div>{message.content}</div>
+                                    <div className="font-semibold">{message.name}</div>
+                                    <div>{message.email}</div>
                                 </div>
                                 {index !== visibleMessages.length - 1 && (
                                     <Separator className="my-2" />

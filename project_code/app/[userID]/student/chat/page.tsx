@@ -6,7 +6,7 @@ const StudentChatList = () => {
             <h1 className="text-center mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-4xl dark:text-white">
                 Talk to your tutors
             </h1>
-            <ChatList role={"student"}/>
+            <ChatList />
         </main>
     )
 }
