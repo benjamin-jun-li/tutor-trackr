@@ -102,8 +102,7 @@ export function StudentProfileUpdateForm() {
             }
         })
         if (res.data?.updateStudentProfile?.email) {
-            // alert("Profile updated successfully!")
-            toast({
+            toast.toast({
                 title: "Profile updated successfully!",
                 description: "",
             })

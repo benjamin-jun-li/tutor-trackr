@@ -26,6 +26,7 @@ import {UPDATE_TUTOR_PROFILE} from "@/graphql/mutations";
 import {useParams, usePathname, useRouter} from "next/navigation";
 import TimezonePicker from "@/components/TimezonePicker";
 import FileUpload from "@/components/fileUpload";
+import {useToast} from "@/components/ui/use-toast";
 
 const profileFormSchema = z.object({
     avatar: z.string().optional(),
@@ -66,6 +67,7 @@ type ProfileFormValues = z.infer<typeof profileFormSchema>
 export function TutorProfileUpdateForm() {
     const router = useRouter();
     const params = useParams();
+    const toast = useToast();
     let currentPath = usePathname();
 
     const { loading, error, data } = useQuery(GET_TUTOR_PROFILE, {
@@ -105,7 +107,10 @@ export function TutorProfileUpdateForm() {
             }
         })
         if (res.data?.updateTutorProfile?.email) {
-            alert("Profile updated successfully!")
+            toast.toast({
+                title: "Profile updated successfully!",
+                description: "",
+            })
             router.replace(`/${params?.userID}/tutor/profile/demo`)
         } else {
             console.log(res);
