@@ -218,7 +218,8 @@ type Mutation {
         address: String, timeZone: String, biography: String
     ) : StudentProfile
     updateTutorProfile(
-        email: String!, thumbnail: String, username: String, phone: String,
+        id: ID!,
+        email: String, thumbnail: String, username: String, phone: String,
         address: String, timeZone: String,  experienceSummary: String,
         courseCanTeach: String, professionalBio: String
     ) : TutorProfile

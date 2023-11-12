@@ -519,6 +519,7 @@ export const resolvers = {
                     id: args.id,
                 },
                 data: {
+                    email: args.email,
                     thumbnail: args.thumbnail,
                     username: args.username,
                     phone: args.phone,

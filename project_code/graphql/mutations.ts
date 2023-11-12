@@ -91,6 +91,7 @@ export const UPDATE_STUDENT_PROFILE = gql`
 
 export const UPDATE_TUTOR_PROFILE = gql`
     mutation UpdateTutorProfile(
+        $id: ID!
         $email: String!
         $thumbnail: String
         $username: String
@@ -102,6 +103,7 @@ export const UPDATE_TUTOR_PROFILE = gql`
         $courseCanTeach: String
     ) {
         updateTutorProfile(
+            id: $id
             email: $email
             thumbnail: $thumbnail
             username: $username
@@ -112,6 +114,7 @@ export const UPDATE_TUTOR_PROFILE = gql`
             experienceSummary: $experienceSummary
             courseCanTeach: $courseCanTeach
         ) {
+            id
             email
             thumbnail
             username
