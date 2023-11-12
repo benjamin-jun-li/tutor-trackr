@@ -46,9 +46,17 @@ export const resolvers = {
                     ],
                 },
                 include: {
-                    student: true,
-                    tutor: true,
-                },
+                    student: {
+                        include: {
+                            profile: true,
+                        }
+                    },
+                    tutor: {
+                        include: {
+                            profile: true,
+                        }
+                    }
+                }
             });
         },
 
