@@ -233,7 +233,6 @@ const SignUpForm = () => {
       >
         or
       </div>
-      <GoogleSignInBtn>Sign up with Google</GoogleSignInBtn>
       <p className="text-center text-sm text-gray-600 mt-2">
         If you have an account, please&nbsp;
         <Link className="text-blue-500 hover:underline" href="/login">
