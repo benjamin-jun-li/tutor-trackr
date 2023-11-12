@@ -3,24 +3,33 @@ import { useState, useEffect, MouseEvent } from "react";
 import { useLazyQuery } from "@apollo/client";
 import { useRouter } from "next/navigation";
 import { useContextValue } from "@/components/providers/context";
-import { Find_User } from "@/graphql/queries";
+import { Find_User_By_Email } from "@/graphql/queries";
 import {useToast} from "@/components/ui/use-toast";
+import Link from "next/link";
 
 const ForgetPasswordPage = () => {
     const {getters, setters} = useContextValue();
     const router = useRouter();
     const toast = useToast();
-    const code = "951XF";
+    const code = "W8F26";
     const [email, setEmail] = useState("");
     const [verifyCode, setVerifyCode ] = useState("")
-    const [findUser] = useLazyQuery(Find_User)
+    const [findUser] = useLazyQuery(Find_User_By_Email)
 
     useEffect(() => {
         setters.setEmail(email);
     }, [email, setters])
     const openModal = async () => {
+        if (email === "") {
+            toast.toast({
+                variant: "destructive",
+                title: "Info needed!",
+                description: "Please enter your email address",
+            })
+            return;
+        }
         const res_user = await findUser({variables: {email: email}});
-        if (res_user?.data?.finduser.status === true) {
+        if (res_user?.data?.finduserbyEmail?.status === true) {
             const res = await fetch("api/send", {
                 method: "POST",
                 headers: {
@@ -87,6 +96,12 @@ const ForgetPasswordPage = () => {
                 Send Reset Link
             </button>
         </form>
+        <p className="text-center text-sm text-gray-600 mt-3">
+            Remember your password? please&nbsp;
+            <Link className="text-blue-500 hover:underline" href="/login">
+                sign in
+            </Link>
+        </p>
         <dialog id="my_modal_1" className="modal">
             <div className="modal-box bg-neutral-200">
                 <form method="dialog" className="flex flex-row justify-between mt-2">
@@ -94,7 +109,6 @@ const ForgetPasswordPage = () => {
                         <h3 className="font-bold text-lg">Enter your verification code</h3>
                         <h3 className="text-sm">Password reset link has been sent to {email}</h3>
                     </div>
-                    {/* if there is a button in form, it will close the modal */}
                     <button>❌</button>
                 </form>
 
