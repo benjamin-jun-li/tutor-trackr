@@ -30,3 +30,9 @@ Reworked the backend logic for filtering courses, resulting in a 20% improvement
 Added new filter categories and options to allow for more granular control over course searches.
 Completed Retrospective B, which involved a detailed analysis of project milestones, team performance, and process improvements.
 Established a set of actionable items for the next sprint cycle based on retrospective findings.
+
+Week 9: Bug Fixing and System Optimization
+
+Conducted a thorough code review to identify and resolve existing bugs in the system.
+Focused on enhancing the overall system performance by optimizing existing code.
+Implemented unit tests and integration tests to ensure code reliability and functionality.
