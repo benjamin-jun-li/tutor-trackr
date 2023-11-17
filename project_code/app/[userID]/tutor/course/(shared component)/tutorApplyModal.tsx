@@ -27,7 +27,6 @@ import {useMutation, useQuery} from "@apollo/client";
 import { ADD_Application } from "@/graphql/mutations";
 import {GET_COURSE, GET_TUTOR} from "@/graphql/queries";
 import {useParams} from "next/navigation";
-import {useContextValue} from "@/components/providers/context";
 
 const TutorApplyModal = () => {
     const params = useParams()

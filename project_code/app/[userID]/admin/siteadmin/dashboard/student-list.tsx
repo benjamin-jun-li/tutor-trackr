@@ -55,21 +55,6 @@ export default function StudentList() {
                                <p key={course.id}> {course.name}</p>
                             ))}
                         </td>
-                        {/*<td className="px-6 py-4">*/}
-                        {/*    <button*/}
-                        {/*        className="font-medium text-blue-600 dark:text-blue-500 hover:underline focus:z-10"*/}
-                        {/*        onClick={() => {*/}
-                        {/*            const modal = document.getElementById('my_modal_5');*/}
-                        {/*            if (modal) { modal.showModal() }*/}
-                        {/*            setStudentName(student.name);*/}
-                        {/*            setStudentEmail(student.email);*/}
-                        {/*            setStudentId(student.id);*/}
-                        {/*        }}*/}
-                        {/*    >*/}
-                        {/*        Delete*/}
-                        {/*    </button>*/}
-
-                        {/*</td>*/}
                     </tr>))}
                 </tbody>
             </table>

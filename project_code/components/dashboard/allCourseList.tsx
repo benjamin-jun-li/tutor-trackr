@@ -1,10 +1,9 @@
 "use client"
-import Image from "next/image";
+
 import { Course_type } from "@/app/[userID]/student/dashboard/page";
 import { useQuery } from "@apollo/client";
 import { GET_COURSES } from "@/graphql/queries";
 import { FC } from "react"
-import Link from "next/link";
 import {FiltersType} from "@/components/dashboard/course-filter";
 import CourseListComponent from "@/components/dashboard/courseListComponent";
 

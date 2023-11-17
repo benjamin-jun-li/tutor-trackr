@@ -1,8 +1,8 @@
 "use client"
 import {useParams, usePathname} from "next/navigation";
 import { useQuery } from "@apollo/client";
-import {Get_Conversations, GET_STUDENT_PROFILE} from "@/graphql/queries";
-import {FC, useState} from "react";
+import {Get_Conversations} from "@/graphql/queries";
+import {useState} from "react";
 import Link from "next/link";
 import {Separator} from "@/components/ui/separator";
 

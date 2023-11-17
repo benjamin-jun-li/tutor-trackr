@@ -34,9 +34,6 @@ export default function CourseList() {
                     <th scope="col" className="px-6 py-3">
                         Attendence
                     </th>
-                    {/*<th scope="col" className="px-6 py-3">*/}
-                    {/*    Action*/}
-                    {/*</th>*/}
                 </tr>
                 </thead>
                 <tbody>
@@ -55,20 +52,6 @@ export default function CourseList() {
                         <td className="px-6 py-4">
                             {course.students.length}
                         </td>
-                        {/*<td className="px-6 py-4">*/}
-                        {/*    <button*/}
-                        {/*        className="font-medium text-blue-600 dark:text-blue-500 hover:underline focus:z-10"*/}
-                        {/*        onClick={() => {*/}
-                        {/*            // @ts-ignore*/}
-                        {/*            document.getElementById('my_modal_1').showModal();*/}
-                        {/*            setCourseName(course.name);*/}
-                        {/*            setCourseID(course.id);*/}
-                        {/*        }}*/}
-                        {/*    >*/}
-                        {/*        Delete*/}
-                        {/*    </button>*/}
-
-                        {/*</td>*/}
                     </tr>))}
                 </tbody>
             </table>

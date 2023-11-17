@@ -1,14 +1,12 @@
 "use client"
-import Link from "next/link";
+
 import { GET_APPOINTMENT } from "@/graphql/queries";
 import { useQuery } from "@apollo/client";
-import {useParams} from "next/navigation";
 
 const AppointmentList = () => {
     const appointments = useQuery(GET_APPOINTMENT, {
         pollInterval: 200,
     })
-    const params = useParams();
 
     const formatDate = (dateString: any) => {
         const date = new Date(dateString);

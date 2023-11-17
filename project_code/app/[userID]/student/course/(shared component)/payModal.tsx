@@ -20,7 +20,7 @@ import {
 import { GET_TUTORS_BY_COURSE } from "@/graphql/queries";
 import {useMutation, useQuery} from "@apollo/client";
 import { useParams } from "next/navigation";
-import {REGISTER_COURSE_FOR_STUDENT, PAY_THE_COURSE, ADD_APPOINTMENT } from "@/graphql/mutations";
+import { PAY_THE_COURSE, ADD_APPOINTMENT } from "@/graphql/mutations";
 import DatePicker from "@/app/[userID]/student/course/(shared component)/datePicker";
 import {useToast} from "@/components/ui/use-toast";
 
@@ -32,13 +32,6 @@ const hours = Array.from({ length: 10 }, (_, index) => {
     const hour = index + 8; // start at 9 AM
     return `${hour}:00 - ${hour + 1}:00`; // format as '9:00', '10:00', etc.
 });
-
-
-const AvailableTime = () => {
-    return hours.map((time, index) => (
-        <SelectItem key={index} value={time}>{time}</SelectItem>
-    ));
-};
 
 const PayModal:FC<PayModalProps> = ({}) => {
     const params = useParams();

@@ -3,7 +3,7 @@ import { useQuery } from "@apollo/client";
 import { GET_TUTOR_PROFILE } from "@/graphql/queries";
 
 interface Props {
-    tutorId: string; // Use lowercase 'string' type
+    tutorId: string;
 }
 
 const TutorBioDisplay: FC<Props> = ({ tutorId }) => {

@@ -9,54 +9,6 @@ import {GET_STUDENT_NOTIFICATION} from "@/graphql/queries";
 
 const pageSize = 5;
 
-// const messages = [
-//     {
-//         id: 1,
-//         title: "Message Title 1",
-//         content: "Message Content 1",
-//     },
-//     {
-//         id: 2,
-//         title: "Message Title 2",
-//         content: "Message Content 2",
-//     },
-//     {
-//         id: 3,
-//         title: "Message Title 3",
-//         content: "Message Content 3",
-//     },
-//     {
-//         id: 4,
-//         title: "Message Title 4",
-//         content: "Message Content 4",
-//     },
-//     {
-//         id: 5,
-//         title: "Message Title 5",
-//         content: "Message Content 5",
-//     },
-//     {
-//         id: 6,
-//         title: "Message Title 6",
-//         content: "Message Content 6",
-//     },
-//     {
-//         id: 7,
-//         title: "Message Title 7",
-//         content: "Message Content 7",
-//     },
-//     {
-//         id: 8,
-//         title: "Message Title 8",
-//         content: "Message Content 8",
-//     },
-//     {
-//         id: 9,
-//         title: "Message Title 9",
-//         content: "Message Content 9",
-//     }
-// ].reverse();
-
 const MessageBox = () => {
     const params = useParams();
     const [currentPage, setCurrentPage] = useState(1);
