@@ -51,6 +51,12 @@ Tutor Admin:
 - Email: unsw@tutorAdmin.com
 - Password: unsw@tutorAdmin.com
 
+## Reset password feature
+
+The current version of reset password feature is only available to `benjaminli060@gmail.com` since 
+according to [resend](https://resend.com/), the feature for sending email to external email address will only be available 
+after a domain was added.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
