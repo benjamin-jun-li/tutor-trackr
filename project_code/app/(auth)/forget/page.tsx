@@ -11,21 +11,35 @@ const ForgetPasswordPage = () => {
     const {getters, setters} = useContextValue();
     const router = useRouter();
     const toast = useToast();
-    const code = "W8F26";
     const [email, setEmail] = useState("");
-    const [verifyCode, setVerifyCode ] = useState("")
-    const [findUser] = useLazyQuery(Find_User_By_Email)
+    const [verifyCode, setVerifyCode ] = useState("");
+    const [generatedCode, setGeneratedCode] = useState("");
+    const [findUser] = useLazyQuery(Find_User_By_Email);
+
+    const generateVerificationCode = () => {
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        let result = '';
+        for (let i = 0; i < 5; i++) {
+            result += characters.charAt(Math.floor(Math.random() * characters.length));
+        }
+        return result;
+    };
 
     useEffect(() => {
         setters.setEmail(email);
-    }, [email, setters])
+    }, [email, setters]);
+
+    useEffect(() => {
+        setGeneratedCode(generateVerificationCode());
+    }, []);
+
     const openModal = async () => {
         if (email === "") {
             toast.toast({
                 variant: "destructive",
                 title: "Info needed!",
                 description: "Please enter your email address",
-            })
+            });
             return;
         }
         const res_user = await findUser({variables: {email: email}});
@@ -37,9 +51,9 @@ const ForgetPasswordPage = () => {
                 },
                 body: JSON.stringify({
                     email: email,
-                    verifyCode: code,
+                    verifyCode: generatedCode, // Send the generated code instead of a hardcoded one
                 })
-            })
+            });
             if (res.status === 200) {
                 const myModal = document.getElementById('my_modal_1') as HTMLDialogElement | null;
                 if (myModal && email !== "") {
@@ -49,36 +63,36 @@ const ForgetPasswordPage = () => {
                         variant: "destructive",
                         title: "Info needed!",
                         description: "Please enter your email address",
-                    })
+                    });
                 }
             } else {
                 toast.toast({
                     variant: "destructive",
                     title: "Email not sent!",
                     description: "Please try again",
-                })
+                });
             }
         } else {
             toast.toast({
                 variant: "destructive",
                 title: "Account not found!",
                 description: "Please try again",
-            })
+            });
         }
-    }
-    const verifyUser = (e:MouseEvent) => {
+    };
+
+    const verifyUser = (e: MouseEvent) => {
         e.preventDefault();
-        // check user code correctness
-        if (code === verifyCode) {
+        if (generatedCode.toLowerCase() === verifyCode.toLowerCase()) {
             router.push("/reset/");
         } else {
             toast.toast({
                 variant: "destructive",
                 title: "Verification code doesn't match!",
                 description: "Please try again",
-            })
+            });
         }
-    }
+    };
 
 
   return (
