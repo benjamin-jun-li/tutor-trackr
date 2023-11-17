@@ -42,6 +42,15 @@ If you want see the detials of database:
 npx prisma studio
 ```
 
+## Admin Account
+Site Admin:
+- Email: unsw@siteAdmin.com
+- Password: unsw@siteAdmin.com
+
+Tutor Admin:
+- Email: unsw@tutorAdmin.com
+- Password: unsw@tutorAdmin.com
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
