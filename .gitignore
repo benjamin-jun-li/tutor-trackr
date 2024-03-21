@@ -4,3 +4,4 @@ node_modules
 .idea
 /project_code/package-lock.json
 /project_code/package.json
+.env
